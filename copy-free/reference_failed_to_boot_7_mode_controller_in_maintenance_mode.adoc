@@ -1,0 +1,62 @@
+---
+permalink: copy-free/reference_failed_to_boot_7_mode_controller_in_maintenance_mode.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, failed, boot, controller, maintenance, mode 
+summary: 'Der Export und der Stopp-Vorgang schlägt mit der Fehlermeldung fehl: Fehler beim Booten des 7-Mode Controllers im Wartungsmodus. Sie müssen den Controller im Wartungsmodus manuell anhalten und booten und den Vorgang wiederholen.' 
+---
+= Fehler beim Booten des 7-Mode Controllers im Wartungsmodus
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Der Export- und Stopp-Vorgang schlägt mit der Fehlermeldung fehl: `Failed to boot the 7-Mode controller in maintenance mode`. Sie müssen den Controller im Wartungsmodus manuell anhalten und booten und den Vorgang wiederholen.
+
+
+
+== Behelfslösung
+
+. Stoppen des 7-Mode Storage-Systems:
++
+`*halt -f -t 0*`
+
+. Notieren Sie an der LOADER-Eingabeaufforderung die für das eingestellten Werte `*bootarg.init.console_muted*` Und `*bootarg.init.console_level boot*` Boot-Parameter:
++
+`*printenv bootarg.init.console_muted*`
+
++
+`*printenv bootarg.init.console_level*`
+
+. Deaktivieren Sie die Meldungen der Konsole, indem Sie die folgenden Boot-Parameter festlegen:
++
+`*setenv bootarg.init.console_muted "true"*`
+
++
+`*setenv bootarg.init.console_level "-1"*`
+
+. Führen Sie vom 7-Mode Transition Tool den Export- und Stopp-Betrieb erneut aus.
+. Legen Sie vom 7-Mode Storage-System die Boot-Parameter auf die ursprünglichen Werte fest, die in Schritt 2:
++
+|===
+| Wenn die Boot-Parameter... | Geben Sie die folgenden Befehle ein... 
+
+
+ a| 
+Zuvor nicht mit einem Wert festgelegt (nicht definiert)
+ a| 
+`*unsetenv bootarg.init.console_muted*`
+
+`*unsetenv bootarg.init.console_level*`
+
+
+
+ a| 
+Zuvor mit einem Wert festlegen
+ a| 
+`*unsetenv bootarg.init.console_muted "_original_value_"*`
+
+`*unsetenv bootarg.init.console_level "_original_value_"*`
+
+|===
+

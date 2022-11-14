@@ -1,0 +1,21 @@
+---
+permalink: copy-based/task_deleting_a_project.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, delete, project 
+summary: Wenn Sie kein Projekt möchten, können Sie es über das Dashboard löschen. 
+---
+= Löschen eines Projekts
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Wenn Sie kein Projekt möchten, können Sie es über das Dashboard löschen.
+
+. Klicken Sie im Fensterbereich „DashboardProjects Groups“ auf die Projektgruppe, zu der das Projekt gehört.
+. Klicken Sie im Gruppenzusammenfassungsfenster auf *Ändern* und dann auf *Löschen*.
++
+Sie können ein Projekt nicht löschen, wenn das Projekt während der Umstellungsphase fehlgeschlagen ist.
+
+

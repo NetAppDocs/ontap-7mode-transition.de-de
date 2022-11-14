@@ -1,0 +1,20 @@
+---
+permalink: copy-based/reference_cannot_select_volume_for_transition_if_tool_fails_to_retrieve_volume_information.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, tool, fails, volume, information 
+summary: Im Bereich Volume Selection wird die Fehlermeldung zum Abrufen von Volume-Informationen bei der Auswahl eines Volume angezeigt. Dieser Fehler tritt normalerweise auf, wenn der Controller beschäftigt ist. 
+---
+= Ein Volume für den Übergang kann nicht ausgewählt werden, wenn das Tool die Volume-Informationen nicht abrufen kann
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Im Bereich Volume Selection wird das angezeigt `Failed to retrieve volume information` Fehlermeldung bei der Auswahl eines Volumes. Dieser Fehler tritt normalerweise auf, wenn der Controller beschäftigt ist.
+
+
+
+== Behelfslösung
+
+Warten Sie, bis der Controller nicht ausgelastet ist, und wählen Sie dann erneut die Lautstärke aus.

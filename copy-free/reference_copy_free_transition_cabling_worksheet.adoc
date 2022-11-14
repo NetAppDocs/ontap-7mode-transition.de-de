@@ -1,0 +1,223 @@
+---
+permalink: copy-free/reference_copy_free_transition_cabling_worksheet.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, cabling, worksheet 
+summary: Sie können die Verkabelung mithilfe des Arbeitsblatts für den Copy Free Transition Cabling planen. Sie müssen Informationen über die mit den 7-Mode Controllern und Ziel-Cluster-Nodes verbundenen Ports und Festplatten-Shelfs notieren. Sie sollten auch die Ports notieren, die zum Verbinden der 7-Mode Festplatten-Shelfs mit den Ziel-Cluster-Nodes verwendet werden sollen. 
+---
+= Copy-Free Transition Cabling Worksheet
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können die Verkabelung mithilfe des Arbeitsblatts für den Copy Free Transition Cabling planen. Sie müssen Informationen über die mit den 7-Mode Controllern und Ziel-Cluster-Nodes verbundenen Ports und Festplatten-Shelfs notieren. Sie sollten auch die Ports notieren, die zum Verbinden der 7-Mode Festplatten-Shelfs mit den Ziel-Cluster-Nodes verwendet werden sollen.
+
+image::../media/cft_cabling_plan_worksheet.gif[Arbeitsblatt für cft-Verkabelungsplan]
+
+* Modul A/B Anschlüsse: Anschlussanschlüsse für Modul A/B
+* Shelf-Typ/Asset-Tag: Typ des Festplatten-Shelfs
+* Shelf IDs: Festplatten-Shelf IDs
+
+
+
+
+== Beispiel für eine Verkabelung
+
+|===
+4+| 7-Mode Verkabelung 4+| Clustered Data ONTAP-Verkabelung 
+
+
+4+| Controller A (Hostname): 7hostA 4+| Node A (Host-Name): Cluster1-01 
+
+
+4+| Wohnlage: Colorado Etage: Third Rack: 8 4+| Wohnlage: Colorado Floor: Fifth Rack: 3 
+
+
+| Modul A-Ports | Modul B-Anschlüsse | Shelf-Typ/Asset-Tag | Shelf-IDs | Modul A-Ports | Modul B-Anschlüsse | Shelf-Typ/Asset-Tag | Shelf-IDs 
+
+
+ a| 
+1a
+ a| 
+0 a
+ a| 
+DS4243/150254-7
+ a| 
+10-13
+ a| 
+1a
+ a| 
+0 a
+ a| 
+DS4243/174243-2
+ a| 
+10-11
+
+
+
+ a| 
+1 mrd.
+ a| 
+0b
+ a| 
+DS4243/151205-2
+ a| 
+30-37
+ a| 
+1 mrd.
+ a| 
+0b
+ a| 
+DS4243/150254-7
+ a| 
+20-23
+
+
+
+ a| 
+1c (offline)
+ a| 
+0c (offline)
+ a| 
+k. A.
+ a| 
+k. A.
+ a| 
+1c
+ a| 
+0c
+ a| 
+DS4243/151205-2
+ a| 
+30-37
+
+
+
+ a| 
+1d
+ a| 
+0d
+ a| 
+DS4243/143921-4
+ a| 
+14-15
+ a| 
+1d
+ a| 
+0d
+ a| 
+DS4243/143921-4
+ a| 
+14-15
+
+
+
+ a| 
+*Controller B (Hostname): 7hostB*
+ a| 
+*Knoten B (Hostname):cluster1-02*
+
+
+
+ a| 
+*Lage: Colorado Etage: Third Rack: 8*
+ a| 
+*Lage: Colorado Etage: Fünfte Rack: 3*
+
+
+
+ a| 
+*Modul A Ports*
+ a| 
+*Modul B-Anschlüsse*
+ a| 
+*Regal Typ/Asset Tag*
+ a| 
+*Shelf-IDs*
+ a| 
+*Modul A Ports*
+ a| 
+*Modul B-Anschlüsse*
+ a| 
+*Regal Typ/Asset Tag*
+ a| 
+*Shelf-IDs*
+
+
+
+ a| 
+1a
+ a| 
+0 a
+ a| 
+DS4243/174263-6
+ a| 
+10-13
+ a| 
+1a
+ a| 
+0 a
+ a| 
+DS4243/174233-2
+ a| 
+10-11
+
+
+
+ a| 
+1b (offline)
+ a| 
+0b (offline)
+ a| 
+k. A.
+ a| 
+k. A.
+ a| 
+1 mrd.
+ a| 
+0b
+ a| 
+DS4243/174263-6
+ a| 
+20-23
+
+
+
+ a| 
+1c
+ a| 
+0c
+ a| 
+DS4243/174274-9
+ a| 
+30-37
+ a| 
+1c
+ a| 
+0c
+ a| 
+DS4243/174274-9
+ a| 
+30-37
+
+
+
+ a| 
+1d
+ a| 
+0d
+ a| 
+DS4243/174285-6
+ a| 
+14-15
+ a| 
+1d
+ a| 
+0d
+ a| 
+DS4243/174285-6
+ a| 
+14-15
+
+|===

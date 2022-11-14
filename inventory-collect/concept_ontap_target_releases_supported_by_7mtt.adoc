@@ -1,0 +1,85 @@
+---
+permalink: inventory-collect/concept_ontap_target_releases_supported_by_7mtt.html 
+sidebar: sidebar 
+keywords: ontap, 7, mode, transition, target, releases, supported, tool 
+summary: Die Release-Unterstützung für ONTAP Transition Ziel-Cluster hängt von der gewünschten Umstiegsmethode, dem Copy-Based oder Copy-Free und der Version des 7-Mode Transition Tools ab. 
+---
+= ONTAP Target Releases, die vom 7-Mode Transition Tool unterstützt werden
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Die Release-Unterstützung für ONTAP Transition Ziel-Cluster hängt von der gewünschten Umstiegsmethode, dem Copy-Based oder Copy-Free und der Version des 7-Mode Transition Tools ab.
+
+Lesen Sie auch das aktuelle 7-Mode Transition Tool link:http://docs.netapp.com/us-en/ontap-7mode-transition/releasenotes.html["Versionshinweise"] Aktuelle Informationen zu unterstützten Zielversionen und bekannten Problemen.
+
+Copy-Based Transitions werden für diese ONTAP Ziel-Releases unterstützt.
+
+|===
+| Wenn Ihr Übergangsziel läuft... | Sie müssen diese 7-Mode Transition Tool Version verwenden ... 
+
+
+ a| 
+ONTAP 9.10.1, ONTAP 9.11.1 oder eine frühere Version werden unterstützt
+ a| 
+3.5.0
+
+
+
+ a| 
+ONTAP 9.9.1 oder eine frühere Version wird unterstützt
+ a| 
+3.4.0
+
+
+
+ a| 
+ONTAP 9.8 oder eine frühere Version wird unterstützt
+ a| 
+3.3.3
+
+
+
+ a| 
+ONTAP 9.7P2 oder höher 9.7 P Release
+
+
+NOTE: Frühere Versionen von 9.7 werden nicht unterstützt.
+ a| 
+3.3.2
+
+
+
+ a| 
+ONTAP 9.6P7 oder höher 9.6 P Version
+
+
+NOTE: Frühere Versionen von 9.6 werden nicht unterstützt.
+ a| 
+3.3.2
+
+
+
+ a| 
+ONTAP 9.5 oder eine frühere Version von ONTAP 9
+ a| 
+3.3.2 oder 3.3.1
+
+
+
+ a| 
+Clustered Data ONTAP 8.1.4P4 und neuere Versionen 8.x.
+ a| 
+3.3.2 oder 3.3.1
+
+|===
+Copy-Free Transitions werden zu diesen ONTAP Zielversionen mit dem 7-Mode Transition Tool 3.3 unterstützt.
+
+* ONTAP 9.4 und frühere Versionen von ONTAP 9.
+* Clustered Data ONTAP 8.3.2 und höher 8.x Versionen.
+
+
+
+NOTE: Sie können das 7-Mode Transition Tool nicht mit der kopiefreien Methode auf ONTAP 9.5 oder höher umstellen. Hierfür müssen Sie zunächst zu ONTAP 9.4 mit dem 7-Mode Transition Tool 3.3.1 wechseln und dann Ihr Cluster auf ONTAP 9.5 oder höher aktualisieren. 7-Mode Transition Tool 3.3.2 unterstützt keine Copy-Free Transition.

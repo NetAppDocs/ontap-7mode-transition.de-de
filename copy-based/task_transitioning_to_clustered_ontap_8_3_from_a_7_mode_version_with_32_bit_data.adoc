@@ -1,0 +1,25 @@
+---
+permalink: copy-based/task_transitioning_to_clustered_ontap_8_3_from_a_7_mode_version_with_32_bit_data.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, prepare, supported, released, 8.3 
+summary: 32-Bit-Aggregate, Volumes und Snapshot-Kopien werden in ONTAP 8.3 und höher nicht unterstützt. Daher müssen Sie die 32-Bit-Aggregate auf 64-Bit erweitern und vor der Umstellung alle 32-Bit-Volumes und Snapshot Kopien vom 7-Mode System finden und entfernen. Da alle 7-Mode Versionen die Möglichkeit nicht unterstützen, 32-Bit-Aggregate zu erweitern und 32-Bit-Volumes und Snapshot Kopien zu entfernen, müssen Sie vor dem Übergang Ihr 7-Mode System unter Umständen aktualisieren. 
+---
+= Vorbereitung auf den Umstieg auf die unterstützten Versionen von ONTAP 8.3 und höher
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+32-Bit-Aggregate, Volumes und Snapshot-Kopien werden in ONTAP 8.3 und höher nicht unterstützt. Daher müssen Sie die 32-Bit-Aggregate auf 64-Bit erweitern und vor der Umstellung alle 32-Bit-Volumes und Snapshot Kopien vom 7-Mode System finden und entfernen. Da alle 7-Mode Versionen die Möglichkeit nicht unterstützen, 32-Bit-Aggregate zu erweitern und 32-Bit-Volumes und Snapshot Kopien zu entfernen, müssen Sie vor dem Übergang Ihr 7-Mode System unter Umständen aktualisieren.
+
+
+NOTE: Clustered Data ONTAP 8.2.x unterstützt 32-Bit-Aggregate, Volumes und Snapshot Kopien. Daher können Sie 32-Bit-Daten vom 7-Mode System auf einen Ziel-Cluster mit Data ONTAP 8.2.x übertragen Wenn jedoch nach dem Übergang der Zielcluster auf ONTAP 8.3 oder höher aktualisiert werden muss, müssen Sie vor dem Upgrade der ONTAP-Version des Ziel-Clusters alle bestehenden 32-Bit-Daten auf dem Ziel-Cluster in das 64-Bit-Format aufrüsten.
+
+Sie sollten anhand des folgenden Workflows entscheiden, ob ein Upgrade vor der Umstellung erforderlich ist.
+
+image::../media/32bit_upgrade_path_updated.gif[32-Bit-Upgrade-Pfad aktualisiert]
+
+*Verwandte Informationen*
+
+http://www.netapp.com/us/media/tr-3978.pdf["Technischer Bericht 3978 von NetApp: In-Place-Erweiterung von 32-Bit-Aggregaten auf 64-Bit-Übersicht und Best Practices"]

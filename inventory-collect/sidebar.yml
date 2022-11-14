@@ -1,0 +1,28 @@
+---
+section: inventory-collect
+title: Leitfaden zur Sammlung von Host- und Storage-Informationen
+url: "/inventory-collect/index.html"
+entries:
+- title: Erfassung von Speicher- und Hostbestandsdaten
+  url: "/inventory-collect/concept_collecting_host_and_storage_inventory_information_for_transition_assessment.html"
+  entries:
+  - title: ONTAP Target Releases, die vom 7-Mode Transition Tool unterstützt werden
+    url: "/inventory-collect/concept_ontap_target_releases_supported_by_7mtt.html"
+  - title: Systemanforderungen für die Ausführung des Tools zur Bestandsaufnahme
+    url: "/inventory-collect/concept_system_requirements_for_running_ict.html"
+  - title: Versionsanforderungen für Speicher-, Host- und FC-Switches zur Bestandserfassung
+    url: "/inventory-collect/concept_storage_and_host_version_requirements.html"
+  - title: Vorbereiten der 7-Mode-Systeme und -Hosts auf die Bestandserfassung
+    url: "/inventory-collect/task_preparing_7_mode_systems_for_inventory_collection.html"
+  - title: Unterstützte Konfigurationen zur Erstellung eines FC-Zonenplans
+    url: "/inventory-collect/concept_supported_configurations_for_generating_an_fc_zone_plan.html"
+  - title: Syntax und Optionen
+    url: "/inventory-collect/reference_syntax_and_options.html"
+  - title: Bestandsaufnahme sammeln und Bestandsbericht erstellen
+    url: "/inventory-collect/task_collecting_inventory_and_generating_inventory_report.html"
+  - title: Erstellen des FC-Zonenplans
+    url: "/inventory-collect/task_generating_fc_zone_plan.html"
+  - title: Sammlungs- und Bewertungsbefehle
+    url: "/inventory-collect/reference_collection_and_assessment_commands.html"
+  - title: Wo finden Sie Informationen zur Bewertung des Umstiegs
+    url: "/inventory-collect/concept_where_to_find_information_about_transition_assessment.html"

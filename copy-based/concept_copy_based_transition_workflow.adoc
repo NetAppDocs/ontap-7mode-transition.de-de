@@ -1,0 +1,16 @@
+---
+permalink: copy-based/concept_copy_based_transition_workflow.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, workflow 
+summary: Der Copy-basierte Transition Workflow umfasst die Vorbereitung auf die Migration, die Migration von Daten und Konfigurationen sowie die Durchführung von Konfigurationen nach dem Umstieg. 
+---
+= Copy-Based Transition Workflow
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Der Copy-basierte Transition Workflow umfasst die Vorbereitung auf die Migration, die Migration von Daten und Konfigurationen sowie die Durchführung von Konfigurationen nach dem Umstieg.
+
+image::../media/cbt_workflow.gif[cbt-Workflow]

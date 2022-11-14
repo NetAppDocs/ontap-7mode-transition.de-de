@@ -1,0 +1,48 @@
+---
+permalink: inventory-collect/task_generating_fc_zone_plan.html 
+sidebar: sidebar 
+keywords: ontap, 7, mode, generate, fc, zone, plan, transition 
+summary: Nach dem Sammeln von Informationen über die Data ONTAP Systeme, Hosts und FC Switches können Sie den FC-Zonenplan generieren, mit dem nach der Migration die Switches im Cluster konfiguriert werden. 
+---
+= Erstellen des FC-Zonenplans
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Nach dem Sammeln von Informationen über die Data ONTAP Systeme, Hosts und FC Switches können Sie den FC-Zonenplan generieren, mit dem nach der Migration die Switches im Cluster konfiguriert werden.
+
+* Die 7-Mode Systeme, Hosts und das Cluster müssen mit dem Switch verbunden sein.
+* Informationen über das Cluster, SVMs, FCP LIFs und Switches müssen erfasst werden.
++
+Das Cluster kann entweder mit demselben Switch wie das 7-Mode System oder mit einem neuen Switch im selben Fabric verbunden werden.
+
++
+xref:concept_supported_configurations_for_generating_an_fc_zone_plan.adoc[Unterstützte Konfigurationen zur Erstellung eines FC-Zonenplans]
+
+
+
+.Schritte
+. Navigieren Sie in der CLI zum ICT-Verzeichnis.
+. Generieren Sie aus der CLI den FC-Zonenplan:
++
+`*ict --cmd generate-fc-zones --source-filers _7-mode-ip1,7mode-ip2_ --dest-svm _cluster-name:vserver-name_ --fc-switches _switch-name:vsan-id1,vsan-id2_ 7mode_cdot_switch_inventory.xml*`
+
++
+Sie müssen die VSAN-ID für die Cisco Switches eingeben.
+
++
+[listing]
+----
+...bin\ict>ict --cmd generate-fc-zones --source-filers system1,system2 --dest-svm vs1:fc_zone1
+ --fc-switches brocade-1,brocade-2 7mode_cdot_switch_inventory.xml
+----
++
+Der FC-Zonenplan enthält Zonen, die gemäß den igroup-Konfigurationen auf den 7-Mode Systemen erstellt wurden. Jede Zone enthält einen einzelnen Initiator-WWPN und mehrere SVM-Ziel-WWPNs.
+
+
+
+Bei einer auf Kopien basierenden Transition können Sie die Zonen entweder im FC-Zonenplan konfigurieren, um die Cluster-Konfiguration mithilfe der Test-Hosts zu überprüfen oder nach der Umstellungsphase den Datenzugriff von den Initiator-Hosts aus dem Cluster zu ermöglichen.
+
+Bei einer Copy-Free-Transition müssen Sie die Zonen mithilfe des FC-Zonenplans konfigurieren, um die Initiator-Hosts und Ziele zu gruppieren, sodass während der Apply-Konfigurationsphase Datenzugriff über das Cluster möglich wird.

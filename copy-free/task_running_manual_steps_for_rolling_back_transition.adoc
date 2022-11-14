@@ -1,0 +1,104 @@
+---
+permalink: copy-free/task_running_manual_steps_for_rolling_back_transition.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, manual, roll, back 
+summary: Sie müssen einige manuelle Schritte für das Cluster und 7-Mode Systeme ausführen, wenn Sie sich für einen Rollback der Transition entscheiden. Die Liste der manuellen Rollback-Schritte wird durch das 7-Mode Transition Tool erstellt. 
+---
+= Manuelles Rollback des Übergangs
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie müssen einige manuelle Schritte für das Cluster und 7-Mode Systeme ausführen, wenn Sie sich für einen Rollback der Transition entscheiden. Die Liste der manuellen Rollback-Schritte wird durch das 7-Mode Transition Tool erstellt.
+
+Die Rollback-Schritte variieren je nach Stufe, in der Sie einen Rollback durchführen. Sie müssen alle Schritte in dieser Aufgabe ausführen, wenn Sie nach einem erfolgreichen Importvorgang einen Rollback durchführen. Wenn Sie sich dazu entschließen, einen Rollback zu einem früheren Zeitpunkt durchzuführen, müssen Sie eine Untermenge dieser Schritte durchführen.
+
+.Schritte
+. Melden Sie sich bei dem Cluster an.
+. Wenn sich ein migrierte Volume in einer SnapMirror Beziehung befindet, wählen Sie eine der folgenden Aktionen aus:
++
+** Wenn ein übergegangen Volume Ziel einer SnapMirror Beziehung ist, löschen Sie die SnapMirror Beziehung: +
+`*snapmirror delete -destination-path _destination-path_ -source-path _source-path_*`
+** Wenn ein migrierte Volume aus einer SnapMirror Beziehung besteht, lösen Sie die SnapMirror Beziehung aus:
+`*snapmirror release -destination-path destination-path -source-path source-path*`
+
+
+. Vergewissern Sie sich im Cluster, dass die folgenden Vorgänge auf den überstellt Volumes nicht ausgeführt werden:
++
+.. Vorgang Volume-Verschiebung: +
+`*volume move show*`
+.. LUN-Vorgang verschieben: +
+`*lun move show*`
+.. Vorgang der LUN-Kopie: +
+`*lun copy show*`
+
+
+. Führen Sie das Rollback für alle 7-Mode Aggregate durch:
++
+.. Melden Sie sich auf der Diagnoseberechtigungsebene an: +
+`*set -privilege diagnostic*`
+.. Zurücksetzen der Aggregate mithilfe des auf den 7-Mode Status `storage transition revert start` Befehl.
++
+Für diesen Befehl sind zusätzliche Parameter erforderlich, z. B. die Projekt-ID für den Übergang und die Aggregatattribute. Sie sollten den Befehl complete mit den Parametern und ihren Werten verwenden, wie er vom 7-Mode Transition Tool generiert wird.
+
+.. Überprüfen Sie, ob das Rollback für alle ummigrierte Aggregate erfolgreich durchgeführt wurde: +
+`*storage transition revert show-status*`
++
+Der `status-code` Das Feld für ein Aggregat wird als angezeigt `revert_complete` Wenn das Rollback erfolgreich durchgeführt wurde.
+
+
+
+. Weisen Sie die Festplatteneigentümschaften der Ziel-Cluster-Nodes den 7-Mode Controllern erneut zu:
++
+.. Weisen Sie den 7-Mode Controllern Festplatteneigentümer zu: +
+`*disk assign –disk _disk_id_ –s _system_id_ -force true*`
+.. Vergewissern Sie sich, dass die Festplatteneigentümer den 7-Mode Controllern zugeordnet sind:
++
+`*storage disk show -fields owner-id*`
+
+
+
+. Entfernen Sie die 7-Mode LIFs aus den SVMs:
++
+`*network interface delete -vserver _svm_name_ -lif _lif_name_*`
+
+. Entfernen Sie die Einschränkungen des Copy-Free Transition auf den Ziel-Cluster-Nodes von der Diagnose-Berechtigungsebene:
++
+`*storage transition pre-commit end -session-id _transition_project_id_*`
+
++
+Sie können diesen Schritt auch ausführen, nachdem der Rollback-Vorgang abgeschlossen und die 7-Mode-Controller in Betrieb sind.
+
+. Löschen Sie die Informationen des Übergangsprojekts zu den Ziel-Cluster-Nodes mithilfe des folgenden Befehls für die Diagnose-Berechtigungsebene:
++
+`*storage transition purge-info -session-id _transition_project_id_*`
+
++
+Sie können diesen Schritt auch ausführen, nachdem der Rollback-Vorgang abgeschlossen und die 7-Mode-Controller in Betrieb sind.
+
+. Wenn die automatische Zuordnung der Festplatteneigentümer auf den Cluster-Knoten während des Exports und des Stopp-Betriebs deaktiviert wurde, aktivieren Sie diese:
++
+`*storage disk assign -auto true*`
+
+. Entfernen Sie manuell alle Konfigurationen, die das Tool auf die Ziel-SVMs umgestellt hat.
++
+Sie können die Ergebnisse der Bereitstellungs- und Importvorgänge für SVM für Informationen zu den durch das Tool zu migrierte Konfigurationen anzeigen.
+
+. Entfernen Sie die Festplatten-Shelfs aus den Ziel-Cluster-Nodes, und verbinden Sie sie dann mit den 7-Mode Controllern.
++
+
+TIP: Sie sollten die Verkabelung mit dem Config Advisor-Tool überprüfen.
+
+. Wenn eine 7-Mode-Festplatten-Shelf-IDs geändert wurden, um die Konflikte mit den Festplatten-Shelf-IDs der Ziel-Cluster-Nodes zu beheben, ändern Sie sie manuell zu den alten IDs und schalten Sie die Festplatten-Shelfs aus, damit die neuen IDs wirksam werden.
+. Starten Sie die 7-Mode Quell-Controller im normalen Modus.
+. Aktivieren Sie von einem der 7-Mode Quell-Controller die Takeover-Funktion:
++
+`*cf enable*`
+
+. Wenn das automatische Löschen von Aggregat-Snapshot-Kopien während des Exports und des Anhalten deaktiviert wurde, aktivieren Sie es:
++
+`*options snap autodelete _aggr_name_ on*`
+
+

@@ -1,0 +1,66 @@
+---
+permalink: copy-free/task_importing_7_mode_data_to_clustered_ontap.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, import, data 
+summary: Nach Überprüfung der Verkabelung und Behebung von Problemen können Sie den Importvorgang ausführen. In dieser Phase werden die Festplatteneigentümer den zugeordneten Cluster Nodes zugewiesen, und die 7-Mode Aggregate, Volumes und LUNs werden in das ONTAP-Format umgewandelt. Es werden auch alle Konfigurationen auf Volume- und LUN-Ebene angewendet. 
+---
+= 7-Mode Daten werden in ONTAP importiert
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Nach Überprüfung der Verkabelung und Behebung von Problemen können Sie den Importvorgang ausführen. In dieser Phase werden die Festplatteneigentümer den zugeordneten Cluster Nodes zugewiesen, und die 7-Mode Aggregate, Volumes und LUNs werden in das ONTAP-Format umgewandelt. Es werden auch alle Konfigurationen auf Volume- und LUN-Ebene angewendet.
+
+In dieser Phase werden die folgenden Vorgänge durch das Tool ausgeführt:
+
+* 7-Mode Festplatten sind den zugeordneten Ziel-Cluster-Knoten zugewiesen.
+* Alle 7-Mode Aggregate, Volumes und LUNs werden in das ONTAP-Format konvertiert.
+* Die für den Wechsel ausgewählten 7-Mode IP-Adressen werden für die SVMs im Administrationsstatus konfiguriert.
+* Es werden die folgenden Konfigurationen angewendet:
++
+** NFS-Exportregeln
+** CIFS-Freigaben
+** Konfiguration von CIFS ACLs
+** Konfiguration von CIFS Home Directorys
+** Symbolische CIFS-Links
+** Kontingentkonfiguration
+** Zeitpläne für Snapshot Kopien
+** LUN-Zuordnungen und Initiatorgruppen
+
+
+
+
+.Schritte
+. Klicken Sie Auf *Import*.
++
+*Fehlerbehebung:* Wenn keine Festplatten in einem Aggregat vorhanden sind, wird das Aggregat heruntergestuft und der Importvorgang schlägt fehl. Wenn sich die Anzahl der fehlenden Festplatten innerhalb eines zulässigen Limits befindet, können Sie den Übergang mit den beeinträchtigten Aggregaten fortsetzen, indem Sie den folgenden Befehl aus der CLI des 7-Mode Transition Tool ausführen:
+
++
+`*transition cft aggregate degraded-transition -p _project-name_ -n _7-mode-host-name_ -a _7-mode-aggregate-name_ -i acknowledge*`
+
++
+Anschließend können Sie die Kabelüberprüfung erneut ausführen und mit der Umstellung fortfahren. Sie müssen sicherstellen, dass im Ziel-Cluster-Node genügend freie Festplatten vorhanden sind, um diese RAID-Gruppen zu rekonstruieren, nachdem die Aggregate migriert wurden.
+
++
+Es wird eine Warnmeldung mit den wichtigen Überlegungen für diesen Vorgang angezeigt.
+
+. Klicken Sie auf *Ja*, um fortzufahren.
++
+Die Operationsergebnisse werden angezeigt.
+
+. Warten Sie, bis der Vorgang abgeschlossen ist, und führen Sie die folgenden Schritte aus:
++
+.. Klicken Sie auf *als CSV speichern*, um die Operation zu speichern, führt zu einer Datei.
+.. Klicken Sie auf *Collect Tool Logs*, um eine Sicherung aller Transition Log-Dateien zu erstellen.
++
+Es empfiehlt sich, die Protokolldateien nach jedem Übergangsvorgang zu speichern.
+
+.. Klicken Sie auf *Schließen*, um das Fenster mit den Operationsergebnissen zu schließen.
+
+
++
+Wenn der Vorgang lange dauert, können Sie auf *im Hintergrund* klicken, um das Fenster mit den Operationsergebnissen zu verlassen. Sie sollten das Projekt nicht bearbeiten oder eine andere Aufgabe ausführen, wenn der Vorgang im Hintergrund ausgeführt wird. Anschließend können Sie die Ergebnisse der Vorgänge auf der Registerkarte „Operation History“ anzeigen.
+
+

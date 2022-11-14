@@ -1,0 +1,69 @@
+---
+permalink: install-admin/task_logging_in_to_tool.html 
+sidebar: sidebar 
+keywords: ontap, 7, mode, install, login, transition, tool 
+summary: 'Sie können sich beim 7-Mode Transition Tool \(Web Interface\) anmelden, indem Sie Ihre Anmeldedaten des Windows-Systems verwenden, auf dem das Tool installiert ist. Das Anmeldeverfahren hängt von der Art der Benutzeranmeldeinformationen ab.' 
+---
+= Anmeldung beim 7-Mode Transition Tool
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können sich beim 7-Mode Transition Tool (Webschnittstelle) anmelden, indem Sie Ihre Anmeldedaten des Windows-Systems verwenden, auf dem das Tool installiert ist. Das Anmeldeverfahren hängt von der Art der Benutzeranmeldeinformationen ab.
+
+Gastbenutzer dürfen sich nicht beim Tool anmelden.
+
+.Schritte
+. Zur Anmeldeseite navigieren:
++
+|===
+| Wenn Sie ein... | Dann... 
+
+
+ a| 
+Benutzer, der Mitglied der Administratorgruppe ist und wenn Sie auf das Tool (Webschnittstelle) von dem Server aus zugreifen, auf dem es installiert wurde
+ a| 
+Doppelklicken Sie auf dem Desktop auf das Symbol 7-Mode Transition Tool.
+
+
+
+ a| 
+Benutzer, der Mitglied der Administratorgruppe ist und Sie das Tool nicht installiert haben
+ a| 
+Verwenden Sie einen unterstützten Browser, um zu einer der folgenden URLs zu navigieren:
+
+** `https://_IP_address:port_/transition`
+** `http://_IP_address:port_/transition`
+`_IP_address_` Ist die IP-Adresse des Servers und `_port_` Kann 8443 (Standard) sein, der für angegebene Wert `_tool.https.port_`, Oder 8088, der für die angegebene Wert `_tool.http.port_` Parameter in `_transition-tool.conf_` Datei:
+
+
+
+
+ a| 
+Benutzer, der Mitglied der Administratorgruppe ist und wenn Sie von einem anderen Computer aus auf das Tool (Webschnittstelle) zugreifen
+ a| 
+Verwenden Sie einen unterstützten Browser, um zu einer der folgenden URLs zu navigieren:
+
+** `https://_IP_address:port_/transition`
+** `http://_IP_address:port_/transition`
+`_IP_address_` Ist die IP-Adresse des Servers und des Ports kann 8443 (Standard) sein, der für angegebene Wert `_tool.https.port_`, Oder 8088, der für die angegebene Wert `_tool.http.port_` Parameter in `_transition-tool.conf_` Datei:
+
+
+
+
+ a| 
+Benutzer, der kein Mitglied der Administratorgruppe ist und wenn Sie auf das Tool (Webschnittstelle) zugreifen, entweder von dem Server, auf dem es installiert wurde, oder von einem anderen Computer aus
+ a| 
+Verwenden Sie einen unterstützten Browser, um zu einer der folgenden URLs zu navigieren:
+
+** `https://_IP_address:port_/transition`
+** `http://_IP_address:port_/transition`
+`_IP_address_` Ist die IP-Adresse des Servers und der Port kann 8443 sein (Standard), der für den angegebene Wert `_tool.https.port_`, Oder 8088, der für die angegebene Wert `_tool.http.port_` Parameter in `_transition-tool.conf_` Datei:
+
+
+|===
+. Wenn im Browser eine Meldung über das selbst signierte SSL-Zertifikat angezeigt wird, akzeptieren Sie das selbstsignierte Zertifikat, um fortzufahren.
+. Melden Sie sich an der Webschnittstelle mithilfe der Anmeldeinformationen des Windows-Systems an, in dem das Tool installiert ist.
+

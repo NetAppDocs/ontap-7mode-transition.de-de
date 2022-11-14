@@ -1,0 +1,20 @@
+---
+permalink: san-host/concept_preparing_for_cutover_when_transitioning_san_boot_luns.html 
+sidebar: sidebar 
+keywords: ontap, san, host, transition, cutover, phase, san, boot, lun 
+summary: Wenn Sie SAN-Boot-LUNs von Data ONTAP im 7-Mode auf Clustered Data ONTAP umstellen, müssen Sie vor Beginn der Umstellungsphase bestimmte Voraussetzungen erfüllen. 
+---
+= Vorbereiten auf die Umstellungsphase beim Umstieg auf SAN Boot LUNs
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Wenn Sie SAN-Boot-LUNs von Data ONTAP im 7-Mode auf Clustered Data ONTAP umstellen, müssen Sie vor Beginn der Umstellungsphase bestimmte Voraussetzungen erfüllen.
+
+Für FC-Konfigurationen müssen Fabric-Konnektivität und Zoning zu den Clustered Data ONTAP Controllern erfolgen. Bei iSCSI-Konfigurationen müssen Ihre iSCSI-Sitzungen erkannt und bei Ihren geclusterten Data ONTAP Controllern angemeldet sein. Sie müssen auch Ihren Host herunterfahren.
+
+* Bei Copy-Based-Transitions sollten Sie den Host herunterfahren, bevor Sie die Storage-Umstellung mit dem 7-Mode Transition Tool (7MTT) initiieren. Copy-Free Transitions werden auf HP-UX-Hosts nicht unterstützt.
+* Bei Copy-Free Transitions sollten Sie Ihren Host herunterfahren, bevor Sie den Betrieb „Export & Stop 7-Mode“ im 7MTT initiieren.
+

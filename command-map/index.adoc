@@ -1,0 +1,14 @@
+---
+permalink: command-map/index.html 
+sidebar: sidebar 
+keywords: ontap, command, map, transition, index 
+summary: Ordnet 7-Mode-Befehle ihren Entsprechungen in ONTAP zu 
+---
+= Befehlszuordnung für 7-Mode Administratoren
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Dieses Handbuch ordnet den entsprechenden Befehlen in ONTAP 7-Mode zu.

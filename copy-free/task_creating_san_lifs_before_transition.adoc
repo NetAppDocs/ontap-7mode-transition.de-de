@@ -1,0 +1,37 @@
+---
+permalink: copy-free/task_creating_san_lifs_before_transition.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, san, lifs, create 
+summary: Da FC und iSCSI LIFs nicht durch das 7-Mode Transition Tool migriert werden, müssen Sie vor der Transition diese LIFs auf den SVMs erstellen. Sie müssen SAN LIFs sowohl auf den Nodes konfigurieren, die Eigentümer der LUN sind, als auch auf dem HA-Partner des Node. 
+---
+= Erstellung von SAN LIFs vor dem Übergang
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Da FC und iSCSI LIFs nicht durch das 7-Mode Transition Tool migriert werden, müssen Sie vor der Transition diese LIFs auf den SVMs erstellen. Sie müssen SAN LIFs für die beiden Nodes konfigurieren, deren Eigentümer die LUN ist, und den HA-Partner des Node.
+
+Die erforderliche SAN-Lizenz (FC oder iSCSI) muss dem Cluster hinzugefügt werden.
+
+Um Redundanz zu gewährleisten, müssen Sie SAN LIFs auf dem Node erstellen, der die LUNs und deren HA-Partner hostet.
+
+.Schritte
+. Erstellen Sie abhängig vom verwendeten Protokoll eine FC- oder iSCSI-LIF auf dem Ziel-Node, an den die LUNs migriert werden:
++
+`*network interface create*`
+
++
+Wenn Sie die 7-Mode IP-Adresse für iSCSI LIFs wiederverwenden möchten, müssen Sie die LIFs im Administrationsbereich erstellen. Sie können diese LIFs nach dem Umstellungsvorgang in den Administratorzustand versetzen.
+
+. Erstellen Sie im HA-Partner des Node ein LIF.
+. Überprüfen Sie, ob Sie Ihre LIFs korrekt eingerichtet haben:
++
+`*network interface show*`
+
+
+
+*Verwandte Informationen*
+
+https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-sanag/home.html["SAN-Administration"]

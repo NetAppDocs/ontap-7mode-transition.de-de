@@ -1,0 +1,61 @@
+---
+permalink: copy-based/concept_restrictions_for_copy_free_transition.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, restrictions, 7, mode, volumes 
+summary: Sie müssen bestimmte Einschränkungen für den Wechsel von 7-Mode Volumes beachten. Einige dieser Einschränkungen sind auf Funktionen zurückzuführen, die in ONTAP nicht unterstützt werden. Aufgrund einiger Einschränkungen können Sie eine Korrekturmaßnahme durchführen, mit der Sie den Übergang fortsetzen. 
+---
+= Einschränkungen für die Transition von 7-Mode Volumes
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie müssen bestimmte Einschränkungen für den Wechsel von 7-Mode Volumes beachten. Einige dieser Einschränkungen sind auf Funktionen zurückzuführen, die in ONTAP nicht unterstützt werden. Aufgrund einiger Einschränkungen können Sie eine Korrekturmaßnahme durchführen, mit der Sie den Übergang fortsetzen.
+
+
+
+== Volume-Typen
+
+Folgende Volume-Typen werden für den Übergang nicht unterstützt:
+
+* Traditionelle Volumes
++
+Hostbasierte Migrationsmethoden können für die Transition herkömmlicher Volumes eingesetzt werden.
+
++
+http://www.netapp.com/us/media/tr-4052.pdf["Technischer Bericht 4052 von NetApp: Erfolgreicher Wechsel zu Clustered Data ONTAP (Data ONTAP 8.2.x und 8.3)"]
+
+* FlexCache Volumes
+
+
+
+
+== Volume-Status
+
+Die Transition ist gesperrt, wenn sich eines der für den Übergang ausgewählten 7-Mode Volumes in einem der folgenden Zustände befindet:
+
+* Offline
+* Eingeschränkt
+* Uneinheitlich (`wafl inconsistent`)
+
+
+
+
+== Volumen mit qtrees, die zu einer anderen vFiler Einheit gehören
+
+Sie können Volumes nicht mit qtrees umstellen, wenn die qtrees im Besitz einer anderen Einheit von vFiler sind als die des Volume. Vor dem Umstieg müssen Sie sicherstellen, dass jedes Volume und alle zugehörigen qtrees zur gleichen vFiler Einheit gehören, indem Sie eine der folgenden Aktionen durchführen:
+
+* Verschieben Sie die qtrees zu der Einheit vFiler, welche das Volume besitzt.
+* Löschen Sie die qtrees.
+
+
+
+
+== Einstellung für die Übersetzung von inode zu übergeordnetem Pfadnamen
+
+Für jedes Volume müssen die Übersetzungen für den inode-to-Parent-Pfadnamen aktiviert werden. Sie können das übergeordnete Objekt in Pfadnamen-Übersetzungen aktivieren, indem Sie das deaktivieren `no_i2p` Option:
+
+`*vol options _vol_name_ no_i2p off*`
+
+Sie müssen nicht warten, bis der i2p-Scan abgeschlossen ist, und Sie können mit der Vorbereitung der Transition fortfahren.

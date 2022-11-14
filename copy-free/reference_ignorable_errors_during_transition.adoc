@@ -1,0 +1,245 @@
+---
+permalink: copy-free/reference_ignorable_errors_during_transition.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, ignorable, errors 
+summary: Möglicherweise treten während des Übergangs einige unwissbare Fehler auf. Diese Fehler können während der Vorprüfung, Verkabelung, Import oder Commit-Operation eines kopiefreien Übergangsprojekts auftreten. Sie müssen diese Fehler erkennen, bevor Sie den Übergang fortsetzen. 
+---
+= Unwissbare Fehler während des Übergangs
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Möglicherweise treten während des Übergangs einige unwissbare Fehler auf. Diese Fehler können während der Vorprüfung, Verkabelung, Import oder Commit-Operation eines kopiefreien Übergangsprojekts auftreten. Sie müssen diese Fehler erkennen, bevor Sie den Übergang fortsetzen.
+
+Wenn Sie dem kopiefreien Umstiegsprojekt eine unwissende Fehlerkategorie mithilfe der CLI des 7-Mode Transition Tools hinzufügen, bedeutet dies, dass Sie die Auswirkungen des Fehlers bereits verstanden haben. Sie müssen den Übergangsvorgang erneut ausführen, nachdem Sie den Fehler ignoriert haben. Derzeit ändert sich der Blockierfehler auf eine Warnmeldung, und der Fehler wird als „`quited`“ angezeigt. Sie können den Übergang mit der Warnung fortsetzen.
+
+
+
+== Vorprüfvorgang: Unkunfähige Fehlerkategorien
+
+|===
+| Kategorie | Wenn der Fehler angezeigt wird 
+
+
+ a| 
+`ignore-source-not-multipath`
+ a| 
+Die Shelves von 7-Mode befinden sich nicht in einer Multipath-Konfiguration.
+
+
+
+ a| 
+`ignore-target-not-multipath`
+ a| 
+Festplatten-Shelfs in den Ziel-Cluster Nodes befinden sich nicht in einer Multipath-Konfiguration.
+
+
+
+ a| 
+`ignore-source-storage-fault`
+ a| 
+7-Mode Festplatten-Shelfs haben einen Fehler (wie in der Ausgabe von angezeigt `storage show fault` Befehl).
+
+
+
+ a| 
+`ignore-target-storage-fault`
+ a| 
+Festplatten-Shelfs in den Ziel-Cluster-Nodes weisen einen Fehler auf (wie in der Ausgabe von angezeigt `system node run -node _node_name_ -command storage show fault` Befehl).
+
+
+
+ a| 
+Ignore-target-Port-Requirement
+ a| 
+Die Ziel-Cluster-Nodes verfügen nicht über eine ausreichende Anzahl von Ports, um die 7-Mode-Festplatten-Shelfs zu verbinden.
+
+
+
+ a| 
+`ignore-aggr-space-less-than-5-percent`
+ a| 
+7-Mode Aggregate haben keinen Platz mehr, da der freie Speicherplatz in den 7-Mode Aggregaten weniger als 5 % des physischen Speicherplatzes ist.
+
+
+
+ a| 
+`ignore-aggr-logical-space-more-than-97-percent`
+ a| 
+7-Mode Aggregate haben keinen freien Platz, da der logische Speicherplatz im Aggregat mehr als 97 % voll ist.
+
+
+
+ a| 
+`ignore-aggr-snapshot-spill-more-than-4-percent`
+ a| 
+7-Mode Aggregate haben keinen freien Speicherplatz, da Snapshot Kopien mehr Platz beanspruchen als die für die Snapshot Kopie Reserve zugewiesene.
+
+
+
+ a| 
+`ignore-aggr-physical-space-more-than-89-percent-and-snapshot-spill`
+ a| 
+7-Mode Aggregate haben keinen zusätzlichen Platz, da der insgesamt genutzte physische Speicherplatz mehr als 89 % beträgt und die Snapshot-Kopien mehr Platz beanspruchen als den, der der Snapshot-Kopie-Reserve zugewiesen wurde.
+
+
+
+ a| 
+`ignore-volumes-with-file-gurantee`
+ a| 
+Für 7-Mode Volumes ist die Platzgarantie auf festgelegt `file`, Was in ONTAP nicht unterstützt wird.
+
+
+
+ a| 
+`ignore-volumes-with-disabled-gurantees`
+ a| 
+Speicherplatzgarantie für Volumes ist derzeit deaktiviert, da kein Speicherplatz in den Volumes vorhanden ist.
+
+
+
+ a| 
+`nfs-qtrees-exported`
+ a| 
+Das 7-Mode System bietet qtree Exportregeln.
+
+Erkennen dieses Fehlers bedeutet, dass Sie die Unterschiede in den Qtree-Exportregeln zwischen Data ONTAP 7-Mode und ONTAP verstanden haben. Möglicherweise müssen Sie einige manuelle Schritte durchführen, nachdem die NFS-Exportregeln vom 7-Mode Transition Tool angewendet wurden.
+
+https://kb.netapp.com/support/index?page=content&id=8010371["NetApp KB-Artikel 8010371:7MTT Vorabprüfung 10111 - 7-Mode Volumes mit qtree-Exporte verschieben"]
+
+
+
+ a| 
+`ignore-configuration-limits-check`
+ a| 
+Die zu übertragenden Objekte und Konfigurationen überschreiten ein bestimmtes Limit. Die Storage-Umstellung kann sehr viel Zeit in Anspruch nehmen und es muss darauf vorbereitet werden.
+
+https://kb.netapp.com/support/index?page=content&id=3014882["NetApp KB-Artikel 3014882: Überlegungen zur Reduzierung der Storage-Umstellungszeit während der Copy-Free Transition"]
+
+
+
+ a| 
+`ignore-cifs-ad-domain-mismatch`
+ a| 
+Das 7-Mode Transition Tool wird mit der Umstellung der CIFS-Konfiguration fortgesetzt, auch wenn sich die CIFS Active Directory-Domäne des 7-Mode Systems von der CIFS Active Directory-Domäne der Ziel-SVM unterscheidet.
+
+Sie müssen sicherstellen, dass die CIFS Active Directory Domänen des 7-Mode Systems und der Ziel-SVM vertrauenswürdige Domänen sind. Andernfalls schlägt der Übergang von CIFS-Konfigurationen zur Ziel-SVM fehl.
+
+https://kb.netapp.com/Advice_and_Troubleshooting/Data_Storage_Software/ONTAP_OS/How_to_transition_CIFS_configurations_when_Active_Directory_Domain_of_CIFS_server_on_7-Mode_and_target_SVM_are_different["Wie lassen sich CIFS-Konfigurationen übertragen, wenn sich Active Directory Domain des CIFS-Servers auf 7-Mode und Ziel-SVM unterscheiden"]
+
+|===
+
+
+== Verkabelungsverifizierung Betrieb: Unkunfähige Fehlerkategorien
+
+|===
+| Kategorie | Wenn der Fehler angezeigt wird 
+
+
+ a| 
+`ignore-missing-spare-disks`
+ a| 
+Mindestens ein 7-Mode Spare-Laufwerk wird von den Ziel-Cluster-Knoten nicht erkannt.
+
+
+
+ a| 
+`ignore-missing-degraded-aggr-disks`
+ a| 
+Es können nicht bis zu zwei Festplatten von einer der 7-Mode RAID-DP Gruppen oder eine Festplatte von einer der 7-Mode RAID-4 RAID-Gruppen auf den Ziel-Cluster Nodes erkannt werden.
+
+Weiterhin werden solche Aggregate nach der Migration wieder abgebaut.
+
+|===
+
+
+== Importvorgang: Unkorable Fehlerkategorien
+
+Wenn Sie dem Copy-Free Transition Projekt während des Importvorgangs eine unwissbare Fehlerkategorie hinzufügen, führt Data ONTAP eine Korrekturmaßnahme für die Aggregate und Volumes durch und ändert zusätzlich den Blockierfehler zu einer Warnung.
+
+|===
+| Kategorie | Wenn der Fehler angezeigt wird | Korrekturmaßnahmen, wenn der Fehler quittiert ist und der Importvorgang erneut ausgeführt wird 
+
+
+ a| 
+`ignore-aggregates-with-32bit-snapshot-for-import`
+ a| 
+32-Bit Snapshot Kopien werden im 7-Mode Aggregat erkannt.
+ a| 
+32-Bit Snapshot Kopien werden aus allen 7-Mode Aggregaten gelöscht, die Teil dieses Projekts sind.
+
+
+
+ a| 
+`transition-dirty-aggregates-during-import`
+ a| 
+Eines der überlagenden Aggregate wurde auf dem 7-Mode Storage-System nicht ordnungsgemäß heruntergefahren.
+ a| 
+Alle 7-Mode Aggregate, die nicht sauber heruntergefahren wurden, werden übertragen. Dies kann zu Datenverlust nach der Transition führen.
+
+
+
+ a| 
+`ignore-aggregates-not-being-online-for-import`
+ a| 
+Das Aggregat war nicht online, als das 7-Mode Speichersystem angehalten wurde.
+ a| 
+Alle Offline-Aggregate werden online geschaltet.
+
+
+
+ a| 
+`ignore-volumes-with-32bit-snapshot-for-import`
+ a| 
+32-Bit Snapshot Kopien werden in dem 7-Mode Volume erkannt.
+ a| 
+32-Bit Snapshot Kopien werden aus allen 7-Mode Volumes gelöscht, die Teil dieses Projekts sind.
+
+
+
+ a| 
+`ignore-volumes-with-dirty-file-system-for-import`
+ a| 
+Eines der übernden Volumes wurde auf dem 7-Mode Storage-System nicht ordnungsgemäß heruntergefahren.
+ a| 
+Alle 7-Mode-Volumes, die nicht sauber heruntergefahren wurden, werden übertragen. Dies kann zu Datenverlusten nach der Transition führen.
+
+
+
+ a| 
+`transition-offline-volumes-during-import`
+ a| 
+Das Volume war nicht online, als das 7-Mode-Speichersystem angehalten wurde.
+ a| 
+Alle Offline-Volumes werden online geschaltet.
+
+
+
+ a| 
+`transition-restricted-volumes-during-import`
+ a| 
+Das Volume befand sich im eingeschränkten Zustand, als das 7-Mode-Speichersystem angehalten wurde.
+ a| 
+Alle eingeschränkten Volumes werden online geschaltet.
+
+|===
+
+
+== Begeben des Vorgangs: Unkunfähige Fehlerkategorien
+
+Wenn Sie dem Copy-Free Transition Projekt während des Commit eine unwissbare Fehlerkategorie hinzufügen, führt ONTAP einige Korrekturmaßnahmen für die Aggregate und Volumes durch und ändert zusätzlich den Blockierfehler zu einer Warnung.
+
+|===
+| Kategorie | Wenn der Fehler angezeigt wird | Korrekturmaßnahme, wenn der Fehler bestätigt ist und der Commit-Vorgang erneut ausgeführt wird 
+
+
+ a| 
+`ignore-commit-offline-aggregates`
+ a| 
+Einige der übergewechselt Aggregate sind offline.
+ a| 
+Alle Offline-Aggregate werden online geschaltet.
+
+|===

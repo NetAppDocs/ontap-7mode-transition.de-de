@@ -1,0 +1,22 @@
+---
+permalink: san-host/concept_windows_host_remediation.html 
+sidebar: sidebar 
+keywords: ontap, san, host, transition, windows, host, remediation 
+summary: 'Wenn Sie für den Wechsel von Data ONTAP im 7-Mode auf Clustered Data ONTAP das 7-Mode Transition Tool \(7MTT\) verwenden, müssen Sie zur Vorbereitung des Windows Hosts spezifische Schritte durchführen. Außerdem müssen bestimmte Schritte durchgeführt werden, um sich auf die Umstellungsphase vorzubereiten. Nach der Umstellung muss Ihr Windows Host wieder online geschaltet werden.' 
+---
+= Windows-Host-Korrektur
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Wenn Sie für den Wechsel von Data ONTAP 7-Mode zu Clustered Data ONTAP das 7-Mode Transition Tool (7MTT) verwenden, müssen Sie zur Vorbereitung des Windows Hosts spezifische Schritte durchführen. Außerdem müssen bestimmte Schritte durchgeführt werden, um sich auf die Umstellungsphase vorzubereiten. Nach der Umstellung muss Ihr Windows Host wieder online geschaltet werden.
+
+*Verwandte Informationen*
+
+xref:task_preparing_windows_hosts_for_transition.adoc[Vorbereiten von Windows Hosts für die Umstellung]
+
+xref:task_preparing_for_cutover_when_transitioning_windows_hosts.adoc[Vorbereitung auf die Umstellungsphase bei der Umstellung von Windows Hosts]
+
+xref:task_bringing_windows_hosts_online_after_transition.adoc[Versetzen von Windows Hosts nach dem Umstieg in den Online-Modus]

@@ -1,0 +1,38 @@
+---
+permalink: copy-based/task_adding_controllers_and_clusters.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, add, controller, clusters 
+summary: Bevor Sie mit dem Umstieg beginnen, müssen Sie die für die Transition erforderlichen 7-Mode Controller und Cluster hinzufügen. Die zur Bewertung enthaltenen 7-Mode Controller werden automatisch zur Migration hinzugefügt. 
+---
+= Hinzufügen von Controllern und Clustern
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Bevor Sie mit dem Umstieg beginnen, müssen Sie die für die Transition erforderlichen 7-Mode Controller und Cluster hinzufügen. Die zur Bewertung enthaltenen 7-Mode Controller werden automatisch zur Migration hinzugefügt.
+
+* Die von Ihnen bereitgestellten Controller- und Cluster-Informationen mit 7-Mode sind nicht persistent.
++
+Wenn der Service 7-Mode Transition Tool neu gestartet wird, werden Sie vom Tool aufgefordert, Informationen über Controller und Cluster zu erhalten, die Teil aktiver Projekte sind. Sie müssen denselben Hostnamen angeben, den Sie beim Erstellen des Projekts für Ihr System angegeben haben.
+
+* Wenn ein 7-Mode Controller Teil eines HA-Paars ist, fordert das Tool keine Zugangsdaten des HA-Partners des 7-Mode Controllers an (es sei denn, der HA-Partner ist Teil eines anderen aktiven Projekts.)
++
+.. Klicken Sie im oberen Bereich auf *Storage Systems*.
+.. Geben Sie im Feld *Hostname* die FQDN- oder IP-Adresse des 7-Mode-Controllers oder des ONTAP-Systems ein.
++
+Bei einem Cluster können Sie die IP-Adresse oder den FQDN der Cluster-Managementoberfläche angeben. Bei einem 7-Mode Controller müssen Sie die IP-Adresse der standardmäßigen vFiler Einheit angeben, da die IP-Adressen einzelner vFiler Einheiten nicht akzeptiert werden.
+
+
+
+
+
+.Schritte
+. Geben Sie die Administratoranmeldedaten für den angegebenen Host ein, und klicken Sie dann auf *Hinzufügen*.
++
+Die 7-Mode Controller werden der Tabelle „`7-Mode Controller`“ hinzugefügt und die Cluster werden der Tabelle „`Clustered Data ONTAP Systeme`“ hinzugefügt.
+
+. Wiederholen Sie die Schritte 2 und 3, um alle Controller und Cluster hinzuzufügen, die Sie für den Umstieg benötigen.
+. Wenn in der Spalte Status angezeigt wird, dass die Anmeldeinformationen des Systems fehlen oder sich die Anmeldeinformationen von den ursprünglich eingegebenen Anmeldeinformationen im Tool geändert haben, klicken Sie auf das image:../media/edit_schedule.gif[""] Symbol, und geben Sie die Anmeldeinformationen erneut ein.
+

@@ -1,0 +1,64 @@
+---
+permalink: san-host/task_testing_transitioned_luns_on_windows_hosts_before_cutover.html 
+sidebar: sidebar 
+keywords: ontap, san, host, transition, test, lun, windows, cutover, phase 
+summary: 'Wenn Sie die Windows Host-LUNs mit dem 7-Mode Transition Tool \(7MTT\) 2.2 oder höher und mit Data ONTAP 8.3.2 oder höher verschieben, Sie können Ihre übergewechselt Clustered Data ONTAP LUNs testen, um sicherzustellen, dass die Festplatte online geschaltet werden kann und dass die Applikationsoperationen wie erwartet vor der Umstellungsphase funktionieren. Der Quell-Host kann während des Tests weiterhin I/O-Vorgänge auf Ihren 7-Mode Quell-LUNs ausführen.' 
+---
+= Die Tests übergegangen LUNs auf Windows Hosts vor der Umstellungsphase
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Wenn Sie zum Umstieg Ihrer Windows Host-LUNs mit dem 7-Mode Transition Tool (7MTT) 2.2 oder höher und Data ONTAP 8.3.2 oder höher verwenden, Sie können Ihre übergewechselt Clustered Data ONTAP LUNs testen, um sicherzustellen, dass die Festplatte online geschaltet werden kann und dass die Applikationsoperationen wie erwartet vor der Umstellungsphase funktionieren. Der Quell-Host kann während des Tests weiterhin I/O-Vorgänge auf Ihren 7-Mode Quell-LUNs ausführen.
+
+Ihre 7-Mode LUNs müssen bereit für den Umstieg sein.
+
+Sie sollten die Hardwareparität zwischen dem Testhost und dem Quell-Host beibehalten, und Sie sollten auf dem Testhost die folgenden Schritte durchführen.
+
+Die Clustered Data ONTAP LUNs befinden sich während des Tests im Lese-/Schreibmodus. Sie werden in den schreibgeschützten Modus umgewandelt, wenn die Tests abgeschlossen sind und Sie die Umstellungsphase vorbereiten.
+
+.Schritte
+. Wählen Sie nach Abschluss der Basiskopie in der 7MTT Benutzeroberfläche *Testmodus* aus.
+. Klicken Sie in der 7MTT UI auf *Apply Configuration*.
+. Generieren Sie die LUN-Zuordnungsdatei für 7-Mode zu Clustered Data ONTAP:
++
+** Führen Sie bei Copy-Based Transitions den folgenden Befehl von dem Host aus, auf dem das 7MTT installiert ist: +
+`*transition cbt export lunmap -p _project-name_ -o _file_path_*`
++
+Beispiel:
+
++
+`*transition cbt export lunmap -p SanWorkLoad -o c:/Libraires/Documents/7-to-C-LUN-MAPPING.csv*`
+
+** Führen Sie bei Copy-Free Transitions den folgenden Befehl aus dem System aus, auf dem das 7MTT installiert ist: +
+`*transition cft export lunmap -p _project-name_ -s _svm-name_ -o _output-file_`
++
+
+NOTE: Sie müssen diesen Befehl für jede Ihrer Storage Virtual Machines (SVMs) ausführen.
+
++
+Beispiel:
+
++
+`*transition cft export lunmap -p SANWorkLoad -s svml -o c:/Libraries/Documents/7-to-C-LUN-MAPPING-svml.csv*`
+
+
+
+. Schalten Sie die übergewechselt Festplatten und Applikationen online:
++
+** Wenn die überlauften Festplatten nicht Teil des Cluster Failover sind, stellen Sie die Festplatten mithilfe des Windows Disk Managers wieder online.
+** Wenn die übergewechselt Festplatten Teil des Cluster Failover sind, bringen Sie die Festplatten mit Cluster Failover Manager online.
+
+
+. Führen Sie Ihre Tests nach Bedarf durch.
+. Nach Abschluss der Tests können Sie Ihre Applikationen und Festplatten offline schalten:
++
+** Wenn die überlauften Festplatten nicht Teil des Cluster Failover sind, verwenden Sie den Windows Disk Manager, um die Laufwerke offline zu schalten.
+** Wenn die übergewechselt Festplatten Teil des Cluster Failover sind, versetzen Sie die Festplatten mit Cluster Failover Manager in den Offline-Modus.
+
+
+
+
+Wenn die Clustered Data ONTAP LUNs Ihrem Quell-Host neu zugeordnet werden sollen, müssen Sie den Quell-Host auf die Umstellungsphase vorbereiten. Wenn die geclusterten Data ONTAP LUNs Ihrem Testhost zugeordnet bleiben sollen, sind keine weiteren Schritte auf dem Testhost erforderlich.

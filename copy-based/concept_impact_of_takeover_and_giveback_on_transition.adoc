@@ -1,0 +1,20 @@
+---
+permalink: copy-based/concept_impact_of_takeover_and_giveback_on_transition.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, impact, takeover, giveback 
+summary: Transition-Vorgänge, wie z. B. Vorbereitung des Wechsels, Start, Pause, Wiederaufnahme oder Abschluss Controller-Takeover oder Giveback übernehmen 
+---
+= Auswirkungen von Takeover und Giveback auf den Übergang
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Transition-Vorgänge, wie z. B. Vorbereitung des Wechsels, Start, Pause, Wiederaufnahme oder Abschluss Controller-Takeover oder Giveback übernehmen
+
+Schlägt ein Transitionvorgang aufgrund einer Übernahme fehl, müssen Sie warten, bis der Giveback abgeschlossen ist, und den Transitionvorgang erneut ausführen.
+
+Falls während eines Basistransfers ein Controller-Takeover eintritt, schlägt der Transfer fehl. Um den Basistransfer so lange fortzusetzen, wie er abgebrochen wurde, müssen Sie warten, bis der Giveback abgeschlossen ist.
+
+Die Datenkopie wird gemäß dem konfigurierten Zeitplan fortgesetzt.

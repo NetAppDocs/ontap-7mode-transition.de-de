@@ -1,0 +1,44 @@
+---
+permalink: copy-based/task_completing_transition_process.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, complete 
+summary: Da der gesamte Vorgang Unterbrechungen verursacht, sollten Sie abwägen, wann er ausgeführt werden soll. Bei dem Wechsel von Volumes in einer SnapMirror Beziehung muss das sekundäre Projekt abgeschlossen sein, bevor die Transition des primären Projekts abgeschlossen wird. 
+---
+= Abschluss der Transition
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Da der gesamte Vorgang Unterbrechungen verursacht, sollten Sie abwägen, wann er ausgeführt werden soll. Bei dem Wechsel von Volumes in einer SnapMirror Beziehung muss das sekundäre Projekt abgeschlossen sein, bevor die Transition des primären Projekts abgeschlossen wird.
+
+.Schritte
+. Durchführen einer Datenkopie von 7-Mode Volumes zu den ONTAP-Volumes:
++
+`*transition cbt update -p _project_name_ -t _available-transfers-percentage_ -c _snapmirror-throttlemax-cap-concurrent-transfers_ -x -r interactive*`
+
++
+Dadurch werden die Ausfallzeiten während der Storage-Umstellung verringert.
+
+. Manuell: Client-Zugriff trennen.
+. Abschließen des Umstellungsprozesses:
++
+`*transition cbt cutover -p _project_name_ -t _available-transfers-percentage_ -c _max-cap-concurrent-transfers_ -x _snapmirror-throttle_ -r interactive -o [true|false]*`
+
++
+Die 7-Mode Volumes werden standardmäßig offline geschaltet. Wenn die 7-Mode Volumes online bleiben sollen, legen Sie den fest `-o` Option auf `false`.
+
++
+
+NOTE: Wenn die Umstellung aus irgendeinem Grund nicht erfolgreich ist – beispielsweise das 7-Mode System oder Cluster nicht erreichbar ist – müssen Sie die Probleme lösen und die ausführen `transition cutover` Befehl erneut.
+
++
+Weitere Informationen zu den Befehlen finden Sie in den man-Pages.
+
++
+Die Übergangssitzung wechselt in den Umstellungszustand. Wenn die Umstellung erfolgreich ist, wird die Sitzung in den Status „abgeschlossen“ versetzt.
+
+
+
+Sie müssen alle Aufgaben nach der Transition ausführen und die Clients mit den ONTAP Volumes neu verbinden.

@@ -1,0 +1,63 @@
+---
+permalink: copy-based/task_generating_fc_zone_plan.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, generate, fc, zone, plan 
+summary: Bei FC-Switches müssen Sie einen FC-Zonenplan als Teil des Berichts zur Bewertung der Transition generieren, um die Zonen für die Gruppierung der Initiator-Hosts und -Ziele nach der Migration zu konfigurieren. 
+---
+= Erstellen eines FC-Zonenplans
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Bei FC-Switches müssen Sie einen FC-Zonenplan als Teil des Berichts zur Bewertung der Transition generieren, um die Zonen für die Gruppierung der Initiator-Hosts und -Ziele nach der Migration zu konfigurieren.
+
+* Das 7-Mode System, die Hosts und das Cluster müssen mit demselben Switch verbunden sein.
++
+xref:concept_supported_configurations_for_generating_an_fc_zone_plan.adoc[Unterstützte Konfigurationen zur Erstellung eines FC-Zonenplans]
+
+* Sie müssen die erforderlichen Ziel-SVMs und FC LIFs auf dem Cluster erstellt haben.
+* Die FC LIFs, die auf den Ziel-SVMs erstellt wurden, besitzen WWPN, was sich von 7-Mode-WWPNs unterscheidet. Führen Sie daher FC-Zoning durch, während Sie SAN für FCP wechseln.
+
+
+.Schritte
+. Klicken Sie im Abschnitt Sammeln und Bewerten auf *Systeme hinzufügen*.
+. Führen Sie im Fenster System hinzufügen eine der folgenden Aktionen durch:
++
+** Einzelnes System hinzufügen:
++
+... Geben Sie den FQDN oder die IP-Adresse des Systems ein.
+... Geben Sie den Benutzernamen und das Passwort für das angegebene System ein.
+... Wählen Sie den Systemtyp aus:
++
+**** Data ONTAP Storage-Systeme
+**** Hosts: Microsoft Windows, Red hat Linux Enterprise und VMware ESXi
+**** FC-Switches: Cisco und Brocade
+
+
+
+
+** Fügen Sie mehrere Systeme hinzu, indem Sie auf *Durchsuchen* klicken und dann die Textdatei auswählen, die die Anmeldeinformationen für mehrere Systeme enthält.
+
+
+. Klicken Sie Auf *Hinzufügen*.
++
+Wenn der Bewertungsstatus eines Systems bereit ist, können Sie eine Umstiegsprüfung für dieses System durchführen.
+
+. Erstellen Sie den Bericht zur Umstiegsbewertung mit dem FC-Zonenplan:
++
+.. Wählen Sie die Systeme, einschließlich der erforderlichen FC-Switches, für die Bewertung der Transition aus.
+.. Klicken Sie Auf *Übergangsbewertungsbericht Erstellen*.
+.. Wählen Sie im Dialogfeld „System-Paare“ und „FC-Zonenplaner starten“ die 7-Mode Systeme (Einzel-Controller oder HA-Paar), den mit dem Cluster verbundenen Switch und eine SVM im Cluster aus.
+.. Klicken Sie auf *FC Zoning für gekoppelte Systeme*.
+.. Wählen Sie im Dialogfeld Übergangsbewertungsbericht erstellen die Data ONTAP-Version des Zielclusters aus.
+.. Geben Sie ein Präfix für den Dateinamen der Berichte an.
+.. Klicken Sie Auf *Bericht Generieren*.
+
+
+
+
+Der FC-Zonenplan wird als generiert `.zip` Datei: Der Plan enthält Zonen, die gemäß der Initiatorgruppenkonfigurationen auf den 7-Mode Systemen erstellt wurden. Jede Zone enthält einen einzelnen Initiator-WWPN und mehrere SVM-Ziel-WWPNs.
+
+Sie müssen den FC-Zonenplan verwenden, um die Zonen zu konfigurieren, um die Initiator-Hosts und Ziele zu gruppieren, sodass Datenzugriff über das Cluster möglich ist.

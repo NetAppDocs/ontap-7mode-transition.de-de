@@ -1,0 +1,25 @@
+---
+permalink: copy-free/task_committing_7_mode_aggregates_to_clustered_ontap_format.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, commit, project 
+summary: Der letzte Schritt in der Transition ist das Projekt, bei dem eine Copy-Free Transition durchgeführt wird. Nach dem Übersetzen der Aggregate können Sie keine Rollbacks auf 7-Mode durchführen. 
+---
+= Übergabe des Copy-Free Transition-Projekts
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Der letzte Schritt in der Transition ist das Projekt, bei dem eine Copy-Free Transition durchgeführt wird. Nach dem Übersetzen der Aggregate können Sie keine Rollbacks auf 7-Mode durchführen.
+
+Sie müssen die migrierte Daten und Konfigurationen manuell überprüft und Workloads und Applikationen getestet haben.
+
+Alle Snapshot Kopien auf Aggregatebene, die in der Exportphase erstellt wurden, werden gelöscht.
+
+.Schritte
+. Klicken Sie Auf *Commit*.
+. Klicken Sie in der angezeigten Warnmeldung auf *Ja*.
+
+
+Alle Einschränkungen der Testphase vor der Produktion werden entfernt und die übersommenen Volumes können Produktionsdaten verarbeiten, sofern dies nicht in der Testphase vor der Produktion geschieht.

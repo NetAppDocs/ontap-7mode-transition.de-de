@@ -1,0 +1,92 @@
+---
+permalink: copy-based/concept_log_files_for_7mtt.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, log, files, tool 
+summary: Das 7-Mode Transition Tool erstellt Protokolldateien, die Einzelheiten zu den auf Ihrem System angetretenen Migrationsvorgängen verarbeiten. Die Log-Dateien befinden sich im Log-Verzeichnis des Pfads, auf dem das 7-Mode Transition Tool installiert ist. 
+---
+= Log-Dateien für das Transition Tool mit 7-Mode
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Das 7-Mode Transition Tool erstellt Protokolldateien, die Einzelheiten zu den auf Ihrem System angetretenen Migrationsvorgängen verarbeiten. Die Log-Dateien befinden sich im Log-Verzeichnis des Pfads, auf dem das 7-Mode Transition Tool installiert ist.
+
+Sie können auch die EMS-Nachrichten in Bezug auf SnapMirror Protokolle aus dem 7-Mode System und dem Cluster verwenden, um Probleme zu beheben.
+
+In der folgenden Tabelle sind die Protokolldateien aufgeführt, die sich auf ein bestimmtes Übergangsprojekt beziehen:
+
+|===
+| Pfad der Protokolldatei | Enthält Informationen über... 
+
+
+ a| 
+`_project_name_/transition.log`
+ a| 
+Debug-Meldungen, die für ein Projekt spezifisch sind
+
+
+
+ a| 
+`_project_name_/zapi-outbound.log`
+ a| 
+Ausgabe aller Data ONTAP APIs, die vom Transition Tool für 7-Mode für ein bestimmtes Projekt ausgeführt werden
+
+|===
+In der folgenden Tabelle sind die Protokolldateien aufgeführt, die nicht mit einem bestimmten Projekt verknüpft sind:
+
+|===
+| Pfad der Protokolldatei | Enthält Informationen über... 
+
+
+ a| 
+`transition-gui.log`
+ a| 
+Einträge aller Aktionen, die über die Weboberfläche durchgeführt werden
+
+
+
+ a| 
+`default/audit.log`
+ a| 
+* Alle Parameter, wie HTTP- oder HTTPS-Port und Protokollverzeichnispfad, die jedes Mal vom Tool verwendet werden, wenn das 7-Mode Transition Tool ausgeführt wird
+* Alle Transition-Befehle, die mit den Outputs ausgeführt werden
+
+
+
+
+ a| 
+`default/default/transition.log`
+ a| 
+Debug-Meldungen, die nicht für ein Projekt spezifisch sind
+
+
+
+ a| 
+`default/STREAM_MANAGEMENT/stream_management.log`
+ a| 
+Debug-Nachrichten, die vom Scheduler während der Verwaltung der Zeitpläne protokolliert werden und nicht zu einem Projekt gehören
+
+
+
+ a| 
+`default/default/zapi-outbound.log`
+ a| 
+Ausgabe aller Data ONTAP-APIs, die vom 7-Mode Transition Tool ausgeführt werden und die nicht zu einem Projekt gehören
+
+
+
+ a| 
+`default/STREAM_MANAGEMENT/zapi-outbound.log`
+ a| 
+Ausgabe aller Data ONTAP APIs, die vom 7-Mode Transition Tool Scheduler ausgeführt werden, während die Zeitpläne verwaltet werden und die zu keinem Projekt gehören
+
+
+
+ a| 
+`server-console.log`
+ a| 
+Protokolleinträge aller Packet Exchanges, die mit dem 7-Mode Transition Tool Server durchgeführt werden. Diese Datei hilft bei der Behebung von Problemen, die mit einem Serverabsturz verbunden sind.
+
+|===

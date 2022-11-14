@@ -1,0 +1,106 @@
+---
+permalink: command-map/concept_how_to_interpret_clustered_ontap_command_maps_for_7_mode_administrators.html 
+sidebar: sidebar 
+keywords: ontap, command, map, transition, clustered, commands, options, configuration, file, maps, interpret 
+summary: Wenn Sie gerade von Data ONTAP mit 7-Mode auf Clustered Data ONTAP umsteigen, können Sie sich die Befehlsmaps anschauen, die die Clustered Data ONTAP-Äquivalente von 7-Mode Befehlen, Optionen und Konfigurationsdateien zeigen. 
+---
+= Interpretation der Clustered Data ONTAP Befehle, Optionen und Konfigurationsdateien für Administratoren mit 7-Mode
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Wenn Sie gerade von Data ONTAP mit 7-Mode auf Clustered Data ONTAP umsteigen, können Sie sich die Befehlsmaps anschauen, die die Clustered Data ONTAP-Äquivalente von 7-Mode Befehlen, Optionen und Konfigurationsdateien zeigen.
+
+
+
+== Welche Zuordnungsinformationen enthalten sind
+
+Die Befehlszuordnung für 7-Mode Administratoren umfasst die folgenden Zuordnungen von 7-Mode Befehlen, Optionen und Konfigurationsdateien zu ihren Clustered Data ONTAP-Entsprechungen:
+
+* xref:reference_how_7_mode_commands_map_to_clustered_ontap_commands.adoc[Zuordnung von 7-Mode Befehlen zu Clustered Data ONTAP Befehlen]
+* xref:reference_how_7_mode_options_map_to_clustered_ontap_commands.adoc[Zuordnung der 7-Mode Optionen zu Clustered Data ONTAP Befehlen]
+* xref:reference_how_7_mode_configuration_files_map_to_clustered_ontap_commands.adoc[Zuordnung der Konfigurationsdateien von 7-Mode zu den Clustered Data ONTAP Befehlen]
+
+
+
+
+== So interpretieren Sie Befehle mit 7-Mode-kompatiblen Verknüpfungen
+
+Obwohl die Data ONTAP Befehlszeilenschnittstelle (CLI) deutlich für Cluster-Vorgänge neu organisiert ist, verfügen viele der Befehle über 7-Mode-kompatible Shortcut-Versionen, die keine Änderung an Skripten oder andere automatisierte Aufgaben erfordern. Diese Shortcut Versionen werden zuerst und in *bold* in den Tabellen hier aufgeführt. Als nächstes werden Shortcut-Versionen aufgeführt, die nicht mit 7-Mode kompatibel sind, gefolgt von der vollständigen Langform-Version der Befehle:
+
+|===
+| 7-Mode Befehl | Befehl Clustered Data ONTAP 
+
+
+ a| 
+`aggr add`
+ a| 
+`*aggr add*`
+
+`aggr add-disks`
+
+`storage aggregate add-disks`
+
+|===
+Wenn keine *bold*-Verknüpfung aufgeführt ist, steht keine 7-Mode-kompatible Version zur Verfügung. In der Tabelle werden nicht alle Formen der Befehle angezeigt. Die CLI ist extrem flexibel und ermöglicht mehrere abgekürzte Formen.
+
+
+
+== Allgemeines zu den verschiedenen Clustered Data ONTAP-Shells für CLI-Befehle
+
+Ein Cluster hat drei unterschiedliche Shells für CLI-Befehle:
+
+* Die _clustershell_ ist die native Shell, die automatisch gestartet wird, wenn Sie sich beim Cluster anmelden.
++
+Er stellt alle Befehle bereit, die Sie für die Konfiguration und das Management des Clusters benötigen.
+
+* Die _nodeshell_ ist eine spezielle Shell, mit der Sie eine Untergruppe von 7-Mode Befehlen ausführen können.
++
+Diese Befehle werden nur auf Node-Ebene wirksam. Sie können von der clustershell zu einer nodeshell Session wechseln um nodeshell Befehle interaktiv auszuführen. Oder Sie können einen einzigen nodeshell Befehl von der clustershell aus ausführen. Man kann einen Befehl als nodeshell Befehl erkennen, wenn er die (lange) Form hat `system node run -node {_nodename_|local} commandname`.
+
+* Die _systemshell_ ist eine Low-Level-Shell, die nur für Diagnose- und Fehlerbehebungszwecke verwendet wird.
++
+Sie ist nicht für allgemeine administrative Zwecke vorgesehen. Zugriff auf die Systemshell nur mit Anleitung durch den technischen Support
+
+
+
+
+
+== Wechsel zum Nodeshell
+
+Wenn Sie eine 7-Mode-kompatible Shortcut-Version eines nodeshell-Befehls sehen, wird angenommen, dass Sie den Befehl aus dem nodeshell ausführen. Um in die nodeshell zu wechseln, geben Sie Folgendes ein:
+
+`*system node run -node {_nodename_|local}*`
+
+Andere Formen des `nodeshell` Der Befehl muss von der clustershell ausgeführt werden.
+
+
+
+== Weitere Informationen
+
+|===
+| Ihr Ziel ist | Weitere Informationen... 
+
+
+ a| 
+Verwenden Sie clustershell-Befehle
+ a| 
+http://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-cmpr/GUID-5CB10C70-AC11-41C0-8C16-B4D0DF916E9B.html["ONTAP 9-Befehle"]
+
+
+
+ a| 
+Verwenden Sie nodeshell Befehle
+ a| 
+https://library.netapp.com/ecm/ecm_download_file/ECMP1511537["Data ONTAP 8 2 Befehle: Manuelle Seitenreferenz für 7-Mode, Volume 1"]
+
+
+
+ a| 
+Führen Sie CLI-Befehle aus, navigieren Sie in CLI-Befehlsverzeichnissen, legen Sie Werte in der CLI fest und verwenden Sie Abfragen, Muster und Platzhalter
+ a| 
+https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-sag/home.html["Systemadministration"]
+
+|===

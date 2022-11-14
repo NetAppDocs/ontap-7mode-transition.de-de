@@ -1,0 +1,25 @@
+---
+permalink: san-host/task_deleting_vm_snapshots_using_vsphere_client.html 
+sidebar: sidebar 
+keywords: ontap, san, host, transition, delete, vm, snapshots, copy, vsphere, client 
+summary: 'Wenn Sie mit der ESXi CLI nicht vertraut sind oder wenn es für Ihre Umgebung bequemer ist, können Sie Snapshots von virtuellen Maschinen \(VM\) über vSphere Client löschen.' 
+---
+= Löschen von VM Snapshots Kopien mit vSphere Client
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Wenn Sie mit der ESXi CLI nicht vertraut sind oder wenn es für Ihre Umgebung bequemer ist, können Sie Snapshots von virtuellen Maschinen (VMs) über den vSphere Client löschen.
+
+* Führen Sie bei Copy-Based Transitions diese Schritte aus, bevor Sie den Storage-Umstellungsvorgang im 7-Mode Transition Tool (7MTT) initiieren.
+* Führen Sie bei Copy-Free Transitions die folgenden Schritte aus, bevor Sie den Betrieb der 7-Mode Systeme im 7MTT initiieren und anhalten.
+
+
+.Schritte
+. Öffnen Sie den ESXi-Host oder vCenter-Server, der den ESXi-Host verwaltet.
+. Klicken Sie mit der rechten Maustaste auf die VM, aus der Sie Snapshots entfernen müssen.
+. Öffnen Sie das Fenster *Snapshot* > *Snapshot Manager* Snapshots.
+. Klicken Sie Auf *Alle Löschen*.
+

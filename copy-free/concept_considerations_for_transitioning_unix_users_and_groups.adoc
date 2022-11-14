@@ -1,0 +1,44 @@
+---
+permalink: copy-free/concept_considerations_for_transitioning_unix_users_and_groups.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, netgroups, unix, users, groups 
+summary: Die Netgroup-Konfiguration wird nur dann übertragen, wenn die Datei 7-Mode /etc/netgroup weniger als 5 MB groß ist. UNIX-Benutzer und -Gruppen werden nur dann migriert, wenn die Gesamtzahl der UNIX-Benutzer und -Gruppen auf der SVM die Grenzwerte für Benutzer und Gruppen in ONTAP nicht überschreitet. 
+---
+= Überlegungen für die Umstellung von Netzgruppen und UNIX-Benutzern und -Gruppen
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Die Netgroup-Konfiguration wird nur dann übertragen, wenn der 7-Mode-Modus aktiviert ist `/etc/netgroup` Die Datei hat eine Größe von weniger als 5 MB. UNIX-Benutzer und -Gruppen werden nur dann migriert, wenn die Gesamtzahl der UNIX-Benutzer und -Gruppen auf der SVM die Grenzwerte für Benutzer und Gruppen in ONTAP nicht überschreitet.
+
+
+
+== Überlegungen für Netzgruppen
+
+Wenn der `/etc/netgroup` Die Datei unter 7-Mode ist größer als 5 MB, die Netgroup-Konfiguration wird nicht verschoben. Sie müssen eine der folgenden Aktionen durchführen, um die Umstellung fortzusetzen:
+
+* Schließt die Umstellung von Netzgruppen aus.
++
+xref:task_customizing_configurations_for_transition.adoc[Anpassung des Übergangs von 7-Mode Konfigurationen]
+
+* Verschieben Sie die Netzwerkkonfiguration vor der Umstellung auf NIS- oder LDAP-Server.
+
+
+
+
+== Überlegungen für UNIX-Benutzer und -Gruppen
+
+Wenn die Gesamtzahl der UNIX-Benutzer und -Gruppen die Grenze der UNIX-Benutzer und -Gruppen in ONTAP überschreitet, blockiert das 7-Mode Transition Tool den Übergang. Sie müssen eine der folgenden Aktionen durchführen, um die Umstellung fortzusetzen:
+
+* Schließt die Umstellung von UNIX-Benutzern und -Gruppen aus.
++
+xref:task_customizing_configurations_for_transition.adoc[Anpassung des Übergangs von 7-Mode Konfigurationen]
+
+* Verschieben Sie UNIX-Benutzer und -Gruppen vor der Umstellung auf NIS- oder LDAP-Server.
+
+
+*Verwandte Informationen*
+
+https://docs.netapp.com/ontap-9/topic/com.netapp.doc.cdot-famg-nfs/home.html["NFS-Management"]

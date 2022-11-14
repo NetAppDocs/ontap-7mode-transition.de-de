@@ -1,0 +1,52 @@
+---
+permalink: copy-based/task_viewing_transitioned_san_configurations.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, view, san, configurations 
+summary: Die Seriennummern der LUNs und LUN IDs von SAN Volumes ändern sich nach der Transition. Zum Anzeigen der übergewechselt-SAN-Konfigurationen können Sie die Zuordnung der alten LUNs zu den neuen übergewechselt werden. Dazu können Sie die 7-Mode Transition Tool CLI verwenden und die LUN-Zuordnungsinformationen in eine .csv-Datei exportieren. 
+---
+= Anzeigen übergewechselt SAN-Konfigurationen
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Die Seriennummern der LUNs und LUN IDs von SAN Volumes ändern sich nach der Transition. Um die übergewechselt SAN-Konfigurationen anzuzeigen, können Sie die Zuordnung der alten LUNs zu den neuen übergegangen LUNs mithilfe der CLI des 7-Mode Transition Tool generieren und die LUN-Zuordnungsinformationen zu A exportieren `.csv` Datei:
+
+Die Storage-Umstellung muss erfolgreich abgeschlossen sein.
+
+.Schritte
+. Führen Sie zum Generieren von Informationen zur LUN-Zuordnung den folgenden Befehl über die CLI aus:
++
+`*transition cbt export lunmap -p _project_name_ -o _file_path_*`
+
++
+[listing]
+----
+C:\Program Files\NetApp\7-Mode Transition Tool>transition cbt export lunmap -s SanWorkLoad -o c:/Libraires/Documents/7-to-C-LUN-MAPPING.csv
+Successfully exported 7 to C LUN mapping for 'SanWorkLoad'
+----
++
+Im folgenden Beispiel wird eine Beispiel für eine LUN-Zuordnungsdatei angezeigt:
+
++
+[listing]
+----
+7-Mode Storage System,192.168.43.49,
+vfiler,finance,
+
+cDOT Storage System,192.168.32.97,
+SVM,finance,
+
+LUN#,Source LUN Path,7-Mode Serial Number,Source Igroups,Source mapping LUN ID,Destination LUN Path,Serial Number,Destination Igroup,Destination mapping LUN ID
+LUN#1,/vol/vol_SANdataset_sm_0/lun-inventory,dtY5B4tFAaAF,WinGrp,0,/vol/vol_SANdataset_sm_0/lun-inventory,7SQ8p$DQ12rX,WinGrp,0
+LUN#1,/vol/vol_SANdataset_sm_0/lun-inventory,dtY5B4tFAaAF,WinGrp2,3,/vol/vol_SANdataset_sm_0/lun-inventory,7SQ8p$DQ12rX,WinGrp2,3
+LUN#1,/vol/vol_SANdataset_sm_0/lun-inventory,dtY5B4tFAaAF,WinGrp3,4,/vol/vol_SANdataset_sm_0/lun-inventory,7SQ8p$DQ12rX,WinGrp3,4
+LUN#2,/vol/vol_SANdataset_sm_0/lun-payroll,dtY5B4tFAaAC,LnxGrp1,2,/vol/vol_SANdataset_sm_0/lun-payroll,7SQ8p$DQ12rT,LnxGrp1,4
+LUN#2,/vol/vol_SANdataset_sm_0/lun-payroll,dtY5B4tFAaAC,LnxGrp2,2,/vol/vol_SANdataset_sm_0/lun-payroll,7SQ8p$DQ12rT,LnxGrp2,4
+----
+
+
+Sie müssen die erforderlichen Aufgaben nach der Transition auf dem Host ausführen, bevor Sie den Zugriff auf die übergewechselt ONTAP Volumes wiederherstellen können.
+
+http://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-7mtt-sanspl/home.html["San-Host-Umstellung und Problembehebung"]

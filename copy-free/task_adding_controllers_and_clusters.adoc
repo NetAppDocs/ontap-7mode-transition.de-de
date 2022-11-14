@@ -1,0 +1,39 @@
+---
+permalink: copy-free/task_adding_controllers_and_clusters.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, add, controllers, clusters 
+summary: Bevor Sie mit dem Umstieg beginnen, müssen Sie die 7-Mode Controller einschließlich beider Nodes eines 7-Mode HA-Paars und der für die Transition erforderlichen Cluster hinzufügen. Sie sollten die Cluster mithilfe der Cluster-Managementoberfläche hinzufügen. 
+---
+= Hinzufügen von Controllern und Clustern
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Bevor Sie mit dem Umstieg beginnen, müssen Sie die 7-Mode Controller einschließlich beider Nodes eines 7-Mode HA-Paars und der für die Transition erforderlichen Cluster hinzufügen. Sie sollten die Cluster mithilfe der Cluster-Managementoberfläche hinzufügen.
+
+* Bei einer Transition ohne Kopien müssen Sie das Cluster und nicht die Cluster-Nodes, die Ziel der Transition sind, hinzufügen.
+* Die von Ihnen bereitgestellten 7-Mode Controller und Cluster-Informationen sind nicht persistent.
++
+Wenn der Service 7-Mode Transition Tool neu gestartet wird, fordert das Tool im Projektpult Informationen über Controller und Cluster auf, die Teil aktiver Projekte sind.
+
+
+
+.Schritte
+. Klicken Sie im oberen Bereich auf *Storage Systems*.
+. Geben Sie im Feld *Hostname* die FQDN- oder IP-Adresse des 7-Mode-Controllers oder des ONTAP-Systems ein.
++
+Bei einem Cluster können Sie die IP-Adresse oder den FQDN der Cluster-Managementoberfläche angeben. Bei einem 7-Mode Controller müssen Sie die IP-Adresse der standardmäßigen vFiler Einheit angeben, da die IP-Adressen einzelner vFiler Einheiten nicht akzeptiert werden.
+
+. Geben Sie die Administratoranmeldedaten für den angegebenen Host ein, und klicken Sie dann auf *Hinzufügen*.
++
+Die 7-Mode Controller werden der Tabelle „`7-Mode Controller`“ hinzugefügt und die Cluster werden der Tabelle „`Clustered Data ONTAP Systeme`“ hinzugefügt.
+
+. Wiederholen Sie die Schritte 2 und 3, um alle Controller und Cluster hinzuzufügen, die Sie für den Umstieg benötigen.
+. Wenn in der Spalte Status angezeigt wird, dass die Anmeldeinformationen des Systems fehlen oder sich die Anmeldeinformationen von den ursprünglich eingegebenen Anmeldeinformationen im Tool geändert haben, klicken Sie auf das image:../media/delete_me_edit_schedule.gif[""] Symbol, und geben Sie die Anmeldeinformationen erneut ein.
+. Klicken Sie Auf *Weiter*.
++
+Der Bildschirm Quellsysteme auswählen wird angezeigt.
+
+

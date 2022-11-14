@@ -1,0 +1,77 @@
+---
+permalink: copy-based/task_managing_logical_interfaces.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, manage, logical, interfaces 
+summary: Sie können 7-Mode-IP-Adressen zu einem Projekt hinzufügen, bearbeiten oder entfernen. 
+---
+= Verwalten von logischen Schnittstellen
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können 7-Mode-IP-Adressen zu einem Projekt hinzufügen, bearbeiten oder entfernen.
+
+Die LIFs sind auf der Storage Virtual Machine (SVM) in der Phase Apply Configuration (Precutuover) konfiguriert:
+
+* Vorhandene 7-Mode IP-Adressen werden im administrativen Status „`down`“ erstellt.
+* Neue IP-Adressen werden im administrativen Status „`up`“ erstellt.
+
+
+
+IMPORTANT: FC- und iSCSI-LIFs werden nicht durch das 7-Mode Transition Tool migriert.
+
+.Schritte
+. Führen Sie eine der folgenden Aktionen aus:
++
+|===
+| Ihr Ziel ist | Dann... 
+
+
+ a| 
+Bearbeiten Sie ein vorhandenes LIF
+ a| 
+.. Klicken Sie Auf image:../media/edit_schedule.gif[""] .
+.. Nehmen Sie im Dialogfeld LIF ändern die erforderlichen Änderungen vor, und klicken Sie dann auf *Speichern*.
+
+
+
+
+ a| 
+Entfernen Sie ein vorhandenes LIF
+ a| 
+.. Klicken Sie Auf image:../media/delete_schedule.gif[""] In der Tabelle.
++
+
+NOTE: Sie können ein LIF nur entfernen, wenn das Projekt in der Vorbereitung, der Basiskopie der Daten, der Pause, vor der Übernahme oder dem Update-Status abgeschlossen ist. Sie können jedoch keine LIF entfernen, wenn der Umstellungsvorgang fehlgeschlagen ist.
+
+.. Klicken Sie auf *Wählen Sie 7-Modus LIF*.
+.. Wählen Sie die 7-Mode IP-Adressen für den Umstieg aus.
+.. Geben Sie die Details zum Ziel-Node und Ziel-Port ein.
+.. Klicken Sie Auf *Speichern*.
+
+
+
+
+ a| 
+Fügen Sie eine 7-Mode IP-Adresse hinzu
+ a| 
+** Klicken Sie auf *Wählen Sie 7-Modus LIF*.
+** Wählen Sie die 7-Mode IP-Adressen für den Umstieg aus.
+** Geben Sie die Details zum Ziel-Node und Ziel-Port ein.
+** Klicken Sie Auf *Speichern*.
+
+
+
+
+ a| 
+Fügen Sie ein neues LIF hinzu
+ a| 
+.. Klicken Sie unter der Tabelle auf *Neues LIF hinzufügen*.
+.. Geben Sie die erforderlichen Werte ein.
+.. Klicken Sie Auf *Speichern*.
+
+
+|===
+

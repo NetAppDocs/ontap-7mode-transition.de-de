@@ -1,0 +1,108 @@
+---
+permalink: copy-free/concept_cifs_configurations_supported_unsupported_or_requiring_manual_steps_for_transition.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, supported, unsupported, cifs, configurations 
+summary: Einige CIFS-Konfigurationen werden nicht zu ONTAP migriert, da entweder sie in ONTAP nicht unterstützt werden oder manuell übertragen werden müssen. Sie sollten alle vor-Check-Fehler- und Warnmeldungen überprüfen, um die Auswirkungen solcher Konfigurationen auf den Umstieg zu bewerten. 
+---
+= Unterstützte und nicht unterstützte CIFS Konfigurationen für den Umstieg auf ONTAP
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Einige CIFS-Konfigurationen werden nicht zu ONTAP migriert, da entweder sie in ONTAP nicht unterstützt werden oder manuell übertragen werden müssen. Sie sollten alle vor-Check-Fehler- und Warnmeldungen überprüfen, um die Auswirkungen solcher Konfigurationen auf den Umstieg zu bewerten.
+
+
+
+== Konfigurationen, die für den Umstieg unterstützt werden
+
+Das 7-Mode Transition Tool bietet im allgemeinen die folgenden CIFS-Konfigurationen:
+
+* Bevorzugte DC-Konfiguration für CIFS
+* Konfiguration für die Benutzerzuordnung:
++
+** `/etc/usermap.cfg`
+** `_wafl.nt_admin_priv_map_to_root_`
+
+
+* Lokale CIFS-Benutzer und -Gruppen
+* Symlink- und widelink-Konfiguration (`/etc/symlink.translations`)
+* CIFS-Audit-Konfiguration
+* CIFS-Freigaben
+* CIFS-Freigabe-ACLs
+* Konfiguration von CIFS Home Directorys
+* CIFS-Optionen:
++
+** `cifs.gpo.enable`
+** `cifs.smb2.enable`
+** `cifs.smb2.signing.required`
+** `cifs.wins_servers`
+** `cifs.grant_implicit_exe_perms`
+** `cifs.restrict_anonymous`
+
+
+* SMB2-Verbindungen zu externen Servern, z. B. einem Domänencontroller. Mit dem folgenden Befehl wird diese Unterstützung implementiert:
++
+** `*cifs security modify -vserver SVM1 -smb2-enabled-for-dc-connections*`
+
+
+* Konfiguration der nativen FPolicy-Blockierung von Dateien
+
+
+Details zu diesen CIFS-Konfigurationen finden Sie in den Vorabprüfergebnissen.
+
+
+
+== Konfigurationen, die in ONTAP nicht unterstützt werden
+
+Die folgenden 7-Mode Konfigurationen werden in ONTAP nicht unterstützt. Daher kann die Migration dieser Konfigurationen nicht durchgeführt werden.
+
+* NT4 und Typen der Passwort-Authentifizierung
+* Getrennte Optionen für SMB1- und SMB2-Signaturen
+* CIFS-Statistiken pro Client
+* 
++
+** Authentifizierung für Clients vor Windows NT
+
+
+* Prüfung von Kontoverwaltungsereignissen für lokale Benutzer und Gruppen
+* Usermap-Einträge mit IP-Adressen, Hostnamen, Netzwerknamen oder Netzwerknamen mit in gepunkteter Schreibweise angegebenen Subnetz
+* CIFS-Freigaben mit Zugriffsbeschränkung für Computerkonten
++
+Computerkonten können nach der Umstellung auf alle Freigaben zugreifen.
+
+
+
+
+
+== Konfigurationen, die manuell migriert werden müssen
+
+Einige CIFS-Konfigurationen werden in ONTAP unterstützt, allerdings erfolgt eine Umstellung nicht durch das 7-Mode Transition Tool.
+
+Die folgenden CIFS-Konfigurationen erzeugen eine Warnmeldung in der Vorprüfung. Die folgenden Konfigurationen müssen manuell auf die SVM angewendet werden:
+
+* Antivirus-Einstellungen
+* FPolicy-Konfigurationen
++
+7-Mode FPolicy- und Virenschutz-Server funktionieren nicht mit ONTAP. Sie müssen sich an die Server-Anbieter wenden, um das Upgrade dieser Server durchzuführen. Sie müssen die 7-Mode FPolicy und die Virenschutz-Server jedoch erst stilllegen, wenn Sie die Transition durchführen. Diese Anforderungen sind für den Fall erforderlich, dass Sie einen Rollback des Übergangs beschließen.
+
+* Konfigurationen mit BranchCache
+* Zeichenzuordnungskonfiguration (Charmap)
+* Forcegroup-Attribut von CIFS-Shares, um Dateien mit einer angegebenen UNIX-Gruppe als Eigentümergruppe zu erstellen
+* Maxusers Attribut von CIFS Shares zur Angabe der maximalen Anzahl gleichzeitiger Verbindungen, die zu einer 7-Mode CIFS-Freigabe zulässig sind
+* Storage-Level Access Guard-Konfigurationen (LAG)
+* Share-Level ACLs mit Berechtigung im UNIX-Stil
+* Teilen Sie ACLs für UNIX-Benutzer und -Gruppen
+* Authentisierungsebene für LAN Manager
+* NetBIOS Aliase
+* CIFS-Suchdomänen
+* Einige CIFS-Optionen
++
+Weitere Informationen zu diesen Optionen finden Sie in den Ergebnissen vor der Prüfung.
+
+
+
+*Verwandte Informationen*
+
+xref:task_customizing_configurations_for_transition.adoc[Anpassung des Übergangs von 7-Mode Konfigurationen]

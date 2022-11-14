@@ -1,0 +1,60 @@
+---
+permalink: snapmirror/task_transitioning_a_volume_snapmirror_relationship_in_parallel.html 
+sidebar: sidebar 
+keywords: ontap, 7, mode, transition, snapmirror, volume, relationship, parallel 
+summary: Sie können die primären und sekundären Volumes einer 7-Mode SnapMirror Beziehung parallel und innerhalb desselben Umstellungsfensters verschieben. Anschließend müssen Sie nach der Transition die SnapMirror Volume-Beziehung in den ONTAP Clustern manuell einrichten. Sie müssen diese Methode für die Transition von SnapLock-Compliance-Volumes verwenden. 
+---
+= Parallel zur Transition einer Volume-SnapMirror-Beziehung
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können die primären und sekundären Volumes einer 7-Mode SnapMirror Beziehung parallel und innerhalb desselben Umstellungsfensters verschieben. Anschließend müssen Sie nach der Transition die SnapMirror Volume-Beziehung in den ONTAP Clustern manuell einrichten. Sie müssen diese Methode für die Transition von SnapLock-Compliance-Volumes verwenden.
+
+* Sie müssen die primären und sekundären Cluster und SVMs einrichten.
+* Für die Einrichtung einer SVM-Peer-Beziehung beim Übergang einer Volume-SnapMirror-Beziehung müssen folgende Bedingungen erfüllt sein:
++
+** Beim sekundären Cluster sollte keine SVM mit demselben Namen wie die der primären SVM vorhanden sein.
+** Für das primäre Cluster sollte keine SVM mit dem Namen der sekundären SVM vorhanden sein.
+** Sie müssen die Informationen zur Vorbereitung auf den Umstieg überprüft haben.
++
+xref:task_preparing_for_transition.adoc[Die Vorbereitung auf den Umstieg ist möglich]
+
+
+
+
+
+Eine 7-Mode SnapMirror Beziehung zwischen SnapLock Compliance Volumes muss parallel migriert werden, da die Neusynchronisierung von SnapMirror einer Transition Data Protection (TDP) Beziehung mit SnapLock Compliance Volumes nicht unterstützt wird. Daher kann keine SnapMirror Disaster Recovery-Beziehung (DR) zwischen primären 7-Mode Volumes und sekundären ONTAP Volumes mit SnapLock Compliance Volumes eingerichtet werden.
+
+. Führen Sie zum Wechsel der sekundären und primären Volumes der SnapMirror Beziehung die Schritte für die Migration eines Standalone-Volume durch.
++
+Vor der Transition der sekundären 7-Mode Volumes sind für die 7-Mode SnapMirror Beziehungen keine manuellen Eingriffe erforderlich. Dadurch wird sichergestellt, dass die sekundären 7-Mode Volumes als schreibgeschützte Volumes zu ONTAP migriert werden.
+
++
+xref:task_transitioning_a_stand_alone_volume.adoc[Übergang eines eigenständigen Volumens]
+
+. Erstellung einer Cluster-übergreifende SVM-Peer-Beziehung zwischen den SVMs, die die übergewechselt primären und sekundären Volumes enthalten
++
+https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-sag/home.html["Systemadministration"]
+
+. Erstellung einer Volume SnapMirror Beziehung zwischen den übergewechselt primären und sekundären Volumes
++
+https://docs.netapp.com/ontap-9/topic/com.netapp.doc.exp-sm-ic-cg/home.html["Volume Disaster Recovery Express Vorbereitung"]
+
+. Auf dem Ziel-Volume werden das Quell-Volume und das Ziel-Volume der SnapMirror Beziehung neu synchronisiert.
++
+
+IMPORTANT: Mindestens eine gemeinsame Snapshot Kopie muss zwischen den Quell- und Ziel-Volumes vorhanden sein.
+
+. Überwachen Sie den Status der SnapMirror Datentransfers.
++
+
+IMPORTANT: Sie müssen auf den Quell- und Ziel-Volumes keinen Vorgang, wie z. B. die Verschiebung eines Volumes oder SnapMirror Unterbrechung, durchführen, bis die Neusynchronisierung erfolgreich abgeschlossen ist. Sie müssen sicherstellen, dass die Neusynchronisierung nicht abgebrochen und erfolgreich abgeschlossen wurde. Andernfalls können die Volumes in einen inkonsistenten Status geändert werden.
+
+
+
+*Verwandte Informationen*
+
+xref:concept_guidelines_for_transitioning_snaplock_volumes.adoc[Richtlinien für die Transition von SnapLock Volumes]

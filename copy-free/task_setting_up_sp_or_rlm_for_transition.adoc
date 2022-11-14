@@ -1,0 +1,151 @@
+---
+permalink: copy-free/task_setting_up_sp_or_rlm_for_transition.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, sp, rlm, system, set, up 
+summary: 'Wenn der Service-Prozessor \(SP\) oder das Remote LAN-Modul \(RLM\) nicht bereits in den 7-Mode Storage-Systemen konfiguriert ist oder Sie den SP oder RLM mit einer IPv6-Adresse konfiguriert haben, müssen Sie den SP oder RLM mit einer IPv4-Adresse konfigurieren.' 
+---
+= Einrichtung des SP oder RLM auf den 7-Mode Systemen für einen Copy-Free Transition
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Wenn der Service-Prozessor (SP) oder das Remote LAN-Modul (RLM) nicht bereits in den 7-Mode Storage-Systemen konfiguriert ist oder Sie den SP oder RLM mit einer IPv6-Adresse konfiguriert haben, müssen Sie den SP oder RLM mit einer IPv4-Adresse konfigurieren.
+
+* SSHv2 muss auf dem Host unterstützt werden, auf dem das 7-Mode Transition Tool installiert ist.
+* Sie müssen Zugriff auf das SP- oder RLM-Konto „`naroot`“ oder ein Data ONTAP-Benutzerkonto mit den Anmeldedaten der Rolle „`admin`“ oder auf eine Rolle mit „`Login-sp`“-Fähigkeit haben.
+
+
+7-Mode Transition Tool greift auf die 7-Mode Systeme zu, wenn die Systeme während des Übergangs angehalten werden. Dazu verwendet man ein Remote Management-Gerät, das als SP oder RLM eingesetzt werden kann, je nachdem, welcher auf Ihrem System verfügbar ist. Sie müssen den SP oder RLM mit einer IPv4-Adresse konfigurieren. Die IPv6-Konfiguration wird für die Umstellung nicht unterstützt.
+
+.Schritte
+* Konfigurieren Sie den SP und ermöglichen Sie den SP-Zugriff auf den Host, auf dem das 7-Mode Transition Tool installiert ist.
++
+.. Konfigurieren und aktivieren Sie das SP-Netzwerk mit einer IPv4-Adresse: +
+`*sp setup*`
++
+[listing]
+----
+system1> sp setup
+   The Service Processor (SP) provides remote management capabilities
+   including console redirection, logging and power control.
+   It also extends autosupport by sending
+   additional system event alerts. Your autosupport settings are use
+   for sending these alerts via email over the SP LAN interface.
+Would you like to configure the SP? y
+Would you like to enable DHCP on the SP LAN interface? n
+Please enter the IP address of the SP []: 192.168.123.98
+Please enter the netmask of the SP []: 255.255.255.0
+Please enter the IP address for the SP gateway []: 192.168.123.1
+Do you want to enable IPv6 on the SP ? n
+Verifying mailhost settings for SP use...
+----
+.. Überprüfen Sie die SP-Netzwerkeinstellungen:
++
+`*sp status*`
+
++
+[listing]
+----
+system1> sp status
+        Service Processor      Status: Online
+             Firmware Version:   1.2
+             Mgmt MAC Address:   00:A0:98:01:7D:5B
+             Ethernet Link:      up
+             Using DHCP:         no
+    IPv4 configuration:
+             IP Address:         192.168.123.98
+             Netmask:            255.255.255.0
+             Gateway:            192.168.123.1
+----
+.. Bieten Sie SP-Zugriff auf den Host, auf dem das 7-Mode Transition Tool installiert ist:
++
+`*options sp.ssh.access host=__7mtt_host__*`
+
++
+`_7mtt_host_` Ist der Hostname oder die IP-Adresse des Hosts, auf dem das 7-Mode Transition Tool installiert ist.
+
++
+
+NOTE: Wenn Sie den SP konfigurieren, wird allen Hosts standardmäßig Zugriff gewährt. Sie müssen diesen Schritt durchführen, um den Zugriff auf bestimmte Hosts einzuschränken.
+
+.. Melden Sie sich vom Host, auf dem das 7-Mode Transition Tool installiert ist, beim SP an: +
+`*ssh _username@SP_IP_address_*`
++
+Geben Sie bei der entsprechenden Aufforderung das Passwort für den Benutzernamen ein.
+
++
+Die SP-Eingabeaufforderung wird angezeigt und gibt an, dass Sie auf die SP-CLI zugreifen können.
+
+
+
+* Konfigurieren Sie das RLM und bieten Sie RLM-Zugriff auf den Host, auf dem das 7-Mode Transition Tool installiert ist.
++
+.. Konfigurieren Sie das RLM-Netzwerk mit einer IPv4-Adresse: +
+`*rlm setup*`
++
+Sie müssen im RLM-CLI-Assistenten die IP-Adresse, Netzwerkmaske und Gateway für das RLM eingeben.
+
++
+[listing]
+----
+system> rlm setup
+	  The Remote LAN Module (RLM) provides remote management capabilities
+ 	 including console redirection, logging and power control.
+ 	 It also extends autosupport by sending
+ 	 additional system event alerts. Your autosupport settings are used
+ 	 for sending these alerts via email over the RLM LAN interface.
+Would you like to configure the RLM? y
+Would you like to enable DHCP on the RLM LAN interface? n
+Please enter the IP address for the RLM []:192.168.123.98
+Please enter the netmask for the RLM []:255.255.255.0
+Please enter the IP address for the RLM gateway []:192.168.123.1
+Do you want to enable IPv6 on the RLM ? n
+Verifying mailhost settings for RLM use...
+----
+.. Überprüfen Sie, ob die RLM-Netzwerkkonfiguration korrekt ist:
++
+`*rlm status*`
+
++
+[listing]
+----
+system> rlm status
+	Remote LAN Module    Status: Online
+		Part Number:        110-00030
+		Revision:           A0
+		Serial Number:      123456
+		Firmware Version:   4.0
+		Mgmt MAC Address:   00:A0:98:01:7D:5B
+		Ethernet Link:      up, 100Mb, full duplex, auto-neg complete
+		Using DHCP:         no
+	IPv4 configuration:
+		IP Address:         192.168.123.98
+		Netmask:            255.255.255.0
+		Gateway:            192.168.123.1
+----
+.. Bieten Sie RLM-Zugriff auf den Host, auf dem das 7-Mode Transition Tool installiert ist:
++
+`+options rlm.ssh.access host=__7mtt_host__*`
+
++
+7mtt_Host ist der Hostname oder die IP-Adresse des Hosts, auf dem das 7-Mode Transition Tool installiert ist.
+
++
+
+NOTE: Wenn Sie das RLM konfigurieren, erhalten alle Hosts standardmäßig Zugriff. Sie müssen diesen Schritt durchführen, um den Zugriff auf bestimmte Hosts einzuschränken.
+
+.. Von dem Host, auf dem das 7-Mode Transition Tool installiert ist, loggen Sie sich in das RLM ein:
++
+`*ssh _username@RLM_IP_address_*`
+
++
+Wenn Sie dazu aufgefordert werden, müssen Sie das Passwort für den Benutzernamen eingeben.
+
++
+Die RLM-Eingabeaufforderung wird angezeigt und gibt an, dass Sie auf die RLM-CLI zugreifen können.
+
+
+
+

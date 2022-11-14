@@ -1,0 +1,279 @@
+---
+permalink: copy-based/concept_how_you_transition_volumes_in_a_snapmirror_relationship.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, snapmirror, transition, volumes, relationship 
+summary: Falls Sie 7-Mode Volumes in einer SnapMirror Beziehung verschieben möchten, müssen zuerst die sekundären Volumes migriert werden. Anschließend wird eine SnapMirror Beziehung zwischen den primären 7-Mode Volumes und sekundären ONTAP Volumes hergestellt. 
+---
+= Wie Sie Volumes in einer SnapMirror Beziehung verschieben
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Falls Sie 7-Mode Volumes in einer SnapMirror Beziehung verschieben möchten, müssen zuerst die sekundären Volumes migriert werden. Anschließend wird eine SnapMirror Beziehung zwischen den primären 7-Mode Volumes und sekundären ONTAP Volumes hergestellt.
+
+Nach dem Wechsel der primären Volumes richtet das 7-Mode Transition Tool eine SnapMirror Volume-Beziehung zwischen primären und sekundären ONTAP Volumes ein.
+
+
+NOTE: Das 7-Mode Transition Tool stellt SnapLock Compliance Volumes in einer SnapMirror Beziehung nicht automatisch um. Alle SnapLock-Compliance Volumes in einer SnapMirror Beziehung müssen als eigenständige Volumes migriert werden. Nachdem die primären und sekundären SnapLock Compliance Volumes zu ONTAP migriert wurden, müssen Sie die Neusynchronisierung von SnapMirror zwischen diesen Volumes manuell durchführen.
+
+Sie können Prüfung, Basiskopie, inkrementelle Transfers durchführen und Konfiguration (Vorumstellung) auf den sekundären und primären Projekten gleichzeitig anwenden. Die Storage-Umstellung für das sekundäre Projekt muss jedoch zuerst durchgeführt werden.
+
+
+
+== Vorbereitungsphase
+
+In dieser Phase werden das 7-Mode System, die Cluster, die Volumes und die IP-Adressen ausgewählt. Das 7-Mode Transition Tool führt in dieser Phase folgende Aufgaben durch:
+
+. Fügt 7-Mode Storage-System- und Volume-Informationen hinzu
+. Sammelt Informationen zu 7-Mode Quell-Volumes und SnapMirror Beziehungen:
++
+** Für den Umstieg auf ein sekundäres Volume werden Informationen zum primären 7-Mode System erfasst
+** Für den Umstieg auf ein primäres Volume, das Informationen zum sekundären 7-Mode System erfasst
+
+
+. Führt den Vorcheck für den Übergang aus
+. Weitere Informationen zu Cluster, SVM und Aggregaten
+. Erfasst IP-Adressen, die auf der SVM konfiguriert werden müssen:
++
+** Auswählen von IP-Adressen, die im 7-Mode-System vorhanden sind
+** Geben Sie neue IP-Adressen an, die für die SVM konfiguriert werden müssen
++
+
+NOTE: Die Umstellung von iSCSI und FC LIFs (SAN) wird vom Tool nicht unterstützt. Vor der Transition müssen Sie die SAN-LIFs auf der SVM manuell konfigurieren.
+
+
+
+. Erstellt Zeitpläne für Datenkopieerstellung für Basistransfers und inkrementelle Übertragungen.
+. Wenn das Projekt SnapLock-Volumes enthält, sammelt Informationen über die Lese-/Schreib-SnapLock-Volumes, für die eine Verifikation der Kontrollkette erforderlich ist, sowie Details zum ONTAP-Volume, in dem die während des Verifizierungsvorgangs für die Kette der Kustodie generierten Fingerabdruckdaten gespeichert werden.
++
+
+NOTE: Die SnapLock Chain of Custody Verification wird nur für Lese-/Schreib-SnapLock-Volumes mit 7-Mode unterstützt. Für schreibgeschützte Volumes wird dies nicht unterstützt. Die Überprüfung der SnapLock-Kette von Kustodie wird für SnapLock-Volumes mit Dateien, die Namen mit nicht-ASCII-Zeichen enthalten, nicht unterstützt.
+
+. Planung der Konfigurationsübergang durch Auswahl der 7-Mode Konfigurationen, die auf Ziel-SVM und Ziel-Volumes migriert werden müssen
+
+
+Sie dürfen die Objekte (Volumes, IP-Adressen, Systeminformationen usw.) auf dem Controller nicht ändern, nachdem Sie Fehler und Warnungen behoben haben, die von der Vorabprüfung gemeldet werden.
+
+
+
+== Phase der Datenkopieerstellung
+
+In dieser Phase werden die Daten aus den 7-Mode Volumes in die ONTAP Volumes kopiert. Das 7-Mode Transition Tool führt in dieser Phase folgende Aufgaben durch:
+
+. Erstellt die ONTAP Volumes mit schreibgeschütztem Zugriff
+. Einrichten einer Peer-Beziehung zwischen dem 7-Mode System und der SVM
+. Richten eine SnapMirror Beziehung zwischen den 7-Mode Volumes und ONTAP Volumes ein
+. Abschluss des Basistransfers basierend auf den Zeitplaneingaben
+. Durchführung geplanter Updates von SnapMirror Datenkopieerstellung auf den ONTAP Volumes
+
+
+
+
+== Anwenden der Konfigurationsphase (Vorumstellungsphase)
+
+Als Best Practice empfiehlt es sich, die Konfiguration * einige Tage oder Wochen vor dem geplanten Umstellungsfenster auszuführen. Durch diese Vorabprüfung wird ausreichend Zeit benötigt, um zu überprüfen, ob alle Konfigurationen ordnungsgemäß angewendet werden und ob Änderungen erforderlich sind.
+
+In dieser Phase werden Konfigurationen aus den 7-Mode Volumes in die ONTAP Volumes kopiert.
+
+Es gibt zwei Modi für die Phase Apply Configuration (Preputuover): Vorumlesen schreibgeschützt und Vorstufen lesen/schreiben.
+
+Der Vorüberlesen-/Schreibmodus wird nicht unterstützt, wenn das Projekt Folgendes enthält:
+
+* SAN Volumes und der Ziel-Cluster führen Data ONTAP 8.3.1 oder eine frühere Version aus
++
+In dieser Situation werden die folgenden Konfigurationen nicht in der Phase der Umstellungskonfiguration (Vorumstellung) angewendet, sondern in der Umstellungsphase angewendet:
+
++
+** SAN-Konfigurationen
+** Snapshot Zeitplan-Konfigurationen
+
+
+* SnapLock Compliance Volumes
++
+Wenn das Projekt SnapLock-Compliance-Volumes enthält, werden die Snapshot-Planungskonfigurationen in der Phase Apply Configuration (Vorumover) nicht angewendet. Stattdessen werden diese Konfigurationen während der Umstellungsphase angewendet.
+
++
+xref:concept_considerations_for_transitioning_of_snaplock_compliance_volumes.adoc[Überlegungen für den Wechsel zu SnapLock Compliance Volumes].
+
+
+
+Wenn auf dem Zielcluster Data ONTAP 8.3.1 oder früher ausgeführt wird und Sie die Anwendung Konfiguration (Vorumschaltung) im Lese-/Schreibmodus für NAS-Volumes ausführen möchten, müssen Sie separate Projekte für die NAS- und SAN-Volumes erstellen. Diese Aktion ist erforderlich, da der Lese-/Schreibmodus für die Apply-Konfiguration (Precutuover) nicht unterstützt wird, wenn Sie SAN-Volumes in Ihrem Projekt haben.
+
+Wenn das Projekt SnapLock-Compliance-Volumes enthält und Sie die Anwendung der Konfiguration (Vorumschaltung) im Lese-/Schreibmodus für nicht-SnapLock Compliance-Volumes ausführen möchten, müssen Sie separate Projekte für SnapLock-Compliance-Volumes und nicht-SnapLock-Compliance-Volumes erstellen. Diese Aktion ist erforderlich, da der Lese-/Schreibmodus für die Apply-Konfiguration (Precutuover) nicht unterstützt wird, wenn Sie SnapLock-Compliance-Volumes in Ihrem Projekt haben.
+
+Die folgenden Schritte werden vom Werkzeug im *Vorumlesen schreibgeschützten Modus* durchgeführt:
+
+. Inkrementelle Aktualisierung von 7-Mode Volumes auf ONTAP Volumes
+. Bricht die SnapMirror Beziehung zwischen 7-Mode Volumes und ONTAP Volumes auf
++
+
+NOTE: Bei SnapLock Compliance Volumes ist die SnapMirror Beziehung zwischen dem 7-Mode Volume und den ONTAP Volumes nicht beschädigt. Dies liegt daran, dass die Neusynchronisierung von SnapMirror zwischen 7-Mode und ONTAP Volumes für SnapLock Compliance Volumes nicht unterstützt wird.
+
+. Erfassung von Konfigurationen aus 7-Mode Volumes und Anwendung der Konfigurationen auf die ONTAP Volumes und SVM
+. Konfiguration der Daten-LIFs auf der SVM:
++
+** Vorhandene 7-Mode IP-Adressen werden auf der SVM im administrativen Ausfall erstellt.
+** Neue IP-Adressen werden auf der SVM im administrativen up-Status erstellt.
+
+
+. Synchronisiert die SnapMirror Beziehung zwischen 7-Mode Volumes und ONTAP Volumes neu
+
+
+Die folgenden Schritte werden im Modus *Vorumlesen/Schreiben* durchgeführt:
+
+. Inkrementelle Aktualisierung von 7-Mode Volumes auf ONTAP Volumes
+. Bricht die SnapMirror Beziehung zwischen 7-Mode Volumes und ONTAP Volumes auf
+. Erfassung von Konfigurationen aus 7-Mode Volumes und Anwendung der Konfigurationen auf die ONTAP Volumes und SVM
+. Konfiguration der Daten-LIFs auf der SVM:
++
+** Vorhandene 7-Mode IP-Adressen werden auf der SVM im administrativen Ausfall erstellt.
+** Neue IP-Adressen werden auf der SVM im administrativen up-Status erstellt.
+
+
+. Testen des Lese-/Schreibzugriffs auf den ONTAP-Volumes während des Apply-Configuration (Precutuover)-Tests
++
+Diese ONTAP-Volumes sind nach Anwendung der Konfiguration für Lese-/Schreibzugriff verfügbar. Nach der Anwendung der Konfiguration sind die ONTAP-Volumes für Lese-/Schreibzugriff verfügbar, sodass der Lese-/Schreib-Datenzugriff während der Apply-Configuration (Precutuover)-Tests auf diesen Volumes getestet werden kann.
+
+. Manuell: Überprüfen der Konfigurationen und des Datenzugriffs in ONTAP
+. Manuell: Test abschließen
++
+Die ONTAP-Volumes werden erneut synchronisiert.
+
+
+
+
+
+== Phase der Storage-Umstellung (sekundäre Volumes
+
+Die folgende Abbildung zeigt den Übergang eines sekundären Volumes:
+
+image::../media/transition_secondary.gif[Sekundärübergang]
+
+|===
+| Signifikant | Schritte 
+
+
+ a| 
+Storage-Umstellung (sekundäre Volumes)
+ a| 
+. Transition der sekundären Volumes
+. SnapMirror Beziehung zwischen den sekundären Volumes zerbrechen und löschen
+. Einrichten einer DR-Beziehung zwischen dem primären 7-Mode und sekundären ONTAP Volumes
+
+
+|===
+Das 7-Mode Transition Tool führt in dieser Phase folgende Aufgaben durch:
+
+. Optional: Führt ein On-Demand SnapMirror Update auf den sekundären ONTAP Volumes durch
+. Manuell: Trennen des Clientzugriffs, falls erforderlich
+. Letztes SnapMirror Update vom sekundären 7-Mode Volume auf das sekundäre ONTAP Volume
+. Bricht die SnapMirror Beziehung zwischen dem sekundären 7-Mode-Volume und dem sekundären ONTAP-Volume auf und löscht es, und macht die Ziel-Volumes Lese-/Schreibzugriff
+. Wendet die Konfiguration der Snapshot-Zeitpläne an, wenn auf dem Ziel-Cluster Data ONTAP 8.3.0 oder 8.3.1 ausgeführt wird und das Projekt SAN Volumes enthält
+. Wendet SAN-Konfigurationen an, wenn auf dem Ziel-Cluster Data ONTAP 8.3.1 oder eine frühere Version ausgeführt wird
++
+
+NOTE: Während dieses Vorgangs werden alle erforderlichen Initiatorgruppen erstellt. Für die sekundären Volumes wird das Zuordnen von LUNs zu Initiatorgruppen während des Umstellungsvorgangs nicht unterstützt. Sie müssen die sekundären LUNs manuell zuordnen, nachdem Sie die Storage-Umstellung der primären Volumes abgeschlossen haben. Bei Standalone-Volumes, die im sekundären Projekt enthalten sind, werden LUNs während dieses Vorgangs den Initiatorgruppen zugeordnet.
+
+. Wendet ggf. Kontingentkonfigurationen an
+. Richten eine SnapMirror Beziehung zwischen den Volumes auf dem primären 7-Mode System und den sekundären ONTAP Volumes ein
++
+Der SnapMirror Zeitplan, der zur Aktualisierung der SnapMirror Beziehungen zwischen den primären 7-Mode Volumes und 7-Mode sekundären Volumes verwendet wird, wird auf die SnapMirror Beziehungen zwischen den primären 7-Mode Volumes und sekundären ONTAP Volumes angewendet.
+
+. Entfernt die vorhandenen 7-Mode IP-Adressen, die für den Wechsel vom 7-Mode System ausgewählt wurden, und bringt die Daten-LIFs auf der SVM in den Administrationsstatus
++
+
+NOTE: SAN LIFs wurden nicht durch das 7-Mode Transition Tool migriert.
+
+. Optional: Versetzen der 7-Mode Volumes in den Offline-Modus
+
+
+
+
+== Phase der Storage-Umstellung (primäre Volumes
+
+Die folgende Abbildung zeigt den Übergang eines primären Volume:
+
+image::../media/transition_primary.gif[Wechsel primär]
+
+|===
+| Signifikant | Schritte 
+
+
+ a| 
+Storage-Umstellung (primäre Volumes)
+ a| 
+. Transition der primären Volumes
+. Trennen der Clients vom 7-Mode System (Storage-Umstellung)
+. Die DR-Beziehung zwischen dem primären 7-Mode und den sekundären ONTAP Volumes wird unterbrochen und gelöscht
+. SnapMirror Beziehung zwischen den primären Volumes zerbrechen und löschen
+. Einrichtung einer SVM-Peer-Beziehung zwischen dem primären und sekundären ONTAP Volumes
+. Erneutes Synchronisieren der SnapMirror Beziehung zwischen ONTAP Volumes
+. Client-Zugriff auf ONTAP Volumes wird aktiviert
+
+
+|===
+Das 7-Mode Transition Tool führt in dieser Phase folgende Aufgaben durch:
+
+. Optional: Führt ein On-Demand SnapMirror Update auf den sekundären ONTAP Volumes durch
+. Manuell: Trennen des Client-Zugriffs vom 7-Mode System
+. Führt ein letztes inkrementelles Update vom primären 7-Mode Volume und dem primären ONTAP Volume durch
+. Bricht die SnapMirror Beziehung zwischen dem primären 7-Mode Volume und dem primären ONTAP Volume auf und löscht, und macht die Ziel-Volumes Lese-/Schreibzugriff
+. Wendet die Konfiguration der Snapshot-Zeitpläne an, wenn auf dem Ziel-Cluster Data ONTAP 8.3.0 oder 8.3.1 ausgeführt wird und das Projekt SAN Volumes enthält
+. Wendet SAN-Konfigurationen an, wenn auf dem Ziel-Cluster Data ONTAP 8.3.1 oder eine frühere Version ausgeführt wird
+. Wendet ggf. Kontingentkonfigurationen an
+. Bricht und löscht die SnapMirror Beziehung zwischen dem primären 7-Mode Volume und dem sekundären ONTAP Volume
+. Einrichten von Cluster-Peer- und SVM-Peer-Beziehungen zwischen dem primären und dem sekundären Cluster
+. Einrichten einer SnapMirror Beziehung zwischen primären und sekundären ONTAP-Volumes
+. Synchronisiert die SnapMirror-Beziehung zwischen den ONTAP Volumes neu
+. Entfernt die vorhandenen 7-Mode IP-Adressen, die für die Transition vom 7-Mode System ausgewählt wurden, und bringt die Daten-LIFs auf der primären SVM in den Administrationsstatus
++
+
+NOTE: SAN LIFs wurden nicht durch das 7-Mode Transition Tool migriert.
+
+. Optional: Versetzen der 7-Mode Volumes in den Offline-Modus
+
+
+
+
+== Kontrollkette für SnapLock Volumes
+
+Führen Sie die Verifizierungsfunktion der Kette von Kustodie durch.
+
+. Listet alle WORM-Dateien von 7-Mode Volumes auf
+. Berechnet den Fingerabdruck für jede WORM-Datei auf den 7-Mode-Volumes (im vorherigen Schritt aufgeführt) und berechnet den Fingerabdruck für die entsprechende WORM-Datei auf den umgerechneten ONTAP-Volumes.
+. Generiert einen Bericht mit Details über die Anzahl der Dateien mit übereinstimmenden und nicht übereinstimmenden Fingerabdrücken und den Grund für die Diskrepanz
+
+
+[NOTE]
+====
+* Die Verifizierungsfunktion „Kette der Kustodie“ wird nur für Lese-/Schreib-SnapLock-Volumes unterstützt, die Dateinamen mit nur ASCII-Zeichen enthalten.
+* Dieser Vorgang kann entsprechend der Anzahl der Dateien auf den 7-Mode SnapLock Volumes viel Zeit in Anspruch nehmen.
+
+
+====
+
+
+== Schritte nach der Transition
+
+Nachdem die Umstellungsphase erfolgreich abgeschlossen und der Umstieg abgeschlossen ist, müssen Sie die folgenden Aufgaben nach der Transition ausführen:
+
+. Manuelle Schritte bis zu den Umstiegsfunktionen des 7-Mode Systems durchführen, wurden jedoch nicht automatisch vom Tool auf die SVM umgestellt.
+. Wenn auf dem Ziel-Cluster Data ONTAP 8.3.1 oder älter ausgeführt wird, müssen Sie die sekundären LUNs manuell zuordnen.
+. Bei SAN-Übergängen konfigurieren Sie die Hosts manuell neu.
++
+http://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-7mtt-sanspl/home.html["San-Host-Umstellung und Problembehebung"]
+
+. Vergewissern Sie sich, dass die SVM für die Bereitstellung von Daten für die Clients bereit ist, indem Sie Folgendes überprüfen:
++
+** Die Volumes auf der SVM sind online und lesen/schreiben.
+** Die umgestiegen-IP-Adressen sind auf der SVM verfügbar und erreichbar.
+
+
+. Umleiten des Client-Zugriffs auf die ONTAP Volumes
+
+
+*Verwandte Informationen*
+
+xref:task_transitioning_volumes_using_7mtt.adoc[Migration von Daten und Konfiguration von 7-Mode Volumes]

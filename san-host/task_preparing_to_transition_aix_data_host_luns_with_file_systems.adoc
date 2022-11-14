@@ -1,0 +1,35 @@
+---
+permalink: san-host/task_preparing_to_transition_aix_data_host_luns_with_file_systems.html 
+sidebar: sidebar 
+keywords: ontap, san, host, transition, transition, aix, host, data, lun, file, system 
+summary: Bevor Sie AIX Host Data LUNs mit Dateisystemen von Data ONTAP 7-Mode auf Clustered Data ONTAP umstellen, müssen Sie die für den Umstieg erforderlichen Informationen erfassen. 
+---
+= Vorbereitung auf die Umstellung von AIX-Host-Daten-LUNs mit Dateisystemen
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Bevor Sie AIX Host Data LUNs mit Dateisystemen von Data ONTAP 7-Mode auf Clustered Data ONTAP umstellen, müssen Sie die für den Umstieg erforderlichen Informationen erfassen.
+
+. Geben Sie auf dem 7-Mode Controller den Namen der zu migrierte LUN an:
++
+`*lun show*`
+
+. Suchen Sie auf dem Host den SCSI-Gerätenamen für die LUN:
++
+`*sanlun lun show*`
+
++
+Der Name des SCSI-Geräts befindet sich in der Spalte Gerätename.
+
+. Führen Sie eine Liste mit physischen Volumes auf, die von der Volume-Gruppe verwendet werden, die in den zu miglierenden Daten-LUNs konfiguriert ist. Notieren Sie sie die physischen Volumes, die von der
++
+`*lsvg -p _vg_name_*`
+
+. Listen Sie die von der Volume-Gruppe verwendeten logischen Volumes auf und notieren Sie sie:
++
+`*lsvg -l _vg_name_*`
+
+

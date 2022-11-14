@@ -1,0 +1,26 @@
+---
+permalink: copy-free/concept_collecting_and_assessing_inventory_information.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, collecting, assessing, inventory, information 
+summary: Sie können Inventarinformationen von Controllern, Hosts und FC Switches erfassen. Anschließend können Sie die Features und Funktionen dieser Systeme beurteilen und die Funktionsweise in der für den Wechsel ausgewählten ONTAP Version ermitteln. 
+---
+= Sammeln und Bewerten der Bestandsdaten
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können Inventarinformationen von Controllern, Hosts und FC Switches erfassen. Anschließend können Sie die Features und Funktionen dieser Systeme beurteilen und die Funktionsweise in der für den Wechsel ausgewählten ONTAP Version ermitteln.
+
+Sie haben zwei Möglichkeiten, Bestandsdaten zu erfassen:
+
+* Wenn die Sicherheit Ihrer Umgebung dies zulässt, können Sie das 7-Mode Transition Tool installieren und dann die Bestandsdaten mit diesem erfassen.
+* Sie können den vom Inventory Collect Tool generierten XML-Bericht importieren und anschließend die Bewertung durchführen.
+
+
+In beiden Fällen müssen Sie die neueste Version des Inventursammelwerkzeugs verwenden, um den Bestand zu erfassen.
+
+Um die Inventarinformationen für einen Copy-Free Transition zu bewerten, müssen Sie beide Nodes des 7-Mode HA-Paars der Quelle auswählen. Obwohl die Bewertung pro Node durchgeführt wird, kann das gesamte HA-Paar nicht verschoben werden, wenn sich ein einzelner Node nicht für die Transition qualifiziert ist.
+
+image::../media/delete_me_cbt_assessment_workflow.gif[Löschen sie den cbt-Bewertungsworkflow]

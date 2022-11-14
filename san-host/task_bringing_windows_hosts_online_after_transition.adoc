@@ -1,0 +1,79 @@
+---
+permalink: san-host/task_bringing_windows_hosts_online_after_transition.html 
+sidebar: sidebar 
+keywords: ontap, san, host, transition, windows, host, online 
+summary: 'Nachdem Sie Ihre LUNs mit dem 7-Mode Transition Tool \(7MTT\) für Windows Hosts migriert haben, müssen Sie mehrere Schritte durchführen, um Ihren Host wieder online zu bringen und mit der Datenpflege zu beginnen.' 
+---
+= Versetzen von Windows Hosts nach dem Umstieg in den Online-Modus
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Nach der Transition der LUNs mit dem 7-Mode Transition Tool (7MTT) für Windows Hosts müssen Sie Ihren Host mehrmals online bringen und wieder mit der Datenpflege beginnen.
+
+Falls Sie eine Copy-Free Transition (CFT) durchführen, werden Vorgehensweisen für `vol rehost` Muss vollständig sein. Siehe link:https://docs.netapp.com/us-en/ontap-7mode-transition/copy-free/index.html["Copy-Free Transition Guide Für 7-Mode Transition Tool"] Entsprechende Details.
+
+* Führen Sie bei Copy-Based Transitions (CBTs) diese Schritte nach Abschluss des Storage-Umstellungsvorgangs im 7-Mode Transition Tool (7MTT) durch.
+* Führen Sie bei CFTs diese Schritte aus, nachdem Sie den Vorgang Import & Data Configuration im 7MTT abgeschlossen haben.
++
+.. Erzeugen der LUN-Zuordnungsdatei für 7-Mode zu ONTAP:
++
+*** Führen Sie bei Copy-Based Transitions den folgenden Befehl von dem Host aus, auf dem das 7MTT installiert ist: +
+`*transition cbt export lunmap -p _project-name_ -o _file_path_*`
++
+Beispiel:
+
++
+`*transition cbt export lunmap -p SanWorkLoad -o c:/Libraires/Documents/7-to-C-LUN-MAPPING.csv*`
+
+*** Führen Sie bei Copy-Free Transitions den folgenden Befehl aus dem System aus, auf dem das 7MTT installiert ist: +
+`*transition cft export lunmap -p _project-name_ -s _svm-name_ -o _output-file_*`
++
+
+NOTE: Sie müssen diesen Befehl für jede Ihrer Storage Virtual Machines (SVMs) ausführen.
+
++
+Beispiel:
+
++
+`*transition cft export lunmap -p SANWorkLoad -s svml -o c:/Libraries/Documents/7-to-C-LUN-MAPPING-svml.csv*`
+
+
+
+.. Wenn der Windows-Host über SAN gestartet wurde und die Boot-LUN migriert wurde, schalten Sie den Host ein.
+.. Aktualisieren Sie das FC-BIOS, damit das System von der LUN auf dem geclusterten Data ONTAP Controller gebootet werden kann.
++
+Weitere Informationen finden Sie in der HBA-Dokumentation.
+
+.. Lesen Sie auf dem Windows-Host die Festplatten aus dem Festplatten-Manager erneut.
+.. Ermitteln Sie die Seriennummern der LUNs, LUN-IDs und die entsprechenden physischen Windows-Festplattennummern der LUNs, die dem Host zugeordnet sind.
++
+*** Für Systeme mit Data ONTAP ONTAPDSM: Verwenden Sie das Data ONTAPDSM Management Extension Snap-in oder das Cmdlet "Get-sandisk Windows PowerShell".
+*** Für Systeme, auf denen MSDSM ausgeführt wird: Verwenden Sie das Inventory Collect Tool (ICT).
++
+Die LUN-ID, die LUN-Seriennummer und die entsprechende Seriennummer werden auf der Registerkarte SAN-Host-LUNs erfasst.
+
+
+
+.. Verwenden Sie die LUN-Seriennummern, LUN-IDs und die entsprechenden physischen Festplattennummern der LUNs sowie die LUN-Zuordnung und die vor der Transition erfassten Daten, um zu ermitteln, ob die LUNs erfolgreich migriert wurden.
+.. Beachten Sie, ob sich die physischen Festplattennummern der überlauften LUNs geändert haben.
+.. Bringen Sie Ihre Festplatten in den Online-Modus.
++
+*** Verwenden Sie Windows Disk Manager, um Online-Festplatten zu bringen, die nicht Teil des Cluster Failover sind.
+*** Verwenden Sie Failover Cluster Manager, um online-Festplatten zu bringen, die Teil des Cluster Failover sind.
+
+
+.. Wenn auf dem Host, den Sie migrieren, Windows Server 2003 ausgeführt wird und Sie das Quorum-Gerät migriert haben, starten Sie die Cluster-Services auf allen Cluster-Knoten.
+.. Wenn Hyper-V auf dem Host aktiviert ist und Pass-Through-Geräte für die VMs konfiguriert sind, ändern Sie die Einstellungen aus Hyper-V Manager.
++
+Die Nummer der physischen Festplatte der LUN, die dem Durchlauf-Gerät entspricht, hat sich möglicherweise als Ergebnis des Übergangs geändert.
+
+
+
+
+
+*Verwandte Informationen*
+
+xref:concept_what_the_inventory_collect_tool_is.adoc[Was ist das Tool zum Erfassen von Inventarbeständen]

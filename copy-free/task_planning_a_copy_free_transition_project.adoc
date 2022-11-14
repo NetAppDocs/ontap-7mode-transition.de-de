@@ -1,0 +1,16 @@
+---
+permalink: copy-free/task_planning_a_copy_free_transition_project.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, plan, project 
+summary: 'Bei der Planung eines Copy-Free Transition-Projekts müssen die 7-Mode Quell-Controller und Ziel-Cluster-Nodes ausgewählt werden. Außerdem werden 7-Mode Volumes einer Storage Virtual Machine \(SVM\) zugeordnet, die zu migtierenden LIFs ausgewählt und Vorabprüfungen durchgeführt.' 
+---
+= Planung eines Copy-Free Transition-Projekts
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Bei der Planung eines Projekts zur Copy-Free Transition müssen die 7-Mode Quell-Controller und Ziel-Cluster-Nodes ausgewählt werden, 7-Mode Volumes einer Storage Virtual Machine (SVM) zugeordnet, die zu migtierenden LIFs ausgewählt und Vorabprüfungen durchgeführt werden.
+
+Sie können mehrere Projekte mit denselben HA-Paar-Nodes auf demselben Ziel-Cluster erstellen. Sie können dann Vorabprüfungen durchführen und die SVM-Konfigurationen für alle diese Projekte anwenden. Allerdings kann sich zu einem bestimmten Zeitpunkt nur ein Projekt im Fenster „kritische Abschnitte“ befinden. Ein Projekt befindet sich im Fenster „kritisch“, wenn sich das Projekt in einer der Phasen vom Export bis zum Commit befindet oder wenn ein Rollback-Vorgang für das Projekt initiiert wurde. Sie können den Export- und Stopp-Vorgang für ein anderes Projekt nur fortsetzen, nachdem der Vorgang „Übersetzen“ oder „Rollback“ für das Projekt im Fenster „Critical Section“ abgeschlossen wurde.

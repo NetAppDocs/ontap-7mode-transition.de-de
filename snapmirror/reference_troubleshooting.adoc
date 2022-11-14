@@ -1,0 +1,14 @@
+---
+permalink: snapmirror/reference_troubleshooting.html 
+sidebar: sidebar 
+keywords: ontap, 7, mode, troubleshoot, transition, snapmirror, issues, problems 
+summary: Mithilfe von Informationen zur Fehlerbehebung können Sie Probleme identifizieren und beheben, die beim Umstieg der 7-Mode Daten mithilfe von SnapMirror Befehlen auftreten. 
+---
+= Fehlerbehebung bei der Verwendung von SnapMirror
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Mithilfe von Informationen zur Fehlerbehebung können Sie Probleme identifizieren und beheben, die beim Umstieg der 7-Mode Daten mithilfe von SnapMirror Befehlen auftreten.

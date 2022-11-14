@@ -1,0 +1,24 @@
+---
+permalink: copy-based/concept_collecting_and_assessing_inventory_information.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, collect, assess, inventory, information 
+summary: Sie können Inventarinformationen von Controllern, Hosts und FC Switches erfassen. Anschließend können Sie die Features und Funktionen dieser Systeme beurteilen und die Funktionsweise in der für den Wechsel ausgewählten ONTAP Version ermitteln. 
+---
+= Sammeln und Bewerten der Bestandsdaten
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können Inventarinformationen von Controllern, Hosts und FC Switches erfassen. Anschließend können Sie die Features und Funktionen dieser Systeme beurteilen und die Funktionsweise in der für den Wechsel ausgewählten ONTAP Version ermitteln.
+
+Sie haben zwei Möglichkeiten, Bestandsdaten zu erfassen:
+
+* Wenn die Sicherheit Ihrer Umgebung dies zulässt, können Sie das 7-Mode Transition Tool installieren und dann die Bestandsdaten mit diesem erfassen.
+* Sie können den vom Inventory Collect Tool generierten XML-Bericht importieren und anschließend die Bewertung durchführen.
+
+
+In beiden Fällen müssen Sie das Inventory Collect Tool 3.3 verwenden, um den Bestand zu sammeln.
+
+image::../media/cbt_assessment_workflow.gif[cbt-Bewertungsworkflow]

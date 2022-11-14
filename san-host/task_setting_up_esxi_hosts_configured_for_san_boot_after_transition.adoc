@@ -1,0 +1,37 @@
+---
+permalink: san-host/task_setting_up_esxi_hosts_configured_for_san_boot_after_transition.html 
+sidebar: sidebar 
+keywords: esxi, configured, boot, ontap, san, host, transition 
+summary: Wenn Ihr ESXi Host vor der Umstellung von Data ONTAP im 7-Mode für SAN-Boot konfiguriert wurde, müssen Sie vor der Verwendung des Hosts nach der Transition mehrere Schritte durchführen. 
+---
+= Einrichtung von ESXi Hosts, die für das Booten über SAN nach dem Übergang konfiguriert sind
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Wenn Ihr ESXi Host vor der Umstellung von Data ONTAP im 7-Mode für SAN-Boot konfiguriert wurde, müssen Sie vor der Verwendung des Hosts nach der Transition mehrere Schritte durchführen.
+
+* Führen Sie bei Copy-Based Transitions diese Schritte aus, bevor Sie die Storage-Umstellung in 7MTT initiieren.
+* Führen Sie bei Copy-Free Transitions die folgenden Schritte aus, bevor Sie den Betrieb der 7-Mode Systeme im 7MTT initiieren und anhalten.
+
+
+.Schritte
+. Konfigurieren Sie das FC- und FCoE-HBA-BIOS neu, um von der SAN-Boot-LUN des Clustered Data ONTAP Systems zu booten.
+. Starten Sie den ESXi-Host.
+. Zurücksetzen der Hostkonfigurationen auf die Vorumstellungseinstellungen.
+. Für iSCSI-Hosts finden Sie Informationen zur Neukonfiguration des VMware iSCSI-Initiators.
++
+xref:concept_reconfiguration_of_vmware_software_iscsi_initiator.adoc[Konfigurieren Sie Ihren VMware iSCSI-Initiator erneut]
+
+. Mounten Sie die von der Boot-LUN erstellten VMFS-Datenspeicher in der Standardinstallation neu.
+
+
+*Verwandte Informationen*
+
+xref:task_remounting_vmfs_volumes_after_transition_using_vsphere_client.adoc[NeuMounten von VMFS-Volumes nach dem Umstieg mit vSphere Client]
+
+xref:task_remounting_vmfs_volumes_after_transition_using_esxi_cli_console.adoc[NeuMounten von VMFS-Volumes nach dem Übergang mit der ESXi CLI]
+
+https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-sanag/home.html["SAN-Administration"]

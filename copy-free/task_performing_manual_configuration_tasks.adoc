@@ -1,0 +1,33 @@
+---
+permalink: copy-free/task_performing_manual_configuration_tasks.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, performing, manual, configuration 
+summary: Sie müssen einige Konfigurationsaufgaben manuell durchführen, die für die Workloads und Applikationen erforderlich sind, die auf die übergewechselt Volumes zugreifen. Die Liste der manuellen Aufgaben können Sie anhand der Ergebnisse der Vorabprüfung abrufen. 
+---
+= Durchführung manueller Konfigurationsaufgaben nach der Umstellung
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie müssen einige Konfigurationsaufgaben manuell durchführen, die für die Workloads und Applikationen erforderlich sind, die auf die übergewechselt Volumes zugreifen. Die Liste der manuellen Aufgaben können Sie anhand der Ergebnisse der Vorabprüfung abrufen.
+
+.Schritte
+. Führen Sie die in den Ergebnissen der Vorabprüfung aufgeführten Aufgaben aus, um Funktionen zu konfigurieren, die nicht durch das Tool migriert wurden oder die eine Anpassung an Ihre Umgebung erfordern.
++
+xref:concept_supported_and_unsupported_name_services_configurations.adoc[Name Services Transition: Unterstützte und nicht unterstützte Konfigurationen und erforderliche manuelle Schritte]
+
++
+xref:concept_nfs_configurations_supported_unsupported_or_requiring_manual_steps_for_transition.adoc[NFS-Umstieg: Unterstützte und nicht unterstützte Konfigurationen und erforderliche manuelle Schritte]
+
++
+xref:concept_cifs_configurations_supported_unsupported_or_requiring_manual_steps_for_transition.adoc[Unterstützte und nicht unterstützte CIFS Konfigurationen für den Umstieg auf ONTAP]
+
++
+xref:concept_san_transition_supported_and_unsupported_configurations_and_required_manual_steps.adoc[SAN-Transition: Unterstützte und nicht unterstützte Konfigurationen und erforderliche manuelle Schritte]
+
++
+xref:task_transitioning_a_snapmirror_relationship.adoc[Umstellung einer SnapMirror Beziehung]
+
+

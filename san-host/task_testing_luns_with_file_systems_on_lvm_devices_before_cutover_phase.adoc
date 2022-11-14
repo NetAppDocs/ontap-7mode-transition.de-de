@@ -1,0 +1,108 @@
+---
+permalink: san-host/task_testing_luns_with_file_systems_on_lvm_devices_before_cutover_phase.html 
+sidebar: sidebar 
+keywords: ontap, san, host, transition, lun, file, system, lvm, devices, cutover, phase 
+summary: 'Wenn Sie das 7-Mode Transition Tool \(7MTT\) 2.2 oder höher und Data ONTAP 8.3.2 oder höher für eine Kopienbasierte Transition des Red hat Enterprise Linux \(RHEL\)-Hosts verwenden, können Sie vor der Umstellungsphase Ihre Clustered Data ONTAP-LUNs mit Dateisystemen auf LVM-Geräten testen. Der Quell-Host kann während des Tests weiterhin I/O-Vorgänge auf Ihren 7-Mode Quell-LUNs ausführen.' 
+---
+= Testen von LUNs anhand von Dateisystemen auf LVM-Geräten vor der Umstellungsphase kopierbasierter Umstellungen
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Wenn Sie das 7-Mode Transition Tool (7MTT) 2.2 oder höher und Data ONTAP 8.3.2 oder höher für eine Copy-Based Transition Ihres Red hat Enterprise Linux (RHEL) Hosts verwenden, können Sie vor der Umstellungsphase Ihre Clustered Data ONTAP-LUNs mit Dateisystemen auf LVM-Geräten testen. Der Quell-Host kann während des Tests weiterhin I/O-Vorgänge auf Ihren 7-Mode Quell-LUNs ausführen.
+
+* Ihre neuen Clustered Data ONTAP LUNs müssen dem Testhost zugeordnet sein.
+* Ihre LUNs müssen für den Übergang bereit sein.
+
+
+Sie sollten die Hardwareparität zwischen dem Testhost und dem Quell-Host beibehalten, und Sie sollten auf dem Testhost die folgenden Schritte durchführen.
+
+Die Clustered Data ONTAP LUNs befinden sich während des Tests im Lese-/Schreibmodus. Sie werden in den schreibgeschützten Modus umgewandelt, wenn die Tests abgeschlossen sind und Sie die Umstellungsphase vorbereiten.
+
+Während des Testmodus deaktivieren oder exportieren Sie die Volume-Gruppe nicht. Aus diesem Grund werden möglicherweise Fehler im Dateisystem angezeigt, wenn Sie die logischen Volumes auf dem Testhost mounten.
+
+.Schritte
+. Wählen Sie nach Abschluss der Basiskopie in der 7MTT Benutzeroberfläche *Testmodus* aus.
+. Klicken Sie in der 7MTT UI auf *Apply Configuration*.
+. Ermitteln Sie auf dem Test-Host Ihre neuen Clustered Data ONTAP LUNs:
++
+`*rescan-scsi-bus.sh*`
+
+. Überprüfen Sie, ob Ihre neuen Clustered Data ONTAP LUNs erkannt wurden:
++
+`*sanlun lun show*`
+
+. DMMP-Geräte für die Clustered Data ONTAP-LUNs konfigurieren:
++
+`*multipath*`
+
+. Beziehen Sie die Geräte-Handle-ID für die Clustered Data ONTAP LUNs ein:
++
+`*multipath -ll*`
+
++
+Das folgende Beispiel zeigt eine Gerätehandle-ID: "`3600a09804d532d79565d47617679764d`"
+
+. Identifizieren Sie die vom LVM verwendeten DMMP-Geräte:
++
+`*pvscan*`
+
++
+3600a09804d532d79565d476176797655 ist ein Beispiel für ein vom LVM verwendetes DMMP-Gerät.
+
+. Ermittlung der Volume-Gruppe:
++
+`*vgscan*`
+
+. Identifizierung des logischen Volumes:
++
+`*lvscan*`
+
+. Aktivieren des logischen Volumes: *
+`*vgchange -ay _volume_group_*`
+. Überprüfung des Status des logischen Volumes: *
+`*lvdisplay*`
++
+Der `LV Status` Die Spalte der Ausgabe sollte „verfügbar“ angezeigt werden.
+
+. Legen Sie fest, ob ein Mount-Point-Eintrag für das logische Volume in vorhanden ist `/etc/fstab` Datei auf dem Quell-Host.
++
+Im folgenden Beispiel gilt das logische Volume `/dev/mapper/vg_7MTT-lv1` Wird in angezeigt `/etc/fstab` Datei:
+
++
+[listing]
+----
+# /etc/fstab
+...
+tmpfs   /dev/shm  tmpfs   defaults        0 0
+devpts  /dev/pts  devpts  gid=5, mode=620 0 0
+sysfs   /sys      sysfs   defaults        0 0
+proc    /proc     proc    defaults        0 0
+/dev/mapper/vg_7MTT-lv1 /7MTT  ext4  defaults 0	0
+----
+. Wenn ein Mount-Punkt-Eintrag für das logische Volume im vorhanden ist `/etc/fstab` Datei auf dem Quellhost, bearbeiten Sie manuell das `/etc/fstab` Datei auf dem Testhost, um den Einhängepunkt hinzuzufügen.
+. Montieren Sie den Mount-Punkt:
++
+`*mount -a*`
+
+. Vergewissern Sie sich, dass die Mount-Punkte montiert sind:
++
+`*mount*`
+
+. Führen Sie Ihre Tests nach Bedarf durch.
+. Fahren Sie nach Abschluss der Tests Ihren Host herunter:
++
+`*shutdown -h -t0 now*`
+
+. Klicken Sie in der 7MTT Benutzeroberfläche auf *Fertigstellen testen*.
+
+
+Wenn die Clustered Data ONTAP LUNs Ihrem Quell-Host neu zugeordnet werden sollen, müssen Sie den Quell-Host auf die Umstellungsphase vorbereiten. Wenn die geclusterten Data ONTAP LUNs Ihrem Testhost zugeordnet bleiben sollen, sind keine weiteren Schritte auf dem Testhost erforderlich.
+
+*Verwandte Informationen*
+
+xref:task_gathering_pretransition_information_from_inventory_assessment_workbook.adoc[Sammeln von Informationen zur Vorüberlösung aus dem Arbeitsbuch zur Bestandsbewertung]
+
+xref:task_preparing_for_cutover_when_transitioning_linux_host_file_systems_on_lvm_devices.adoc[Vorbereitung auf die Umstellungsphase beim Umstieg auf Linux-Hostdateisysteme auf LVM-Geräten]

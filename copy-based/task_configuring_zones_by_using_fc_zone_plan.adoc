@@ -1,0 +1,52 @@
+---
+permalink: copy-based/task_configuring_zones_by_using_fc_zone_plan.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, configure, zone, fc, zone, plan 
+summary: Vor dem Wechsel einer SAN FC-Umgebung müssen Sie Zonen mithilfe des FC-Zonenplaners konfigurieren, um die Initiator-Hosts und Ziele zu gruppieren. 
+---
+= Konfigurieren von Zonen mithilfe des FC-Zonenplans
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Vor dem Wechsel einer SAN FC-Umgebung müssen Sie Zonen mithilfe des FC-Zonenplaners konfigurieren, um die Initiator-Hosts und Ziele zu gruppieren.
+
+* Die Cluster- und Initiator-Hosts müssen mit dem Switch verbunden sein.
+* Die Skriptdatei für die FC-Zone muss zugänglich sein.
+
+
+.Schritte
+. Falls Änderungen an den igroup-Konfigurationen auf den 7-Mode Systemen vorgenommen werden, ändern und generieren Sie den FC-Zonenplan neu.
++
+xref:task_generating_an_assessment_report_by_adding_systems_to_7mtt.adoc[Erstellung eines Bewertungsberichts durch Hinzufügen von Systemen zum 7-Mode Transition Tool]
+
+. Melden Sie sich bei der CLI des Switches an.
+. Kopieren Sie die erforderlichen Zonenbefehle nacheinander, und führen Sie sie aus.
++
+Im folgenden Beispiel werden die Zonenbefehle auf dem Switch ausgeführt:
+
++
+[listing]
+----
+switch1:admin>config terminal
+# Enable NPIV feature
+feature npiv
+zone name auto_transition_igroup_d31_194bf3 vsan 10
+member pwwn 21:00:00:c0:dd:19:4b:f3
+member pwwn 20:07:00:a0:98:32:99:07
+member pwwn 20:09:00:a0:98:32:99:07
+.......
+.......
+.......
+copy running-config startup-config
+----
+. Überprüfen Sie den Datenzugriff vom Cluster mithilfe der Testinitiator-Hosts.
+. Führen Sie nach Abschluss der Verifizierung die folgenden Schritte durch:
++
+.. Trennen Sie die Test-Initiator-Hosts.
+.. Entfernen Sie die Zonenkonfiguration.
+
+
+

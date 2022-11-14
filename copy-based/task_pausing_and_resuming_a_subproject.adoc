@@ -1,0 +1,38 @@
+---
+permalink: copy-based/task_pausing_and_resuming_a_subproject.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, pause, resume, project 
+summary: Sie können ein Projekt anhalten und fortsetzen, für das die Datenkopie gestartet wurde. 
+---
+= Anhalten und Wiederaufnehmen eines Projekts
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können ein Projekt anhalten und fortsetzen, für das die Datenkopie gestartet wurde.
+
+Wenn Sie ein primäres Projekt anhalten, wird nur der Kopiervorgang vom primären 7-Mode Volume zum entsprechenden primären Clustered Data ONTAP Volume angehalten. Die Datenkopie des primären 7-Mode Volumes zum sekundären ONTAP Volume wird gemäß Zeitplan weiter ausgeführt. Dies gewährleistet eine kontinuierliche Datensicherung für die primären Volumes.
+
+. Wählen Sie im Dashboard das Projekt aus, das Sie anhalten möchten.
+. Klicken Sie Auf *Pause*.
++
+Der Vorgang der Datenkopieerstellung für alle Volumes im Projekt wird angehalten.
+
++
+Wenn der Basistransfer für ein Volume läuft und es keinen Checkpoint für Snapshot Kopien gibt, der für die SnapMirror Beziehungen erstellt wurde, wird der Pause-Vorgang für das Volume ignoriert. Warten Sie, bis der Checkpoint für die Snapshot Kopie erstellt ist, und führen Sie den Pause-Vorgang erneut aus.
+
+. Klicken Sie Auf *Fortsetzen*.
++
+Der Kopiervorgang wird an dem Punkt fortgesetzt, an dem er angehalten wurde.
+
++
+
+NOTE: Der Vorgang der Datenkopieerstellung wird gemäß dem zu diesem Zeitpunkt verfügbaren aktiven Zeitplan fortgesetzt.
+
+
+
+*Verwandte Informationen*
+
+xref:task_starting_baseline_data_copy.adoc[Starten der Basiskopie der Daten]

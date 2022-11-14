@@ -1,0 +1,53 @@
+---
+permalink: copy-free/concept_severity_levels_for_precheck_messages.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, severity, levels, precheck, messsages 
+summary: Sie können überprüfen, ob die 7-Mode Volumes migriert werden können, indem Sie die Vorabprüfung durchführen. Alle Probleme bei der Transition werden im Vorcheck-Bericht berichtet. Übergangsprobleme werden abhängig von den Auswirkungen des Problems auf den Übergangsprozess unterschiedlich schwerwiegend zugewiesen. 
+---
+= Schweregrade für Vorabprüfmeldungen
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können überprüfen, ob die 7-Mode Volumes migriert werden können, indem Sie die Vorabprüfung durchführen. Alle Probleme bei der Transition werden im Vorcheck-Bericht berichtet. Übergangsprobleme werden abhängig von den Auswirkungen des Problems auf den Übergangsprozess unterschiedlich schwerwiegend zugewiesen.
+
+Die von den Vorabprüfungen erkannten Probleme sind in die folgenden Kategorien unterteilt:
+
+* *Fehler*
++
+Konfigurationen, die nicht migriert werden können
+
++
+Sie können den Übergang nicht fortsetzen, wenn selbst ein Fehler auftritt. Nachfolgend sind einige Beispielkonfigurationen für das 7-Mode System aufgeführt, die einen Fehler verursachen:
+
++
+** Traditionelle Volumes
+** SnapLock Volumes
+** Offline-Volumes
+
+
+* *Warnung*
++
+Konfigurationen, die nach dem Umstieg kleine Probleme verursachen können.
+
++
+Funktionen, die in ONTAP unterstützt werden, aber nicht durch das 7-Mode Transition Tool migriert werden, erzeugen auch eine Warnmeldung. Mit diesen Warnungen können Sie den Übergang fortsetzen. Nach dem Umstieg fallen jedoch möglicherweise einige dieser Konfigurationen aus oder müssen einige manuelle Aufgaben zur Aktivierung dieser Konfigurationen in ONTAP ausführen.
+
++
+Im Folgenden finden Sie einige Beispielkonfigurationen für das 7-Mode System, die eine Warnung erzeugen:
+
++
+** IPv6
+** NFSv2
+** NDMP-Konfigurationen
+** Interface Groups und VLANs
+** Routing Information Protocol (RIP)
+
+
+* *Information*
++
+Konfigurationen, die erfolgreich migriert wurden.
+
+

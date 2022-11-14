@@ -1,0 +1,38 @@
+---
+permalink: san-host/task_reattaching_rdm_luns_to_vms.html 
+sidebar: sidebar 
+keywords: ontap, san, host, transition, rdm, lun, vm 
+summary: 'Wenn VMs, die an Raw Device Mapping \(RDM\) LUNs angeschlossen sind, nach dem Übergang funktionieren, müssen Sie die RDM-Festplatten, die die LUN hosten, aus der VM entfernen. Anschließend müssen Sie die RDM-Festplatten an die VM mithilfe der LUN-Seriennummer des 7-Mode Transition Tool \(7MTT\) erneut anhängen.' 
+---
+= Erneutes Anbringen von RDM LUNs an VMs
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Wenn VMs, die an RDM LUNs (Raw Device Mapping) angeschlossen sind, nach dem Übergang funktionieren, müssen Sie die RDM-Festplatten, die die LUN hosten, aus der VM entfernen. Anschließend müssen Sie die RDM-Festplatten an die VM mithilfe der LUN-Seriennummer des 7-Mode Transition Tool (7MTT) erneut anhängen.
+
+* Führen Sie bei Copy-Based Transitions diese Schritte aus, bevor Sie die Storage-Umstellung in 7MTT initiieren.
+* Führen Sie bei Copy-Free Transitions die folgenden Schritte aus, bevor Sie den Betrieb der 7-Mode Systeme im 7MTT initiieren und anhalten.
+
+
+.Schritte
+. Navigieren Sie im Arbeitsbuch _Inventory Assessment_ zur Registerkarte *Host VM Disk Details*.
+. Identifizieren Sie die ESXi Host-VM mit PTRDM oder NPTRDM in der Spalte *Typ*.
+. Notieren Sie sich den VM-Namen, die Angaben zum Laufwerkspfad in der Spalte *Disk* und die naa-ID aus der Spalte *Device Mapping*.
+. Vergewissern Sie sich, dass die naa-ID in der nach der Transition generierten 7MTT-Zuordnungsdatei aufgeführt ist.
+. Überprüfen Sie, ob die naa-ID eine entsprechende neue naa-ID in der Spalte *LUN WWID* der Zuordnungsdatei hat.
++
+Dies ist die neue Data ONTAP-LUN-naa-ID für Clustered Data ONTAP.
+
+. Verwenden Sie die naa-ID der Clustered Data ONTAP LUN aus der Spalte *LUN WWID* und die Festplattenpfaddetails, um die Clustered Data ONTAP LUN wieder an die VM zu anhängen.
+
+
+*Verwandte Informationen*
+
+xref:task_removing_stale_rdm_using_vsphere_client.adoc[Entfernen veralteter RDMs mit vSphere Client]
+
+xref:task_reattaching_rdm_to_vms_using_vsphere_client.adoc[Erneutes Anbringen von RDM an VMs mit vSphere Client]
+
+xref:task_reattaching_rdm_using_esxi_cli_console.adoc[Erneutes Anhängen von RDM mit ESXi CLI/Konsole]

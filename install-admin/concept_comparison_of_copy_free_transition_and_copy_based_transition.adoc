@@ -1,0 +1,68 @@
+---
+permalink: install-admin/concept_comparison_of_copy_free_transition_and_copy_based_transition.html 
+sidebar: sidebar 
+keywords: ontap, 7, mode, install, copy, free, transition, based 
+summary: Mit dem 7-Mode Transition Tool können Sie Ihre Daten und Konfigurationen von 7-Mode auf ONTAP migrieren. Dabei können Sie entweder die Daten und Konfigurationen mit einem Copy-Based Transition oder einem Copy-Free Transition durchführen. Es ist wichtig, die Unterschiede zwischen den beiden Methoden vor dem Übergang zu verstehen. 
+---
+= Vergleich zwischen Copy-Free Transition und Copy-Based Transition
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Mit dem 7-Mode Transition Tool können Sie Ihre Daten und Konfigurationen von 7-Mode auf ONTAP migrieren. Dabei können Sie entweder die Daten und Konfigurationen mit einem Copy-Based Transition oder einem Copy-Free Transition durchführen. Es ist wichtig, die Unterschiede zwischen den beiden Methoden vor dem Übergang zu verstehen.
+
+|===
+| Parameter | Copy Free Transition | Kopienbasierte Transition 
+
+
+ a| 
+Einheit des Übergangs
+ a| 
+HA-Paar
+ a| 
+Gruppe von Volumes
+
+
+
+ a| 
+Hardwareanforderungen
+ a| 
+Platten-Shelves werden wiederverwendet
+ a| 
+Neue Festplatten-Shelfs und Festplatten zum Hosten der übergewechselt Volumes
+
+
+
+ a| 
+Plattformanforderungen
+ a| 
+Unterstützung nur auf Midrange- und High-Level-Plattformen https://mysupport.netapp.com/matrix["NetApp Interoperabilitäts-Matrix-Tool"]
+ a| 
+Unterstützung auf allen Plattformen
+
+
+
+ a| 
+Übergangsdauer
+ a| 
+Insgesamt kürzere Übergangsdauer (keine Datenkopien erforderlich)
+ a| 
+Längere Dauer (die anfängliche Basis- und Aktualisierungszeit variiert je nach Workload, Netzwerkbandbreite und der zu migrierenden Datenkapazität)
+
+
+
+ a| 
+Unterbrechungen des Datenzugriffs
+ a| 
+Im Stundenbereich
+
+
+IMPORTANT: In den meisten Fällen kann die Storage-Umstellungszeit 3 bis 8 Stunden betragen. Die Umstellungszeit umfasst die vom Tool benötigte Zeit zur Durchführung von zwei automatischen Vorgängen – dem Export- und Stopp-Vorgang und dem Importvorgang – sowie die Zeit, die für die manuelle Verkabelung der Platten-Shelfs zu den neuen Controllern benötigt wird. Der Export- und Stopp-Betrieb und der Importvorgang können bis zu 2 Stunden dauern. Die Verkabelung der Festplatten-Shelfs kann von 1 Stunde bis 6 Stunden dauern.
+
+Diese Anleitung zur Umstellung umfasst nicht die für die erforderlichen Vorabtests benötigte Zeit und setzt einen fehlerfreien Übergang ohne unerwartete Fehler, wie beispielsweise Festplattenausfälle, voraus.
+ a| 
+Im Minutenbereich
+
+|===

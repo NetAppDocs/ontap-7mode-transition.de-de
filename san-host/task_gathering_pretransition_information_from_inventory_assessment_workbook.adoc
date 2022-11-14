@@ -1,0 +1,46 @@
+---
+permalink: san-host/task_gathering_pretransition_information_from_inventory_assessment_workbook.html 
+sidebar: sidebar 
+keywords: ontap, san, host, transition, pretransition, information, inventory, assessment, workbook 
+summary: Das Arbeitsbuch zur Bestandsbewertung enthält Informationen, die Sie in verschiedenen Phasen der Transition benötigen. Sie sollten diese Informationen erfassen und aufzeichnen, bevor Sie mit der Umstellung beginnen, damit Sie sie während des gesamten Prozesses nach Bedarf referenzieren können. 
+---
+= Sammeln von Informationen zur Vorüberlösung aus dem Arbeitsbuch zur Bestandsbewertung
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Im Arbeitsbuch _Inventory Assessment_ finden Sie Informationen, die Sie in verschiedenen Phasen des Übergangs benötigen. Sie sollten diese Informationen erfassen und aufzeichnen, bevor Sie mit der Umstellung beginnen, damit Sie sie während des gesamten Prozesses nach Bedarf referenzieren können.
+
+.Schritte
+. Verwenden Sie das Inventory Collect Tool (ICT), um das Arbeitsbuch zur Inventory Assessment_ zu erstellen.
+. Öffnen Sie das Arbeitsbuch _Inventory Assessment_.
+. Wechseln Sie zur Registerkarte *LUN*.
+. Identifizieren und notieren Sie in der Spalte *LUN Name* den Namen der zu überstellenden LUN.
+. Wechseln Sie zur Registerkarte *SAN Host LUNs*.
+. Identifizieren und notieren Sie in der Spalte *SCSI Device ID* den SCSI-Gerätenamen.
+. Identifizieren und notieren Sie in der Spalte *OS Device ID* den DMMP-Gerätenamen für die zu übertragene LUN.
+. Identifizieren und notieren Sie in der Spalte *Dateisysteme* das auf dem DMMP-Gerät konfigurierte Dateisystem.
+. Identifizieren und notieren Sie in der Spalte *UUID* die UUID-Nummer für die LUN.
+. Identifizieren und notieren Sie in der Spalte *Mount* das Verzeichnis, auf dem das DMMP-Gerät gemountet ist.
+. Rufen Sie die Registerkarte *LVMs* auf.
+. Identifizieren und notieren Sie in der Spalte *Physical Volume Name* die vom logischen Volume verwendeten DMMP-Geräte.
+. Wechseln Sie zur Registerkarte *SAN Host LVMs*.
+. Identifizieren und notieren Sie die Volume-Gruppe in der Spalte *Volume-Gruppenname*.
+. Identifizieren und notieren Sie in der Spalte * Logical Volume Path* das logische Volume.
+. Gehen Sie zur Registerkarte *SAN Host Dateisysteme*.
+. Identifizieren und notieren Sie in der Spalte *Filesystem* das auf dem logischen Volume konfigurierte Dateisystem.
+. Identifizieren und notieren Sie in der Spalte *Mount* das Verzeichnis, auf das die logischen Volumes gemountet sind.
+. Wechseln Sie zur Registerkarte *GRUB-Konfiguration*.
+. Identifizieren und notieren Sie in der Spalte *initrd* das zu bearbeitenden initrd-Bild.
+. Wechseln Sie zur Registerkarte *SAN Host HBAs*.
++
+Sie können auch die Registerkarte *iSCSI SAN Interfaces* sehen, um die iSCSI IQN-Nummer und IP-Adressen zu identifizieren, die auf 7-Mode Controllern konfiguriert sind.
+
+. In der Spalte *Ziel-IPs (iSCSI)* werden die iSCSI-Sitzungen für die 7-Mode-Controller identifiziert und aufgezeichnet.
+
+
+*Verwandte Informationen*
+
+xref:concept_what_the_inventory_collect_tool_is.adoc[Was ist das Tool zum Erfassen von Inventarbeständen]

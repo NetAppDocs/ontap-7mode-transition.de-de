@@ -1,0 +1,22 @@
+---
+permalink: copy-based/concept_managing_snapmirror_transfers_and_schedule.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, manage, snapmirror, transfer, schedule 
+summary: In der Phase der Datenkopieerstellung werden die Clustered Data ONTAP Volumes regelmäßig anhand der Daten der 7-Mode Volumes basierend auf einem Zeitplan für Datenkopieerstellung aktualisiert. Sie können den Zeitplan für die Datenkopieerstellung erstellen, bearbeiten und löschen, der für Basiskopie, Updates und Neusynchronisierung von SnapMirror verwendet werden soll. 
+---
+= Verwalten von SnapMirror Transfers und Zeitplanung
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+In der Phase der Datenkopieerstellung werden die Clustered Data ONTAP Volumes regelmäßig anhand der Daten der 7-Mode Volumes basierend auf einem Zeitplan für Datenkopieerstellung aktualisiert. Sie können den Zeitplan für die Datenkopieerstellung erstellen, bearbeiten und löschen, der für Basiskopie, Updates und Neusynchronisierung von SnapMirror verwendet werden soll.
+
+Sie können die Kopiervorgänge für alle Volumes managen, die für den Übergang ausgewählt wurden. Sie können Zeitpläne für mehrere Datenkopiekopien festlegen, die Details wie Startzeit, Dauer, Aktualisierungsfrequenz, die Anzahl der gleichzeitig zu diesem Zeitplan ausgeführten SnapMirror Transfers und das Drossellimit umfassen.
+
+Sie können mehrere gleichzeitige Transfers Anzahl und Drosselklappengrenzen für verschiedene Zeiträume bereitstellen, z. B. Wochentag, Wochenende, Geschäftszeiten, außerhalb der Geschäftszeiten, DR-Zeitpläne und andere DR-Zeitpläne
+
+*Verwandte Informationen*
+
+xref:task_creating_a_transition_project.adoc[Erstellen eines Übergangsprojekts]

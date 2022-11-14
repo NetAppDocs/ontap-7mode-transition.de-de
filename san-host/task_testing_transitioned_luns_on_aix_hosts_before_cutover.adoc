@@ -1,0 +1,53 @@
+---
+permalink: san-host/task_testing_transitioned_luns_on_aix_hosts_before_cutover.html 
+sidebar: sidebar 
+keywords: ontap, san, host, transition, lun, aix, cutover, phase, copy, based, test 
+summary: 'Wenn Sie für die Transition Ihrer AIX-Host-LUNs mit dem 7-Mode Transition Tool \(7MTT\) 2.2 oder höher und mit Data ONTAP 8.3.2 oder höher eine Transition durchführen, können Sie Ihre überstiegenen Clustered Data ONTAP LUNs testen, um zu überprüfen, ob Sie das MPIO-Gerät vor der Umstellungsphase mounten können. Der Quell-Host kann während des Tests weiterhin I/O-Vorgänge auf Ihren 7-Mode Quell-LUNs ausführen.' 
+---
+= Die Tests übergegangen LUNs auf AIX-Hosts vor der Umstellungsphase bei auf Kopien basierenden Übergängen
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Wenn Sie für die Transition Ihrer AIX-Host-LUNs mit dem 7-Mode Transition Tool (7MTT) 2.2 oder höher und Data ONTAP 8.3.2 oder höher einen Umstieg durchführen, können Sie Ihre ummigrierte Clustered Data ONTAP-LUNs testen, um zu überprüfen, ob Sie das MPIO-Gerät vor der Umstellungsphase mounten können. Der Quell-Host kann während des Tests weiterhin I/O-Vorgänge auf Ihren 7-Mode Quell-LUNs ausführen.
+
+Ihre LUNs müssen auf den Umstieg vorbereitet sein.
+
+Sie sollten die Hardwareparität zwischen dem Testhost und dem Quell-Host beibehalten, und Sie sollten auf dem Testhost die folgenden Schritte durchführen.
+
+Die Clustered Data ONTAP LUNs befinden sich während des Tests im Lese-/Schreibmodus. Sie werden in den schreibgeschützten Modus umgewandelt, wenn die Tests abgeschlossen sind und Sie die Umstellungsphase vorbereiten.
+
+.Schritte
+. Nachdem die Baseline Data Copy abgeschlossen ist, wählen Sie in der 7MTT Benutzeroberfläche *Testmodus* aus.
+. Klicken Sie in der 7MTT UI auf *Apply Configuration*.
+. Prüfen Sie auf dem Testhost Ihre neuen Clustered Data ONTAP LUNs erneut:
++
+`*cfgmgr*`
+
+. Überprüfen Sie, ob die neuen Clustered Data ONTAP LUNs vorhanden sind:
++
+`*sanlun lun show*`
+
+. Überprüfen Sie den Status der Volume-Gruppe:
++
+`*lsvg vg_name*`
+
+. Mounten eines jeden der logischen Volumes:
++
+`*mount -o log/dev/loglv00 _file_system_mount_point_*`
+
+. Überprüfen Sie die Mount-Punkte:
++
+`*df*`
+
+. Führen Sie Ihre Tests nach Bedarf durch.
+. Fahren Sie den Testhost herunter:
++
+`*shutdown -h*`
+
+. Klicken Sie in der 7MTT Benutzeroberfläche auf *Fertigstellen testen*.
+
+
+Wenn die Clustered Data ONTAP LUNs Ihrem Quell-Host neu zugeordnet werden sollen, müssen Sie den Quell-Host auf die Umstellungsphase vorbereiten. Wenn die geclusterten Data ONTAP LUNs Ihrem Testhost zugeordnet bleiben sollen, sind keine weiteren Schritte auf dem Testhost erforderlich.

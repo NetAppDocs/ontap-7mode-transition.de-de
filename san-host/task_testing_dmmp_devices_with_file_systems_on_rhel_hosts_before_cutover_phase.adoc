@@ -1,0 +1,80 @@
+---
+permalink: san-host/task_testing_dmmp_devices_with_file_systems_on_rhel_hosts_before_cutover_phase.html 
+sidebar: sidebar 
+keywords: ontap, san, host, transition, dmmp, devices, rhel, hosts, cutover, phase 
+summary: 'Wenn Sie mit dem 7-Mode Transition Tool \(7MTT\) 2.2 oder höher und mit Data ONTAP 8.3.2 oder höher eine Kopienbasierte Transition Ihres Red hat Enterprise Linux \(RHEL\)-Hosts durchführen, Sie können Ihre übergewechselt Data ONTAP-LUNs testen, um zu überprüfen, ob Sie das DMMP-Gerät vor der Umstellungsphase mounten können. Der Quell-Host kann während des Tests weiterhin I/O-Vorgänge auf Ihren 7-Mode Quell-LUNs ausführen.' 
+---
+= Testen von DMMP-Geräten mit Dateisystemen auf RHEL-Hosts vor der Umstellungsphase kopierbasierter Übergänge
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Wenn Sie mit dem 7-Mode Transition Tool (7MTT) 2.2 oder höher und Data ONTAP 8.3.2 oder höher eine Kopienbasierte Transition Ihres Red hat Enterprise Linux (RHEL) Hosts durchführen, Sie können Ihre übergewechselt Data ONTAP-LUNs testen, um zu überprüfen, ob Sie das DMMP-Gerät vor der Umstellungsphase mounten können. Der Quell-Host kann während des Tests weiterhin I/O-Vorgänge auf Ihren 7-Mode Quell-LUNs ausführen.
+
+Die neuen Clustered Data ONTAP LUNs müssen Ihrem Testhost zugeordnet und die LUNs müssen für die Transition bereit sein.
+
+Sie sollten die Hardwareparität zwischen dem Testhost und dem Quellhost beibehalten.
+
+Führen Sie diese Schritte auf dem Testhost durch.
+
+. Wählen Sie nach Abschluss der Basiskopie in der 7MTT Benutzeroberfläche *Testmodus* aus.
+. Klicken Sie in der 7MTT UI auf *Apply Configuration*.
+. Informieren Sie sich über die neuen SCSI-Gerätenamen für die Clustered Data ONTAP LUNs:
++
+`*sanlun lun show*`
+
++
+Im folgenden Beispiel: `/dev/sdl` Ist der SCSI-Gerätename für das `lun_dmmp_raw` LUN und `/dev/sdk` Ist der SCSI-Gerätename für das `lun_dmmp_raw_alias` LUN
+
++
+[listing]
+----
+[root@ibmx3550-229-108 /]# sanlun lun show
+controller(7mode/E-Series)/
+vserver (cDOT/FlashRay) lun-pathname               filename
+-----------------------------------------------------------
+vs_brb  /vol/dmmp_raw_vol/lun_dmmp_raw              /dev/sdl
+vs_brb  /vol/dmmp_raw_alias_vol/lun_dmmp_raw_alias  /dev/sdk
+----
+. Konfigurieren Sie die DMMP-Geräte für Ihre Data ONTAP-LUNs in Clustern:
++
+`*multipath*`
+
+. Beziehen Sie die Geräte-Handle-ID für die Clustered Data ONTAP LUNs ein:
++
+`*multipath -ll*`
+
++
+Das folgende Beispiel zeigt eine Gerätehandle-ID: "`3600a09804d532d79565d47617679764d`"
+
+. Identifizieren Sie das auf dem DMMP-Gerät konfigurierte Dateisystem:
++
+`*blkid | grep -i _device_handle_ID_*`
+
+. Legen Sie fest, ob ein Mount-Point-Eintrag für das logische Volume in vorhanden ist `/etc/fstab` Datei auf dem Quell-Host.
+. Wenn für das logische Volume auf dem Quell-Host ein Mount-Point-Eintrag vorhanden ist, bearbeiten Sie das manuell `/etc/fstab` Datei auf dem Testhost zum Hinzufügen der Mount-Point-Einträge.
+. Mounten Sie die LUN:
++
+`*mount -a*`
+
+. Vergewissern Sie sich, dass das DMMP-Gerät montiert ist:
++
+`*mount*`
+
+. Führen Sie Ihre Tests nach Bedarf durch.
+. Fahren Sie nach Abschluss der Tests den Testhost herunter:
++
+`*shutdown -h -t0 now*`
+
+. Klicken Sie in der 7MTT Benutzeroberfläche auf *Fertigstellen testen*.
+
+
+Wenn die Clustered Data ONTAP LUNs Ihrem Quell-Host neu zugeordnet werden sollen, müssen Sie den Quell-Host auf die Umstellungsphase vorbereiten. Wenn die geclusterten Data ONTAP LUNs Ihrem Testhost zugeordnet bleiben sollen, sind keine weiteren Schritte auf dem Testhost erforderlich.
+
+*Verwandte Informationen*
+
+xref:task_gathering_pretransition_information_from_inventory_assessment_workbook.adoc[Sammeln von Informationen zur Vorüberlösung aus dem Arbeitsbuch zur Bestandsbewertung]
+
+xref:task_preparing_for_cutover_when_transitioning_luns_with_mounts_using_dmmp_aliases_on_linux_hosts.adoc[Vorbereitung auf die Umstellungsphase beim Umstellen von LUNs mit Bereitstellungspunkten unter Verwendung von DMMP-Gerätenamen auf Linux-Hosts]

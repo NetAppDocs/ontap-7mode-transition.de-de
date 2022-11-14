@@ -1,0 +1,59 @@
+---
+permalink: copy-based/concept_considerations_for_using_snapmirror_for_transition.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, snapmirror 
+summary: Sie können Zeitpläne für Datenkopiekopien erstellen und die SnapMirror Datentransfers für Übergangsprozesse anpassen, ohne dass dadurch die bestehenden Vorgänge zwischen 7-Mode und 7-Mode SnapMirror oder SnapVault beeinträchtigt werden. 
+---
+= Überlegungen bei der Verwendung von SnapMirror für den Umstieg
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können Zeitpläne für Datenkopiekopien erstellen und die SnapMirror Datentransfers für Übergangsprozesse anpassen, ohne dass dadurch die bestehenden Vorgänge zwischen 7-Mode und 7-Mode SnapMirror oder SnapVault beeinträchtigt werden.
+
+
+
+== Die maximale Anzahl gleichzeitiger SnapMirror Transfers
+
+Die maximale Anzahl gleichzeitiger SnapMirror Transfers auf den 7-Mode und ONTAP Systemen hängt von der Anzahl der Volume SnapMirror Replizierungsvorgänge ab, die für ein bestimmtes Storage-Systemmodell zulässig sind.
+
+Informationen über die maximale Anzahl gleichzeitiger Volume-SnapMirror-Transfers für Ihr Systemmodell finden Sie im link:https://library.netapp.com/ecm/ecm_get_file/ECMP1635994["Data ONTAP Leitfaden zur Datensicherheit Online Backup und Recovery für 7-Mode"].
+
+
+
+== Zeitpläne für Datenkopieerstellung
+
+* Die Anzahl gleichzeitiger SnapMirror Transfers, die das Tool für die Ausführung der SnapMirror Vorgänge (Baseline, Update oder Resynchronisierung) verwendet, basiert auf den Plänen, die Sie beim Erstellen des Projekts konfigurieren.
+* Wenn verschiedene Projekte Volumes vom selben 7-Mode Controller verschieben, müssen Sie sicherstellen, dass sich die Zeitpläne für Datenkopiekopien nicht über verschiedene Projekte hinweg überlappen.
+* Sie können sicherstellen, dass Ihre vorhandenen Backup- und Disaster Recovery-Vorgänge (DR) nicht von den Umstiegsoperationen des 7-Mode Transition Tool beeinträchtigt werden:
++
+** Sie sollten Zeitpläne für SnapMirror Datenkopiekopien für ein Projekt erstellen, sodass diese nicht mit den bestehenden SnapMirror oder SnapVault Zeitplänen für 7-Mode überschneidet.
+** Sie sollten die Anzahl der gleichzeitig ausgeführten SnapMirror Transfers so konfigurieren, dass die bestehenden SnapMirror oder SnapVault Zeitpläne mit 7-Mode nicht ausfallen.
++
+Sie können auch einige Transfers freigeben, indem Sie den aktiven Zeitplan bearbeiten und die maximale Anzahl der gleichzeitigen Volume SnapMirror Transfers auf null ändern.
+
+
+
+* Sie müssen sicherstellen, dass auf dem 7-Mode Storage-System die Anzahl gleichzeitiger SnapMirror Transfers und die für die Vorgänge konfigurierte Drosselung (Vorumstellung, Umstellung und On-Demand-Update) während der gesamten Dauer des Vorgangs verfügbar ist.
++
+Der Umstellungsvorgang schlägt fehl, wenn die endgültige inkrementelle Aktualisierung sogar für eines der Volumes im Projekt ausfällt.
+
+* Bei sekundären Projekten basiert nach der Umstellung die inkrementellen SnapMirror Updates für die SnapMirror Beziehung zwischen den primären 7-Mode Volumes und dem sekundären ONTAP Volume auf dem Beziehungszeitplan 7-Mode zu 7-Mode SnapMirror.
++
+Sie müssen sicherstellen, dass auf dem primären 7-Mode Controller ausreichend gleichzeitige SnapMirror Transfers zur Verfügung stehen, damit diese Updates stattfinden können.
+
+
+
+
+
+== Verwenden mehrerer Pfade für den Übergang
+
+Es können zwei Pfade für den Übergang angegeben werden, indem Sie eine IP-Adresse für Datenkopieerstellung und eine Multipath IP-Adresse verwenden. Beide Pfade können jedoch nur für den Lastausgleich verwendet werden, nicht für das Failover.
+
+*Verwandte Informationen*
+
+xref:concept_guidelines_for_creating_a_data_copy_schedule.adoc[Überlegungen beim Erstellen eines Zeitplans für Datenkopieerstellung]
+
+xref:task_creating_schedule_for_snapmirror_transfers.adoc[Erstellen eines Zeitplans für Datenkopien für SnapMirror Übertragungen]

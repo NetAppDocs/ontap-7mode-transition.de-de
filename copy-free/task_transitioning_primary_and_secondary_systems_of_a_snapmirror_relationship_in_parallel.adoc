@@ -1,0 +1,67 @@
+---
+permalink: copy-free/task_transitioning_primary_and_secondary_systems_of_a_snapmirror_relationship_in_parallel.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, primary, secondary, system, snapmirror, relationship, parallel 
+summary: Sie können die primären und sekundären HA-Paare, die die Volumes einer 7-Mode SnapMirror Beziehung enthalten, parallel verschieben. Anschließend müssen Sie nach der Transition die Volume SnapMirror Beziehung in Clustered Data ONTAP manuell einrichten. Die SnapMirror Beziehung wird nach dem Umstieg beibehalten, ohne dass eine erneute Baseline erforderlich ist. 
+---
+= Wechsel von primären und sekundären Systemen parallel in einer SnapMirror Beziehung
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können die primären und sekundären HA-Paare, die die Volumes einer 7-Mode SnapMirror Beziehung enthalten, parallel verschieben. Anschließend müssen Sie nach der Transition die Volume SnapMirror Beziehung in Clustered Data ONTAP manuell einrichten. Die SnapMirror Beziehung wird nach dem Umstieg beibehalten, ohne dass eine erneute Baseline erforderlich ist.
+
+Sie müssen die Quell- und Ziel-Cluster für die Transition der SnapMirror Beziehungen vorbereitet haben.
+
+xref:task_preparing_cluster_for_transitioning_volume_snapmirror_relationships.adoc[Vorbereiten des Clusters für die Transition von Volume SnapMirror Beziehungen]
+
+Sie müssen sowohl die sekundären als auch die primären HA-Paare im selben Umstellungsfenster verschieben.
+
+.Schritte
+. Führen Sie aus dem 7-Mode Transition Tool eine Copy-Free Transition der beiden HA-Paare durch, die die primären und sekundären Volumes der 7-Mode Volume SnapMirror Beziehung enthalten.
++
+Vor der Transition des 7-Mode HA-Paars, das die sekundären Volumes enthält, ist für die 7-Mode SnapMirror Beziehungen kein manuelles Eingreifen erforderlich. Dadurch wird sichergestellt, dass die sekundären 7-Mode Volumes als schreibgeschützte Volumes zu ONTAP migriert werden.
+
++
+xref:task_performing_copy_free_transition_of_7_mode_aggregates.adoc[Umstieg von 7-Mode Aggregaten mit einem Copy-Free Transition]
+
+. Erstellung einer Cluster-übergreifende SVM-Peer-Beziehung zwischen den SVMs, die die übergewechselt primären und sekundären Volumes enthalten
++
+https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-sag/home.html["Systemadministration"]
+
+. Erstellung einer Volume SnapMirror Beziehung zwischen den übergewechselt primären und sekundären Volumes
++
+https://docs.netapp.com/ontap-9/topic/com.netapp.doc.exp-sm-ic-cg/home.html["Volume Disaster Recovery Express Vorbereitung"]
+
+. Auf dem Ziel-Volume werden das Quell-Volume und das Ziel-Volume der SnapMirror Beziehung neu synchronisiert:
++
+`*snapmirror resync*`
+
++
+
+IMPORTANT: Mindestens eine gemeinsame Snapshot Kopie muss zwischen den Quell- und Ziel-Volumes vorhanden sein.
+
++
+*Fehlerbehebung:* die Resynchronisierung von SnapMirror schlägt fehl, wenn die gemeinsame Snapshot Kopie in einer Data ONTAP Version vor 8.1 erstellt wurde. Sie können das verwenden `-fs-version` Parameter mit `volume snapshot show` Befehl in der erweiterten Berechtigungsebene, um die Version anzuzeigen, in der die Snapshot Kopie erstellt wurde. Wenn dieses Problem auftritt, unterbrechen Sie die SnapMirror Beziehung und führen Sie dann die Neusynchronisierung durch.
+
+. Überwachen Sie den Status der SnapMirror Datentransfers:
++
+`*snapmirror show*`
+
++
+
+IMPORTANT: Sie müssen auf den Quell- und Ziel-Volumes keinen Vorgang, wie z. B. die Verschiebung eines Volumes oder SnapMirror Unterbrechung, durchführen, bis die Neusynchronisierung erfolgreich abgeschlossen ist. Stellen Sie sicher, dass die Neusynchronisierung nicht abgebrochen wird und abgeschlossen wurde. Andernfalls können die Volumes in einen inkonsistenten Status versetzt werden.
+
+. Übergabe des Sekundärprojekts, gefolgt vom primären Projekt
++
+xref:task_committing_7_mode_aggregates_to_clustered_ontap_format.adoc[Übergabe des Copy-Free Transition-Projekts]
+
+
+
+*Verwandte Informationen*
+
+http://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-cmpr/GUID-5CB10C70-AC11-41C0-8C16-B4D0DF916E9B.html["ONTAP 9-Befehle"]
+
+https://docs.netapp.com/us-en/ontap/["System Manager"]

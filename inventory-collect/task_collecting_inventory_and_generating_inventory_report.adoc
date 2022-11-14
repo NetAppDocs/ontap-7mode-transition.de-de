@@ -1,0 +1,103 @@
+---
+permalink: inventory-collect/task_collecting_inventory_and_generating_inventory_report.html 
+sidebar: sidebar 
+keywords: ontap, 7, mode, collect, inventory, generating, inventory, report, transition 
+summary: 'Informationen zu Data ONTAP Systemen \(7-Mode Systeme und Nodes des Clusters\), Switches, Hosts und Host-Applikationen können erfasst werden. Mithilfe dieser Informationen können Sie einen Inventarbericht mit detaillierten Informationen zu den 7-Mode Systemen, Hosts und Host-Applikationen für die Bewertung der Transition generieren.' 
+---
+= Bestandsaufnahme sammeln und Bestandsbericht erstellen
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Es können Informationen zu Data ONTAP Systemen (7-Mode Systeme und Nodes des Clusters), Switches, Hosts und Host-Applikationen erfasst werden. Mithilfe dieser Informationen können Sie einen Inventarbericht mit detaillierten Informationen zu den 7-Mode Systemen, Hosts und Host-Applikationen für die Bewertung der Transition generieren.
+
+* Sie müssen das heruntergeladen haben `ict.exe` Datei von der NetApp Support Site
+* Sie müssen über den Benutzernamen, das Kennwort und die IP-Adressen der Speichersysteme und Hosts verfügen, für die der Bestandsbericht erforderlich ist.
+* Der Benutzername für das Speichersystem und die Hosts muss über ausreichende Berechtigungen zur Ausführung der Befehle verfügen.
+* Wenn Sie mehrere Systeme zur Bestandserfassung hinzufügen, müssen Sie eine Textdatei erstellt haben, die im ASCII- oder UTF-8-Format codiert ist und die Systemdetails enthält, ein System pro Zeile.
++
+Jedes Systemdetail muss das folgende Format haben:
+
++
+`(ontap|windows|vmware|linux|cisco|brocade)://[(_domain_user__\\__user__):_[password]@](host_name|ip)__`
+
++
+Wenn Sie angeben `*` Sie werden als Passwort aufgefordert, das Passwort an der Kommandozeile einzugeben.
+
+* Alle Funktionen müssen konfiguriert und ihre Lizenzen müssen aktiviert werden, damit das Arbeitsbuch die Inventarinformationen zu den Funktionen enthalten kann.
+* Alle Storage-System-Konfigurationen, z. B. CIFS-Freigabnamen, Benutzernamen und Gruppennamen, müssen im UTF-8-Format vorliegen.
+* Für den FC-Zonenplan müssen 7-Mode-Systeme und Hosts mit dem Switch verbunden sein.
++
+Das Cluster kann entweder mit demselben Switch wie das 7-Mode System oder mit einem neuen Switch im selben Fabric verbunden werden.
+
+
+
+Das Inventory Collect Tool kann Konfigurationsinformationen von maximal vier Controllern und 20 Hosts gleichzeitig erfassen. Bei skalierten Konfigurationen mit Kontingenten, qtrees, Exporten oder UNIX Benutzern und Gruppen kann es jedoch erheblich länger dauern, bis der Bestandsbericht generiert wird.
+
+
+NOTE: Sie sollten vermeiden, während Stoßzeiten Bestandseinfassungsvorgänge an aktiven Storage Controllern durchzuführen.
+
+. Navigieren Sie in der Windows-Eingabeaufforderung zum Pfad, auf den das Inventory Collect Tool heruntergeladen wird.
+. Erstellen Sie den Bestandsbericht, indem Sie den ausführen `ict` Befehl mit der System-IP-Adresse und den zugehörigen Anmeldedaten:
++
+|===
+| Wenn Sie Informationen angeben möchten... | Geben Sie den folgenden Befehl ein... 
+
+
+ a| 
+Verwenden Sie für jedes System die Befehlszeilenschnittstelle
+ a| 
+`*ict --cmd Collect --output _filename_ (ontap Windows natürlich vmware linux)://[_user_Domain_user_)[:(_password_***)]@]_hostname_) ...*
+
+** `_filename_` Ist der Name, den Sie für den Bestandsbericht angeben möchten.
+** `ontap|windows|vmware|linux` Ist der Systemtyp.
++
+Beispielsweise lautet der Systemtyp für ein Storage-System mit 7-Mode ONTAP und für einen Linux Host der typ linux.
+
+** `cisco|brocade` Sind die unterstützten FC-Switches.
+** `_user|domain_user_` Und `_password_` Sind die Systemanmeldeinformationen.
++
+Wenn der Controller kein Passwort enthält, können Sie die Zeichen eingeben `\"\"` Als Passwort.
+
+** `_hostname_` Die IP-Adresse oder der Hostname des Controllers, Hosts oder Switches.
+
+
+
+
+ a| 
+Für mehrere Systeme in einer Textdatei
+ a| 
+`*ict --cmd collect --output _filename_ --input _credentials_file.txt_*`
+
+`_credentials_file.txt_` Ist die Textdatei, die die Systemdetails und Anmeldeinformationen für mehrere Systeme enthält:
+
+** Es werden nur Textdateien unterstützt, die im ASCII-Format codiert wurden.
+** Wenn Sie angeben `*` Sie werden als Passwort aufgefordert, das Passwort an der Kommandozeile einzugeben.
+** Wenn der Controller kein Passwort besitzt, können Sie eingeben `""` Als Passwort.
+
+
+|===
++
+
+NOTE: Wenn auf Ihrem Speichersystem Windows 7 oder höher ausgeführt wird und Sie über eingeschränkte Berechtigungen für den Ordner verfügen, in dem die XML-Ausgabedatei für den Bestandsbericht gespeichert wird, werden die Ausgabedateien automatisch im gespeichert `VirtualStore` Verzeichnis und die Anwendung läuft wie gewohnt.
+
++
+Der Bestandsbericht wird für ein Speichersystem und einen Linux-Host erstellt. Die erstellten Berichte sind `collected_data.xml` Und `collected_data_InventoryWorkbook.xml`:
+
++
+[listing]
+----
+ict --cmd collect --output collected_data ontap://root:test123@hostname1 linux://root@hostname2
+----
++
+Die geschätzte Zeit, die pro Controller zum Erfassen von Inventarinformationen benötigt wird, wird angezeigt.
+
++
+Die Bestandsmappe und der Bestandsbericht werden im XML-Format erstellt.
+
+. Zeigen Sie das Arbeitsbuch zur Bestandsaufnahme in Microsoft Excel unter Verwendung von Microsoft Office 2007 oder höheren Versionen an.
+
+
+Sie können die XML-Datei für den Bestandsbericht in das Umstiegstool für 7-Mode importieren, um die Funktionen des 7-Mode Controllers und der Hosts zu bewerten und zu ermitteln, wie die Funktionen in der für den Wechsel ausgewählten Clustered Data ONTAP Version funktionieren.

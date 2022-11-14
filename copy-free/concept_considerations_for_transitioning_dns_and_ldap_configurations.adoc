@@ -1,0 +1,44 @@
+---
+permalink: copy-free/concept_considerations_for_transitioning_dns_and_ldap_configurations.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, dns, nis, ldap, configurations 
+summary: Sie sollten wissen, wie die DNS-, NIS- und LDAP-Konfigurationen in Data ONTAP 7-Mode in ONTAP umgestellt und angewendet werden. 
+---
+= Überlegungen für die Transition von DNS-, NIS- und LDAP-Konfigurationen
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie sollten wissen, wie die DNS-, NIS- und LDAP-Konfigurationen in Data ONTAP 7-Mode in ONTAP umgestellt und angewendet werden.
+
+
+
+== Überlegungen für den DNS-Übergang
+
+Bei DNS-Konfigurationen werden in ONTAP maximal sechs Domain-Namen und drei Name-Server pro SVM unterstützt. Wenn die eindeutige Anzahl an Domain-Namen oder Name-Servern in 7-Mode Systemen und die Ziel-SVM das unterstützte Limit überschreiten, meldet das 7-Mode Transition Tool einen Blockierfehler. Um den Übergang fortzusetzen, sollten Sie den Übergang der DNS-Konfiguration vom Tool ignorieren.
+
+
+NOTE: Wenn Sie den Übergang der DNS-Konfiguration ignorieren, müssen Sie DNS auf der Ziel-SVM manuell konfigurieren.
+
+
+
+== Überlegungen bei NIS-Transition
+
+* Die Länge des NIS-Domain-Namens im 7-Mode-System darf 64 Zeichen nicht überschreiten.
+* Für den Wechsel zu Cluster-Zielversionen mit ONTAP 9.1 oder einer älteren Version wird der verwendet `nis.servers` Die Option auf dem 7-Mode-System muss nur mit IP-Adressen und nicht mit einem vollständig qualifizierten Domänennamen (FQDN) konfiguriert sein.
++
+Sie müssen die konfigurieren `nis.servers` Option auf dem 7-Mode System mit IP-Adressen vor dem Übergang, wenn Sie zu einem Cluster mit ONTAP 9.1 oder einer älteren Version wechseln. Die Transition wird unterstützt, wenn der vorhanden ist `nis.servers` Option auf dem 7-Mode-System, das mit einem FQDN konfiguriert ist, und Sie wechseln zu einem Cluster mit einer beliebigen ONTAP-Version zwischen 9.2 und 9.5.
+
+
+
+
+
+== Überlegungen zur LDAP-Umstellung
+
+* Wenn für die Benutzerzuordnung separate Basiswerte und Bereichwerte angegeben sind (`ldap.usermap.base`) Und Benutzerpasswort (`ldap.base.passwd`) Suchen im 7-Mode-System werden die Grundwerte und Bereichwerte nur für das Benutzerpasswort übertragen.
++
+Die Basiswerte und Bereichwerte werden für die Benutzerzuordnung und das Suchen von Benutzerpasswörtern in ONTAP verwendet, was zu Sicherheitsproblemen führen kann. Bei Bedarf müssen Sie die Basiswerte und Bereichwerte für die Benutzerzuordnung der Option „User Distinguished Name“ (DN) in ONTAP After Transition manuell hinzufügen.
+
+

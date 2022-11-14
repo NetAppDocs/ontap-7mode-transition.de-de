@@ -1,0 +1,14 @@
+---
+permalink: copy-free/index.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, index 
+summary: Beschreibt die Transition von einem 7-Mode HA-Paar zu einem ONTAP Cluster mit dem 7-Mode Transition Tool, ohne dass Daten von Festplatten kopiert werden müssen. Die bestehenden Festplatten-Shelfs sind mit dem neuen Cluster verbunden. 
+---
+= Copy-Free Transition Guide
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+In diesem Leitfaden wird die Transition vom 7-Mode HA-Paar zu einem ONTAP Cluster mit dem 7-Mode Transition Tool beschrieben, ohne dass Daten von Festplatten kopiert werden müssen. Die vorhandenen Festplatten-Shelfs sind mit dem neuen Cluster verbunden.

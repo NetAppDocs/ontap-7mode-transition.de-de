@@ -1,0 +1,80 @@
+---
+permalink: copy-based/reference_limits_for_transition.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, limits 
+summary: Wenn Sie Volumes mit dem 7-Mode Transition Tool umstellen, sollten Sie bestimmte Grenzen für die Bewertung beachten, z. B. die Anzahl der Controller und Hosts, die gleichzeitig bewertet werden können. Für die Migration sollten Sie die Anzahl der Volumes in einem Projekt und die Anzahl der gleichzeitig ausgeführten Projekte überprüfen. 
+---
+= Grenzwerte für den Übergang
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Wenn Sie Volumes mit dem 7-Mode Transition Tool umstellen, sollten Sie bestimmte Grenzen für die Bewertung beachten, z. B. die Anzahl der Controller und Hosts, die gleichzeitig bewertet werden können. Für die Migration sollten Sie die Anzahl der Volumes in einem Projekt und die Anzahl der gleichzeitig ausgeführten Projekte überprüfen.
+
+In der folgenden Tabelle sind die Anzahl der gleichzeitig bewerteten Controller und Hosts aufgeführt:
+
+|===
+| Parameter | Maximale Anzahl 
+
+
+ a| 
+Anzahl an Controllern
+ a| 
+50
+
+
+
+ a| 
+Anzahl der Hosts
+ a| 
+20
+
+
+
+ a| 
+Anzahl der ESXi-Hosts
+ a| 
+10
+
+|===
+
+NOTE: Die maximale Anzahl von 7-Mode Controllern in einer einzelnen Bewertung hängt von der Anzahl der Objekte ab, wie z. B. Anzahl der Volumes, qtrees, Quotas und Exporte.
+
+In der folgenden Tabelle sind die Anzahl der Volumes in einem Projekt sowie die Anzahl der Projekte aufgeführt, die während der Migration gleichzeitig ausgeführt werden können:
+
+|===
+| Parameter | Maximale Anzahl 
+
+
+ a| 
+Anzahl der Volumes in einem Projekt
+ a| 
+160
+
+
+
+ a| 
+Empfohlene Begrenzung für die Gesamtanzahl der Volumes aller aktiven Projekte in der Web-Schnittstelle zu einem bestimmten Zeitpunkt
+ a| 
+240
+
+
+
+ a| 
+Maximale Anzahl der aktiven Projekte zu einem bestimmten Zeitpunkt
+ a| 
+50
+
+
+NOTE: Wenn Sie 50 aktive Projekte haben, können Sie Daten von 50 7-Mode Storage-Systemen und den zugehörigen SnapMirror Zielen replizieren.
+
+
+
+ a| 
+Anzahl der Zeitpläne für Datenkopieerstellung pro Projekt
+ a| 
+7
+
+|===

@@ -1,0 +1,18 @@
+---
+permalink: snapmirror/task_recovering_from_a_disaster_at_7_mode_site_during_transition.html 
+sidebar: sidebar 
+keywords: ontap, 7, mode, transition, snapmirror, recover, disaster, site 
+summary: 'Wenn Sie eine SnapMirror Disaster Recovery \ (DR\)-Beziehung zwischen dem primären 7-Mode Volume und dem sekundären Clustered Data ONTAP Volume hergestellt haben und im Falle eines Ausfalls am primären 7-Mode Standort einen direkten Client-Zugriff auf das sekundäre Clustered Data ONTAP Volume haben. Nachdem das primäre 7-Mode Volume wieder online geschaltet wurde, müssen Sie weitere Schritte durchführen, um die Clients zum primären Clustered Data ONTAP Volume umleiten zu können.' 
+---
+= Wiederherstellung nach einem Notfall am 7-Mode Standort während der Umstellung
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Wenn Sie eine SnapMirror Disaster Recovery-Beziehung (DR) zwischen dem primären 7-Mode Volume und dem sekundären Clustered Data ONTAP Volume aufgebaut haben. Im Falle eines Ausfalls am primären Standort 7-Mode können Sie den Client-Zugriff auf das sekundäre Clustered Data ONTAP Volume direkt gewähren. Nachdem das primäre 7-Mode Volume wieder online geschaltet wurde, müssen Sie weitere Schritte durchführen, um die Clients zum primären Clustered Data ONTAP Volume umleiten zu können.
+
+Um alle auf dem sekundären Clustered Data ONTAP Volume geschriebenen Daten nach der Katastrophe aufzubewahren, müssen Sie das primäre 7-Mode Volume verschieben, nachdem das primäre 7-Mode Volume wieder online ist und eine SnapMirror Beziehung zwischen den primären und sekundären Clustered Data ONTAP Volumes eingerichtet wurde. Anschließend können Sie die Clients zu den primären Data ONTAP Volumes für Clustered Data ONTAP umleiten.
+
+Eine Resynchronisierung von SnapMirror von Clustered Data ONTAP Volumes auf die 7-Mode Volumes wird nicht unterstützt. Wenn Sie also die DR-Beziehung zwischen dem primären 7-Mode Volume und dem sekundären Clustered Data ONTAP Volume nach dem Zwischenfall wiederherstellen, gehen alle auf dem sekundären Clustered Data ONTAP geschriebenen Daten verloren.

@@ -1,0 +1,26 @@
+---
+permalink: copy-based/concept_considerations_for_transitioning_of_snaplock_compliance_volumes.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, snaplock, compliance, volumes 
+summary: Das Umstiegstool für 7-Mode unterstützt die Umstellung von Standalone SnapLock Compliance Volumes und SnapLock Compliance Volumes in einer SnapMirror Beziehung. 
+---
+= Überlegungen für den Wechsel zu SnapLock Compliance Volumes
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Das Umstiegstool für 7-Mode unterstützt die Umstellung von Standalone SnapLock Compliance Volumes und SnapLock Compliance Volumes in einer SnapMirror Beziehung.
+
+Der Workflow für die Transition von Standalone SnapLock Compliance Volumes ist derselbe wie für die Transition von FlexVol Volumes.
+
+Der Übergang von SnapMirror Beziehungen für SnapLock Compliance Volumes wird durch das 7-Mode Transition Tool nicht automatisiert. Sie müssen die primären und sekundären SnapLock-Compliance-Volumes als Standalone-Volumes verschieben und die Beziehungen anschließend manuell neu synchronisieren.
+
+Sie können die SnapLock Compliance Volumes (Standalone- und Volume-Volumes in SnapMirror Beziehungen) als eigenständiges Volume in Standalone-, Primär- und Sekundärprojekte integrieren.
+
+Der Lese-/Schreibmodus für Vorüberschreibungen wird bei Projekten mit SnapLock-Compliance-Volumes nicht unterstützt. Als Best Practice empfiehlt es sich, separate Projekte für SnapLock Compliance Volumes und nicht-SnapLock-Compliance-Volumes zu erstellen, da der Vorumstellmodus für Lese-/Schreibvorgänge nicht unterstützt wird, wenn SnapLock-Compliance-Volumes Teil des Projekts werden.
+
+Wenn während der Umstellung das ausgewählte Volume ein SnapLock-Compliance Volume ist und es Ziel einer SnapMirror Beziehung ist, wird die SnapMirror Beziehung zwischen dem 7-Mode Volume und dem ONTAP Volume ohne SnapMirror Break-Vorgang gelöscht. Durch diese Aktion bleiben die sekundären ONTAP SnapLock-Compliance-Volumes schreibgeschützt. Die sekundären ONTAP SnapLock Compliance Volumes müssen sich für die Neusynchronisierung im schreibgeschützten Modus befinden, damit die primären und sekundären SnapLock Compliance Volumes erfolgreich bestehen können.
+
+Siehe https://kb.netapp.com/Advice_and_Troubleshooting/Data_Protection_and_Security/SnapMirror/How_to_transition_the_7-Mode_SnapLock_Compliance_volumes_with_SnapMirror_relationship_to_clustered_Data_ONTAP["Transition der 7-Mode SnapLock Compliance Volumes mit SnapMirror Beziehung zu Clustered Data ONTAP"]

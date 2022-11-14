@@ -1,0 +1,14 @@
+---
+permalink: copy-based/concept_troubleshooting_web_interface_issues.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, troubleshoot, issues 
+summary: Beachten Sie einige der häufigsten Probleme mit dem 7-Mode Transition Tool und den nötigen Schritten zur Behebung. 
+---
+= Fehlerbehebung
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Beachten Sie einige der häufigsten Probleme mit dem 7-Mode Transition Tool und den nötigen Schritten zur Behebung.

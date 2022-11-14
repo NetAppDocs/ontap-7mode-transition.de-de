@@ -1,0 +1,59 @@
+---
+permalink: san-host/task_preparing_rhel_luns_transition_using_inventory_assessment_workbook.html 
+sidebar: sidebar 
+keywords: rhel, lun, mount, points, dmmp, device, names, inventory, assessment, workbook 
+summary: 'Vor dem Übergang einer LUN mit einem Bereitstellungspunkt unter Verwendung eines DMMP-Gerätenamens müssen Sie den DMMP-Gerätenamen durch die entsprechende UUID-Nummer des Dateisystems ersetzen. Dies gilt für Red hat Enterprise Linux \ (RHEL\) 5 und RHEL 6.' 
+---
+= Vorbereiten von RHEL-LUNs mit Bereitstellungspunkten mithilfe von DMMP-Gerätenamen für die Transition mit dem Arbeitsbuch zur Bestandsbeurteilung
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Vor dem Übergang einer LUN mit einem Bereitstellungspunkt unter Verwendung eines DMMP-Gerätenamens müssen Sie den DMMP-Gerätenamen durch die entsprechende UUID-Nummer des Dateisystems ersetzen. Dies gilt für Red hat Enterprise Linux (RHEL) 5 und RHEL 6.
+
+Dieses Verfahren gilt für Copy-Based Transitions und Copy-Free Transitions.
+
+.Schritte
+. Sammeln Sie Informationen zur Vorüberlösung aus dem Arbeitsbuch _Inventory Assessment_.
++
+Sie benötigen insbesondere die folgenden Informationen:
+
++
+** Das auf dem DMMP-Gerät konfigurierte Dateisystem
+** Das Verzeichnis, auf dem das DMMP-Gerät gemountet ist
+** Die Dateisystem-UUID für das DMMP-Gerät
+
+
+
+
+.Schritte
+. Stellen Sie sicher, dass die Mount-Punkte für das DMMP-Gerät in der Datei `/etc/fstab `definiert sind.
+. Erstellen einer Sicherungskopie der Datei:
++
+`*cp /etc/fstab /etc/fstab_pre_transition*`
+
+. Bearbeiten Sie das `/etc/fstab` Datei zum Ersetzen des DMMP-Gerätenamens durch die entsprechende UUID-Nummer des Dateisystems.
++
+Im folgenden Beispiel wird das DMMP-Gerät /dev/Mapper/360a9800037534562572b453855496b41 durch UUID a073547e-00b6-4bf9-8e08-5eef08499a9c ersetzt:
+
++
+[listing]
+----
+[root@IBMx3550M3-229-169 ~]# cat /etc/fstab
+/dev/VolGroup00/LogVol00 /  ext3  defaults   1 1
+LABEL=/boot /boot  ext3     defaults         1 2
+tmpfs  /dev/shm    tmpfs    defaults         0 0
+devpts /dev/pts    devpts   gid=5, mode=620  0 0
+sysfs  /sys	       sysfs           defaults  0 0
+proc   /proc       proc           defaults   0 0
+/dev/VolGroup00/LogVol01 swap	swap  defaults 0 0
+/dev/mapper/test_vg-test_lv /mnt/lvm_ext3 ext3 defaults,_netdev 0 0
+UUID=a073547e-00b6-4bf9-8e08-5eef08499a9c /mnt/dmmp_ext3 ext3 defaults,_netdev 0 0
+----
+
+
+*Verwandte Informationen*
+
+xref:task_gathering_pretransition_information_from_inventory_assessment_workbook.adoc[Sammeln von Informationen zur Vorüberlösung aus dem Arbeitsbuch zur Bestandsbewertung]

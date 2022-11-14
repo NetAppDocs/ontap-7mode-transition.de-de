@@ -1,0 +1,36 @@
+---
+permalink: san-host/task_discovering_san_boot_luns_after_transition.html 
+sidebar: sidebar 
+keywords: ontap, san, host, transition, discover, san, boot, lun 
+summary: 'Nach der Umstellung Ihrer SAN Boot LUNs von Data ONTAP 7-Mode auf Clustered Data ONTAP müssen Sie die SAN Boot LUNs auf Ihrem Host erkennen. Dies ist für Copy-Based Transitions \(CBTs\) und Copy-Free Transitions \(CFTs\) erforderlich. Dies gilt für FC-, FCoE- und iSCSI-Konfigurationen.' 
+---
+= Nach dem Umstieg werden SAN-Boot-LUNs erkannt
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Nach der Umstellung Ihrer SAN Boot LUNs von Data ONTAP 7-Mode auf Clustered Data ONTAP müssen Sie die SAN Boot LUNs auf Ihrem Host erkennen. Dies ist für Copy-Based Transitions (CBTs) und Copy-Free Transitions (CFTs) erforderlich. Dies gilt für FC-, FCoE- und iSCSI-Konfigurationen.
+
+Falls Sie eine CFT durchführen, werden Vorgehensweisen für `vol rehost` Muss vollständig sein. Siehe link:https://docs.netapp.com/us-en/ontap-7mode-transition/copy-free/index.html["Copy-Free Transition Guide Für 7-Mode Transition Tool"] Entsprechende Details.
+
+. Starten Sie den Host.
+. Nur für FC- und FCoE-Konfigurationen:
++
+.. Rufen Sie den HBA-BIOS-Einstellungsmodus auf.
+.. Wählen Sie *Rescan*, um die Clustered Data ONTAP SAN Boot LUNs auf dem Host zu entdecken.
+.. Entfernen Sie die 7-Mode Boot-LUN-ID.
+.. Fügen Sie die Boot-LUN-ID des Clustered Data ONTAP im HBA-BIOS hinzu.
+.. Beenden Sie den HBA-BIOS-Einstellungsmodus, und starten Sie den Host neu.
+
+
+. Überprüfen Sie nach Abschluss des Neubootens die Clustered Data ONTAP LUNs:
++
+`*sanlun lun show*`
+
+. Überprüfen Sie das DMMP-Gerät:
++
+`*multipath -ll*`
+
+

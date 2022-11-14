@@ -1,0 +1,63 @@
+---
+permalink: copy-based/task_transitioning_volumes_by_excluding_a_subset_of_configurations.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, customize, cli 
+summary: Standardmäßig werden alle 7-Mode Konfigurationen auf ONTAP umgestellt. Sie können festlegen, dass einige oder alle Konfigurationen der Volume-, NFS-, CIFS-, SAN- und Name-Services von der Transition mit der CLI des 7-Mode Transition Tool ausgeschlossen werden sollen. Außerdem können Sie die 7-Mode NFS-Exportregeln und Snapshot Zeitpläne konsolidieren und eine vorhandene NFS-Exportrichtlinie und Snapshot-Richtlinie für die Ziel-SVM wiederverwenden. 
+---
+= Anpassung des Übergangs von 7-Mode Konfigurationen mithilfe der CLI
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Standardmäßig werden alle 7-Mode Konfigurationen auf ONTAP umgestellt. Sie können festlegen, dass einige oder alle Konfigurationen der Volume-, NFS-, CIFS-, SAN- und Name-Services von der Transition mit der CLI des 7-Mode Transition Tool ausgeschlossen werden sollen. Außerdem können Sie die 7-Mode NFS-Exportregeln und Snapshot Zeitpläne konsolidieren und eine vorhandene NFS-Exportrichtlinie und Snapshot-Richtlinie für die Ziel-SVM wiederverwenden.
+
+Sie müssen diese Aufgabe vor der Anwendung der Konfiguration ausführen, danach werden alle Änderungen ignoriert.
+
+Das 7-Mode Transition Tool führt keine Vorabprüfungen für die nicht ausgeschlossene Konfiguration durch.
+
+Standardmäßig sind alle 7-Mode Konfigurationen für den Übergang ausgewählt.
+
+Es ist ein Best Practice, zunächst die Vorabprüfungen bei allen Konfigurationen durchzuführen und dann bei den späteren Vorabprüfungen eine oder mehrere Konfigurationen auszuschließen. Damit erfahren Sie, welche Konfigurationen vom Umstieg ausgeschlossen sind und welche Vorabprüfungen nachfolgend übersprungen werden.
+
+.Schritte
+* Konfigurationen ausschließen und überprüfen:
++
+.. Schließen Sie die Konfigurationen aus: +
+`*transition cbt property-set -p _project_name_ -n _config_property_name_ -v true*`
++
+`_config_property_name_` Ist die Konfiguration, die Sie ausschließen möchten.
+
++
+xref:reference_configurations_that_can_be_excluded.adoc[Konfigurationen, die vom Umstieg ausgeschlossen werden können]
+
+.. Überprüfen Sie den Wert der Eigenschaft, die für das Ausschließen der Konfiguration festgelegt ist:
++
+`*transition cbt property-get -p _project_name_ -n _config_property_name_*`
+
+
+
+* Konsolidierung von NFS-Exportregeln für den Übergang:
++
+** Konsolidieren Sie ähnliche 7-Mode NFS-Exportregeln in eine einzige Exportrichtlinie in Clustered Data ONTAP. Diese kann dann auf das überwechselte Volume oder qtree angewendet werden: +
+`*transition cbt property-set -p _project_name_ -n _nfs-consolidate-similiar-7mode-exports_ -v true*`
++
+Wenn der `nfs-consolidate-similiar-7mode-exports` Eigenschaft ist auf festgelegt `false`, Das 7-Mode Transition Tool erstellt eine neue NFS Exportpolitik in ONTAP für jede 7-Mode NFS Exportregel.
+
+** Verwenden Sie eine vorhandene NFS-Exportrichtlinie auf der SVM, die zur Exportrichtlinie passt, die durch das Tool erstellt wird. Diese Richtlinie kann auf überwechselte Volumes oder qtrees angewendet werden: +
+`*transition cbt property-set -p _project_name_ -n _nfs-reuse-matching-svm-export-policies_ -v true*`
+
+
+* Konsolidieren Sie Snapshot Zeitpläne für den Übergang:
++
+** Konsolidierung ähnlicher 7-Mode Snapshot Zeitpläne auf eine einzelne Snapshot Richtlinie in ONTAP. Diese können dann auf das überführte Volume angewendet werden: +
+`*transition cbt property-set -p _project_name_ -n _consolidate-similar-7mode-snapshot-policies_ -v true*`
++
+Wenn der `consolidate-similar-7mode-snapshot-policies` Eigenschaft ist auf false gesetzt. Das 7-Mode Transition Tool erstellt für jeden Snapshot Zeitplan eine neue Snapshot-Richtlinie in ONTAP.
+
+** Verwenden Sie eine vorhandene Snapshot-Richtlinie auf der SVM, die mit der Snapshot-Richtlinie übereinstimmt, die durch das Tool erstellt wird. Sie kann auf die übermigrierte Volumes angewendet werden: +
+`*transition cbt property-set -p _project_name_ -n _reuse-matching-svm-snapshot-policies_ -v true*`
+
+
+

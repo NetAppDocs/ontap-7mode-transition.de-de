@@ -1,0 +1,405 @@
+---
+permalink: copy-based/reference_transition_preparation_checklist.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, preparation, checklist 
+summary: Bevor Sie mit der Transition beginnen, sollten Sie überprüfen, ob Sie alle Voraussetzungen für die Transition erfüllt haben. 
+---
+= Checkliste zur Vorbereitung der Transition
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Bevor Sie mit der Transition beginnen, sollten Sie überprüfen, ob Sie alle Voraussetzungen für die Transition erfüllt haben.
+
+
+
+== ONTAP-Versionsanforderungen
+
+|===
+| Element | Ja. 
+
+
+ a| 
+Unterstützte Version mit 7-Mode https://mysupport.netapp.com/matrix["NetApp Interoperabilitäts-Matrix-Tool"]
+ a| 
+
+
+
+ a| 
+Ihr Cluster muss eine der folgenden Data ONTAP-Versionen ausführen:
+
+* Data ONTAP 8.2.x
+* Data ONTAP 8.3.x
+
+ a| 
+
+
+
+ a| 
+Die Migration muss auf eine der folgenden ONTAP Versionen erfolgen:
+
+* Verwenden Des 7-Mode Transition Tool 3.3.3:
++
+** ONTAP 9.8 oder frühere unterstützte Versionen
+
+
+* Verwenden Des 7-Mode Transition Tool 3.3.2:
++
+** ONTAP 9.7P2 oder neuer 9.7 P Release (frühere Versionen von 9.7 werden nicht unterstützt)
+** ONTAP 9.6P7 oder höher 9.6 P Release (frühere Versionen von 9.6 werden nicht unterstützt)
+** ONTAP 9.5 oder eine frühere Version von ONTAP 9
+** Clustered Data ONTAP 8.1.4P4 oder höher 8.x Version
+
+
+* Verwenden Des 7-Mode Transition Tool 3.3.1:
++
+** ONTAP 9.5 oder eine frühere Version von ONTAP 9
+** Clustered Data ONTAP 8.1.4P4 oder höher 8.x Version
+
+
+
+ a| 
+
+|===
+
+
+== Lizenzierungsanforderungen
+
+|===
+| Element | Ja. 
+
+
+ a| 
+Die SnapMirror Lizenz ist auf dem 7-Mode System aktiviert
+ a| 
+
+
+
+ a| 
+SnapMirror Lizenzen sind auf dem primären und sekundären Cluster für den Umstieg auf eine SnapMirror Volume-Beziehung aktiviert
+ a| 
+
+
+
+ a| 
+Die CIFS-Lizenz ist auf dem Cluster aktiviert, wenn sie auf dem 7-Mode System aktiviert ist
+ a| 
+
+
+
+ a| 
+Die NFS-Lizenz ist auf dem Cluster aktiviert, wenn sie auf dem 7-Mode System aktiviert ist
+ a| 
+
+
+
+ a| 
+Die iSCSI-Lizenz ist auf dem Cluster aktiviert, wenn sie auf dem 7-Mode-System aktiviert ist
+ a| 
+
+
+
+ a| 
+Wenn die FC-Lizenz auf dem Cluster aktiviert ist, wird sie auf dem 7-Mode System aktiviert
+ a| 
+
+
+
+ a| 
+Andere Funktionslizenzen, sofern diese auf dem 7-Mode System verfügbar sind, werden dem Cluster hinzugefügt
+ a| 
+
+|===
+
+
+== SnapMirror-Anforderungen auf dem 7-Mode System
+
+|===
+| Element | Ja. 
+
+
+ a| 
+SnapMirror Lizenz
+ a| 
+
+
+
+ a| 
+`options snapmirror.enable on`
+ a| 
+
+
+
+ a| 
+`options interface.snapmirror.blocked ""`
+ a| 
+
+
+
+ a| 
+Überprüfen Sie, ob eine der folgenden Optionen zutrifft:
+
+* Der `snapmirror.access` Die Option ist auf alle festgelegt
+* Der `snapmirror.access` Die Option ist auf die IP-Adressen aller Cluster-Intercluster LIFs im Cluster eingestellt
+* Wenn der `snapmirror.access` Die Option ist auf festgelegt `legacy` Und das `snapmirror.checkip.enable` Option ist `off`, Der SVM-Name wird der hinzugefügt `/etc/snapmirror.allow` Datei
+* Wenn der `snapmirror.access` Die Option ist auf „Legacy“ und „ausgewählt“ eingestellt `snapmirror.checkip.enable` Option ist `on`, Die IP-Adressen der Intercluster-LIFs werden dem hinzugefügt `/etc/snapmirror.allow` Datei
+
+ a| 
+
+|===
+
+
+== Die Volume-Einstellungen auf dem 7-Mode System
+
+|===
+| Element | Ja. 
+
+
+ a| 
+Das Volume ist online
+ a| 
+
+
+
+ a| 
+Das Volume ist nicht eingeschränkt
+ a| 
+
+
+
+ a| 
+Die folgenden Volume-Optionen sind deaktiviert:
+
+* `no_i2p`
+* `read_realloc`
+* `nvfail`
+
+ a| 
+
+|===
+
+
+== Verwalten des Zugriffs auf das Cluster
+
+|===
+| Element | Ja. 
+
+
+ a| 
+SSL ist aktiviert
+
+`system services web show`
+ a| 
+
+
+
+ a| 
+HTTPS ist auf der Cluster-Management-LIF zulässig
+
+`system services firewall policy show`
+ a| 
+
+|===
+
+
+== Management des Zugriffs auf das 7-Mode System
+
+|===
+| Element | Ja. 
+
+
+ a| 
+HTTPS ist aktiviert
+
+`options httpd.admin.ssl.enable on`
+ a| 
+
+
+
+ a| 
+SSL ist aktiviert
+
+`secureadmin setup ssl`
+
+`options ssl.enable on`
+ a| 
+
+
+
+ a| 
+SSLv2 und SSLv3 sind deaktiviert
+
+`options ssl.v2.enable off`
+
+`options ssl.v3.enable off`
+ a| 
+
+|===
+
+
+== Netzwerkanforderungen
+
+|===
+| Element | Ja. 
+
+
+ a| 
+Das Cluster ist über die Cluster-Management-LIF erreichbar
+ a| 
+
+
+
+ a| 
+Auf jedem Node des Clusters sind mindestens ein Intercluster-LIFs für das Multipathing eingerichtet, an jedem Node sind zwei Intercluster-LIFs erforderlich
+ a| 
+
+
+
+ a| 
+Für die Intercluster LIFs werden statische Routen erstellt
+ a| 
+
+
+
+ a| 
+7-Mode System und Cluster sind über das Windows-System erreichbar, auf dem 7-Mode Transition Tool installiert ist
+ a| 
+
+
+
+ a| 
+Der NTP-Server ist konfiguriert und die 7-Mode Systemzeit wird mit der Cluster-Zeit synchronisiert
+ a| 
+
+|===
+
+
+== Port-Anforderungen
+
+|===
+| Element | Ja. 
+
+
+ a| 
+7-Mode System
+
+* 10565/TCP
+* 10566/TCP
+* 10567/TCP
+* 10568/TCP
+* 10569/TCP
+* 10670/TCP
+* 80/TCP
+* 443/TCP
+
+ a| 
+
+
+
+ a| 
+Cluster
+
+* 10565/TCP
+* 10566/TCP
+* 10567/TCP
+* 10568/TCP
+* 10569/TCP
+* 10670/TCP
+* 11105/TCP
+* 80/TCP
+* 443/TCP
+
+ a| 
+
+|===
+
+
+== NFS-Anforderungen erfüllt
+
+|===
+| Element | Ja. 
+
+
+ a| 
+NFS-Lizenz wurde dem Cluster hinzugefügt
+ a| 
+
+
+
+ a| 
+Der DNS-Eintrag muss für AD-Domäne auf der SVM konfiguriert sein
+ a| 
+
+
+
+ a| 
+NFS wird der Liste der zugelassenen Protokolle für die SVM hinzugefügt
+ a| 
+
+
+
+ a| 
+Taktverzerrung zwischen KDC und dem Cluster ist kleiner als oder gleich 5 Minuten
+ a| 
+
+|===
+
+
+== CIFS-Anforderungen erfüllt
+
+|===
+| Element | Ja. 
+
+
+ a| 
+CIFS-Lizenz wurde dem Cluster hinzugefügt
+ a| 
+
+
+
+ a| 
+Wenn die MultiStore Lizenz aktiviert ist, muss CIFS der Liste der zugelassenen Protokolle für die vFiler Einheit, die die Transition Volumes besitzt, hinzugefügt werden
+ a| 
+
+
+
+ a| 
+CIFS ist auf dem 7-Mode System eingerichtet und läuft
+ a| 
+
+
+
+ a| 
+Der Authentifizierungstyp in 7-Mode für CIFS ist Active Directory (AD) oder Workgroup
+ a| 
+
+
+
+ a| 
+Die Liste der zugelassenen Protokolle für die SVM wird CIFS hinzugefügt
+ a| 
+
+
+
+ a| 
+DNS ist für die SVM konfiguriert
+ a| 
+
+
+
+ a| 
+CIFS-Server ist für die SVM konfiguriert
+ a| 
+
+
+
+ a| 
+CIFS wird auf der SVM ausgeführt
+ a| 
+
+|===
+*Verwandte Informationen*
+
+xref:concept_preparing_for_copy_based_transition.adoc[Die Vorbereitung für die Copy-Based Transition ist möglich]

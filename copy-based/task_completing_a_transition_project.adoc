@@ -1,0 +1,62 @@
+---
+permalink: copy-based/task_completing_a_transition_project.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, complete, project 
+summary: Sie können eine Transition abschließen, indem Sie die einzelnen Projekte abschließen. Da dieser Vorgang Unterbrechungen verursacht, sollten Sie abwägen, wann er ausgeführt werden soll. Bei dem Wechsel von Volumes in einer SnapMirror Beziehung muss das sekundäre Projekt abgeschlossen sein, bevor die Transition des primären Projekts abgeschlossen wird. 
+---
+= Abschluss eines Transition-Projekts
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können eine Transition abschließen, indem Sie die einzelnen Projekte abschließen. Da dieser Vorgang Unterbrechungen verursacht, sollten Sie abwägen, wann er ausgeführt werden soll. Bei dem Wechsel von Volumes in einer SnapMirror Beziehung muss das sekundäre Projekt abgeschlossen sein, bevor die Transition des primären Projekts abgeschlossen wird.
+
+Die Storage-Umstellung ist in wenigen Minuten abgeschlossen. Die für das Remount der Daten erforderliche Zeit für die Clients variiert. Die zeitliche Planung der Storage-Umstellung oder des Ausfallzeitraums hängt von folgenden Faktoren ab:
+
+* Letzte Aktualisierung
++
+Die endgültige Aktualisierung der Daten hängt von der Menge der Änderungen an den Quelldaten seit der letzten Aktualisierung ab. Inkrementelle Übertragungen minimieren die Datenmenge, die bei der Umstellung übertragen werden muss.
+
+* Verbinden der Clients wird wiederhergestellt
++
+Wenn jeder Client Updates zum Herstellen einer Verbindung zum Cluster benötigt, bestimmt die Anzahl der Clients, die aktualisiert werden müssen, die Umstellungszeit.
+
+
+
+Ausfälle gelten nur für die Volumes, die migriert werden. Sie müssen das gesamte Storage-System aus 7-Mode der Quelle nicht herunterfahren. Volumes im Quellsystem, die nicht migriert werden, können online und zugänglich bleiben.
+
+. Wählen Sie im Migrations-Dashboard das Projekt aus, das Sie abschließen möchten.
+. Trennen Sie den Client-Zugriff manuell.
+. Klicken Sie Auf *Übergang Abschließen*.
++
+.. Wenn Sie die 7-Mode Quell-Volumes nach dem Übergang online lassen möchten, deaktivieren Sie das Kontrollkästchen *Quell-Volumes nach dem Umstieg offline schalten*.
++
+Standardmäßig ist diese Option ausgewählt und die Quell-Volumes werden offline geschaltet.
+
+.. Wenn Sie SnapLock Volumes für die Chain of Custody Verification ausgewählt haben, wählen Sie das *Ich verstehe, dass ich 7-Mode SnapLock Volumes nicht offline nehmen darf während Chain of Custody Verification* Kontrollkästchen, um die SnapLock Volumes nach dem Umstieg online zu halten.
+.. Wenn Sie den Übergang einer SnapMirror Beziehung zwischen Clustern ausgewählt haben, auf denen ONTAP 9.3 oder höher unterstützte Versionen laufen, wählen Sie das *Ich verstehe, dass ich den SnapMirror Beziehungstyp von Data_Protection manuell in Extended_Data_Protection* umwandeln muss.
+.. Aktivieren Sie das Kontrollkästchen *Passen Sie die Anzahl der gleichzeitigen SnapMirror Transfers und Drosselklappengrenzen für diesen Vorgang an*, um die Anzahl der SnapMirror Datenkopievorgänge und das Drossellimit anzugeben.
+.. Klicken Sie Auf *Weiter*.
+
+
++
+Die Ergebnisse des Umstellungsvorgangs werden angezeigt.
+
+
+
+Die für den Wechsel ausgewählten 7-Mode IP-Adressen sind aus dem 7-Mode Storage-System nicht konfiguriert und die vor der Umstellung erstellten LIFs werden den Administrationsstatus erhalten. Die 7-Mode Volumes sind offline.
+
+Führen Sie im Cluster den Befehl vserver Check lif-Multitenancy run aus, um zu überprüfen, ob die Nameserver über die überstellt LIFs erreichbar sind.
+
+
+NOTE: Falls Sie eine neue LIF erstellt haben, müssen Benutzer und Applikationen der migrierte Volumes nach Abschluss aller Projekte mit den neuen IP-Adressen und -Ports den Laufwerken neu zugeordnet werden.
+
+Wenn Sie die Transition einer SnapMirror Beziehung zwischen Clustern mit unterstützten ONTAP 9.3 oder höher abgeschlossen haben, müssen Sie die SnapMirror Beziehung vom Typ DP in Typ XDP konvertieren.
+
+http://docs.netapp.com/ontap-9/topic/com.netapp.doc.pow-dap/home.html["Datensicherung"]
+
+*Verwandte Informationen*
+
+xref:concept_guidelines_for_deciding_when_to_cutover.adoc[Richtlinien für die Entscheidung, wann die Umstellung durchgeführt werden soll]

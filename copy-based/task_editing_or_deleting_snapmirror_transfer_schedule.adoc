@@ -1,0 +1,111 @@
+---
+permalink: copy-based/task_editing_or_deleting_snapmirror_transfer_schedule.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, edit, delete, data, copy, snapmirror, transfer 
+summary: Sie können Zeitpläne für Datenkopiekopien bearbeiten oder löschen, die für SnapMirror Basiskopie, Updates und Neusynchronisierung verwendet werden, wenn Sie andere DR-Zeitpläne konfiguriert oder geändert haben, die eine Änderung des Zeitplans für die Transition von Datenkopien erfordern. 
+---
+= Bearbeiten oder Löschen eines Zeitplans für Datenkopieerstellung für SnapMirror Übertragungen
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können Zeitpläne für Datenkopiekopien bearbeiten oder löschen, die für SnapMirror Basiskopie, Updates und Neusynchronisierung verwendet werden, wenn Sie andere DR-Zeitpläne konfiguriert oder geändert haben, die eine Änderung des Zeitplans für die Transition von Datenkopien erfordern.
+
+Das Projekt muss in der Vorbereitungsphase, der Datenkopieerstellung oder der Apply Configuration (precutuover)-Phase sein.
+
+* Nachdem ein Zeitplan bearbeitet wurde, dauert es bis zu 5 Minuten, bis er wirksam wird.
+* Wenn sich das Drosselklappenlimit im Zeitplan bei aktiven Transfers ändert, gilt das neue Drosselklappenlimit nicht für die derzeit ausgeführten SnapMirror Transfers.
++
+Nachdem der aktuelle Transfer für eine bestimmte SnapMirror Beziehung abgeschlossen wurde, wird für die nachfolgenden Operationen für die SnapMirror Beziehung ein neues Drosselklappenlimit berücksichtigt.
+
+* Wenn die Drosselklappe sich sofort für die aktuellen SnapMirror Transfers auswirken soll, müssen Sie das Projekt unterbrechen und fortsetzen.
+
+
+.Schritte
+. Wählen Sie im Dashboard ein Projekt aus, und klicken Sie dann auf Zeitplan konfigurieren.
++
+Alle für das Projekt vorhandenen Zeitpläne werden angezeigt.
+
++
+Sie können auch Schichtpläne über die Option Zeitplan konfigurieren bearbeiten oder löschen.
+
+. Einen Zeitplan bearbeiten oder löschen:
++
+|===
+| Ihr Ziel ist | Dann... 
+
+
+ a| 
+Einen vorhandenen Zeitplan bearbeiten
+ a| 
+.. Klicken Sie Auf image:../media/edit_schedule.gif[""].
++
+Das Dialogfeld Zeitplan ändern wird angezeigt.
+
++
+
+NOTE: Sie können den Zeitplan und die SnapMirror-Parameter für die Vorgänge der Datenkopieerstellung bearbeiten.
+
+.. Nehmen Sie die erforderlichen Änderungen vor, und klicken Sie dann auf *Speichern*.
+
+
+
+
+ a| 
+Löschen Sie einen Zeitplan
+ a| 
+.. Klicken Sie Auf image:../media/delete_schedule.gif[""].
++
+Der Zeitplan wird aus dem Teilfenster gelöscht.
+
++
+
+NOTE: Für den Datentransfer ist mindestens ein Zeitplan erforderlich. Daher sollten Sie nicht alle Zeitpläne löschen.
+
+
+
+|===
+
+
+
+
+== Beispiel
+
+Das folgende Beispiel zeigt, wie das Drosselklappenlimit bei aktiven SnapMirror Transfers im Projekt angewendet wird.
+
+|===
+| Zeitplan | Anzahl der Volumes und Zustand der Datenkopieerstellung | Die maximale Anzahl gleichzeitiger SnapMirror Transfers | Drosselklappe | Drosselklappe wird von jedem Transfer verwendet 
+
+
+ a| 
+Vor dem Ändern
+ a| 
+Fünf Volumes warten auf Baseline
+ a| 
+Fünf
+ a| 
+500 Mbit/s
+ a| 
+100 Mbit/s
+
+
+
+ a| 
+Nach dem Ändern
+ a| 
+* Für zwei Volumen wird die Grundlinie mit 100 Mbit/s Drosselung ausgeführt
+* Für drei Volumes wird die Basiskopie abgeschlossen und wartet auf Updates
+
+ a| 
+Fünf
+ a| 
+250 Mbit/s
+ a| 
+* Zwei Volumen, die sich in der Grundlinie befinden, verwenden weiterhin die 100-Mbit/s-Drosselklappe
+* Drei Volumes, für die die Baseline abgeschlossen ist, verwenden die modifizierte 50-Mbit/s-Drosselklappe für die Updates
+
+
+|===
+Wenn die Basiskopie für die beiden Volumes abgeschlossen ist, wird für diese SnapMirror Beziehungen des Volumes das neue Drosselklappenlimit von 50 Mbps verwendet, während die nächsten Operationen für die Datenkopieerstellung geplant werden.

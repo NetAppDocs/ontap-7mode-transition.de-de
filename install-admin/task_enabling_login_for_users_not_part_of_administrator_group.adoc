@@ -1,0 +1,36 @@
+---
+permalink: install-admin/task_enabling_login_for_users_not_part_of_administrator_group.html 
+sidebar: sidebar 
+keywords: ontap, 7, mode, install, enable, login, user, administrator, group 
+summary: Standardmäßig müssen Benutzer Mitglieder der Administratorgruppe auf dem Windows-System sein, auf dem das 7-Mode Transition Tool installiert ist. Sie können sich jederzeit für Benutzer anmelden, die nicht Mitglieder der Administratorgruppe sind und das Tool nicht installieren können, aber authentifiziert sind, um das Windows-System zu verwenden, auf dem das Tool installiert ist. 
+---
+= Aktivieren der Anmeldung für Benutzer, die nicht Teil der Administratorgruppe sind
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Standardmäßig müssen Benutzer Mitglieder der Administratorgruppe auf dem Windows-System sein, auf dem das 7-Mode Transition Tool installiert ist. Sie können sich jederzeit für Benutzer anmelden, die nicht Mitglieder der Administratorgruppe sind und das Tool nicht installieren können, aber authentifiziert sind, um das Windows-System zu verwenden, auf dem das Tool installiert ist.
+
+.Schritte
+. Melden Sie sich unter Verwendung von Administratorrechten beim Windows-Host an.
+. Ändern Sie die Konfigurationsdatei des Tools, damit Benutzer, die nicht Teil der Administratorgruppe sind, sich beim Tool anmelden können:
++
+.. Öffnen Sie das `\etc\conf\transition-tool.conf` Datei aus dem Installationsverzeichnis.
+.. Legen Sie den Wert des fest `tool.login.non.admin.enabled` Parameter in `transition-tool.conf` Datei zu wahr.
+.. Speichern Sie die Datei.
+
+
+. Starten Sie den Transition Service neu.
++
+.. Klicken Sie auf *Start* > *Systemsteuerung* > *System und Dienste* > *Verwaltung* > *Dienste*.
+.. Klicken Sie mit der rechten Maustaste auf den *NetApp 7-Mode Transition Tool* Service und klicken Sie auf *Stopp*.
+.. Klicken Sie mit der rechten Maustaste erneut auf den *NetApp 7-Mode Transition Tool* Service und klicken Sie auf *Start*.
+
+
+
+
+*Verwandte Informationen*
+
+xref:task_modifying_default_configuration_settings_of_7mtt.adoc[Ändern der Konfigurationsoptionen des 7-Mode Transition Tools]

@@ -1,0 +1,50 @@
+---
+permalink: copy-based/task_generating_an_assessment_report_by_importing_inventory_report_xml.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, generate, assessment, report, inventory, xml 
+summary: Sie können den vom Inventory Collect Tool generierten XML-Bericht importieren, um die Funktionen und Merkmale von Hosts und Controllern zu bewerten. Anschließend können Sie anhand eines Assessment-Berichts ermitteln, wie diese Hosts und Controller in der für den Übergang ausgewählten ONTAP-Version funktionieren. 
+---
+= Erzeugen eines Bewertungsberichts durch Importieren der XML-Bestandsbericht
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können den vom Inventory Collect Tool generierten XML-Bericht importieren, um die Funktionen und Merkmale von Hosts und Controllern zu bewerten. Anschließend können Sie anhand eines Assessment-Berichts ermitteln, wie diese Hosts und Controller in der für den Übergang ausgewählten ONTAP-Version funktionieren.
+
+* Sie müssen das Werkzeug „Bestandsaufnahme“ ausführen und die XML-Datei für den Bestandsbericht erstellt haben.
++
+
+NOTE: Um Hosts und Controller für die Copy-Based Transition zu bewerten, müssen Sie das Inventory Collect Tool 3.3 verwenden, um Inventar zu sammeln.
+
+* Sie müssen die 7-Mode Systeme und Hosts für die Bewertung der Transition vorbereitet haben.
+
+
+Die Systeme, die Sie bewerten möchten, müssen nicht erreichbar sein, wenn Sie den Bestandsbericht importieren und eine Übergangsbewertung durchführen.
+
+.Schritte
+. Melden Sie sich beim 7-Mode Transition Tool an und klicken Sie auf der Startseite auf *Sammeln und Bewerten*.
+. Klicken Sie auf *XML Bestandsbericht importieren*.
+. Klicken Sie auf *Durchsuchen* und wählen Sie dann den XML-Bericht aus, der vom Inventursamml-Tool generiert wurde.
+. Klicken Sie Auf *Import*.
++
+Der Bewertungsstatus des Systems wird angezeigt `Imported;Ready`.
+
+. Wählen Sie das System aus, für das Sie eine Bewertung der Transition durchführen möchten.
+. Klicken Sie Auf *Übergangsbewertungsbericht Erstellen*.
+. Wählen Sie im Dialogfeld Übergangsbewertungsbericht erstellen die Data ONTAP-Version des Zielclusters aus.
+. Geben Sie ein Präfix für den Dateinamen der Berichte an.
+. Klicken Sie Auf *Bericht Generieren*.
++
+Die Berichte „BewertenmentArbeitsbuch“ und „BewertenAusführungZusammenfassung“ werden im XML-Format erstellt.
+
+. Sehen Sie sich den Bericht „BewertenmentWorkbook“ in Microsoft Excel und den Bericht „BewertenExecutiveSummary“ in Microsoft Word an, indem Sie Microsoft Office 2007 oder höhere Versionen verwenden.
++
+Zum Anzeigen des Berichts „BewertenmentWorkbook“ in Microsoft Excel müssen Sie möglicherweise Makros in Excel aktivieren.
+
+
+
+*Verwandte Informationen*
+
+xref:task_collecting_tool_logs.adoc[Die Log-Dateien für die Transition werden heruntergeladen]

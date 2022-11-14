@@ -1,0 +1,27 @@
+---
+permalink: copy-free/task_collecting_tool_logs.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, download, log, files 
+summary: Das 7-Mode Transition Tool erstellt Log-Dateien, die Verarbeitungsdetails der für das System ausgeführten Migrationsbewertungs- und Migrationsvorgänge bereitstellen. 
+---
+= Die Log-Dateien für die Transition werden heruntergeladen
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Das 7-Mode Transition Tool erstellt Log-Dateien, die Verarbeitungsdetails der für das System ausgeführten Migrationsbewertungs- und Migrationsvorgänge bereitstellen.
+
+.Schritte
+. Klicken Sie im oberen Menü auf *Logs*.
+. Klicken Sie auf *Collect Project Logs*, um Protokolle zu sammeln, die sich auf alle Projekte beziehen.
+. Um Protokolle für bestimmte Projekte zu sammeln, suchen Sie die Projekte aus der Projektliste und klicken Sie dann auf *Download*.
++
+Die Protokolle werden als heruntergeladen `.zip` Datei, und der Ordnername ist der Zeitstempel.
+
+
+
+*Verwandte Informationen*
+
+https://kb.netapp.com/Advice_and_Troubleshooting/Miscellaneous/How_to_upload_a_file_to_NetApp["Wie zum Hochladen einer Datei auf NetApp"]

@@ -1,0 +1,34 @@
+---
+permalink: san-host/task_preparing_for_cutover_when_transitioning_linux_host_dmmp_device_without_file_system.html 
+sidebar: sidebar 
+keywords: ontap, san, host, transition, cutover, linux, dmmp, device, host 
+summary: Wenn Sie ein DMMP-Gerät ohne Dateisystem von einem Linux-Host aus verschieben, müssen Sie vor dem Beginn der Umstellungsphase mehrere Schritte durchführen. 
+---
+= Vorbereitung auf Umstellung bei der Umstellung eines DMMP-Geräts mit Linux-Hosts ohne Dateisystem
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Wenn Sie ein DMMP-Gerät ohne Dateisystem von einem Linux-Host aus verschieben, müssen Sie vor dem Beginn der Umstellungsphase mehrere Schritte durchführen.
+
+Für FC-Konfigurationen müssen Fabric-Konnektivität und Zoning zu geclusterten Data ONTAP Controllern verwendet werden.
+
+Bei iSCSI-Konfigurationen müssen Ihre iSCSI-Sitzungen erkannt und bei Ihren geclusterten Data ONTAP Controllern angemeldet sein.
+
+* Führen Sie bei Copy-Based Transitions diese Schritte aus, bevor Sie den Storage-Umstellungsvorgang im 7-Mode Transition Tool (7MTT) initiieren.
+* Führen Sie bei Copy-Free Transitions diese Schritte aus, bevor Sie den Betrieb „Export & Stop 7-Mode“ in 7MTT initiieren.
+
+
+.Schritte
+. Halten Sie die E/A-Vorgänge an den Mount-Punkten an.
+. Fahren Sie die Applikationen, die auf die LUNs zugreifen, gemäß den Empfehlungen des Applikationsanbieters herunter.
+. Spülen Sie das 7-Mode-LUN-DMMP-Gerät oder den Alias aus:
++
+`*multipath -f _device_name_*`
+
++
+Bei Bedarf erhalten Sie den DMMP-Gerätenamen aus der Spalte *OS Device ID* auf der Registerkarte SAN Host LUNs im Arbeitsbuch _Inventory Assessment_.
+
+

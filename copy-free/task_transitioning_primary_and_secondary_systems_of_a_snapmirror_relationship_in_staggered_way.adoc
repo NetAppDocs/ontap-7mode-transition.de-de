@@ -1,0 +1,88 @@
+---
+permalink: copy-free/task_transitioning_primary_and_secondary_systems_of_a_snapmirror_relationship_in_staggered_way.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, ha, pairs, snapmirror, relationship, staggered, configuration 
+summary: Sie können zuerst das sekundäre HA-Paar umstellen, eine gestaffelte SnapMirror Beziehung zwischen den 7-Mode primären Volumes und sekundären ONTAP Volumes einrichten und dann das primäre HA-Paar später umstellen. 
+---
+= Umstellung von HA-Paaren in einer SnapMirror-Beziehung in einer gestaffelten Konfiguration
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können zuerst das sekundäre HA-Paar umstellen, eine gestaffelte SnapMirror Beziehung zwischen den 7-Mode primären Volumes und sekundären ONTAP Volumes einrichten und dann das primäre HA-Paar später umstellen.
+
+Sie müssen die Quell- und Ziel-Cluster für die Transition der SnapMirror Beziehungen vorbereitet haben.
+
+xref:task_preparing_cluster_for_transitioning_volume_snapmirror_relationships.adoc[Vorbereiten des Clusters für die Transition von Volume SnapMirror Beziehungen]
+
+.Schritte
+. Führen Sie aus dem 7-Mode Transition Tool eine Copy-Free Transition des HA-Paars durch, das die sekundären Volumes der 7-Mode Volume SnapMirror Beziehungen enthält.
++
+Vor der Transition des 7-Mode HA-Paars, das die sekundären Volumes enthält, ist für die 7-Mode SnapMirror Beziehungen kein manuelles Eingreifen erforderlich. Dadurch wird sichergestellt, dass die sekundären 7-Mode Volumes als schreibgeschützte Volumes zu ONTAP migriert werden.
+
++
+xref:task_performing_copy_free_transition_of_7_mode_aggregates.adoc[Umstieg von 7-Mode Aggregaten mit einem Copy-Free Transition]
+
+. Erstellen Sie während der Vorbereitungsphase des sekundären HA-Paars eine Disaster Recovery-Beziehung zwischen dem primären 7-Mode Volume und dem sekundären ONTAP Volume:
++
+.. Verwenden Sie im sekundären Ziel-Cluster den `vserver peer transition create` Befehl zum Erstellen einer SVM-Peer-Beziehung zwischen dem 7-Mode primären Volume und dem sekundären ONTAP Volume
+.. Verwenden Sie die `job schedule cron create` Befehl zum Erstellen eines Jobplans, der dem für die 7-Mode SnapMirror Beziehung konfigurierten Zeitplan entspricht.
+.. Verwenden Sie die `snapmirror create` Befehl zum Erstellen einer SnapMirror Beziehung des Typs TDP zwischen dem primären 7-Mode Volume und dem sekundären ONTAP Volume.
+.. Verwenden Sie die `snapmirror resync` Befehl zum erneuten Synchronisieren des sekundären ONTAP Volumes
++
+Für eine erfolgreiche Neusynchronisierung muss eine allgemeine 7-Mode Snapshot Kopie zwischen dem primären 7-Mode Volume und dem sekundären ONTAP Volume existieren.
+
+
+
+. Durchführung der erforderlichen Tests für die überstieg Aggregate und Volumes
+. Übergeben Sie mit dem 7-Mode Transition Tool den Übergang des Projekts für das sekundäre HA-Paar.
++
+xref:task_committing_7_mode_aggregates_to_clustered_ontap_format.adoc[Übergabe des Copy-Free Transition-Projekts]
+
+. Einen Copy-Free Transition des HA-Paars durchführen, das die primären Volumes der 7-Mode Volume SnapMirror Beziehungen enthält.
++
+xref:task_performing_copy_free_transition_of_7_mode_aggregates.adoc[Umstieg von 7-Mode Aggregaten mit einem Copy-Free Transition]
+
+. Während der Testphase für das primäre HA-Paar vor dem Commit erstellt eine SnapMirror Beziehung zwischen den migrierte sekundären und primären Volumes.
++
+.. Erstellen Sie aus dem Ziel-Cluster eine Cluster-übergreifende SVM-Peer-Beziehung zwischen den SVMs, die die migrierte primäre und sekundäre Volumes enthalten.
++
+https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-sag/home.html["Systemadministration"]
+
+.. Verwenden Sie die `snapmirror delete` Befehl zum Löschen der TDP SnapMirror-Beziehung zwischen dem primären 7-Mode-Volume und dem sekundären ONTAP-Volume, das in Schritt erstellt wurde ,#SUBSTEP_D528769DF8EC49058D1958565914CF47.
+.. Löschen Sie den in Schritt erstellten Cron-Job-Zeitplan ,#SUBSTEP_EB4706425C45759EAAE8F0A87BA547: +
+`*job schedule cron delete*`
+.. Erstellung einer Volume SnapMirror Beziehung zwischen den übergewechselt primären und sekundären Volumes
++
+https://docs.netapp.com/ontap-9/topic/com.netapp.doc.exp-sm-ic-cg/home.html["Volume Disaster Recovery Express Vorbereitung"]
+
+.. Auf dem Ziel-Volume werden das Quell-Volume und das Ziel-Volume der SnapMirror Beziehung neu synchronisiert: +
+`*snapmirror resync*`
++
+
+IMPORTANT: Mindestens eine gemeinsame Snapshot Kopie muss zwischen den Quell- und Ziel-Volumes vorhanden sein.
+
++
+*Fehlerbehebung:* die Resynchronisierung von SnapMirror schlägt fehl, wenn die gemeinsame Snapshot Kopie in einer Data ONTAP Version vor 8.1 erstellt wurde. Sie können das verwenden `-fs-version` Parameter mit `volume snapshot show` Befehl in der erweiterten Berechtigungsebene zum Anzeigen des Release, in dem die Snapshot Kopie erstellt wird. Wenn dieses Problem auftritt, unterbrechen Sie die SnapMirror Beziehung und führen Sie dann die Neusynchronisierung durch.
+
+.. Überwachen Sie den Status der SnapMirror Datentransfers: +
+`*snapmirror show*`
++
+
+IMPORTANT: Sie müssen auf den Quell- und Ziel-Volumes keinen Vorgang, wie z. B. die Verschiebung eines Volumes oder SnapMirror Unterbrechung, durchführen, bis die Neusynchronisierung erfolgreich abgeschlossen ist. Stellen Sie sicher, dass die Neusynchronisierung nicht abgebrochen wird und abgeschlossen wurde. Andernfalls können die Volumes in einen inkonsistenten Status versetzt werden.
+
+
+
+. Übergabe des Primärprojekts
++
+xref:task_committing_7_mode_aggregates_to_clustered_ontap_format.adoc[Übergabe des Copy-Free Transition-Projekts]
+
+
+
+*Verwandte Informationen*
+
+http://docs.netapp.com/us-en/ontap-7mode-transition/snapmirror/index.html["7-Mode Transition der Daten mit SnapMirror"]
+
+http://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-cmpr/GUID-5CB10C70-AC11-41C0-8C16-B4D0DF916E9B.html["ONTAP 9-Befehle"]

@@ -1,0 +1,46 @@
+---
+permalink: san-host/task_preparing_for_cutover_when_transitioning_aix_data_luns_with_file_systems.html 
+sidebar: sidebar 
+keywords: ontap, san, host, transition, cutover, phase, aix, data, lun 
+summary: Wenn Sie eine AIX-Host-Daten-LUN mit einem Filesystem von Data ONTAP 7-Mode auf Clustered Data ONTAP umstellen, müssen Sie vor Beginn der Umstellungsphase bestimmte Schritte durchführen. 
+---
+= Vorbereitung auf die Umstellungsphase beim Wechsel von AIX Host-Daten-LUNs mit Dateisystemen
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Wenn Sie eine AIX-Host-Daten-LUN mit einem Filesystem von Data ONTAP 7-Mode auf Clustered Data ONTAP umstellen, müssen Sie vor Beginn der Umstellungsphase bestimmte Schritte durchführen.
+
+Es müssen Fabric-Konnektivität und Zoning für die Clustered Data ONTAP Nodes hergestellt werden.
+
+Führen Sie bei Copy-Based Transitions die folgenden Schritte aus, nachdem Sie den Storage-Umstellungsvorgang im 7-Mode Transition Tool abgeschlossen haben. Copy-Free Transitions werden auf AIX-Hosts nicht unterstützt.
+
+.Schritte
+. Stoppen Sie die I/O an allen Mount-Punkten.
+. Fahren Sie jede Applikation, die auf die LUNs zugreift, gemäß den Empfehlungen des Applikationsanbieter herunter.
+. Alle Mount-Punkte lösen:
++
+`*umount _mount_point_*`
+
+. Deaktivieren Sie die Volume-Gruppe:
++
+`*varyoffvq _vg_name_*`
+
+. Exportieren Sie die Volume-Gruppe:
++
+`*exportvg _vg_name_*`
+
+. Überprüfen Sie den Status der Volume-Gruppe:
++
+`*lsvg*`
+
++
+Die exportierte Volume-Gruppe sollte nicht in der Ausgabe aufgeführt werden.
+
+. Wenn veraltete Einträge vorliegen, entfernen Sie diese:
++
+`*rmdev -Rdl hdisk#*`
+
+

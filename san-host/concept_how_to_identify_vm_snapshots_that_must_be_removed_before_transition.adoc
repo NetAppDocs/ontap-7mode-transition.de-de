@@ -1,0 +1,16 @@
+---
+permalink: san-host/concept_how_to_identify_vm_snapshots_that_must_be_removed_before_transition.html 
+sidebar: sidebar 
+keywords: ontap, san, host, transition, vm, snapshots, removed, identify 
+summary: 'Snapshots Virtual Machines \(VMs\) mit beigefügtem virtuellen RDM überstehen den Übergang von Data ONTAP im 7-Mode zu Clustered Data ONTAP nicht. Diese Snapshots müssen vor dem Umstieg entfernt werden. Snapshots von VMs mit nur VMFS vDisks und physischem RDM \(PTRDM\) überleben den Übergang und müssen nicht entfernt werden.' 
+---
+= Wie lassen sich VM Snapshots ermitteln, die vor der Transition entfernt werden müssen
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Snapshots Virtual Machines (VMs) mit beigefügtem Virtual RDM überstehen den Übergang von Data ONTAP im 7-Mode zu Clustered Data ONTAP nicht. Diese Snapshots müssen vor dem Umstieg entfernt werden. Snapshots von VMs mit nur VMFS vDisks und Physical RDM (PTRDM) überleben den Übergang und müssen nicht entfernt werden.
+
+Sie können das vom Inventory Collect Tool generierte Arbeitsbuch _Inventory Assessment_ verwenden, um alle VMs mit angeschlossenen virtuellen RDMs zu identifizieren. Snapshots, die im Arbeitsbuch_Inventory Assessment_ unter der Spalte VM Snapshots aufgeführt sind, und in der Spalte NPTRDM mit einem Wert größer 0 sind VMs, die über ein virtuelles RDM mit VM Snapshots verbunden sind.

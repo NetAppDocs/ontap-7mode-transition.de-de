@@ -1,0 +1,51 @@
+---
+permalink: san-host/task_remounting_vmfs_volumes_after_transition_using_esxi_cli_console.html 
+sidebar: sidebar 
+keywords: ontap, san, host, transition, esxi, cli, vmfs, volumes 
+summary: Nach der Transition können Sie mit der ESXi CLI Ihre Volumes neu mounten und die Datenspeicher und VMs in einen Vorabzustand überführen. 
+---
+= NeuMounten von VMFS-Volumes nach dem Übergang mit der ESXi CLI
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Nach der Transition können Sie mit der ESXi CLI Ihre Volumes neu mounten und die Datenspeicher und VMs in einen Vorabzustand überführen.
+
+Die Zuordnung der ursprünglichen 7-Mode LUN muss offline oder nicht aufgehoben werden.
+
+Diese Schritte gelten für Volumes und übergreifende Volumes.
+
+.Schritte
+. Melden Sie sich über SSH bei der ESXi Konsole an.
+. Geben Sie die neu hinzugefügten LUNs mit vorhandenen VMFS-Signaturen und VMFS-Labels an:
++
+`*# esxcfg-volume -l*`
+
++
+Im Folgenden finden Sie ein Beispiel der LUNs, die mit VMFS-Signaturen und VMFS-Labels aufgelistet sind.
+
++
+[listing]
+----
+# esxcfg-volume -l
+VMFS UUID/label: 53578567-5b5c363e-21bb-001ec9d631cb/datastore1
+Can mount: Yes
+Can resignature: Yes
+Extent name: naa.600a098054314c6c445d446f79716475:1 range: 0 - 409599
+(MB)
+----
+. Erstellen Sie die VMFS Volumes dauerhaft mit derselben Signatur:
++
+** Für normale Volumen: +
+`*esxcfg-volume -M|--persistent-mount _VMFS UUID|label_*`
+** Für übergreifende Volumen: +
+`*# esxcfg-volume -M vmfs-span-ds*`
+
+
+
+
+*Verwandte Informationen*
+
+http://kb.vmware.com/selfservice/microsites/search.do?language=en_US&cmd=displayKC&externalId=1011387["VMware KB: VSphere Handling von LUNs, die als Snapshot LUNs erkannt wurden"]

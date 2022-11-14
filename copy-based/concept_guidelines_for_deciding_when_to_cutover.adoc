@@ -1,0 +1,24 @@
+---
+permalink: copy-based/concept_guidelines_for_deciding_when_to_cutover.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, decide, perform, cutover 
+summary: Da die Umstellung bei den Kunden die Arbeit unterbrechen muss, müssen Sie die entsprechenden Aktivitäten planen, um die Ausfallzeiten zu minimieren. Sie müssen die Umstellung während eines Fensters mit geringer Aktivität planen. Sie sollten die ONTAP Volumes aktualisieren und warten, bis die Transfers abgeschlossen sind, bevor Sie die Clients trennen und die Storage-Umstellung einleiten, um die Ausfallzeiten zu verringern. 
+---
+= Richtlinien für die Entscheidung, wann die Umstellung durchgeführt werden soll
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Da die Umstellung bei den Kunden die Arbeit unterbrechen muss, müssen Sie die entsprechenden Aktivitäten planen, um die Ausfallzeiten zu minimieren. Sie müssen die Umstellung während eines Fensters mit geringer Aktivität planen. Sie sollten die ONTAP Volumes aktualisieren und warten, bis die Transfers abgeschlossen sind, bevor Sie die Clients trennen und die Storage-Umstellung einleiten, um die Ausfallzeiten zu verringern.
+
+Der SnapMirror Status für jedes Volume muss weiterhin überwacht werden. Wenn die letzte Übertragungsdauer der vorherigen Aktualisierungen für das Volume innerhalb eines akzeptablen Limits liegt, sollten die meisten Datenänderungen im Volume kopiert werden und die Zeit für die endgültige Datenaktualisierung während der Umstellung innerhalb des zulässigen Grenzwerts liegen.
+
+Abhängig von der Anzahl der migrierte Volumes können Sie die ungefähren Ausfallzeiten ableiten.
+
+Zur Minimierung der Umstellungszeit sollte die Netzwerklatenz zwischen dem 7-Mode Transition Tool und Storage-Systemen mindestens sein. Für den Wechsel einer Volume-SnapMirror-Beziehung sollte die Netzwerklatenz zwischen dem Tool und den primären Systemen minimal sein.
+
+*Verwandte Informationen*
+
+xref:task_performing_on_demand_snapmirror_update_operation.adoc[Durchführen von On-Demand SnapMirror Updates]

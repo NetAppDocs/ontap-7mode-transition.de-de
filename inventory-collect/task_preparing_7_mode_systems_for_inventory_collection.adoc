@@ -1,0 +1,94 @@
+---
+permalink: inventory-collect/task_preparing_7_mode_systems_for_inventory_collection.html 
+sidebar: sidebar 
+keywords: ontap, 7, mode, transition, prepare, system, host, inventory, collection 
+summary: Sie müssen sicherstellen, dass die 7-Mode-Systeme und -Hosts bestimmte Netzwerk- und Protokollanforderungen erfüllen, damit ein Bestandsbericht erfolgreich erstellt wird. 
+---
+= Vorbereiten der 7-Mode-Systeme und -Hosts auf die Bestandserfassung
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie müssen sicherstellen, dass die 7-Mode-Systeme und -Hosts bestimmte Netzwerk- und Protokollanforderungen erfüllen, damit ein Bestandsbericht erfolgreich erstellt wird.
+
+.Schritte
+. Aktivieren von HTTPS auf dem 7-Mode System:
++
+`*options httpd.admin.ssl.enable on*`
+
+. Aktivieren von TLS auf dem 7-Mode-System:
++
+`*options tls.enable on*`
+
++
+
+IMPORTANT: Die beste Vorgehensweise ist die Aktivierung von TLS aufgrund der Sicherheitsschwachstellen in SSLv3.
+
+. Aktivieren Sie SSL und deaktivieren Sie SSLv2 und SSLv3 auf dem 7-Mode System:
++
+.. SSL einrichten und starten:
++
+`*secureadmin setup ssl*`
+
+.. SSL aktivieren:
++
+`*options ssl.enable on*`
+
+.. Deaktivieren Sie SSLv2 und SSLv3: +
+`*options ssl.v2.enable off*`
++
+`*options ssl.v3.enable off*`
+
++
+
+IMPORTANT: Als Best Practice empfiehlt es sich, SSLv2 und SSLv3 zu deaktivieren, um Sicherheitsschwachstellen zu vermeiden.
+
+
+
+. Aktivieren Sie SSH auf dem 7-Mode System:
++
+.. Richten Sie SSH auf dem 7-Mode System ein:
++
+`*secureadmin setup -f ssh*`
+
++
+Die Option -f zwingt die Ausführung des Setups auch dann, wenn der SSH-Server bereits konfiguriert ist.
+
+.. SSH aktivieren:
++
+`*secureadmin enable ssh2*`
+
+.. Passwort-Authentifizierung auf dem SSH-Server aktivieren:
++
+`*options ssh.passwd_auth.enable*`
+
+.. Aktivieren Sie SSH-Zugriff auf den Host:
++
+`*options ssh.access*`
+
+
+
+. Bereiten Sie Ihre Windows-Hostsysteme vor:
++
+** Aktivieren Sie den WMI-Zugriff.
++
+Weitere Informationen zum Aktivieren des WMI-Zugriffs finden Sie in der Host-Dokumentation.
+
+** Wenn Sie Windows Server 2003 verwenden, überprüfen Sie, ob Sie das Microsoft Fibre Channel Information Tool (fcinfo)-Paket installiert haben, und führen Sie das Tool einmal auf Ihrem Windows-Host-System aus.
++
+Mit diesem Tool können Sie die HBA-Konfigurationsinformationen des Hosts erfassen.
+
+
+
+. Aktivieren Sie SSH auf dem Linux- oder ESXi-Host.
++
+Weitere Informationen zum Aktivieren von SSH finden Sie in der Host-Dokumentation.
+
+. Vergewissern Sie sich, dass Sie die neueste NetApp Host Utilities Software für jeden Host installiert haben.
++
+Informationen zum Herunterladen und Installieren der NetApp Host Utilities Software finden Sie auf der NetApp Support Site.
+
+. Vergewissern Sie sich, dass alle Hosts und Speichersysteme vom Windows-System, auf dem das Inventursammelungstool ausgeführt wird, erreichbar sind.
+

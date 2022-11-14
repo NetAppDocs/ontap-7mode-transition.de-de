@@ -1,0 +1,83 @@
+---
+permalink: copy-based/reference_ignorable_errors_during_transition.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, ignorable, errors 
+summary: Möglicherweise treten während des Übergangs einige unwissbare Fehler auf. Sie müssen diese Fehler erkennen, bevor Sie den Übergang fortsetzen. 
+---
+= Unwissbare Fehler während des Übergangs
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Möglicherweise treten während des Übergangs einige unwissbare Fehler auf. Sie müssen diese Fehler erkennen, bevor Sie den Übergang fortsetzen.
+
+Wenn Sie dem kopiebasierten Übergangsprojekt mithilfe der CLI des 7-Mode Transition Tools eine unwissbare Fehlerkategorie hinzufügen, bedeutet dies, dass Sie die Auswirkungen des Fehlers bereits verstanden haben. Sie müssen den Übergangsvorgang erneut ausführen, nachdem Sie den Fehler ignoriert haben. Derzeit ändert sich der Blockierfehler auf eine Warnmeldung, und der Fehler wird als „`quited`“ angezeigt. Sie können den Übergang mit der Warnung fortsetzen.
+
+|===
+| Kategorie | Beschreibung 
+
+
+ a| 
+`acknowledge-no-nonascii-filenames-in-source-volumes`
+ a| 
+Wenn Sie diesen Fehler bestätigen, haben Sie überprüft, dass die SnapLock-Volumes, die Sie für den Vorgang „Chain of Custody“ ausgewählt haben, keine Dateien enthalten, die Dateinamen mit nicht-ASCII-Zeichen enthalten.
+
+
+
+ a| 
+`acknowledge-snaplock-coc-volume-autocommit-period`
+ a| 
+Nachdem dieser unwissbare Fehler dem Projekt hinzugefügt wurde, setzt das 7-Mode Transition Tool mit dem Übergang fort, auch wenn die Eigenschaft Autocommit Period auf dem ONTAP SnapLock-Volume festgelegt ist, das so konfiguriert ist, dass die Ergebnisse der SnapLock-Kette der Custody-Überprüfung gespeichert werden.
+
+
+
+ a| 
+`nfs-qtrees-exported`
+ a| 
+Erkennen dieses Fehlers bedeutet, dass Sie die Unterschiede bei der Durchsetzung der qtree Exportregeln zwischen Data ONTAP 7-Mode und ONTAP verstanden haben. Es bedeutet auch, dass Sie die möglichen manuellen Schritte verstanden haben, die erforderlich sind, nachdem die NFS Exportregeln durch das 7-Mode Transition Tool angewendet wurden. https://kb.netapp.com/Advice_and_Troubleshooting/Data_Storage_Software/ONTAP_OS/7MTT_Precheck_10111_-_How_to_transition_7-Mode_volumes_that_have_qtree_level_exports["7MTT Vorabprüfung 10111 - wie kann man 7-Mode Volumes mit Export auf qtree-Ebene verschieben"]
+
+
+
+ a| 
+`ignore-cifs-ad-domain-mismatch`
+ a| 
+Wenn Sie diesen Fehler bestätigen, wird das 7-Mode Transition Tool mit dem Übergang von CIFS-Konfigurationen fortgesetzt, selbst wenn sich die CIFS Active Directory (AD)-Domäne des 7-Mode Systems von der CIFS AD-Domäne der Ziel-SVM unterscheidet. Sie müssen sicherstellen, dass die CIFS AD-Domänen des 7-Mode Systems und der Ziel-SVM vertrauenswürdige Domänen sind. Andernfalls schlägt der Übergang von CIFS-Konfigurationen zur Ziel-SVM fehl. https://kb.netapp.com/Advice_and_Troubleshooting/Data_Storage_Software/ONTAP_OS/How_to_transition_CIFS_configurations_when_Active_Directory_Domain_of_CIFS_server_on_7-Mode_and_target_SVM_are_different["Wie lassen sich CIFS-Konfigurationen übertragen, wenn sich Active Directory Domain des CIFS-Servers auf 7-Mode und Ziel-SVM unterscheiden"]
+
+
+
+ a| 
+`ignore-ping-check-from-ic-lifs-to-7mode`
+ a| 
+Nachdem dieser unwissbare Fehler dem Projekt hinzugefügt wurde, führt das 7-Mode Transition Tool nicht die Überprüfung durch, bis das 7-Mode Storage-System von den Ziel-Cluster-Intercluster LIFs ping.https://kb.netapp.com/Advice_and_Troubleshooting/Data_Storage_Software/ONTAP_OS/7MTT_cbt_-_How_to_handle_the_scenario_where_7-Mode_data-copy_IP_address["7MTT Copy-Based Transition – wie handle ich das Szenario, in dem die 7-Mode Daten-Copy IP-Adresse nicht über die LIFs des Ziel-Clusters erreichbar ist"]
+
+
+
+ a| 
+`ignore-secondary-snapmirror-source-check`
+ a| 
+Nachdem dieser unwissbare Fehler dem Projekt hinzugefügt wurde, prüft das 7-Mode Transition Tool nicht, ob dem sekundären Projekt alle erforderlichen primären 7-Mode Details hinzugefügt werden. Aufgrund dieses Fehlers erstellt das 7-Mode Transition Tool während des sekundären Projekts (Umstellungsvorgang) möglicherweise nicht die SnapMirror Beziehungen zwischen den primären 7-Mode Volumes und sekundären Cluster Volumes.
+
+
+
+ a| 
+`ignore-configuration-limits-check`
+ a| 
+Mit dieser Option können Sie die Konfigurationsgrenzwerte bestätigen (Vorprüffehler) und mit der Umstellung fortfahren. Indem Sie diesen Fehler erkennen, verstehen Sie, dass die Zeit für die Storage-Umstellung von ungefähr 3 bis 8 Stunden dauern wird. Dies umfasst die Zeit für den Export, die Anhalten und den Import von Operationen (die automatisierten Vorgänge) sowie die Verkabelung von Disk Shelves zu den neuen Controllern. https://kb.netapp.com/Advice_and_Troubleshooting/Data_Storage_Software/ONTAP_OS/Storage_cutover_time_considerations_for_Copy-Free_Transition["Überlegungen zur Storage-Umstellung bei der Copy-Free Transition"]
+
+
+
+ a| 
+`mount-snaplock-volumes-using-7mode-volume-name`
+ a| 
+Nachdem diesem unwissbaren Fehler dem Projekt hinzugefügt wurde, hängt das 7-Mode Transition Tool die SnapLock Volumes mit dem Mount-Pfad an `/<7-mode-volume-name>`
+
+
+
+ a| 
+`acknowledge-no-snaplock-audit-transition-to-mcc`
+ a| 
+Nachdem dieser unwissbare Fehler dem Projekt hinzugefügt wurde, setzt das 7-Mode Transition Tool mit der Transition fort, auch wenn sich das Ziel-Cluster in einer MetroCluster-Konfiguration befindet.
+
+|===

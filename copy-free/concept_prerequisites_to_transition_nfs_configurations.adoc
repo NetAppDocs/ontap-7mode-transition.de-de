@@ -1,0 +1,41 @@
+---
+permalink: copy-free/concept_prerequisites_to_transition_nfs_configurations.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, prerequisites, nfs, configurations 
+summary: Die NFS-Konfigurationen werden vom 7-Mode Transition Tool nur dann migriert, wenn bestimmte Voraussetzungen auf dem 7-Mode System und dem Cluster erfüllt werden. Wenn eine der Bedingungen nicht erfüllt ist, wird die Konfiguration durch das Tool nicht überführt. 
+---
+= Voraussetzungen für die Transition von NFS-Konfigurationen
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Die NFS-Konfigurationen werden vom 7-Mode Transition Tool nur dann migriert, wenn bestimmte Voraussetzungen auf dem 7-Mode System und dem Cluster erfüllt werden. Wenn eine der Bedingungen nicht erfüllt ist, wird die Konfiguration durch das Tool nicht überführt.
+
+
+
+== 7-Mode Voraussetzungen
+
+* NFS muss lizenziert sein.
+* Wenn MultiStore lizenziert ist, muss NFS auf allen vFiler Einheiten aktiviert sein.
+* Der NFS Service muss während der Umstellung auf den 7-Mode Systemen ausgeführt werden.
++
+Selbst nachdem der Client-Zugriff getrennt wurde und Sie sich auf den Start der Exportphase vorbereiten, muss der Service auf den 7-Mode Systemen ausgeführt werden.
+
+* Wenn Sie in-Memory-Exportregeln wechseln möchten, müssen Sie sie dem hinzufügen `/etc/exports` Datei vor der Transition:
++
+Das 7-Mode Transition Tool überträgt nur die im definierten persistenten Exportregeln `/etc/exports` Datei:
+
+
+
+
+
+== Cluster-Voraussetzungen
+
+* NFS muss lizenziert sein.
+
+
+*Verwandte Informationen*
+
+http://docs.netapp.com/ontap-9/index.jsp["NetApp Dokumentation: ONTAP 9"]

@@ -1,0 +1,42 @@
+---
+permalink: san-host/task_preparing_for_cutover_when_transitioning_luns_with_mounts_using_dmmp_aliases_on_linux_hosts.html 
+sidebar: sidebar 
+keywords: ontap, san, host, transition, cutover, phase, lun, point, dmmp, device, names 
+summary: Wenn Sie eine LUN mit einem Mount-Punkt verschieben, der einen Alias-Namen auf einem Linux-Host verwendet, müssen Sie vor Beginn der Umstellungsphase mehrere Schritte durchführen. 
+---
+= Vorbereitung auf die Umstellungsphase beim Umstellen von LUNs mit Bereitstellungspunkten unter Verwendung von DMMP-Gerätenamen auf Linux-Hosts
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Wenn Sie eine LUN mit einem Mount-Punkt verschieben, der einen Alias-Namen auf einem Linux-Host verwendet, müssen Sie vor Beginn der Umstellungsphase mehrere Schritte durchführen.
+
+Für FC-Konfigurationen müssen Fabric-Konnektivität und Zoning zu geclusterten Data ONTAP Controllern verwendet werden.
+
+Bei iSCSI-Konfigurationen müssen Ihre iSCSI-Sitzungen erkannt und bei Ihren geclusterten Data ONTAP Controllern angemeldet sein.
+
+* Führen Sie bei Copy-Based Transitions diese Schritte aus, bevor Sie den Storage-Umstellungsvorgang im 7-Mode Transition Tool (7MTT) initiieren.
+* Führen Sie bei Copy-Free Transitions die folgenden Schritte aus, bevor Sie den Betrieb der 7-Mode Systeme im 7MTT initiieren und anhalten.
+
+
+.Schritte
+. Halten Sie die E/A-Vorgänge an den Mount-Punkten an.
+. Fahren Sie die Applikationen, die auf die LUNs zugreifen, gemäß den Empfehlungen des Applikationsanbieters herunter.
+. DMMP-Geräte unmounten:
++
+`*umount _dir_name_*`
+
+. Spülen Sie die 7-Mode-LUN-DMMP-Geräte-ID:
++
+`*multipath -f _device_name_*`
+
++
+Bei Bedarf erhalten Sie den DDMP-Gerätenamen aus der Spalte *OS Device ID* auf der Registerkarte *SAN Host LUNs* im Arbeitsbuch_Inventory Assessment_.
+
+
+
+*Verwandte Informationen*
+
+xref:task_gathering_pretransition_information_from_inventory_assessment_workbook.adoc[Sammeln von Informationen zur Vorüberlösung aus dem Arbeitsbuch zur Bestandsbewertung]

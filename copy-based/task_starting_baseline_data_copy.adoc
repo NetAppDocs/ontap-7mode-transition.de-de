@@ -1,0 +1,53 @@
+---
+permalink: copy-based/task_starting_baseline_data_copy.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, start, baseline, copy 
+summary: Nachdem Sie ein Projekt erstellt und die Vorabprüfung abgeschlossen haben, müssen Sie die Datenkopie von den 7-Mode Volumes in ONTAP initiieren. Sie können den Basisplan-Datenkopiervorgang für einzelne Projekte starten. Sie sollten unnötige Systemprozesse und Netzwerkaktivitäten während der Datenkopieerstellung stoppen. 
+---
+= Starten der Basiskopie der Daten
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Nachdem Sie ein Projekt erstellt und die Vorabprüfung abgeschlossen haben, müssen Sie die Datenkopie von den 7-Mode Volumes in ONTAP initiieren. Sie können den Basisplan-Datenkopiervorgang für einzelne Projekte starten. Sie sollten unnötige Systemprozesse und Netzwerkaktivitäten während der Datenkopieerstellung stoppen.
+
+Sie müssen mindestens einen Zeitplan für die Datenkopieerstellung erstellt haben.
+
+Sie können die Zeit zum Abschluss des Basistransfers einschätzen und die durch Volume SnapMirror Transfers in Ihrer Umgebung erzielte Performance durch eine Testmigration bewerten. Im Folgenden sind einige Faktoren aufgeführt, die sich auf die Leistung auswirken können:
+
+* Optionen zum Kopieren von Übergangsdaten ausgewählt
++
+Dieser Zeitplan steuert sowohl die maximale Anzahl gleichzeitiger SnapMirror Transfers als auch die maximale Bandbreite für die Transfers.
+
+* Maximale Anzahl an gleichzeitigen Volume SnapMirror Transfers von den 7-Mode Quell-Controllern unterstützt
+* Netzwerkbandbreite zwischen den 7-Mode Quell- und den ONTAP Ziel-Controllern
++
+Der Netzwerkverkehr, der nicht mit der Migrationsaktivität in Verbindung steht, muss so minimiert werden, dass der Durchsatz maximiert und die Reaktionszeit zwischen den Quell- und Zielsystemen minimiert wird.
+
+* Performance-Funktionen der Quell- und Ziel-Controller
++
+Quell- und Zielsystem sollten optimale CPU-Auslastung und Arbeitsspeicher zur Verfügung haben.
+
+* Anzahl der SnapMirror Übertragungen von 7-Mode während der Datenkopie
+
+
+.Schritte
+. Wählen Sie im Dashboard das Projekt aus, für das Sie die Basiskopie starten möchten.
+. Klicken Sie Auf *Basislinie Starten*.
++
+Die Vorabprüfung wird im Hintergrund erneut ausgeführt, und wenn keine Fehler erkannt werden, wird der Basistransfer basierend auf dem Zeitplan der Datenkopieerstellung gestartet. Im Dialogfeld „Operation Progress“ werden die Informationen zum Status der während der Basiskopie ausgeführten Pre-Check-Vorgänge angezeigt.
+
+. Klicken Sie auf die Registerkarte *Volumes*, um den Status und den Fortschritt der Basistransfer anzuzeigen.
++
+Zum Anzeigen der detaillierten SnapMirror Details der einzelnen Volumes können Sie auf *Transition Details anzeigen* klicken. Die Anzahl gleichzeitiger SnapMirror Transfers basiert auf den Input, die im Zeitplan angegeben sind, der derzeit aktiv ist. Sie können den aktiven Zeitplan über die Registerkarte Zeitplan für die Datenkopie im Dashboard verfolgen.
+
++
+Nachdem der Vorgang der Basiskopie der Daten abgeschlossen ist, werden die inkrementellen SnapMirror Updates basierend auf dem Zeitplan ausgeführt, den Sie während der Erstellung des Projekts angegeben haben.
+
+
+
+*Verwandte Informationen*
+
+xref:task_creating_schedule_for_snapmirror_transfers.adoc[Erstellen eines Zeitplans für Datenkopien für SnapMirror Übertragungen]

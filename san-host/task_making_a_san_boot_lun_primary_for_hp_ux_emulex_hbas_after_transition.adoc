@@ -1,0 +1,74 @@
+---
+permalink: san-host/task_making_a_san_boot_lun_primary_for_hp_ux_emulex_hbas_after_transition.html 
+sidebar: sidebar 
+keywords: ontap, san, host, transition, san, boot, lun, primary, hp, ux, emulex, hba 
+summary: Wenn Ihr HP-UX-Host in Data ONTAP 7-Mode SAN gestartet wurde, müssen Sie die SAN Boot LUN nach dem Umstieg auf Clustered Data ONTAP zur primären Boot-LUN machen. 
+---
+= Einrichtung einer SAN-Boot-LUN zur primären Boot-LUN für HP-UX Emulex HBAs nach der Umstellung
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Wenn Ihr HP-UX-Host in Data ONTAP 7-Mode SAN gestartet wurde, müssen Sie die SAN Boot LUN nach dem Umstieg auf Clustered Data ONTAP zur primären Boot-LUN machen.
+
+Die Datenmigration muss abgeschlossen sein, und die Boot-LUN muss über den Clustered Data ONTAP Node dem Host zugeordnet sein.
+
+Führen Sie bei Copy-Based Transitions die folgenden Schritte aus, nachdem Sie den Storage-Umstellungsvorgang im 7-Mode Transition Tool abgeschlossen haben. Copy-Free Transitions werden auf HP-UX-Hosts nicht unterstützt.
+
+.Schritte
+. Führen Sie in der Shell-Eingabeaufforderung die Emulex-HBAs auf:
++
+`*drivers*`
+
+. Wählen Sie den Emulex HBA aus, und drücken Sie die Eingabetaste.
+. Wählen Sie *Setup-Dienstprogramm*.
+. Wählen Sie *Startparameter Konfigurieren*.
+. Wählen Sie *Startgeräte Konfigurieren*.
+. Wählen Sie ein beliebiges Gerät aus der Liste aus, und drücken Sie dann die Eingabetaste.
+. Wählen Sie *Ziele Scannen*.
+. Wählen Sie die LUN mit dem gewünschten Boot-Pfad aus, und drücken Sie dann die Eingabetaste.
+. Wählen Sie als Modus *Peripheriegerät dev* aus, und drücken Sie dann die Eingabetaste.
+. Wählen Sie *Start dieses Gerät über WWN* aus, und drücken Sie dann die Eingabetaste.
++
+Die Boot-LUN wird angezeigt.
+
+. Drücken Sie *Esc*, bis Sie zur Shell-Eingabeaufforderung zurückkehren.
+. Zeigen Sie Ihre LUN an, um den Pfad der LUN zu erhalten, von der Sie booten möchten:
++
+`*map -r*`
+
++
+Die LUN-Pfade werden in der Spalte Gerät aufgeführt. Die bootfähige SAN-Festplatte wird in der Spalte Zuordnungstabelle angezeigt und enthält „`WWN`“ und „`Teil 1`“ in der Ausgabezeichenfolge.
+
+. Geben Sie den LUN-Pfad Ihrer SAN Boot LUN ein.
++
+Ein Beispiel für einen LUN-Pfad ist fs0.
+
+. Beenden Sie die EFI-Shell:
++
+`*cd efi*`
+
+. Geben Sie das HPUX-Verzeichnis ein:
++
+`*cd hpux*`
+
+. Machen Sie die neue Clustered Data ONTAP SAN Boot LUN zur primären Boot-LUN:
++
+`*bcfg boot add 1 hpux.efi "HP-UX-Primary Boot"*`
+
+. Aktualisieren Sie das HBA-BIOS manuell, indem Sie einen Eintrag im EFI für die SAN-Boot-LUN vornehmen.
+. Erstellen eines alternativen Startpfads:
++
+`*bcfg boot add 2 hpux.efi “HPUX alternate boot”*`
+
+. Dritten Startpfad erstellen:
++
+`*bcfg boot add 2 hpux.efi “HPUX third boot”*`
+
+. Erstellen eines vierten Startpfads:
++
+`*bcfg boot add 2 hpux.efi “HPUX fourth boot”*`
+
+

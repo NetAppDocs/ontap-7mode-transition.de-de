@@ -1,0 +1,20 @@
+---
+permalink: copy-free/concept_preparing_for_migration.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, prepare 
+summary: Vor Beginn der Copy-Free Transition müssen Sie das 7-Mode HA-Paar für den Umstieg identifizieren, die Anforderungen und Einschränkungen für die Migration verstehen und 7-Mode Systeme und Cluster für die Transition vorbereiten. Zudem müssen Sie die Data ONTAP Funktionen kennen, die für den Umstieg unterstützt und nicht unterstützt werden. 
+---
+= Die Vorbereitung für einen Copy-Free Transition
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Vor Beginn der Copy-Free Transition müssen Sie das 7-Mode HA-Paar für den Umstieg identifizieren, die Anforderungen und Einschränkungen für die Migration verstehen und 7-Mode Systeme und Cluster für die Transition vorbereiten. Zudem müssen Sie die Data ONTAP Funktionen kennen, die für den Umstieg unterstützt und nicht unterstützt werden.
+
+image::../media/delete_me_cft_preparation_workflow.gif[löschen sie den cft-Vorbereitungs-Workflow]
+
+*Verwandte Informationen*
+
+https://mysupport.netapp.com/matrix["NetApp Interoperabilitäts-Matrix-Tool"]

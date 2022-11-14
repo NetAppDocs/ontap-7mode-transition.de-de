@@ -1,0 +1,46 @@
+---
+permalink: copy-based/concept_prerequisites_to_transition_nfs_configurations.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, prerequisites, nfs, configurations 
+summary: Die NFS-Konfigurationen werden vom 7-Mode Transition Tool nur dann migriert, wenn bestimmte Voraussetzungen auf dem 7-Mode System und dem Cluster erfüllt werden. Wenn eine der Bedingungen nicht erfüllt ist, wird die Konfiguration durch das Tool nicht überführt. 
+---
+= Voraussetzungen für die Transition von NFS-Konfigurationen
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Die NFS-Konfigurationen werden vom 7-Mode Transition Tool nur dann migriert, wenn bestimmte Voraussetzungen auf dem 7-Mode System und dem Cluster erfüllt werden. Wenn eine der Bedingungen nicht erfüllt ist, wird die Konfiguration durch das Tool nicht überführt.
+
+
+
+== 7-Mode Voraussetzungen
+
+* NFS muss lizenziert sein.
+* Wenn MultiStore lizenziert ist, muss NFS auf der Einheit von vFiler aktiviert sein, die auch Eigentümer der Transition Volumes ist.
+* Um einen auf Microsoft Active Directory (AD) basierenden Kerberos-Server auf eine neue SVM zu verschieben, muss für die AD-Domäne ein DNS-Eintrag vorhanden sein.
++
+
+NOTE: Für die Transition der Kerberos-Konfiguration muss im Rahmen des Projekts mindestens eine LIF umgestellt werden und die LIF muss auf einen Host-Namen lösbar sein.
+
+* Wenn Sie in-Memory-Exportregeln wechseln möchten, müssen Sie sie dem hinzufügen `/etc/exports` Datei vor der Transition:
++
+Das 7-Mode Transition Tool überträgt nur die im definierten persistenten Exportregeln `/etc/exports` Datei:
+
+
+
+
+
+== Cluster-Voraussetzungen
+
+* NFS muss lizenziert sein.
+* Für die Transition eines Microsoft AD-basierten Kerberos-Servers zu einer vorhandenen SVM mit konfiguriertem DNS muss für die AD-Domäne ein DNS-Eintrag vorhanden sein.
+* Die Uhr ist zwischen dem Kerberos-Schlüsselverteilungszentrum (KDC) und dem ONTAP-System kleiner oder gleich 5 Minuten.
+
+
+*Verwandte Informationen*
+
+xref:concept_how_nfs_exports_are_transitioned.adoc[Wie NFS-Exporte migriert werden]
+
+http://docs.netapp.com/ontap-9/index.jsp["NetApp Dokumentation: ONTAP 9"]

@@ -1,0 +1,25 @@
+---
+permalink: copy-based/reference_compression_fails_to_start_after_transition.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, compression, data, enable, error 
+summary: Wenn Sie ein 32-Bit-Volume auf einem System mit Data ONTAP 7.3.x auf ein ONTAP-Volume in einem 64-Bit-Aggregat umstellen, ist die Komprimierung auf dem ONTAP-Volume nach dem Übergang nicht aktiviert. Die Komprimierung kann erst aktiviert werden, wenn ein Upgrade des Volumes von 32-Bit auf 64-Bit erfolgt. 
+---
+= Die Komprimierung ist nach dem Wechsel von Data ONTAP 7.3.x nicht aktiviert
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Wenn Sie ein 32-Bit-Volume auf einem System mit Data ONTAP 7.3.x auf ein ONTAP-Volume in einem 64-Bit-Aggregat umstellen, ist die Komprimierung auf dem ONTAP-Volume nach dem Übergang nicht aktiviert. Die Komprimierung kann erst aktiviert werden, wenn ein Upgrade des Volumes von 32-Bit auf 64-Bit erfolgt.
+
+
+
+== Behelfslösung
+
+. Warten Sie, bis das Upgrade abgeschlossen ist.
++
+Sie können das verwenden `volume show -fields block-type -volume _vol_name_` Befehl zur Überprüfung, ob sich der Block-Typ des Volume auf 64-bit ändert.
+
+. Aktivieren Sie die Komprimierung mit `volume efficiency modify` Befehl.
+

@@ -1,0 +1,37 @@
+---
+permalink: san-host/task_remounting_vmfs_volumes_after_transition_using_vsphere_client.html 
+sidebar: sidebar 
+keywords: ontap, san, host, transition, remount, vmfs, volumes, vshpere, client 
+summary: 'Nach der Transition müssen Sie Ihre VMFS Volumes neu mounten und die Datenspeicher und Virtual Machines \(VMs\) in ihren Vorüberstiegstatus überführen. Wenn Sie nicht mit der ESXi CLI vertraut sind oder es in Ihrer Umgebung bequemer ist, können Sie Ihre Volumes mit vSphere Client neu mounten.' 
+---
+= NeuMounten von VMFS-Volumes nach dem Umstieg mit vSphere Client
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Nach der Transition müssen Sie Ihre VMFS Volumes neu mounten, um die Datenspeicher und Virtual Machines (VMs) im Vorfeld des Wechsels heranzuführen. Wenn Sie nicht mit der ESXi CLI vertraut sind oder es in Ihrer Umgebung bequemer ist, können Sie Ihre Volumes mit vSphere Client neu mounten.
+
+Diese Schritte gelten für Volumes und übergreifende Volumes.
+
+.Schritte
+. Melden Sie sich beim ESXi-Host oder beim vCenter-Server an, der den ESXi-Host verwaltet.
+. Wählen Sie unter *Hosts und Cluster* den ESXi-Host aus.
+. Navigieren Sie zu *Konfiguration* > *Hardware* > *Storage*.
+. Klicken Sie oben rechts auf *Speicher hinzufügen*.
+. Wählen Sie *Disk/LUN*.
+. Klicken Sie Auf *Weiter*.
+. Suchen Sie in der Liste der LUNs die Spalte *VMFS_Label* mit dem Namen des Datenspeichers.
+. Wählen Sie die LUN aus, um den Neueinhängvorgang abzuschließen.
++
+Wenn Sie ein übergreifendes VMFS-Volume neu mounten, wird die erste LUN in der Span mit „`Head`“ markiert. Sie müssen die LUN „`Head`“ auswählen, um den Neueinhängvorgang abzuschließen.
+
+. Klicken Sie Auf *Weiter*.
+. Wählen Sie im Fenster VMFS Mount-Optionen auswählen die Option *vorhandene Signatur beibehalten* aus.
+. Schließen Sie den Assistenten ab.
+. Wiederholen Sie diese Schritte für alle LUNs, die den Datenspeichernamen in der Spalte VMFS_Label anzeigen.
++
+Datenspeicher werden neu eingebunden und VMs sind aktiv.
+
+

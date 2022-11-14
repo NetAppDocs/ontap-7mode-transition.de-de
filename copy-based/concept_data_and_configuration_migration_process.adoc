@@ -1,0 +1,86 @@
+---
+permalink: copy-based/concept_data_and_configuration_migration_process.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, data, configuration, migration, process 
+summary: 'Der Datenmigrationsprozess für die Daten- und Konfigurationsmigration mit dem 7-Mode Transition Tool umfasst die folgenden Phasen: Vorbereitung, Basiskopie der Daten, Anwenden der Konfiguration \(precutover\) und der Storage-Umstellung. Wenn Sie SnapLock Volumes für die Überprüfung der Kontrollkette der Kustodie haben, ist die Überprüfung der Kontrollkette nach der Umstellung zusätzliche Phase.' 
+---
+= Datenmigrationsprozess für Daten und Konfiguration
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Der Daten- und Konfigurationsprozess mit dem 7-Mode Transition Tool umfasst die folgenden Phasen: Vorbereitung, Basiskopie der Daten, Anwenden der Konfiguration (Vorumstellung) und Storage-Umstellung. Wenn Sie SnapLock Volumes für die Überprüfung der Kontrollkette der Kustodie haben, ist die Überprüfung der Kontrollkette nach der Umstellung zusätzliche Phase.
+
+Die folgende Abbildung zeigt die verschiedenen Phasen des Migrationsprozesses:
+
+image::../media/transition_operational_flow.gif[Übergang Betriebsablauf]
+
+
+
+== Vorbereitung
+
+In dieser Phase werden Vorabprüfungen zur Überprüfung der Funktionsfunktionen durchgeführt. Dabei werden die 7-Mode Storage-Systeme überprüft, um zu überprüfen, ob die Volumes und die Konfiguration bereit für die Migration zu ONTAP sind. Es überprüft, ob der Cluster ordnungsgemäß konfiguriert ist und ob er den Wechsel unterstützen kann. Alle Fehler müssen behoben werden, bevor Sie den Übergang fortsetzen. Obwohl Sie mit dem Tool fortfahren können, ohne Warnungen zu lösen, müssen Sie die Auswirkungen der Warnungen verstehen, bevor Sie mit dem Umstieg fortfahren. Sie können die Vorabprüfungen mehrmals durchführen, um zu überprüfen, ob alle Fehler behoben wurden.
+
+Obwohl der Vorprüfschritt und die während der Bewertung durchgeführten Bewertungsschritte ähnlich sind, gibt es Unterschiede. Der Vorabprüfschritt ist ein detaillierterer Test, der sich auf spezifische Storage-Systeme konzentriert, die als Migrationsquellsysteme (7-Mode) und Zielsysteme (ONTAP) identifiziert wurden. Im Bewertungsschritt werden nur die Migrationssysteme evaluiert und Funktionsunterschiede zu ONTAP überprüft.
+
+
+
+== Basis-Datenkopie
+
+Auf der SVM werden neue Volumes erstellt, zwischen 7-Mode und ONTAP Volumes eine SnapMirror Beziehung aufgebaut und ein Basistransfer durchgeführt. Nach Abschluss der Basiskopie werden inkrementelle Transfers automatisch gemäß einem benutzerdefinierten Zeitplan für Datenkopiekopien ausgeführt. Clients und Server, die auf den Quell-Storage zugreifen, bleiben während dieses Schritts online.
+
+Das Kopieren von Daten erfordert CPU, Arbeitsspeicher und Storage-Zugriff. Dadurch werden zusätzliche Ressourcen im Quell-Storage-System verwendet. Als Best Practice empfiehlt es sich, Aktivitäten zum Kopieren von Daten so zu planen, dass sie außerhalb der Stoßzeiten stattfinden (vorzugsweise sollte die CPU-Nutzung etwa 50 % betragen).
+
+
+
+== Konfiguration anwenden (Vorumkonfigurieren)
+
+Diese Phase umfasst inkrementelle SnapMirror Übertragungen. Dabei werden Konfigurationsinformationen auf das ONTAP System, die SVM und die Volumes angewendet. Optional können Sie auch die ONTAP Volumes testen, die vor der Storage-Umstellung migriert werden.
+
+Obwohl ein Großteil der Konfiguration angewendet wird, werden einige Aktionen auf die Storage-Umstellung zurückgestellt, beispielsweise auf die Anwendung von Kontingenten.
+
+Die für den Übergang ausgewählten 7-Mode IP-Adressen werden im Status „Administratoren inaktiv“ erstellt. Die für den Übergang ausgewählten neuen IP-Adressen werden im Verwaltungsstatus erstellt. Mit diesen neuen IP-Adressen kann der Datenzugriff während der Vorumstellungstests überprüft werden.
+
+Als Best Practice wird empfohlen, die Phase der Apply-Konfiguration (Vorumstellung) einige Tage oder Wochen vor dem geplanten Umstellungsfenster auszuführen. Mit dieser Aktivität wird sichergestellt, dass alle Konfigurationen ordnungsgemäß angewendet werden und ob Änderungen erforderlich sind.
+
+
+TIP: Es sind zwar keine inkrementellen Updates erforderlich, jedoch sollte eine Best Practice, so nahe wie möglich, einen inkrementellen Transfer durchführen, um die Trennung der Clients zu minimieren.
+
+
+
+== Storage-Umstellung
+
+Im Rahmen der Storage-Umstellung werden Clients getrennt, ein letzter Datentransfer durchgeführt und die SnapMirror Beziehung unterbrochen. Die Clients werden manuell neu verbunden.
+
+Das Trennen der Clients oder Server vom Quell-Storage Volume verhindert, dass während der Ausführung der endgültigen Kopie weitere Schreibzugriffe erfolgen. Vor dem Trennen der Verbindung von Clients empfiehlt es sich, eine inkrementelle Aktualisierung durchzuführen, um die Ausfallzeiten zu minimieren.
+
+Der Storage-Zugriff muss nur für die zu migrierenden Volumes getrennt werden. Der Zugriff auf den Speicher kann von der Storage- oder Client-Seite aus eingestellt werden. Die Best Practice besteht darin, die Konnektivität beim Storage einzustellen. Wenn ein CIFS-Client beispielsweise auf ein Volume mit dem Namen „`user01`“ auf einem 7-Mode Storage System zugreift, können Sie das nutzen `cifs terminate -v user01` Befehl zum Deaktivieren des Zugriffs auf alle CIFS-Freigaben auf dem Volume (Deaktivieren des Client-Zugriffs auf Storage-Seite). Die IP-Adressen, Mount-Punkte oder sogar Share-Namen können sich infolge der Migration ändern, und daher kann der Client-Zugriff auch auf Client-Seite eingestellt werden. Solange Clients keine neuen Daten in den zu migrierenden Storage Container schreiben können, können Sie den Zugriff entweder oder auf beide Methoden fortsetzen.
+
+Wenn die Verbindung von Clients getrennt wird, führt das 7-Mode Transition Tool eine letzte Kopie durch, sodass die Quell- und Zieldatensätze Parität aufweisen. Das 7-Mode Transition Tool konfiguriert die Daten-LIFs auf der SVM. Einige Konfigurationsänderungen, die nicht vor Vorumstellung migriert wurden, wie etwa das Anwenden von SAN-Konfigurationen und Kontingenten, werden derzeit auch auf die SVM angewandt.
+
+Wenn die Storage-Umstellung abgeschlossen ist, können Sie die Clients manuell neu verbinden und den Datenzugriff validieren. Zur Überprüfung des Datenzugriffs wird sichergestellt, dass Clients ordnungsgemäß auf das ONTAP System zugreifen und dass alle Berechtigungen wie erwartet funktionieren.
+
+
+
+== Kontrollkette für SnapLock Volumes
+
+Sie können den Vorgang „Kette der Kustodie“ für die SnapLock Volumes im Projekt nach Abschluss der Umstellung auslösen. Dieser Vorgang ist nicht zwingend erforderlich und ist nur erforderlich, wenn eine Überprüfung der Kontrollkette für den Übergang von SnapLock Volumes erforderlich ist. Sie können diesen Vorgang für alle SnapLock Volumes im Projekt oder für eine Untergruppe von SnapLock Volumes im Projekt durchführen. Die Prüfung der Chain of Custody wird sowohl für Compliance als auch für Enterprise SnapLock Volumes unterstützt. Die Kontrollkette für die Prüfung von Custody wird nur für Lese-/Schreibzugriff-SnapLock-Volumes unterstützt und wird nicht für schreibgeschützte SnapLock-Volumes unterstützt.
+
+
+IMPORTANT: Die Überprüfung der Kette der Kustodie wird für SnapLock-Volumes mit Dateinamen nicht-ASCII-Zeichen nicht unterstützt.
+
+Der Verifizierungs-Workflow wird nur in der 7-Mode Transition Tool GUI unterstützt und wird nicht im CLI-Workflow unterstützt.
+
+Der Verifizierungsvorgang Chain of Custody führt folgende Schritte durch:
+
+* Listet alle WORM-Dateien von 7-Mode Volumes auf
+* Berechnet den Fingerabdruck für jede WORM-Datei, die zuvor auf 7-Mode-Volumes und ONTAP-Volumes aufgezählt wurde
+* Generiert einen Bericht mit Details über die Anzahl der Dateien mit übereinstimmenden und nicht übereinstimmenden Fingerabdrücken und den Grund für die Diskrepanz
+
+
+Fingerabdruckdaten aller WORM-Dateien werden in einem ONTAP Volume gespeichert, das während der Planungsphase zur Verfügung gestellt wird.
+
+
+NOTE: Basierend auf der Anzahl der Dateien auf den 7-Mode Volumes kann der Verifizierungsprozess für die Chain of Custody sehr viel Zeit in Anspruch nehmen (Tage oder Wochen).

@@ -1,0 +1,22 @@
+---
+permalink: san-host/concept_configure_recommended_settings_for_esxi_hosts.html 
+sidebar: sidebar 
+keywords: ontap, san, host, transition, recommended, settings, esxi, hosts 
+summary: Nach Abschluss der Schritte zur Behebung für Ihren ESXi Host sollten Sie die empfohlenen ESXi Host-Einstellungen für Clustered Data ONTAP auf dem Host anwenden. 
+---
+= Empfohlene Einstellungen für ESXi Hosts nach Korrektur des Wechsels
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Nach Abschluss der Schritte zur Behebung für Ihren ESXi Host sollten Sie die empfohlenen ESXi Host-Einstellungen für Clustered Data ONTAP auf dem Host anwenden.
+
+Mit Virtual Storage Console (VSC) können ESXi Host-Einstellungen konfiguriert werden. VSC ist das NetApp Standard-Plug-in, mit dem vSphere vCenter ESXi Host-Einstellungen für Data ONTAP konfigurieren kann. Auf dem 7-Mode Quell-System implementierte ESXi Hosts und Virtual Machines (VMs) sollten mit VSC konfiguriert werden. Alternativ können Sie VMs manuell konfigurieren, indem Sie die Informationen in den folgenden Knowledgebase-Artikeln verwenden:
+
+* _Guest OS Tunings_
+* _Task Set voll (QFull) Tunables für LUNs in vSphere 5.1_
+* _Storage Array Type Plugin-Option für ein NetApp Array auf VMware vSphere_
+* _HardwareAcceleratedLocking-Einstellung erforderlich für VMware Deployment_
+

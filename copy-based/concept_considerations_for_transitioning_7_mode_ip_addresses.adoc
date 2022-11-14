@@ -1,0 +1,24 @@
+---
+permalink: copy-based/concept_considerations_for_transitioning_7_mode_ip_addresses.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, 7, mode, ip, address 
+summary: 'Beachten Sie bei der Transition von 7-Mode IP-Adressen auf Storage Virtual Machines \(SVMs\) in ONTAP bestimmte Überlegungen.' 
+---
+= Überlegungen für den Wechsel der 7-Mode IP-Adressen
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Beachten Sie bestimmte Überlegungen bei der Transition von 7-Mode IP-Adressen auf Storage Virtual Machines (SVMs) in ONTAP.
+
+* Sie können vorhandene 7-Mode IP-Adressen umstellen oder neue IP-Adressen angeben, die für die SVM konfiguriert werden sollen. Dazu verwenden Sie das 7-Mode Transition Tool.
++
+** Vorhandene 7-Mode IP-Adressen werden auf der SVM in der Administration erstellt `down` Status in der Phase Apply Configuration (Vorumver).
+** Auf der SVM werden im Administrator neue IP-Adressen erstellt `up` Status in der Phase Apply Configuration (Vorumver).
+
+
+* IPv6-Adressen können nicht migriert werden und müssen nach der Umstellung manuell konfiguriert werden.
+* ISCSI- und FC-LIFs wurden nicht migriert und müssen nach der Transition manuell konfiguriert werden.
+

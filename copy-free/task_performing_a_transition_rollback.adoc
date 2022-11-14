@@ -1,0 +1,88 @@
+---
+permalink: copy-free/task_performing_a_transition_rollback.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, roll, back, project 
+summary: Ein Rollback ist möglich, wenn Sie den 7-Mode in jeder Phase des Copy-Free Transition wiederherstellen möchten, bevor die ummigrierte Aggregate durchgeführt werden. Rollback ist ein manueller Vorgang. Mit dem 7-Mode Transition Tool können Sie die manuellen Schritte für ein Rollback generieren. 
+---
+= Erstellen eines Projekts für einen Copy-Free Transition
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Ein Rollback ist möglich, wenn Sie den 7-Mode in jeder Phase des Copy-Free Transition wiederherstellen möchten, bevor die ummigrierte Aggregate durchgeführt werden. Rollback ist ein manueller Vorgang. Mit dem 7-Mode Transition Tool können Sie die manuellen Schritte für ein Rollback generieren.
+
+* Sie müssen sicherstellen, dass auf dem Cluster keine Umstiegsoperationen für Volumes oder Aggregate ausgeführt werden.
++
+Sie können das verwenden `job show -jobtype transition` Befehl.
+
+* Keines der 7-Mode Aggregate muss angegeben werden.
++
+
+NOTE: Das Rollback kann nicht durchgeführt werden, wenn selbst ein 7-Mode-Aggregat aktiviert ist.
+
+* Die Ziel-Cluster-Knoten dürfen sich nicht im Übernahmemodus befinden.
+
+
+.Schritte
+. Klicken Sie auf *Rollback Prechecks*, um zu überprüfen, ob das Projekt für ein Rollback geeignet ist.
++
+Wenn die Vorprüfberichte Probleme haben, müssen Sie sie manuell beheben und den Vorprüfvorgang erneut ausführen. Wenn Sie beispielsweise während der Vorproduktionstests neue Volumes oder LUNs erstellt haben, müssen Sie sie manuell löschen.
+
+. Klicken Sie auf *Rollback Steps erstellen*, um eine Liste der manuellen Schritte zu erstellen, die Sie für ein erfolgreiches Rollback durchführen müssen.
+. Klicken Sie auf *als CSV speichern*, um die manuellen Schritte in einer Datei zu speichern.
++
+Sie können die Rollback-Befehle aus der Datei kopieren und ausführen.
+
+. Abhängig von der Übergangsphase, ab der ein Rollback durchgeführt werden soll, führen Sie die erforderlichen manuellen Schritte durch:
++
+** *Import- oder Vorproduktionstest-Phase*
++
+... Führen Sie die Rollback-Befehle auf dem Cluster aus und klicken Sie auf *Bestätigen*.
+... Verbinden Sie die 7-Mode Platten-Shelves mit den 7-Mode Controllern, überprüfen Sie die Verkabelung manuell und klicken Sie auf *Bestätigen*.
+... Führen Sie die Rollback-Befehle auf den 7-Mode Controllern aus und klicken Sie auf *Bestätigen*.
+... Zeigen Sie auf der Registerkarte Operations History die auf den SVMs angewandten Konfigurationen an.
+... Entfernen Sie manuell alle Konfigurationen, die vom Tool angewendet wurden, aus den SVMs.
+
+
+** *Verkabelungsphase*
++
+... Verbinden Sie die 7-Mode Platten-Shelves mit den 7-Mode Controllern, überprüfen Sie die Verkabelung manuell und klicken Sie auf *Bestätigen*.
++
+Sie müssen sicherstellen, dass die 7-Mode-Verkabelung mit der zum Projektstart gezeigte Verkabelung übereinstimmt.
+
++
+
+NOTE: Sie sollten Config Advisor verwenden, um die Verkabelung zu überprüfen.
+
+... Führen Sie die Rollback-Befehle auf den 7-Mode Controllern aus und klicken Sie auf *Bestätigen*.
+... Entfernen Sie manuell alle Konfigurationen, die vom Tool angewendet wurden, aus den SVMs.
++
+Über die Registerkarte „Operations History“ können Sie die auf die SVMs angewendeten Konfigurationen anzeigen.
+
+
+
+** *Exportphase*
++
+... Führen Sie die Rollback-Befehle auf den 7-Mode Controllern aus und klicken Sie auf *Bestätigen*.
+... Entfernen Sie manuell alle Konfigurationen, die vom Tool angewendet wurden, aus den SVMs.
++
+Über die Registerkarte „Operations History“ können Sie die auf die SVMs angewendeten Konfigurationen anzeigen.
+
+
+
+** *SVM-Bereitstellungsphase*
++
+Entfernen Sie manuell alle Konfigurationen, die vom Tool angewendet wurden, aus den SVMs.
+
++
+Über die Registerkarte „Operations History“ können Sie die auf die SVMs angewendeten Konfigurationen anzeigen.
+
+
+
++
+xref:task_running_manual_steps_for_rolling_back_transition.adoc[Manuelle Schritte zum Rollback des Übergangs]
+
+. Nachdem Sie alle manuellen Schritte abgeschlossen haben, klicken Sie im 7-Mode Transition Tool auf *Verify 7-Mode*, um zu überprüfen, ob die 7-Mode Controller bereit sind, Daten bereitzustellen.
+

@@ -1,0 +1,106 @@
+---
+permalink: copy-free/task_generating_an_assessment_report_by_adding_systems_to_7mtt.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, assessment, report, add, transition, tool 
+summary: Sie können Inventarinformationen für Controller, Hosts und FC Switches erfassen, indem Sie die Systeme zum 7-Mode Transition Tool hinzufügen. Anschließend können Sie einen Assessment-Bericht erstellen, um die Funktionen und Eigenschaften dieser Systeme zu bewerten und die Arbeitsweise der für den Übergang ausgewählten ONTAP-Version zu ermitteln. 
+---
+= Erstellung eines Bewertungsberichts durch Hinzufügen von Systemen zum 7-Mode Transition Tool
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können Inventarinformationen für Controller, Hosts und FC Switches erfassen, indem Sie die Systeme zum 7-Mode Transition Tool hinzufügen. Anschließend können Sie einen Assessment-Bericht erstellen, um die Funktionen und Eigenschaften dieser Systeme zu bewerten und die Arbeitsweise der für den Übergang ausgewählten ONTAP-Version zu ermitteln.
+
+* Der Benutzername für das Speichersystem und die Hosts muss über ausreichende Berechtigungen verfügen, um die Befehle auszuführen, die in der Readme-Datei aufgeführt sind.
++
+Die Readme-Datei befindet sich unter `_7-Mode_Transition_Tool_installed_location\bin\ict`.
+
+* Sie müssen die 7-Mode Systeme, Hosts und FC Switches für die Bewertung der Transition vorbereitet haben.
+* Für die Bewertung von Windows-Systemen müssen Sie über ein Domain-Benutzerkonto verfügen.
+* Wenn Sie mehrere Systeme zur Bewertung hinzufügen, müssen Sie eine Textdatei erstellen, die im ASCII- oder UTF-8-Format codiert ist und die Systemdetails in Form eines Systems pro Zeile enthalten muss.
++
+Die einzelnen Systemdetails müssen im folgenden Format angegeben werden:
+
++
+`(ontap|windows|vmware|linux|cisco|brocade)://[(_user|domain_user_)[_:password_]@](_host_name|ip_)`
+
+* Auf den Controller oder Host muss von dem System zugegriffen werden können, auf dem das 7-Mode Transition Tool installiert und ausgeführt wird.
+* Alle Funktionen müssen konfiguriert oder ihre Lizenz aktiviert sein, damit das Arbeitsbuch Inventarinformationen zu diesen Funktionen enthalten kann.
+* Der Benutzername für das Speichersystem muss über ausreichende Administratorrechte verfügen, um Bestandsdaten zu erfassen.
+* Alle Hostnamen und Speichersystemkonfigurationen, z. B. CIFS-Freigabnamen, Benutzernamen und Gruppennamen, müssen im UTF-8-Format vorliegen.
+
+
+Wenn der 7-Mode Transition Tool Service oder das System, auf dem dieses Tool installiert ist, neu gestartet wird, gehen die Systemdetails, die dem Tool hinzugefügt wurden, verloren und das System muss wieder dem Tool hinzugefügt werden.
+
+.Schritte
+. Falls Sie die neuesten IMT-Daten (Interoperabilitäts-Matrix) für die Bewertung der Transition nutzen möchten:
++
+.. Laden Sie die IMT Daten aus der Interoperabilitäts-Matrix herunter und speichern Sie sie:
++
+... Klicken Sie im Menü Berichte auf *Vollst. Tägliche Exporte*.
+... Geben Sie im Dialogfeld „tägliche Exporte abschließen“ in das Suchfeld FAS ein.
+... Laden Sie die Excel-Datei des ONTAP-SAN-Hosts herunter, und speichern Sie sie.https://mysupport.netapp.com/matrix["NetApp Interoperabilitäts-Matrix-Tool"]
+
+
+.. Importieren Sie die IMT-Daten von der CLI mit `transition imt import` Befehl.
+.. Überprüfen Sie, ob der Import erfolgreich ist, indem Sie den verwenden `transition imt show` Befehl.
++
+*Fehlerbehebung:* Wenn der IMT-Datenimport fehlschlägt, können Sie mit dem auf die vorherigen Daten zurücksetzen `transition imt restore` Befehl.
+
+
+
+. Melden Sie sich beim 7-Mode Transition Tool an und klicken Sie auf der Startseite auf *Sammeln & Bewerten*.
+. Klicken Sie Auf *Systeme Hinzufügen*.
+. Führen Sie im Fenster System hinzufügen eine der folgenden Aktionen durch:
++
+** Einzelnes System hinzufügen:
++
+... Geben Sie den vollständig qualifizierten Domänennamen (FQDN) oder die IP-Adresse des Systems ein.
+... Geben Sie den Benutzernamen und das Passwort für das angegebene System ein.
+... Wählen Sie den Systemtyp aus:
++
+**** Data ONTAP Storage-Systeme
+**** Hosts: Microsoft Windows, Red hat Linux Enterprise und VMware ESXi
+**** FC-Switches: Cisco und Brocade
+
+
+
+
+** Fügen Sie mehrere Systeme hinzu, indem Sie auf *Durchsuchen* klicken und dann die Textdatei auswählen, die die Anmeldeinformationen für mehrere Systeme enthält.
+
+
+. Klicken Sie Auf *Hinzufügen*.
++
+Wenn der Bewertungsstatus eines Systems bereit ist, können Sie eine Umstiegsprüfung für dieses System durchführen.
+
+. Generieren Sie den Bericht zur Umstiegsprüfung:
++
+.. Wählen Sie die Systeme für die Migrationsbewertung aus.
+.. Klicken Sie Auf *Übergangsbewertungsbericht Erstellen*.
+.. Wählen Sie im Dialogfeld Übergangsbewertungsbericht erstellen die Data ONTAP-Version des Zielclusters aus.
+.. Geben Sie ein Präfix für den Dateinamen der Berichte an.
+.. Klicken Sie Auf *Bericht Generieren*.
+
+
++
+Das Bewertungsmappe (Berichtsname angehängt mit "`BewertenmentWorkbook`") und die Zusammenfassung der Bewertungsleiter (Berichtsname ist mit "`BewertenmenteutiveZusammenfassung`" angehängt) werden im XML-Format erstellt.
+
++
++ Sie können auf das Arbeitsbuch zur Beurteilung, die Zusammenfassung der Bewertung und die XML-Bestandsdateien zugreifen, die zum Generieren des Bewertungsberichts aus dem verwendet werden `...etc/webapp/transition-gui/tmc` Ordner.
+
+. Sehen Sie sich das Arbeitsbuch zur Beurteilung in Microsoft Excel und der Executive Summary zur Bewertung in Microsoft Word unter Verwendung von Microsoft Office 2007 oder höheren Versionen an.
++
+Im Arbeitsbuch für die Bewertung finden Sie weitere Informationen zur Bewertung in den Registerkarten Transition Feasibility (CFT), Config Precheck Summary, Config Precheck Details und CFT Precheck Summary.
+
++
+In der Executive Summary für die Bewertung finden Sie im Abschnitt „Copy-Free Transition Reasonabbility“ Einzelheiten zur Controller-Ebene-Bewertung.
+
++
+Möglicherweise müssen Sie Makros in Excel aktivieren, um die Bewertungsmappe anzuzeigen.
+
++
+Wenn der Zugriffsstatus eines Systems lautet, finden Sie in der Zusammenfassung zur Datenerfassung des Bewertungsarbeitsbuchs `FAILED`, Dann ist die Bestandsinformation für dieses System ungültig. In der Executive Summary der Bewertung wird der Wert einiger Felder dieses Systems als angezeigt `Not Assessed`.
+
+

@@ -1,0 +1,36 @@
+---
+permalink: copy-free/task_verifying_readiness_for_cutover.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, verify, cutover, ready, systems 
+summary: Bevor Sie den Client-Zugriff trennen, können Sie die Bereitschaft des 7-Mode Systems für die Storage-Umstellung überprüfen. Hierzu wird beispielsweise überprüft, ob SP oder RLM auf dem 7-Mode System konfiguriert ist und ob die Platten-Shelfs, Aggregate und Volumes für die Transition bereit sind. Sie können Probleme vor dem Exportvorgang manuell beheben, wodurch die Ausfallzeit verringert wird. 
+---
+= Überprüfung, ob 7-Mode Systeme bereit für die Umstellung sind
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Bevor Sie den Client-Zugriff trennen, können Sie die Bereitschaft des 7-Mode Systems für die Storage-Umstellung überprüfen. Hierzu wird beispielsweise überprüft, ob SP oder RLM auf dem 7-Mode System konfiguriert ist und ob die Platten-Shelfs, Aggregate und Volumes für die Transition bereit sind. Sie können Probleme vor dem Exportvorgang manuell beheben, wodurch die Ausfallzeit verringert wird.
+
+Dieser Vorgang kann mehrmals ausgeführt werden, bevor der Export- und Stopp-Vorgang gestartet wird.
+
+.Schritte
+. Klicken Sie auf *Bereitschaft prüfen*, um zu überprüfen, ob die 7-Mode Systeme für die Umstellung bereit sind.
++
+Dieser Vorgang ist optional, er empfiehlt sich jedoch, die Systembereitschaft zu überprüfen und Probleme vor dem Exportvorgang zu beheben, um das Zeitfenster für die Storage-Umstellung zu minimieren.
+
+. Warten Sie, bis der Vorgang abgeschlossen ist, und führen Sie die folgenden Schritte aus:
++
+.. Klicken Sie auf *als CSV speichern*, um die Operation zu speichern, führt zu einer Datei.
+.. Klicken Sie auf *Collect Tool Logs*, um eine Sicherung aller Transition Log-Dateien zu erstellen.
++
+Es empfiehlt sich, die Protokolldateien nach jedem Übergangsvorgang zu speichern.
+
+.. Klicken Sie auf *Schließen*, um das Fenster mit den Operationsergebnissen zu schließen.
+
+
++
+Wenn der Vorgang lange dauert, können Sie auf *im Hintergrund* klicken, um das Fenster mit den Operationsergebnissen zu verlassen. Sie sollten das Projekt nicht bearbeiten oder eine andere Aufgabe ausführen, wenn der Vorgang im Hintergrund ausgeführt wird. Anschließend können Sie die Ergebnisse der Vorgänge auf der Registerkarte „Operation History“ anzeigen.
+
+

@@ -1,0 +1,16 @@
+---
+permalink: copy-based/concept_considerations_for_flexclone_volumes.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, flexclone, volume 
+summary: Bei der Übertragung von FlexClone Volumes auf eine SVM werden die Klone von den übergeordneten Volumes aufgeteilt und als FlexVol Volumes in das Ziel-Cluster verschoben. Dies führt dazu, dass im Zuge der Umstellung die Klonhierarchie und die Storage-Effizienz nicht verloren gehen. 
+---
+= Überlegungen für FlexClone Volumes
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Bei der Übertragung von FlexClone Volumes auf eine SVM werden die Klone von den übergeordneten Volumes aufgeteilt und als FlexVol Volumes in das Ziel-Cluster verschoben. Dies führt dazu, dass im Zuge der Umstellung die Klonhierarchie und die Storage-Effizienz nicht verloren gehen.
+
+Wenn im Ziel-Cluster Data ONTAP 8.3 oder eine frühere Version ausgeführt wird, können FlexClone Volumes nicht anhand von Snapshot Kopien erstellt werden, die aus dem 7-Mode migriert wurden. FlexClone Volumes können nur aus neuen Snapshot-Kopien erstellt werden, die nach dem Übergang des Volume zu ONTAP erstellt werden. Ab Clustered Data ONTAP 8.3 können Sie FlexClone Volumes aus Snapshot Kopien erstellen, die aus dem 7-Mode migriert werden.

@@ -1,0 +1,598 @@
+---
+permalink: copy-free/reference_copy_free_transition_project_planning_worksheet.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, project, planning, worksheet 
+summary: Mithilfe der Worksheets zur Planung des Wechsels können Sie Informationen zur Node-Zuordnung, zur SVM-Zuordnung, zur Volume-Zuordnung und zu LIFs für die Transition erfassen. Die Worksheets sind beim Erstellen eines Übergangsprojekts mithilfe des 7-Mode Transition Tool nützlich. Beachten Sie bitte die Richtlinien zum Ausfüllen der Worksheets. 
+---
+= Worksheets zur Projektplanung für den Copy Free Transition
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Mithilfe der Worksheets zur Planung des Wechsels können Sie Informationen zur Node-Zuordnung, zur SVM-Zuordnung, zur Volume-Zuordnung und zu LIFs für die Transition erfassen. Die Worksheets sind beim Erstellen eines Übergangsprojekts mithilfe des 7-Mode Transition Tool nützlich. Beachten Sie bitte die Richtlinien zum Ausfüllen der Worksheets.
+
+Befolgen Sie die folgenden Richtlinien, um die Worksheets abzuschließen:
+
+* Jede vFiler Einheit wird einer SVM zugeordnet.
++
+Wenn sich im 7-Mode Controller keine vFiler Einheiten befinden, weisen Sie den Controller einer einzelnen SVM zu.
+
+* Notieren Sie den 7-Mode Volume-Namen und den entsprechenden Data ONTAP Volume-Namen.
++
+Der ONTAP-Volume-Name kann sich vom 7-Mode Volume-Namen unterscheiden.
+
+* Ermitteln der für jede SVM zu konfigurierenden LIFs
++
+Die IP-Adressen für die LIFs können entweder im 7-Mode System vorhanden sein oder neue LIFs sein.
+
+
+
+
+
+== Node-Zuordnung
+
+|===
+| 7-Mode Controller | Zugewiesenes Cluster Node 
+
+
+ a| 
+ a| 
+
+
+
+ a| 
+ a| 
+
+|===
+
+
+== SVM- und Volume-Zuordnung
+
+|===
+| 7-Mode Controller | VFiler Einheit oder Controller | Zugewiesene SVM | 7-Mode Volumes | SVM Volume 
+
+
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+
+
+
+ a| 
+ a| 
+
+
+
+ a| 
+ a| 
+
+
+
+ a| 
+ a| 
+
+
+
+ a| 
+ a| 
+ a| 
+ a| 
+
+
+
+ a| 
+ a| 
+
+
+
+ a| 
+ a| 
+
+
+
+ a| 
+ a| 
+
+
+
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+
+
+
+ a| 
+ a| 
+
+
+
+ a| 
+ a| 
+
+
+
+ a| 
+ a| 
+
+
+
+ a| 
+ a| 
+
+
+
+ a| 
+ a| 
+
+
+
+ a| 
+ a| 
+
+
+
+ a| 
+ a| 
+
+|===
+
+
+== LIF-Zuordnung (IP-Adressen von 7-Mode)
+
+|===
+| 7-Mode Controller | VFiler Einheit oder Controller | Zugewiesene SVM | 7-Mode IP-Adresse | Netzmaske | Standard-Gateway | Home Node | Home Port 
+
+
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+
+
+
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+
+
+
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+
+
+
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+
+
+
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+
+
+
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+
+
+
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+
+
+
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+
+
+
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+
+
+
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+
+|===
+
+
+== LIF-Zuordnung (neue LIFs)
+
+|===
+| SVM | Neue IP-Adresse | Netzmaske | Standard-Gateway | Home Node | Home Port 
+
+
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+
+
+
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+
+
+
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+
+
+
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+
+
+
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+
+
+
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+
+
+
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+
+
+
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+
+
+
+ a| 
+ a| 
+ a| 
+ a| 
+ a| 
+
+|===
+
+
+== Beispiel
+
+Die folgende Tabelle zeigt ein Beispiel für abgeschlossene Arbeitsblätter für ein 7-Mode HA-Paar mit den Controllern hostA_7Mode und hostB_7Mode.
+
+*Knotenzuordnung*
+
+|===
+| 7-Mode Controller | Zugewiesenes Cluster Node 
+
+
+ a| 
+Hosta_7Modus
+ a| 
+Cluster1_01
+
+
+
+ a| 
+HostB_7modus
+ a| 
+Cluster1_02
+
+|===
+*SVM und Volume Mapping*
+
+|===
+| 7-Mode Controller | Zugewiesenes Cluster Node | VFiler Einheit oder Controller | Zugewiesene SVM | 7-Mode Volumes | SVM Volume 
+
+
+ a| 
+Hosta_7Modus
+ a| 
+Cluster1_01
+ a| 
+VfilerA
+ a| 
+Svm1
+ a| 
+Vola
+ a| 
+Vola
+
+
+
+ a| 
+Vol.
+ a| 
+Vol.
+
+
+
+ a| 
+VfilerB
+ a| 
+Svm2
+ a| 
+Vol. 1
+ a| 
+vol_nfs
+
+
+
+ a| 
+vol. 2
+ a| 
+vol_cifs
+
+
+
+ a| 
+HostB_7modus
+ a| 
+Cluster1_02
+ a| 
+Keine Angabe
+ a| 
+Svm3
+ a| 
+vol. 3
+ a| 
+vol. 3
+
+
+
+ a| 
+vol. 4
+ a| 
+vol. 4
+
+
+
+ a| 
+vol. 5
+ a| 
+vol. 5
+
+
+
+ a| 
+vol. 6
+ a| 
+vol. 6
+
+|===
+*LIF-Zuordnung (7-Modus-IP-Adressen)*
+
+|===
+| 7-Mode Controller | VFiler Einheit oder Controller | Zugewiesene SVM | Vorhandene 7-Mode IP | Netzmaske | Standard-Gateway | Home Node | Home Port 
+
+
+ a| 
+Hosta_7Modus
+ a| 
+VfilerA
+ a| 
+Svm1
+ a| 
+192.0.2.129
+ a| 
+255.255.255.128
+ a| 
+192.40.0.1
+ a| 
+Cluster1_01
+ a| 
+e0a
+
+
+
+ a| 
+192.0.2.135
+ a| 
+255.255.255.128
+ a| 
+192.40.0.1
+ a| 
+Cluster1_02
+ a| 
+e0b
+
+
+
+ a| 
+VfilerB
+ a| 
+Svm2
+ a| 
+-
+ a| 
+ a| 
+ a| 
+ a| 
+
+
+
+ a| 
+-
+ a| 
+ a| 
+ a| 
+ a| 
+
+
+
+ a| 
+HostB_7modus
+ a| 
+Keine Angabe
+ a| 
+Svm3
+ a| 
+192.0.2.110
+ a| 
+255.255.255.128
+ a| 
+192.40.0.1
+ a| 
+Cluster1_01
+ a| 
+e0c
+
+
+
+ a| 
+192.0.2.111
+ a| 
+255.255.255.128
+ a| 
+192.40.0.1
+ a| 
+Cluster1_02
+ a| 
+e0d
+
+|===
+*LIF-Zuordnung (neue LIFs)*
+
+|===
+| SVM | Neue IP-Adresse | Netzmaske | Standard-Gateway | Home Node | Home Port 
+
+
+ a| 
+Svm1
+ a| 
+-
+ a| 
+ a| 
+ a| 
+ a| 
+
+
+
+ a| 
+-
+ a| 
+ a| 
+ a| 
+ a| 
+
+
+
+ a| 
+Svm2
+ a| 
+192.0.2.130
+ a| 
+255.255.255.128
+ a| 
+192.40.0.1
+ a| 
+Cluster1_01
+ a| 
+e1c
+
+
+
+ a| 
+192.0.2.131
+ a| 
+255.255.255.128
+ a| 
+192.40.0.1
+ a| 
+Cluster1_02
+ a| 
+e1d
+
+
+
+ a| 
+Svm3
+ a| 
+192.0.2.136
+ a| 
+255.255.255.128
+ a| 
+192.40.0.1
+ a| 
+Cluster1_01
+ a| 
+e0c
+
+
+
+ a| 
+192.0.2.137
+ a| 
+255.255.255.128
+ a| 
+192.40.0.1
+ a| 
+Cluster1_02
+ a| 
+e0d
+
+|===

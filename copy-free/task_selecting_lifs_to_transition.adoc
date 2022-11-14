@@ -1,0 +1,62 @@
+---
+permalink: copy-free/task_selecting_lifs_to_transition.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, select, lif 
+summary: Optional können Sie die LIFs angeben, die Sie nach der Transition auf den SVMs konfigurieren möchten. Diese LIFs können vorhandene IP-Adressen auf den 7-Mode Systemen oder neue LIFs sein. Es werden nur NAS-LIFs migriert. FC- und iSCSI-LIFs müssen vor der SVM-Bereitstellungsphase manuell konfiguriert werden. 
+---
+= Auswahl von LIFs für den Übergang
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Optional können Sie die LIFs angeben, die Sie nach der Transition auf den SVMs konfigurieren möchten. Diese LIFs können vorhandene IP-Adressen auf den 7-Mode Systemen oder neue LIFs sein. Es werden nur NAS-LIFs migriert. FC- und iSCSI-LIFs müssen vor der SVM-Bereitstellungsphase manuell konfiguriert werden.
+
+Die für die Transition ausgewählten LIFs werden während der SVM-Bereitstellungsphase auf den SVMs konfiguriert:
+
+* Vorhandene 7-Mode IP-Adressen, die für den Wechsel ausgewählt wurden, werden im Status „Administratoren inaktiv“ erstellt.
++
+Diese IP-Adressen können bis zum Beginn der Umstellung weiterhin Daten im 7-Mode bereitstellen. Während der Importphase werden diese IP-Adressen im administrativen up-Status konfiguriert.
+
+* Neue IP-Adressen werden im Administrationsstatus erstellt.
++
+Mithilfe dieser LIFs können Sie nach der SVM-Bereitstellungsphase die Konnektivität der SVMs mit den Namensservern testen.
+
+
+
+.Schritte
+. Wählen Sie auf der Registerkarte LIF-Konfiguration eine der folgenden Optionen:
++
+|===
+| Sie möchten einen Wechsel durchführen... | Dann... 
+
+
+ a| 
+Eine vorhandene IP-Adresse auf dem 7-Mode System
+ a| 
+.. Klicken Sie auf *Wählen Sie 7-Modus LIF*.
+.. Wählen Sie die IP-Adresse aus, die Sie übertragen möchten, und geben Sie dann die Ziel-SVM und andere Netzwerkparameter an.
+.. Klicken Sie Auf *Speichern*.
+
+
+
+
+ a| 
+Eine neue IP-Adresse
+ a| 
+.. Klicken Sie auf *Neues LIF hinzufügen*.
+.. Geben Sie die zu konfigurierende IP-Adresse, die Ziel-SVM und andere Netzwerkparameter an.
+.. Klicken Sie Auf *Speichern*.
+
+
+|===
++
+
+NOTE: Die Ziel-Ports müssen sich im gleichen IPspace wie die Ziel-SVM befinden.
+
+. Klicken Sie Auf *Weiter*.
++
+Die Registerkarte Plankonfiguration wird angezeigt.
+
+

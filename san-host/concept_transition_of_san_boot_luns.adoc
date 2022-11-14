@@ -1,0 +1,22 @@
+---
+permalink: san-host/concept_transition_of_san_boot_luns.html 
+sidebar: sidebar 
+keywords: ontap, san, host, transition, san, boot, lun 
+summary: 'Sie müssen die SAN-Boot-LUNs neu starten, bevor Sie mit dem 7-Mode Transition Tool \(7MTT\) von Data ONTAP 7-Mode auf Clustered Data ONTAP umstellen. Zur Vorbereitung auf die Umstellungsphase müssen bestimmte Schritte durchgeführt werden, und nach dem Umstieg müssen Sie die LUNs ermitteln.' 
+---
+= Umstellung von SAN-Boot-LUNs
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie müssen die SAN-Boot-LUNs neu starten, bevor Sie mit dem 7-Mode Transition Tool (7MTT) von Data ONTAP 7-Mode auf Clustered Data ONTAP umstellen. Zur Vorbereitung auf die Umstellungsphase müssen bestimmte Schritte durchgeführt werden, und nach dem Umstieg müssen Sie die LUNs ermitteln.
+
+*Verwandte Informationen*
+
+xref:task_preparing_for_transition_of_fc_or_fcoe_san_boot_luns.adoc[Vorbereitung für die Umstellung von FC- oder FCoE-SAN-Boot-LUNs auf RHEL-Hosts]
+
+xref:task_preparing_for_transition_of_iscsi_san_boot_luns.adoc[Vorbereitung für die Umstellung von iSCSI SAN Boot LUNs]
+
+xref:task_discovering_san_boot_luns_after_transition.adoc[Nach dem Umstieg werden SAN-Boot-LUNs erkannt]

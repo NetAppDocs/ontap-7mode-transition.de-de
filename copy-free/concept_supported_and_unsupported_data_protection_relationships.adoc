@@ -1,0 +1,58 @@
+---
+permalink: copy-free/concept_supported_and_unsupported_data_protection_relationships.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, data, protection, supported, unsupported, configurations 
+summary: Sie können ein Volume verschieben, das Teil einer SnapMirror Beziehung ist. Einige Konfigurationen für Datensicherung und Disaster Recovery werden jedoch für die Transition nicht unterstützt. Aus diesem Grund müssen Sie einige manuelle Schritte für die Transition dieser Konfigurationen durchführen. 
+---
+= Übergang zur Datensicherung: Unterstützte und nicht unterstützte Konfigurationen
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können ein Volume verschieben, das Teil einer SnapMirror Beziehung ist. Einige Konfigurationen für Datensicherung und Disaster Recovery werden jedoch für die Transition nicht unterstützt. Aus diesem Grund müssen Sie einige manuelle Schritte für die Transition dieser Konfigurationen durchführen.
+
+
+
+== Unterstützte Konfigurationen
+
+Sie können Volume SnapMirror Beziehungen mit dem 7-Mode Transition Tool verschieben. Sie können eine Copy-Free Transition von primären und sekundären HA-Paaren durchführen. Anschließend müssen Sie die SnapMirror Beziehungen des Volumes nach dem Umstieg manuell einrichten.
+
+xref:task_transitioning_a_snapmirror_relationship.adoc[Umstellung einer SnapMirror Beziehung]
+
+
+
+== Nicht unterstützte Konfigurationen
+
+* SnapVault Beziehungen
++
+Volumes, die Quelle einer SnapVault Beziehung sind, können migriert werden. Die SnapVault Beziehung erfolgt jedoch nicht. Ein Volume, das Ziel einer SnapVault-Beziehung ist, kann erst migriert werden, nachdem die SnapVault-Backups angehalten sind.
+
++
+http://www.netapp.com/us/media/tr-4052.pdf["Technischer Bericht 4052 von NetApp: Erfolgreicher Wechsel zu Clustered Data ONTAP (Data ONTAP 8.2.x und 8.3)"]
+
+* Qtree SnapMirror Beziehungen
++
+Volumes mit qtrees, die Ursache einer qtree SnapMirror Beziehung sind, können migriert werden, die Beziehung zwischen qtree SnapMirror erfolgt jedoch nicht. Ein Volume mit einem qtree, der Ziel einer qtree SnapMirror-Beziehung ist, kann erst migriert werden, nachdem die Beziehung zwischen qtree und SnapMirror unterbrochen wurde.
+
+* Disaster Recovery vFiler Einheit
++
+Volumes, die eine Disaster Recovery vFiler Einheit bilden, können migriert werden. Die vFiler Einheit für Disaster Recovery wird jedoch nicht umgezogen. Ein Volume, das Ziel einer Disaster Recovery vFiler Einheit ist, kann erst migriert werden, nachdem die Disaster Recovery-Beziehung gelöscht wurde.
+
+* NDMP-Konfiguration
++
+Nach Abschluss der Umstellung müssen Sie manuell Backup-Richtlinien für die migrierte Volumes in ONTAP festlegen.
+
++
+https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-ptbrg/home.html["Datensicherung mithilfe von Tape Backup"]
+
+* Synchrone SnapMirror Beziehungen
++
+Diese Funktion wird in ONTAP nicht unterstützt, jedoch können die Volumes, die Teil der Beziehung sind, migriert werden.
+
+
+
+*Verwandte Informationen*
+
+xref:task_customizing_configurations_for_transition.adoc[Anpassung des Übergangs von 7-Mode Konfigurationen]

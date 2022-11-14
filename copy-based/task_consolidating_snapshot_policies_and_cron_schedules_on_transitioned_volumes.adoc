@@ -1,0 +1,18 @@
+---
+permalink: copy-based/task_consolidating_snapshot_policies_and_cron_schedules_on_transitioned_volumes.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, consolidate, cron, schedules, transitioned, volumes 
+summary: Das 7-Mode Transition Tool generiert individuelle Zeitpläne pro überarbeitetem Volume. Aus diesem Grund können nach dem Übergang eine große Anzahl von Cron-Zeitplänen erstellt werden. Daher müssen Sie wissen, wie sie nach dem Übergang konsolidiert werden können. 
+---
+= Konsolidierung von Cron-Zeitplänen aus migrierenden Volumes
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Das 7-Mode Transition Tool generiert individuelle Zeitpläne pro überarbeitetem Volume. Aus diesem Grund können nach dem Übergang eine große Anzahl von Cron-Zeitplänen erstellt werden. Daher müssen Sie wissen, wie sie nach dem Übergang konsolidiert werden können.
+
+.Schritte
+. Konsolidieren Sie die Cron-Zeitpläne nach dem Übergang mit `job schedule cron` Befehl.
+

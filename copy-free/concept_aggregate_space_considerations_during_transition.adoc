@@ -1,0 +1,107 @@
+---
+permalink: copy-free/concept_aggregate_space_considerations_during_transition.html 
+sidebar: sidebar 
+keywords: transition, copy, free, aggregate, space, requirements 
+summary: Vor der Umstellung müssen Sie sicherstellen, dass die 7-Mode Aggregate ausreichend freien Speicherplatz haben. Das 7-Mode Transition Tool führt verschiedene Speicherplatzprüfungen auf den Aggregaten durch, basierend auf dem physischen Speicherplatz, dem logischen Speicherplatz, dem durch Snapshot Kopien belegten Speicherplatz und den Einstellungen für Speicherplatzzusagen. Auch bei Flash Pool Aggregaten müssen Sie über die Speicherplatzüberlegungen verfügen. 
+---
+= Speicherplatzanforderungen für die Migration im Aggregat
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Vor der Umstellung müssen Sie sicherstellen, dass die 7-Mode Aggregate ausreichend freien Speicherplatz haben. Das 7-Mode Transition Tool führt verschiedene Speicherplatzprüfungen auf den Aggregaten durch, basierend auf dem physischen Speicherplatz, dem logischen Speicherplatz, dem durch Snapshot Kopien belegten Speicherplatz und den Einstellungen für Speicherplatzzusagen. Auch bei Flash Pool Aggregaten müssen Sie über die Speicherplatzüberlegungen verfügen.
+
+
+
+== Physischer Speicherplatz in den Aggregaten
+
+Die Transition ist gesperrt, wenn der freie Speicherplatz in den 7-Mode Aggregaten weniger als 5 % des physischen Speicherplatzes beträgt. Als Best Practice wird empfohlen, vor dem Umstieg mindestens 20 % freien Speicherplatz in den 7-Mode Aggregaten zu haben.
+
+Der zusätzliche Speicherplatz ist in den Aggregaten aus folgenden Gründen erforderlich:
+
+* Erstellung der Snapshot Kopie auf Aggregatebene für jedes 7-Mode Aggregat während der Exportphase
+* Testen des Workloads an den übertransivierten Aggregaten mit neuen Daten in der Phase vor dem Produktionstest
+
+
+Falls Sie keinen zusätzlichen Speicherplatz haben, können Sie vor dem Umstieg die 7-Mode Systeme mit Festplatten ergänzen. Wenn es nicht möglich ist, Festplatten hinzuzufügen oder wenn Sie während der Vorproduktions-Phase sicherstellen können, dass nur eine begrenzte Datenmenge auf die überarbeitenen Volumes geschrieben wird, können Sie mit dem 7-Mode Transition Tool diesen Fehler bestätigen und den Übergang fortsetzen. Sie müssen jedoch während des Übergangs den aggregierten Speicherplatz weiterhin überwachen und dafür sorgen, dass die Aggregate in der Phase vor dem Testen der Produktionsumgebung nicht wachsen.
+
+
+
+== Logischer Speicherplatz in den Aggregaten
+
+Wenn der logische Speicherplatz in den 7-Mode Aggregaten mehr als 97 % voll ist, wirft das 7-Mode Transition Tool während der Vorprüfung einen Blockierfehler auf. Sie können diesen Fehler während der Planungsphase ignorieren und mit dem Übergang fortfahren; Sie müssen jedoch sicherstellen, dass der verwendete logische Platz weniger als 97% vor dem Export und dem Anhalten ist, indem Sie entweder die Größe der Volumes in diesen Aggregaten verringern oder mehr Disketten zu den Aggregaten hinzufügen. Dieser Fehler kann in der Export- und Stopp-Phase nicht ignoriert werden.
+
+
+
+== Snapshot verschüttet
+
+Wenn die Snapshot Kopien in den 7-Mode Aggregaten mehr Platz beanspruchen als der für die Snapshot-Kopie-Reserve zugewiesene Speicherplatz, schlägt die Erstellung von Snapshot Kopien auf Aggregatebene im Export und Stopp möglicherweise fehl. Das 7-Mode Transition Tool gibt bei der Vorprüfung einen Sperrfehler aus. In diesen Bedingungen müssen Sie während der Planungsphase alle vorhandenen Snapshot Kopien auf Aggregatebene löschen.
+
+Wenn Sie die vorhandenen Snapshot Kopien nicht löschen möchten, können Sie diesen Fehler während der Planungsphase ignorieren und den Übergang fortsetzen. Sie müssen jedoch sicherstellen, dass der verwendete Prozentsatz der Snapshot-Kopie vor dem Export und dem Anhalten des Vorgangs weniger als 100 % beträgt.
+
+
+
+== Einstellungen für Speicherplatzzusagen
+
+7-Mode Transition Tool wirft während der Vorprüfung einen Blockierfehler auf, wenn die 7-Mode Controller über Volumes mit den folgenden Einstellungen für Speicherplatzzusagen verfügen:
+
+* Volume-garantierte Volumes mit deaktivierter Garantie
+* Datei-garantierte Volumes
+* *Volumen-garantierte Volumen mit Garantie deaktiviert*
++
+In einigen Fällen ist die Platzgarantie für die garantierten Volumes des Volume deaktiviert, da es keinen Speicherplatz in den Aggregaten gibt.
+
++
+Sie müssen auf den 7-Mode Aggregaten ausreichend freien Speicherplatz erstellen und dann die Speicherplatzgarantie für solche 7-Mode Volumes aktivieren. Verwenden Sie dazu den folgenden 7-Mode Befehl:
+
++
+`*vol options _volume_name_ guarantee volume*`
+
++
+Wenn Sie keine Korrekturmaßnahmen auf 7-Mode ausführen möchten, können Sie diesen Fehler ignorieren. Prüfen Sie nach dem Übergang die Volumes, für die die Garantie deaktiviert ist, und aktivieren Sie die Garantie manuell mit folgendem Befehl:
+
++
+`*volume modify -vserver -volume -space-guarantee volume*`
+
+* *Datei-garantierte Volumen*
++
+Die Dateigarantie wird in ONTAP nicht unterstützt.
+
++
+Wenn Ihnen Datei-garantierte Volumes zur Verfügung stehen, müssen Sie eine der folgenden Aktionen durchführen:
+
++
+** Wenn die 7-Mode Volumes LUNs oder Dateien enthalten, ändern Sie den Garantietyp des Volumes mithilfe des 7-Mode Befehls: +
+`*vol options _volume_name_ guarantee volume*`
++
+Sie müssen sicherstellen, dass auf den 7-Mode Aggregaten genügend freier Speicherplatz vorhanden ist, bevor Sie diesen Befehl ausführen.
+
+** Wenn die 7-Mode-Volumes keine platzreservierten LUNs oder Dateien enthalten, ändern Sie die Platzgarantie für die Volumes in „none“, indem Sie den folgenden 7-Mode-Befehl verwenden: +
+`*vol options _volume_name_ guarantee none*`Wenn Sie keine Korrekturmaßnahmen auf 7-Mode ausführen möchten, können Sie diesen Fehler ignorieren und den Übergang fortsetzen.
+
+
++
+Wenn diese Volumes während des Übergangs platzsparende LUNs oder Dateien enthalten, wird ihre Platzgarantie automatisch in umgewandelt `volume`, Aber die Platzgarantie wird zunächst deaktiviert. Sie müssen ausreichend freien Speicherplatz auf den Aggregaten erstellen und dann die Garantie manuell mit dem folgenden Befehl aktivieren:
+
++
++
+`*volume modify -vserver -volume -space-guarantee volume*`
+
++
++ Wenn die Volumes keine platzreservierten LUNs oder Dateien enthalten, wird ihre Platzgarantie während des Übergangs automatisch in keine umgewandelt.
+
+
+
+
+
+== Zusätzliche Berücksichtigung von Flash Pool Aggregaten
+
+Eine Transition wird nicht unterstützt, wenn der freie Speicherplatz in den SSDs von Flash Pool Aggregaten weniger als 5 % des gesamten Festplattenspeichers der SSDs beträgt. Sie müssen entweder den SSD-Cache deaktivieren oder weitere SSDs hinzufügen, um die Umstellung fortzusetzen.
+
+*Verwandte Informationen*
+
+xref:reference_ignorable_errors_during_transition.adoc[Unwissbare Fehler während des Übergangs]
+
+https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-psmg/home.html["Festplatten- und Aggregatmanagement"]

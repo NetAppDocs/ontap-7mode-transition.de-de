@@ -1,0 +1,14 @@
+---
+permalink: install-admin/index.html 
+sidebar: sidebar 
+keywords: ontap, 7, mode, install, index 
+summary: Hier wird die Installation und Einrichtung des 7-Mode Transition Tools für einen Copy-Free Transition oder Copy-Based Transition beschrieben. 
+---
+= Installations- und Setup-Handbuch
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+In diesem Leitfaden wird beschrieben, wie Sie das 7-Mode Transition Tool für einen Copy-Free Transition oder einen Copy-Based Transition installieren und einrichten.

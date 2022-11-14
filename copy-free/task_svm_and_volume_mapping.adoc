@@ -1,0 +1,78 @@
+---
+permalink: copy-free/task_svm_and_volume_mapping.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, map, svm, volumes 
+summary: Sie sollten jeden 7-Mode Controller im HA-Paar einer Ziel-SVM zuordnen. Wenn Sie über vFiler Einheiten verfügen, sollten Sie für jede vFiler Einheit eine Ziel-SVM auswählen. Die Volumes des 7-Mode Controllers oder der vFiler Einheit werden auf die zugewiesene SVM umgestellt. 
+---
+= Zuordnen von SVMs und Volumes
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie sollten jeden 7-Mode Controller im HA-Paar einer Ziel-SVM zuordnen. Wenn Sie über vFiler Einheiten verfügen, sollten Sie für jede vFiler Einheit eine Ziel-SVM auswählen. Die Volumes des 7-Mode Controllers oder der vFiler Einheit werden auf die zugewiesene SVM umgestellt.
+
+Sie müssen die SVMs auf dem Ziel-Cluster erstellt haben.
+
+https://docs.netapp.com/ontap-9/topic/com.netapp.doc.onc-sm-help/GUID-DF04A607-30B0-4B98-99C8-CB065C64E670.html["Cluster Management mit System Manager"]
+
+https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-sag/home.html["Systemadministration"]
+
+Eine vFiler Einheit kann nur einer einzelnen SVM zugeordnet werden. Volumes eines anderen 7-Mode Controllers oder einer vFiler Einheit können nicht zu einer zugewiesenen SVM migriert werden.
+
+.Schritte
+. Wählen Sie auf der Registerkarte SVM und Volume Mapping die Ziel-SVM aus, zu der Sie die Volumes von jedem 7-Mode Controller oder einer vFiler Einheit übertragen möchten.
++
+Die Ziel-SVM kann sich im standardmäßigen oder nicht standardmäßigen IPspace enthalten.
+
+. Je nachdem, ob Sie dieselbe Verbindungspfadrichtlinie für die Volumes in allen SVMs oder eine andere Verbindungspfadrichtlinie für die Volumes in jeder SVM anwenden möchten, wählen Sie eine der folgenden Aktionen:
++
+|===
+| Ihr Ziel ist | Dann... 
+
+
+ a| 
+Wenden Sie für alle SVMs dieselbe Verbindungspfad-Richtlinie an
+ a| 
+.. Klicken Sie Auf *Anwenden*.
+.. Wählen Sie eine Option für die Verbindungspfad-Richtlinie aus.
+.. Klicken Sie auf *OK*.
+
+
+
+
+ a| 
+Geben Sie die Verbindungspfadrichtlinie für jede SVM an
+ a| 
+Wählen Sie die Verbindungspfad-Richtlinie aus der Dropdown-Liste für jede Ziel-SVM aus.
+
+|===
++
+Die Verbindungspfadrichtlinie gibt den Pfad an, mit dem die Clustered Data ONTAP Volume als Ziel für Client-Zugriff gemountet werden müssen. Sie können einen der folgenden Werte für die Verbindungspfad-Richtlinie hinzufügen:
+
++
+** *Bewahren Sie 7-Mode-Mount-Pfade*
++
+Behält dieselben Verbindungspfade wie bei den 7-Mode Quell-Volumes bei. Die Volumes werden jedoch mit Verbindungspfaden im Format gemountet `/vol/__source_volume_name__` Nach dem Umstieg.
+
+** *Verwenden Sie den Namen des Clustered Data ONTAP-Volumes*
++
+Alle Clustered Data ONTAP Volumes werden über Verbindungspfade mit dem Namen des Clustered Data ONTAP Volumes im Format gemountet `_/target_volume_name_` Nach dem Umstieg.
+
+** *Verwenden Sie den 7-Mode-Volumennamen*
++
+Alle Clustered Data ONTAP Ziel-Volumes werden über Verbindungspfade mit dem 7-Mode Volume-Namen im Format gemountet `_/source_volume_name_` Nach dem Umstieg.
+
+
+
+. Klicken Sie Auf image:../media/delete_me_edit_schedule.gif["Symbol bearbeiten"] So ändern Sie den Namen des Clustered Data ONTAP Zielvolumens.
++
+Standardmäßig hat das Clustered Data ONTAP Zielvolume den gleichen Namen wie das 7-Mode Volume. Wenn ein Volume mit demselben Namen wie das 7-Mode Volume bereits auf der SVM vorhanden ist, wird dem Ziel-Volume automatisch ein neuer Name zugewiesen.
+
+. Klicken Sie für jede zugeordnete SVM auf *Zuordnung speichern*.
+. Klicken Sie Auf *Weiter*.
++
+Der Bildschirm Netzwerk wird angezeigt.
+
+

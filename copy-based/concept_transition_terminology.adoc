@@ -1,0 +1,61 @@
+---
+permalink: copy-based/concept_transition_terminology.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, terminology 
+summary: Die Terminologie für den Umstieg in Bezug auf das 7-Mode Transition Tool hilft Ihnen dabei, den Umstiegsprozess zu verstehen. 
+---
+= Terminologie für den Umstieg
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Die Terminologie für den Umstieg in Bezug auf das 7-Mode Transition Tool hilft Ihnen dabei, den Umstiegsprozess zu verstehen.
+
+* * Sammeln und bewerten*
++
+Vor dem Übergang von Daten und Konfigurationen auf ONTAP müssen Sie Informationen über die Storage-Umgebung, die Storage-Systeme, Hosts und Applikationen umfasst, erfassen. Anschließend müssen Sie die Merkmale und Funktionen dieser Systeme bewerten und die Funktionsweise dieser Funktionen in der für den Wechsel ausgewählten ONTAP-Version ermitteln.
+
+* * Migrieren*
++
+Bezieht sich auf die Transition von Daten und Konfigurationen von den 7-Mode Volumes auf ONTAP. Die Migration sollte nach Bewertung der 7-Mode Controller durchgeführt werden.
+
+* * Projekt*
++
+Mit dem 7-Mode Transition Tool ermöglicht ein Projekt die Konfiguration und das Management der Transition einer Gruppe von Volumes.
+
++
+Umstiegsprojekte sind drei Typen: Stand-Alone, Primary und Secondary.
+
++
+** *Stand-alone-Projekt*
++
+Volumes in diesem Projekt befinden sich entweder nicht in einer SnapMirror Beziehung zu Volumes in anderen Storage-Systemen oder sie möchten diese Volumes verschieben, ohne ihre SnapMirror Beziehungen zu erhalten.
+
+** *Primärprojekt*
++
+Volumes in diesem Projekt sind die Quell-Volumes einer SnapMirror Beziehung.
+
+** *Sekundärprojekt*
++
+Die Volumes in diesem Projekt sind die Ziel-Volumes einer SnapMirror Beziehung.
+
+
+
+* *Projektgruppe*
++
+Mit dem 7-Mode Transition Tool ist eine Projektgruppe ein logischer Container, mit dem Sie verwandte Migrationsprojekte abhalten können. Es gibt immer eine Standardgruppe mit Default_Group-Namen, die im System vorhanden ist.
+
+* *Übergang Peer-Beziehung*
++
+Transition Peer-Beziehung ist ein Autorisierungsmechanismus, mit dem SnapMirror Beziehungen zwischen einem 7-Mode Storage-System und einer SVM im Cluster einrichten kann, um Daten von den 7-Mode Volumes für den Umstieg auf die ONTAP Volumes zu kopieren. Eine Peer-Transition-Beziehung kann nur von einem Cluster-Administrator erstellt und vom Cluster aus initiiert werden.
+
+* *Transition Data Protection Relationship*
++
+Beziehungen zu Übergangsdaten (TDP) sind SnapMirror Beziehungen zu Volumes, die zwischen einem 7-Mode System und einem ONTAP System hergestellt werden.
+
++
+Datensicherung für die Transition wird nur für den Umstieg unterstützt. Sie sollten diese Beziehung nicht über einen längeren Zeitraum beibehalten, da es nicht möglich ist, Daten von einem ONTAP Volume zurück zu einem 7-Mode Volume neu zu synchronisieren.
+
+

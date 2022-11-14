@@ -1,0 +1,123 @@
+---
+permalink: copy-free/task_removing_disk_shelves_from_7_mode_and_connecting_to_cluster_nodes.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, disconnect, disk, shelves, connect, cluster, node 
+summary: Die Verkabelung der 7-Mode Platten-Shelfs zu den Ziel-Cluster Nodes erfolgt manuell. Nach der Verkabelung der Platten-Shelves, ist es eine Best Practice, die Verkabelung mithilfe von Config Advisor zu überprüfen. Anschließend können Sie die Verkabelung mit dem 7-Mode Transition Tool überprüfen. Das Tool führt nur einen Teil der von Config Advisor durchgeführten Überprüfungen durch. 
+---
+= Trennen der Festplatten-Shelfs vom 7-Mode System und Verbinden mit Cluster Nodes
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Die Verkabelung der 7-Mode Platten-Shelfs zu den Ziel-Cluster Nodes erfolgt manuell. Nach der Verkabelung der Platten-Shelves, ist es eine Best Practice, die Verkabelung mithilfe von Config Advisor zu überprüfen. Anschließend können Sie die Verkabelung mit dem 7-Mode Transition Tool überprüfen. Das Tool führt nur einen Teil der von Config Advisor durchgeführten Überprüfungen durch.
+
+Sie müssen die Informationen über die Festplatten-Shelf-Verbindung zu den 7-Mode Controller-Ports aufgenommen haben.
+
+Beachten Sie einige Überlegungen beim Anschließen der SAS-Platten-Shelfs:
+
+* Sie müssen die Regeln für die Verkabelung von SAS Square und Circle Ports befolgen.
+* IOM6- und IOM3-Shelfs können im selben Stack gemeinsam verwendet werden. Es sollte jedoch nicht mehr zwischen Shelfs, die unterschiedliche IOM-Typen verwenden, gewechselt werden.
++
+Beispiel: IOM6e (Controller)--IOM6 (Shelf)--IOM3 (Shelf)--IOM3 (Shelf) ist eine unterstützte Konfiguration. IOM6e (Controller)--IOM3 (Shelf)--IOM6 (Shelf)--IOM3 (Shelf) wird nicht unterstützt.
+
+
+
+.Schritte
+. Überprüfen Sie die Festplatten-Shelf-IDs im 7-Mode HA-Paar und den Ziel-Cluster Nodes:
++
+.. Wenn doppelte Shelf-IDs vorhanden sind (wenn die 7-Mode Festplatten-Shelf-IDs für die Festplatten-Shelfs in den Ziel-Cluster-Nodes verwendet werden), ändern Sie die Festplatten-Shelf-IDs.
++
+*** Für SAS-Festplatten-Shelfs beträgt eine gültige Shelf-ID 00 bis 99.
+*** SAS-Shelf-IDs müssen innerhalb des HA-Paars eindeutig sein.https://library.netapp.com/ecm/ecm_download_file/ECMP1119629["Installation und Service Guide für SAS-Platten-Shelfs für DS4243, DS2246, DS4486 und DS4246"]
+*** Für FC-Festplatten-Shelfs beträgt eine gültige Shelf-ID 1 bis 7.
+*** FC-Shelf-IDs müssen innerhalb jeder FC-Schleife eindeutig sein.https://library.netapp.com/ecm/ecm_download_file/ECMP1112854["DS14mk2 FC und DS14mk4 FC Hardware Service Guide"]
+
+
+.. Schalten Sie die Festplatten-Shelfs aus und wieder ein, damit die neuen IDs wirksam werden.
+
+
+. Schalten Sie die 7-Mode Festplatten-Shelfs aus.
+. Je nachdem, ob auf den Ziel-Cluster-Nodes zusätzliche Ports verfügbar sind, wählen Sie eine der folgenden Optionen:
++
+|===
+| Wenn... | Dann... 
+
+
+ a| 
+Zum Anschluss der Festplatten-Shelfs sind weitere Ports verfügbar
+ a| 
+Verbinden Sie die Platten-Shelfs in einem neuen Stack mit den Ziel-Cluster-Nodes in einer Multipath-Konfiguration.
+
+
+NOTE: Als Best Practice wird empfohlen, die Festplatten-Shelfs mit einem separaten Stack zu verbinden. Das 7-Mode Transition Tool erkennt die Verfügbarkeit der erforderlichen Anzahl von Ports auf den Ziel-Cluster Nodes, wenn Vorabprüfungen durchgeführt werden.
+
+
+
+ a| 
+Es sind keine Ports zum Verbinden der Festplatten-Shelfs verfügbar
+ a| 
+Führen Sie eine der folgenden Aktionen aus:
+
+** Fügen Sie eine neue Erweiterungskarte hinzu und verbinden Sie die Platten-Shelfs in einem neuen Stack mit den Ziel-Cluster-Nodes in einer Multipath-Konfiguration.
++
+Sie müssen überprüfen, ob die Erweiterungskarte auf der Zielplattform unterstützt wird.
+
+** Verbinden Sie die Platten-Shelfs mit einem vorhandenen Stack in einer Multipath-Konfiguration.
+
+
+|===
++
+https://library.netapp.com/ecm/ecm_download_file/ECMP1119629["Installation und Service Guide für SAS-Platten-Shelfs für DS4243, DS2246, DS4486 und DS4246"]
+
++
+https://library.netapp.com/ecm/ecm_download_file/ECMM1280273["DiskShelf14mk2 AT Hardware Service Guide"]
+
++
+https://library.netapp.com/ecm/ecm_download_file/ECMP1112854["DS14mk2 FC und DS14mk4 FC Hardware Service Guide"]
+
+. Schalten Sie die Festplatten-Shelfs ein.
++
+
+IMPORTANT: Sie müssen mindestens 70 Sekunden warten, bevor Sie fortfahren.
+
+. Verwenden Sie Config Advisor, um die Verbindungen zu überprüfen.
++
+Sie müssen alle durch Config Advisor identifizierten Verkabelungsprobleme beheben.
+
++
+https://mysupport.netapp.com/site/tools/tool-eula/activeiq-configadvisor["NetApp Downloads: Config Advisor"]
+
+. Klicken Sie im 7-Mode Transition Tool auf *Verkabelung überprüfen*.
++
+Es wird eine Meldung mit den wichtigen Überlegungen für diesen Vorgang angezeigt.
+
++
+*Fehlerbehebung:* Wenn es keine Disketten in einem Aggregat gibt, wird das Aggregat abgebaut und die Verkabelungsüberprüfung schlägt fehl. Wenn sich die Anzahl der fehlenden Festplatten innerhalb eines zulässigen Limits befindet, können Sie den Übergang mit den beeinträchtigten Aggregaten fortsetzen, indem Sie den folgenden Befehl aus der CLI des 7-Mode Transition Tool ausführen:
+
++
+`*transition cft aggregate degraded-transition -p _project_name_ -n 7-__mode_host_name__ -a _7-mode_aggregate_name_ -i acknowledge*`
+
++
+Anschließend können Sie die Kabelüberprüfung erneut ausführen und mit der Umstellung fortfahren. Sie müssen sicherstellen, dass im Ziel-Cluster-Node genügend freie Festplatten vorhanden sind, um diese RAID-Gruppen zu rekonstruieren, nachdem die Aggregate migriert wurden.
+
+. Klicken Sie auf *Ja*, um fortzufahren.
+. Warten Sie, bis der Vorgang abgeschlossen ist, und führen Sie die folgenden Schritte aus, um die Operationsergebnisse zu speichern und die Werkzeugprotokolle zu erfassen:
++
+.. Klicken Sie auf *als CSV speichern*, um die Operation zu speichern, führt zu einer Datei.
+.. Klicken Sie auf *Collect Tool Logs*, um eine Sicherung aller Transition Log-Dateien zu erstellen.
++
+Es empfiehlt sich, die Protokolldateien nach jedem Übergangsvorgang zu speichern.
+
+.. Klicken Sie Auf *Schließen*.
+
+
++
+Wenn der Vorgang lange dauert, können Sie auf *im Hintergrund* klicken, um das Fenster mit den Operationsergebnissen zu verlassen. Sie sollten das Projekt nicht bearbeiten oder eine andere Aufgabe ausführen, wenn der Vorgang im Hintergrund ausgeführt wird. Anschließend können Sie die Ergebnisse der Vorgänge auf der Registerkarte „Operation History“ anzeigen.
+
+
+
+*Verwandte Informationen*
+
+xref:task_gathering_cabling_information_for_transition.adoc[Sammeln von Verkabelungsinformationen für den Umstieg]

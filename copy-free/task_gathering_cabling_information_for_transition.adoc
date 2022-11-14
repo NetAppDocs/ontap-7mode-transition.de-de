@@ -1,0 +1,103 @@
+---
+permalink: copy-free/task_gathering_cabling_information_for_transition.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, gather, cabling, information 
+summary: Bevor Sie mit der Copy-Free Transition beginnen, müssen Sie Informationen zu Adaptern, Ports, Festplatten-Shelfs und Storage-Konnektivität der 7-Mode Controller erfassen. Anschließend müssen Sie planen, die 7-Mode Festplatten-Shelfs mit den Ziel-Cluster Nodes zu verbinden. 
+---
+= Sammeln von Verkabelungsinformationen für den Umstieg
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Bevor Sie mit der Copy-Free Transition beginnen, müssen Sie Informationen zu Adaptern, Ports, Festplatten-Shelfs und Storage-Konnektivität der 7-Mode Controller erfassen. Anschließend müssen Sie planen, die 7-Mode Festplatten-Shelfs mit den Ziel-Cluster Nodes zu verbinden.
+
+Sie müssen das Arbeitsblatt für die Copy-Free Transition Cabling gedruckt haben.
+
+xref:reference_copy_free_transition_cabling_worksheet.adoc[Copy-Free Transition Cabling Worksheet]
+
+. Mit Config Advisor können Sie eine Zustandsprüfung für Storage-Systeme von 7-Mode durchführen und Verkabelungsdaten sammeln.
++
+Sie sollten das verwenden `7-Mode Install Checks` Option aus dem Ausführungsprofil „`Data ONTAP 7 und 8 (7-Mode)`“.
+
+. Stellen Sie die erforderlichen Informationen zu den einzelnen 7-Mode Controllern mithilfe des folgenden Befehls zusammen:
++
+`*sysconfig _slot_number_*`
+
++
+Mit der Ausgabe dieses Befehls können Sie angeben, welche Ports für die Festplatten-Shelf-Konnektivität verwendet werden.
+
++
+[listing]
+----
+host1> sysconfig 3
+        slot 3: SAS Host Adapter 3a
+                24 Disks:            13440.0GB
+                1 shelf with IOM3
+        slot 3: SAS Host Adapter 3b
+                24 Disks:            13440.0GB
+                1 shelf with IOM3
+        slot 3: SAS Host Adapter 3c
+                24 Disks:            13440.0GB
+                1 shelf with IOM3
+        slot 3: SAS Host Adapter 3d
+                24 Disks:            13440.0GB
+                1 shelf with IOM3
+----
+. Führen Sie im Cluster den folgenden nodeshell-Befehl auf jedem Knoten aus:
++
+`*system node run -node _node_name_ -command sysconfig -a*`
+
++
+Sie können die Ausgabe dieses Befehls verwenden, um Informationen über die verfügbaren Ports und Erweiterungssteckplätze zu erhalten.
+
+. Planen Sie auf den Ziel-Cluster-Knoten die Ports, die für die Verbindung der 7-Mode Festplatten-Shelfs verwendet werden sollen:
++
+.. Überprüfen Sie die verfügbaren (offenen) Ports.
+.. Überprüfen Sie die Erweiterungskartensteckplätze.
+.. Planen Sie die Konfiguration der Erweiterungskarten.
++
+Sie können die Erweiterungskarten aus den 7-Mode Systemen verschieben, wenn diese auch auf der Zielplattform und ONTAP-Version unterstützt werden. Sie können bei Bedarf auch PAM-Karten planen.
+
++
+https://hwu.netapp.com["NetApp Hardware Universe"]
+
+.. Planen Sie die Ziel-Ports, die für die Festplatten-Shelf-Verkabelung verwendet werden sollen.
++
+Die Auswahl der Ziel-Ports hängt von einigen der folgenden Faktoren ab:
+
++
+*** Separater oder vorhandener Festplatten-Shelf-Stack
+*** Port-Verfügbarkeit
+*** SAS- oder FC-Verbindungen
+*** Verfügbarkeit integrierter Ports oder Erweiterungskarten
+
+
+
+
+. Gehen Sie zum Datacenter, um die Portverbindungen auf den 7-Mode Controllern und den Ziel-Cluster-Nodes im Verkabelungsarbeitsblatt physisch aufzuzeichnen:
++
+.. Notieren Sie die verwendeten Ports auf den 7-Mode Controllern im Verkabelungsarbeitsblatt.
+.. Notieren Sie die verwendeten Ports auf den Ziel-Cluster-Knoten im Verkabelungsarbeitsblatt.
+.. Notieren Sie die Ziel-Ports, die für die Verbindung der 7-Mode Platten-Shelves verwendet werden sollen, wie in Schritt geplant ,#STEP_D0CFE719A0384F7FA5D9E73C8EA6C2E7.
+.. Stellen Sie sicher, dass Sie die richtigen Kabel zum Anschließen der Platten-Shelves haben.
++
+Sie sollten alle Probleme mit der Verkabelung identifizieren, basierend auf dem neuen Platten-Shelf-Stack-Standort.
+
+.. Planen Sie längere Kabellängen aufgrund von Anforderungen an Leiterbahnen oder Rechenzentren.
+.. Beschriften Sie jeden Stack des Festplatten-Shelfs und jedes Kabel an den 7-Mode Controllern.
++
+Als Best Practice wird empfohlen, die 7-Mode Platten-Shelf-Stacks zu etikettieren, falls Sie einen Rollback der Transition durchführen möchten und die Platten-Shelfs wieder mit den 7-Mode Controllern verbinden müssen.
+
+
+
+
+
+*Verwandte Informationen*
+
+https://library.netapp.com/ecm/ecm_download_file/ECMP1119629["Installation und Service Guide für SAS-Platten-Shelfs für DS4243, DS2246, DS4486 und DS4246"]
+
+https://library.netapp.com/ecm/ecm_download_file/ECMM1280273["DiskShelf14mk2 AT Hardware Service Guide"]
+
+https://library.netapp.com/ecm/ecm_download_file/ECMP1112854["DS14mk2 FC und DS14mk4 FC Hardware Service Guide"]

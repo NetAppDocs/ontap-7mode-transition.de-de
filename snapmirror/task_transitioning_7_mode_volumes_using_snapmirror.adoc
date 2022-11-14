@@ -1,0 +1,52 @@
+---
+permalink: snapmirror/task_transitioning_7_mode_volumes_using_snapmirror.html 
+sidebar: sidebar 
+keywords: ontap, 7, mode, transition, volumes, snapmirror, ontap, clustered, data 
+summary: Sie können 7-Mode Volumes in einer NAS- und SAN-Umgebung mithilfe von Clustered Data ONTAP SnapMirror Befehlen auf Clustered Data ONTAP Volumes verschieben. Nach Abschluss der Transition müssen Sie auf dem Cluster die Protokolle, Services und andere Konfiguration einrichten 
+---
+= Transition von 7-Mode Volumes mit SnapMirror
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können 7-Mode Volumes in einer NAS- und SAN-Umgebung mithilfe von Clustered Data ONTAP SnapMirror Befehlen auf Clustered Data ONTAP Volumes verschieben. Nach Abschluss der Transition müssen Sie auf dem Cluster die Protokolle, Services und andere Konfiguration einrichten.
+
+*Empfehlung:* Sie sollten das 7-Mode Transition Tool für einen Copy-Based Transition zu Transition zu 7-Mode Volumes verwenden, da das Tool im Rahmen von Vorabprüfungen sowohl 7-Mode als auch den Cluster in jedem Schritt des Migrationsprozesses überprüfen kann. Auf diese Weise können Sie viele potenzielle Probleme vermeiden. Das Tool vereinfacht zudem die Migration aller Protokolle, Netzwerk- und Servicekonfigurationen zusammen mit der Datenmigration.
+
+http://docs.netapp.com/us-en/ontap-7mode-transition/releasenotes.html["Versionshinweise Für Das 7-Mode Transition Tool"]
+
+Dieses Verfahren enthält die grundlegenden Aufgaben, die Sie für die Transition mit SnapMirror ausführen müssen.
+
+. xref:concept_planning_for_transition.adoc[Überprüfung, ob die Volumes, die Sie für die Transition planen, unterstützt werden].
+. xref:task_preparing_7_mode_system_for_transition.adoc[Vorbereiten des 7-Mode Systems für den Umstieg].
+. xref:task_preparing_cluster_for_transition.adoc[Bereiten Sie den Cluster für die Transition vor].
+. xref:task_creating_a_transition_peering_relationship.adoc[Erstellung einer Peer-Transition-Beziehung zwischen dem 7-Mode System als Quelle und der SVM als Ziel].
+. xref:task_transitioning_volumes.adoc[Erstellen einer SnapMirror Beziehung zwischen den beiden Volumes, um die Daten vom 7-Mode Volume auf das Clustered Data ONTAP Volume zu kopieren].
+
+
+Nach Abschluss der Datenmigration müssen Sie die folgenden Aufgaben durchführen:
+
+* Optional: Erstellen Sie eine Daten-LIF auf der SVM, um den Client-Zugriff zu ermöglichen.
++
+https://docs.netapp.com/us-en/ontap/networking/index.html["Netzwerk- und LIF-Management"].
+
+* Konfiguration von Protokollen, Netzwerken und Services auf der SVM
++
+** https://docs.netapp.com/us-en/ontap/networking/index.html["Netzwerk- und LIF-Management"].
+** http://docs.netapp.com/ontap-9/topic/com.netapp.doc.cdot-famg-cifs/home.html["SMB/CIFS-Management"]
+** https://docs.netapp.com/ontap-9/topic/com.netapp.doc.cdot-famg-nfs/home.html["NFS-Management"]
+
+
+* Erstellen von Initiatorgruppen und Zuordnen von LUNs
++
+https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-sanag/home.html["SAN-Administration"]
+
+* Falls Sie Volumes mit LUNs umstellen, müssen Sie die erforderlichen Aufgaben nach dem Umstieg auf den Hosts ausführen, bevor Sie den Zugriff auf die übergewechselt werden können. Clustered Data ONTAP Volumes müssen dann wiederhergestellt werden.
++
+http://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-7mtt-sanspl/home.html["San-Host-Umstellung und Problembehebung"]
+
+
+
+https://mysupport.netapp.com/site/global/dashboard["NetApp Support"]

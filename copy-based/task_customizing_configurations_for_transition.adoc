@@ -1,0 +1,49 @@
+---
+permalink: copy-based/task_customizing_configurations_for_transition.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, customize, 7, mode, configurations 
+summary: Bei der Planung des Übergangs von Konfigurationen von 7-Mode zu ONTAP haben Sie zwei Möglichkeiten, den Konfigurationsübergang anzupassen. Sie können den Übergang einer oder mehrerer Konfigurationen ignorieren oder überspringen. Sie können die 7-Mode NFS-Exportregeln konsolidieren und dann eine vorhandene NFS-Exportrichtlinie und eine Snapshot-Richtlinie für die Ziel-SVM wiederverwenden. 
+---
+= Anpassung des Übergangs von 7-Mode Konfigurationen
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Bei der Planung des Übergangs von Konfigurationen von 7-Mode zu ONTAP haben Sie zwei Möglichkeiten, den Konfigurationsübergang anzupassen. Sie können den Übergang einer oder mehrerer Konfigurationen ignorieren oder überspringen. Sie können die 7-Mode NFS-Exportregeln konsolidieren und dann eine vorhandene NFS-Exportrichtlinie und eine Snapshot-Richtlinie für die Ziel-SVM wiederverwenden.
+
+Sie müssen diese Aufgabe ausführen, bevor Sie die Konfigurationsphase (Vorumstellung) anwenden. Der Grund dafür ist, dass nach dieser Phase das Fenster Plankonfiguration für alle Änderungen deaktiviert ist. Dazu wird die Befehlszeilenschnittstelle (CLI) des 7-Mode Transition Tools mit ausschließlich den während der Umstellungsphase angewandten Konfigurationen verwendet.
+
+Das 7-Mode Transition Tool führt keine Vorabprüfungen für die nicht ausgeschlossene Konfiguration durch.
+
+Standardmäßig sind alle 7-Mode Konfigurationen für den Übergang ausgewählt.
+
+Es ist ein Best Practice, zunächst die Vorabprüfungen bei allen Konfigurationen durchzuführen und dann bei den späteren Vorabprüfungen eine oder mehrere Konfigurationen auszuschließen. Damit erfahren Sie, welche Konfigurationen vom Umstieg ausgeschlossen sind und welche Vorabprüfungen nachfolgend übersprungen werden.
+
+.Schritte
+. Wählen Sie auf der Seite Plankonfiguration im Fensterbereich *SVM Configuration* die folgenden Optionen aus:
++
+** Wenn Sie keine Transition von Konfigurationen mehr erhalten möchten, deaktivieren Sie das Kontrollkästchen für diese Konfigurationen.
+** Um ähnliche 7-Mode NFS Exportregeln zu einer einzigen Exportrichtlinie in ONTAP zu konsolidieren, die dann auf das überwechselte Volume oder qtree angewendet werden kann, aktivieren Sie das Kontrollkästchen *NFS-Exportrichtlinien auf 7-Mode* konsolidieren.
+** Wenn Sie eine vorhandene NFS-Exportrichtlinie auf der SVM wiederverwenden möchten, die der Exportrichtlinie entspricht, die durch das Tool erstellt wird. Diese kann dann auf die übergewechselt werden Volumes oder qtrees angewendet werden, aktivieren Sie das Kontrollkästchen *Export Policies of SVM* wiederverwenden.
+** Um ähnliche 7-Mode Snapshot Zeitpläne auf eine einzelne Snapshot-Richtlinie in ONTAP zu konsolidieren, die dann auf das migrierte Volume angewendet werden kann, aktivieren Sie das Kontrollkästchen *7-Mode Snapshot Richtlinien* konsolidieren.
+** Wenn Sie eine vorhandene Snapshot-Richtlinie auf der SVM wiederverwenden möchten, die der Snapshot-Richtlinie entspricht, die durch das Tool erstellt wird und auf die übermigrierte Volumes angewendet werden kann, aktivieren Sie das Kontrollkästchen *Snapshot Policies of SVM* wiederverwenden.
+
+
+. Klicken Sie auf *Speichern und gehen Sie zu Dashboard*.
+
+
+*Verwandte Informationen*
+
+xref:concept_cifs_configurations_supported_unsupported_or_requiring_manual_steps_for_transition.adoc[Unterstützte und nicht unterstützte CIFS Konfigurationen für den Umstieg auf ONTAP]
+
+xref:concept_nfs_configurations_supported_unsupported_or_requiring_manual_steps_for_transition.adoc[NFS-Umstieg: Unterstützte und nicht unterstützte Konfigurationen und erforderliche manuelle Schritte]
+
+xref:concept_supported_and_unsupported_name_services_configurations.adoc[Name Services Transition: Unterstützte und nicht unterstützte Konfigurationen und erforderliche manuelle Schritte]
+
+xref:concept_san_transition_supported_and_unsupported_configurations_and_required_manual_steps.adoc[SAN-Transition: Unterstützte und nicht unterstützte Konfigurationen und erforderliche manuelle Schritte]
+
+xref:reference_example_consolidating_nfs_export_rules_for_transition.adoc[Beispiele für die Konsolidierung von NFS-Exportregeln und Snapshot-Zeitplänen für die Transition]
+
+xref:reference_configurations_that_can_be_excluded.adoc[Konfigurationen, die vom Umstieg ausgeschlossen werden können]

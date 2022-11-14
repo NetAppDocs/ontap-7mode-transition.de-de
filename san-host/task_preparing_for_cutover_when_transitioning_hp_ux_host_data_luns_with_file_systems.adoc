@@ -1,0 +1,49 @@
+---
+permalink: san-host/task_preparing_for_cutover_when_transitioning_hp_ux_host_data_luns_with_file_systems.html 
+sidebar: sidebar 
+keywords: ontap, san, host, transition, cutover, phase, hp, ux, host, data, lun, file, system 
+summary: Wenn Sie eine HP Host-Daten-LUN mit einem Filesystem von Data ONTAP 7-Mode auf Clustered Data ONTAP verschieben, müssen Sie vor Beginn der Umstellungsphase bestimmte Schritte durchführen. 
+---
+= Vorbereitung auf die Umstellungsphase bei der Umstellung von LUNs mit HP-UX-Host-Daten auf Dateisysteme
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Wenn Sie eine HP Host-Daten-LUN mit einem Filesystem von Data ONTAP 7-Mode auf Clustered Data ONTAP verschieben, müssen Sie vor Beginn der Umstellungsphase bestimmte Schritte durchführen.
+
+Wenn Sie eine FC-Konfiguration verwenden, müssen Fabric-Konnektivität und Zoning zu den Clustered Data ONTAP Nodes eingerichtet werden.
+
+Wenn Sie eine iSCSI-Konfiguration verwenden, müssen die iSCSI-Sitzungen zu den Clustered Data ONTAP-Knoten erkannt und angemeldet werden.
+
+Führen Sie bei Copy-Based Transitions diese Schritte nach Abschluss des Storage-Umstellungsvorgangs im 7-Mode Transition Tool (7MTT) durch. Copy-Free Transitions werden für HP-UX-Hosts nicht unterstützt.
+
+.Schritte
+. Stoppen Sie die I/O an allen Mount-Punkten.
+. Fahren Sie jede Applikation, die auf die LUNs zugreift, gemäß den Empfehlungen des Applikationsanbieter herunter.
+. Alle Mount-Punkte lösen:
++
+`*umount _mount_point_*`
+
+. Exportieren Sie Ihre Volume-Gruppe und schreiben Sie die VGID und logische Volumes für die Volume-Gruppe in eine mapfile:
++
+`*vgexport -p -s -m /tmp/mapfile.vg01 vg01*`
+
+. Erstellen Sie eine Sicherungskopie der Datei mapfile.vg01 in einer externen Quelle.
+. Deaktivieren Sie die Volume-Gruppe:
++
+`*vgchange -a n _vg_name_*`
+
+. Exportieren Sie die Volume-Gruppe:
++
+`*vgexport _vg_name_*`
+
+. Vergewissern Sie sich, dass die Volume-Gruppe exportiert wurde:
++
+`*vgdisplay*`
+
++
+Die Informationen der exportierten Volume-Gruppe sollten nicht in der Ausgabe angezeigt werden.
+
+

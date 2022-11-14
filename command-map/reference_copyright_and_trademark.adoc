@@ -1,0 +1,12 @@
+---
+permalink: command-map/reference_copyright_and_trademark.html 
+sidebar: sidebar 
+keywords: ontap, command, map, transition, copyright, trademark 
+summary: Copyright und Marke für Command Map for 7-Mode Administrators Guide. 
+---
+= Copyright und Marke
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+

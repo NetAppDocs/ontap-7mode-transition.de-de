@@ -1,0 +1,20 @@
+---
+permalink: san-host/concept_transitioning_linux_host_file_systems_on_lvm_devices.html 
+sidebar: sidebar 
+keywords: ontap, san, host, transition, linux, host, file, systems, lvm, devices 
+summary: 'Wenn Sie ein Linux-Host-Dateisystem auf einem Logical Volume Manager \ (LVM\) umstellen, müssen Sie spezifische Schritte zur Vorbereitung der Umstellungsphase durchführen, und Sie müssen die logischen Volumes nach der Umstellung mounten.' 
+---
+= Umstellung von Linux-Hostdateisystemen auf LVM-Geräten
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Wenn Sie ein Linux-Host-Filesystem auf einem LVM (Logical Volume Manager) umstellen, müssen Sie spezifische Schritte zur Vorbereitung der Umstellungsphase durchführen, und Sie müssen die logischen Volumes nach der Umstellung mounten.
+
+*Verwandte Informationen*
+
+xref:task_preparing_for_cutover_when_transitioning_linux_host_file_systems_on_lvm_devices.adoc[Vorbereitung auf die Umstellungsphase beim Umstieg auf Linux-Hostdateisysteme auf LVM-Geräten]
+
+xref:task_mounting_logical_volumes_on_linux_host_after_transition.adoc[Mounten logischer Volumes auf Linux-Hosts nach dem Umstieg]

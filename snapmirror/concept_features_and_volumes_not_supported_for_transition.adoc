@@ -1,0 +1,43 @@
+---
+permalink: snapmirror/concept_features_and_volumes_not_supported_for_transition.html 
+sidebar: sidebar 
+keywords: ontap, 7, mode, transition, feature, volumes, supported, snapmirror 
+summary: Bestimmte 7-Mode Volumes, wie z. B. herkömmliche Volumes, und bestimmte 7-Mode Funktionen wie synchrone SnapMirror Beziehungen, können nicht erweitert werden, da einige Funktionen in Clustered Data ONTAP möglicherweise nicht verfügbar sind. 
+---
+= Funktionen und Volumes, die für die Transition nicht unterstützt werden
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Bestimmte 7-Mode Volumes, wie z. B. herkömmliche Volumes, und bestimmte 7-Mode Funktionen wie synchrone SnapMirror Beziehungen, können nicht erweitert werden, da einige Funktionen in Clustered Data ONTAP möglicherweise nicht verfügbar sind.
+
+Sie können ein 7-Mode Volume nur zu einer SVM umstellen.
+
+Sie können die folgenden 7-Mode Volumes oder Konfigurationen nicht umstellen:
+
+* Eingeschränkte oder Offline-Volumes
+* Traditionelle Volumes
+* Volumes mit NFS-zu-CIFS-Zeichenzuordnung (charmap)
+* Volumes mit Storage-Level Access Guard-Konfigurationen
+* Volumes, die qtrees mit Storage-Level Access Guard-Konfigurationen enthalten
++
+Wenn auf dem Ziel-Cluster Data ONTAP 8.3.1 oder höher ausgeführt wird, können Sie Volumes verschieben, die mit dieser Konfiguration qtrees enthalten.
+
+* Volumes mit dem `no_i2p` Option aktiviert.
+* FlexCache Volumes
+* 32-Bit-Volumes und 64-Bit-Volumes mit 32-Bit Snapshot Kopien, wenn auf dem Ziel-Cluster Data ONTAP 8.3 oder höher ausgeführt wird
+* FlexClone Volumes
++
+FlexClone Volumes können als FlexVol Volumes migriert werden, aber die Klonhierarchie und die Storage-Effizienz gehen verloren.
+
+* Root-Volume einer vFiler Einheit, wobei das Root-Volume auf einem qtree basiert, der zu der standardmäßigen vFiler Einheit gehört
+* Synchrone SnapMirror-Konfiguration
+* Qtree SnapMirror Beziehungen
+* IPv6-Konfigurationen
+* SnapVault Beziehungen
+* Netzwerkkomprimierung für SnapMirror
+* Wiederherstellung des Ziel-Volumes auf eine bestimmte Snapshot Kopie (SnapMirror `break -s` Befehl)
+* Volume-Verschiebung
+

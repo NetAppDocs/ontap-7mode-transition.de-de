@@ -1,0 +1,94 @@
+---
+permalink: copy-based/concept_san_transition_supported_and_unsupported_configurations_and_required_manual_steps.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, san, supported, unsupported, configurations, manual, steps, required 
+summary: Beachten Sie die SAN-Konfigurationen, die durch das 7-Mode Transition Tool migriert werden. Zudem sollten Sie die 7-Mode SAN-Funktionen kennen, die in ONTAP nicht unterstützt werden, sodass Sie vor der Transition alle erforderlichen Aktionen durchführen können. 
+---
+= SAN-Transition: Unterstützte und nicht unterstützte Konfigurationen und erforderliche manuelle Schritte
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Beachten Sie die SAN-Konfigurationen, die durch das 7-Mode Transition Tool migriert werden. Zudem sollten Sie die 7-Mode SAN-Funktionen kennen, die in ONTAP nicht unterstützt werden, sodass Sie vor der Transition alle erforderlichen Aktionen durchführen können.
+
+Sie sollten alle vor-Check-Fehler- und Warnmeldungen überprüfen, um die Auswirkungen solcher Konfigurationen auf die Transition zu bewerten.
+
+
+
+== Migrierte Konfigurationen
+
+Die folgenden SAN-Konfigurationen wurden durch das 7-Mode Transition Tool migriert:
+
+* FC- und iSCSI-Services
+* igroups und LUN-Zuordnungen
++
+[NOTE]
+====
+** 7-Mode Initiatorgruppen, die keiner LUN zugeordnet sind, werden nicht auf die Ziel-SVMs übertragen.
+** Bei Clustered Data ONTAP 8.3.0 und 8.3 wird der Übergang von Initiatorgruppen- und LUN-Zuordnungskonfigurationen während der Vorumstellungsoperation nicht unterstützt.
++
+Stattdessen werden die erforderlichen Initiatorgruppen während der Umstellung erstellt. Bei primären und eigenständigen Volumes werden LUNs während des Umstellungsvorgangs Initiatorgruppen zugeordnet. Bei sekundären Volumes wird jedoch die Zuordnung von LUNs zu Initiatorgruppen während der Umstellung nicht unterstützt. Sie müssen die sekundären LUNs nach Abschluss der Transition der primären Volumes manuell zuordnen.
+
+** Für von ONTAP 8.3.2 und höher unterstützte Versionen werden während der Vorumover-Operation Initiatorgruppen und LUN-Zuordnungskonfigurationen angewendet.
+
+
+====
+
+
+
+
+== Nicht unterstützte Konfigurationen in ONTAP
+
+In ONTAP werden folgende nicht unterstützte Konfigurationen unterstützt:
+
+* 7-Mode: LUN-Klone mit Snapshot Kopien
++
+Von Snapshot Kopien gesicherte LUN-Klone in den Snapshot Kopien werden bei Wiederherstellungen nicht unterstützt. Auf diese LUNs ist in ONTAP kein Zugriff möglich. Vor der Transition müssen Sie die LUN-Klone, die mit 7-Mode Snapshot Kopien gesichert werden, trennen oder löschen.
+
+* LUNs mit einer `ostype` Parameterwert von `vld`, `image`, Oder eine beliebige benutzerdefinierte Zeichenfolge
++
+Sie müssen entweder den Wert des ändern `ostype` Parameter für diese LUNs oder löschen Sie die LUNs vor dem Übergang.
+
+* Aufteilung des LUN-Klons
++
+Sie müssen entweder warten, bis der aktive LUN-Klonvorgang abgeschlossen ist, oder den LUN-Klonabbruch abbrechen und die LUN vor der Umstellung löschen.
+
+
+
+Mit den folgenden 7-Mode Funktionen können Sie den Transitionsprozess fortsetzen, werden aber in ONTAP nicht unterstützt:
+
+* Der `lun share` Befehl
++
+Gemeinsame Nutzung einer LUN über NAS-Protokolle
+
+* SnapValidator
+
+
+
+
+== Konfigurationen, die manuell migriert werden müssen
+
+Die folgenden Konfigurationen müssen manuell migriert werden:
+
+* SAN LIFs
++
+Sie müssen die LIFs vor dem Umstieg manuell erstellen.
+
+* Portsets
++
+Sie müssen Initiatorgruppen manuell konfigurieren, die nach der Umstellung an ein Portset gebunden sind.
+
+* Informationen zur iSCSI-Zugriffsliste
+* ISNS-Konfiguration
+* ISCSI-CHAP- und RADIUS-Konfigurationen
+
+
+*Verwandte Informationen*
+
+https://docs.netapp.com/ontap-9/topic/com.netapp.doc.cdot-famg-nfs/home.html["NFS-Management"]
+
+https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-nmg/home.html["Netzwerk- und LIF-Management/ONTAP 9.7 und früher"]
+
+https://docs.netapp.com/us-en/ontap/networking/index.html["Netzwerk- und LIF-Management/ONTAP 9.8 und höher"]

@@ -1,0 +1,60 @@
+---
+permalink: copy-based/concept_preparing_for_metrocluster_configuration_transition.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, prepare, metrocluster, configuration 
+summary: Vor dem Wechsel zu einer MetroCluster Konfiguration müssen Sie die Anforderungen und Überlegungen für die Transition von 7-Mode Volumes zu einer MetroCluster Konfiguration in ONTAP verstehen. 
+---
+= Vorbereitung auf die MetroCluster-Konfigurationsübergang
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Vor dem Wechsel zu einer MetroCluster Konfiguration müssen Sie die Anforderungen und Überlegungen für die Transition von 7-Mode Volumes zu einer MetroCluster Konfiguration in ONTAP verstehen.
+
+
+
+== Voraussetzungen
+
+* Die MetroCluster-Konfiguration in ONTAP muss bereits eingerichtet sein.
+* Der SVM-Typ muss sein `sync-source`.
+* Die 7-Mode Controller dürfen sich nicht in einem übernusem Zustand befinden oder auf ein Giveback warten.
+* Die Nodes in der MetroCluster Konfiguration in ONTAP dürfen nicht über ein Switch oder ein Warten auf den Wechsel zurück geschaltet werden.
+
+
+
+
+== Überlegungen
+
+* Die Umstellung von SnapLock-Compliance-Volumes wird nicht unterstützt, wenn sich das Ziel-Cluster in einer MetroCluster-Konfiguration befindet.
+* Sie können Volumes von einem 7-Mode Controller, einer HA-Konfiguration oder einer MetroCluster Konfiguration zu einer MetroCluster Konfiguration in ONTAP als Standalone Volumes überführen.
+* Wenn in einer 7-Mode MetroCluster Konfiguration Volumes enthalten sind, die sich in Volume SnapMirror Beziehungen befinden, und auf Volumes in einem anderen 7-Mode Controller, können Sie die SnapMirror Beziehungen als primäre und sekundäre Beziehungen verschieben.
++
+Sie sollten das 7-Mode Transition Tool auf jeder MetroCluster Site installieren und die Volumes von jedem Standort aus umstellen.
+
+* Für eine 7-Mode Fabric MetroCluster-Konfiguration konfigurierte Subnetze können nicht in der MetroCluster-Konfiguration in ONTAP konfiguriert werden.
+* Der in einer 7-Mode Fabric MetroCluster-Konfiguration konfigurierte bevorzugte Port kann nicht für die MetroCluster-Konfigurationen in ONTAP konfiguriert werden.
+* Wenn Ihre 7-Mode Fabric-MetroCluster-Konfiguration Brocade 6510 Switches verwendet, können Sie die vorhandenen Switch-Fabric-Architektur mit der neuen MetroCluster-Konfiguration in ONTAP gemeinsam nutzen.
++
+Am besten sollten die Switch-Fabrics nur für die Dauer des Übergangs genutzt werden.
+
++
+https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-mcc-inst-cnfg-fabric/home.html["Installation und Konfiguration von Fabric-Attached MetroCluster, ONTAP 9.8 oder früher"]
+
++
+https://docs.netapp.com/us-en/ontap-metrocluster/install-fc/index.html["Installation und Konfiguration von Fabric-Attached MetroCluster, ONTAP 9.9.1"]
+
+* Die während des Übergangs erstellten Cron Job-Zeitpläne werden nicht auf den Remote Standort repliziert, weshalb die ausgehandelte Umschaltung nach einem Übergang fehlschlägt.
++
+Sie müssen die Zeitpläne für cron-Jobs manuell am Remote-Standort nach der Umstellung erstellen.
+
+
+
+*Verwandte Informationen*
+
+xref:task_post_transition_task_for_a_metrocluster_configuration.adoc[Konfigurieren von cron-Job-Zeitplänen am Remote-Standort nach dem Übergang einer MetroCluster-Konfiguration]
+
+xref:concept_impact_of_takeover_and_giveback_on_transition.adoc[Auswirkungen von Takeover und Giveback auf den Übergang]
+
+xref:task_transitioning_a_metrocluster_configuration_if_a_switchover_or_switchback_event_occurs.adoc[Umstellung einer MetroCluster Konfiguration, die durch Switchover oder Switchback fehlgeschlagen ist]

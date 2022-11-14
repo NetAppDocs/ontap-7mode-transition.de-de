@@ -1,0 +1,34 @@
+---
+permalink: snapmirror/concept_considerations_for_using_snapmirror_for_transition.html 
+sidebar: sidebar 
+keywords: ontap, 7, transition, mode, snapmirror, operations, snapvault, considerations 
+summary: Beachten Sie bestimmte Überlegungen, wenn Sie Transitionvorgänge gleichzeitig mit SnapMirror oder SnapVault Vorgängen im 7-Mode System ausführen, z. B. die maximale Anzahl gleichzeitiger SnapMirror Transfers, Zeitpläne für Datenkopieerstellung und die Verwendung mehrerer Pfade für den Übergang. 
+---
+= Überlegungen bei der Verwendung von SnapMirror für den Umstieg
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Beachten Sie bestimmte Überlegungen, wenn Sie Transitionvorgänge gleichzeitig mit SnapMirror oder SnapVault Vorgängen im 7-Mode System ausführen, z. B. die maximale Anzahl gleichzeitiger SnapMirror Transfers, Zeitpläne für Datenkopieerstellung und die Verwendung mehrerer Pfade für den Übergang.
+
+
+
+== Die maximale Anzahl gleichzeitiger SnapMirror Transfers
+
+Die maximale Anzahl gleichzeitiger SnapMirror Transfers auf den 7-Mode und ONTAP Systemen hängt von der Anzahl der Volume SnapMirror Replizierungsvorgänge ab, die für ein bestimmtes Storage-Systemmodell zulässig sind.
+
+Informationen über die maximale Anzahl gleichzeitiger Volume-SnapMirror-Transfers für Ihr Systemmodell finden Sie im link:https://library.netapp.com/ecm/ecm_get_file/ECMP1635994["Data ONTAP Leitfaden zur Datensicherheit Online Backup und Recovery für 7-Mode"].
+
+
+
+== Zeitpläne für Datenkopieerstellung
+
+Zeitpläne für Datenkopieerstellung für Transition-Vorgänge sollten sich nicht mit den bestehenden Zeitplänen für SnapMirror oder SnapVault Vorgänge überschneiden, die auf dem 7-Mode System ausgeführt werden.
+
+
+
+== Verwenden mehrerer Pfade für den Übergang
+
+Es können zwei Pfade für den Übergang angegeben werden, indem Sie eine IP-Adresse für Datenkopieerstellung und eine Multipath IP-Adresse verwenden. Beide Pfade können jedoch nur für den Lastausgleich verwendet werden, nicht für das Failover.

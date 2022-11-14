@@ -1,0 +1,44 @@
+---
+permalink: copy-free/task_running_prechecks.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, runn, prechecks 
+summary: Sie können Vorabprüfungen durchführen, um eventuelle Probleme zu identifizieren, bevor Sie eine Transition beginnen. Sie überprüfen, ob die 7-Mode Quellen, ONTAP Ziele und Konfigurationen für Ihren Übergang gültig sind. Sie können jederzeit Vorabprüfungen durchführen. 
+---
+= Durchführung von Tests im Vorfeld
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können Vorabprüfungen durchführen, um eventuelle Probleme zu identifizieren, bevor Sie eine Transition beginnen. Sie überprüfen, ob die 7-Mode Quellen, ONTAP Ziele und Konfigurationen für Ihren Übergang gültig sind. Sie können jederzeit Vorabprüfungen durchführen.
+
+In den Vorabprüfungen werden mehr als 200 verschiedene Prüfungen durchgeführt. Beispielsweise prüft das Tool nach Elementen, z. B. ob Volumes online sind und Netzwerkzugriff zwischen den Systemen besteht.
+
+. Wählen Sie in Dashboard das Projekt aus, für das Sie die Vorabprüfungen durchführen möchten.
+. Klicken Sie Auf *Prechecks Ausführen*.
++
+Wenn die Vorabprüfungen abgeschlossen sind, wird die Zusammenfassung der Ergebnisse im Dialogfeld angezeigt.
+
++
+
+NOTE: Die Vorabprüfungen dauern in der Regel nur ein paar Minuten, aber die Dauer der Vorabprüfung hängt von der Anzahl und der Art der Fehler oder Warnungen ab, die Sie beheben.
+
+
+
+.Schritte
+. Wählen Sie eine Option unter *Typ Filter anwenden*, um die Ergebnisse zu filtern:
++
+** Um alle Meldungen zum Thema Sicherheit anzuzeigen, wählen Sie *Fehler*, *Warnung*, *informativ* und *nur Sicherheit*.
+** Um alle sicherheitsrelevanten Fehlermeldungen anzuzeigen, wählen Sie *Fehler* und *nur Sicherheit*.
+** Um alle Warnmeldungen anzuzeigen, die sich auf Sicherheit beziehen, wählen Sie **Warnung**und *nur Sicherheit*.
+** Um alle Meldungen zur Sicherheit anzuzeigen, wählen Sie *informativ* und *nur Sicherheit*.
+
+
+. Um die RAW-Ergebnisse im CSV-Format zu speichern und die Ergebnisse zu exportieren, klicken Sie auf *als CSV speichern*.
++
+Sie können die während des Übergangs durchgeführten Übergangsoperationen sowie den Betriebstyp, den Status, die Startzeit, die Endzeit und die Ergebnisse auf der Registerkarte „Operation History“ im Dashboard-Bereich anzeigen.
+
+
+
+Sie müssen alle Fehler beheben, die bei den Vorabprüfungen erkannt wurden, bevor Sie mit dem Kopieren der Daten beginnen. Außerdem empfiehlt es sich, alle Warnungen vor dem Migrationsprozess zu beheben. Die Lösung kann das Quellproblem der Warnmeldung lösen, eine Problemumgehung implementieren oder das Ergebnis des Problems akzeptieren.

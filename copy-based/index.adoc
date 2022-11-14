@@ -1,0 +1,14 @@
+---
+permalink: copy-based/index.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, index 
+summary: Hier wird beschrieben, wie Sie 7-Mode Controller, Hosts und Applikationen für die Transition einschätzen und eine Copy-basierte Migration von Daten und Konfigurationen von 7-Mode Systemen zu ONTAP mit dem 7-Mode Transition Tool durchführen. 
+---
+= Copy-Based Transition Guide
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Dieser Leitfaden beschreibt, wie Sie 7-Mode Controller, Hosts und Applikationen für die Transition einschätzen und eine Copy-basierte Migration von Daten und Konfigurationen von 7-Mode Systemen zu ONTAP mithilfe des 7-Mode Transition Tools durchführen.

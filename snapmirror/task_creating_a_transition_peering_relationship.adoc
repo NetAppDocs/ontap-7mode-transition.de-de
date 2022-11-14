@@ -1,0 +1,67 @@
+---
+permalink: snapmirror/task_creating_a_transition_peering_relationship.html 
+sidebar: sidebar 
+keywords: ontap, 7, mode, transition, create, peer, relationship, snapmirror 
+summary: Sie müssen eine Peer-Beziehung für den Umstieg erstellen, bevor Sie eine SnapMirror Beziehung für den Übergang zwischen einem 7-Mode System und einem Cluster einrichten können. Als Cluster-Administrator können Sie mit dem vserver Peer Transition create -Befehl eine Peer-Beziehung zwischen anSVM und einem 7-Mode-System erstellen. 
+---
+= Aufbau einer Peer-Beziehung für den Wechsel
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie müssen eine Peer-Beziehung für den Umstieg erstellen, bevor Sie eine SnapMirror Beziehung für den Übergang zwischen einem 7-Mode System und einem Cluster einrichten können. Als Cluster-Administrator können Sie mithilfe der eine Peer-Beziehung zwischen anSVM und einem 7-Mode System erstellen `vserver peer transition create` Befehl.
+
+* Sie müssen sicherstellen, dass der Name des Quell-7-Mode Systems nicht in Konflikt mit einer der lokalen SVMs oder bereits Peering SVMs steht.
+* Sie müssen ein Clustered Data ONTAP Volume vom Typ DP erstellt haben, zu dem die 7-Mode Daten migriert werden müssen.
++
+Das Clustered Data ONTAP Volume muss der Größe des 7-Mode Volumes entsprechen oder größer sein.
+
+* Sie müssen sicherstellen, dass die SVM-Namen kein „“ enthalten.
+* Wenn Sie lokale LIFs verwenden, müssen Sie Folgendes sichergestellt haben:
++
+** Im Standard-IPspace werden lokale LIFs erstellt
+** Lokale LIFs werden auf dem Node, auf dem sich das Volume befindet, konfiguriert
+** Die LIF-Migrationsrichtlinie entspricht dem Volume-Node, sodass beide zu demselben Ziel-Node migriert werden können
+
+
+
+
+Wenn Sie eine Peer-Beziehung für den Übergang erstellen, können Sie auch einen Multipath-FQDN oder eine IP-Adresse für den Lastausgleich der Datentransfers angeben.
+
+.Schritte
+. Verwenden Sie die `vserver peer transition create` Befehl zum Erstellen einer Peer-Beziehung für den Wechsel.
+. Verwenden Sie die `vserver peer transition show` Um zu überprüfen, ob die Peer-Beziehung für den Wechsel erfolgreich erstellt wurde.
+
+
+
+
+== Beispiel für das Erstellen und Anzeigen von Peer-Beziehungen für den Wechsel
+
+Mit dem folgenden Befehl wird eine Peer-Übergangsbeziehung zwischen der SVM vs1 und dem 7-Mode System src1 mit der Multipath-Adresse src1-e0d und den lokalen LIFs lif1 und lif2 erstellt:
+
+[listing]
+----
+cluster1::> vserver peer transition create -local-vserver vs1 -src-filer-name src1 -multi-path-address src1-e0d -local-lifs lif1,lif2
+----
+Die folgenden Beispiele zeigen eine Peer-Beziehung zwischen einer einzelnen SVM (vs1) und mehreren 7-Mode Systemen:
+
+[listing]
+----
+cluster1::> vserver peer transition create -local-vserver vs1 -src-filer-name src3
+Transition peering created
+
+cluster1::> vserver peer transition create -local-vserver vs1 -src-filer-name src2
+Transition peering created
+----
+Die folgende Ausgabe zeigt die Peer-Beziehungen der SVM vs1:
+
+[listing]
+----
+cluster1::> vserver peer transition show
+Vserver  Source Filer  Multi Path Address   Local LIFs
+-------  ------------  -----------------    ---------
+vs1      src2	         	-				    	-
+vs1      src3	        	-				     	-
+----

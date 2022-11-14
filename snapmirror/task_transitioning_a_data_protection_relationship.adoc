@@ -1,0 +1,31 @@
+---
+permalink: snapmirror/task_transitioning_a_data_protection_relationship.html 
+sidebar: sidebar 
+keywords: ontap, 7, mode, transition, snapmirror, staggered, configuration, volumes 
+summary: Sie können eine 7-Mode Volume SnapMirror Beziehung umstellen und die Datensicherungsbeziehung beibehalten, indem Sie das sekundäre Volume vor dem primären Volume verschieben. In dieser Methode richten Sie eine gestaffelte SnapMirror DR-Beziehung zwischen den primären 7-Mode Volumes und sekundären Clustered Data ONTAP Volumes ein. 
+---
+= Umstellung einer Volume SnapMirror Beziehung in einer gestaffelten Konfiguration
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können eine 7-Mode Volume SnapMirror Beziehung umstellen und die Datensicherungsbeziehung beibehalten, indem Sie das sekundäre Volume vor dem primären Volume verschieben. In dieser Methode richten Sie eine gestaffelte SnapMirror DR-Beziehung zwischen den primären 7-Mode Volumes und sekundären Clustered Data ONTAP Volumes ein.
+
+* Das primäre und sekundäre Cluster und die SVMs müssen bereits eingerichtet werden.
+* Für die Einrichtung einer SVM-Peer-Beziehung beim Übergang einer Volume-SnapMirror-Beziehung müssen folgende Bedingungen erfüllt sein:
++
+** Beim sekundären Cluster sollte keine anSVM mit demselben Namen wie die der primären SVM vorhanden sein.
+** Für das primäre Cluster sollte keine anSVM mit dem Namen der sekundären SVM vorhanden sein.
+** Sie müssen die Informationen zur Vorbereitung auf den Umstieg überprüft haben.
++
+xref:task_preparing_for_transition.adoc[Die Vorbereitung auf den Umstieg ist möglich]
+
+
+
+
+
+*Verwandte Informationen*
+
+xref:task_resuming_a_failed_snapmirror_transfer_transition.adoc[Wiederaufnahme eines fehlgeschlagenen SnapMirror Basistransfers]

@@ -1,0 +1,40 @@
+---
+permalink: copy-based/concept_scenarios_for_selecting_volumes_in_a_session.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, scenarios, selecting, volumes, project 
+summary: Die Planung eines Projektzusammenstells und die Entscheidung, welche 7-Mode Volumes in einem einzigen Migrationsvorgang Transition erfolgen sollen, können dazu beitragen, die Ausfallzeiten von Applikationen zu reduzieren. Das Verständnis einiger Beispielszenarien kann Ihnen bei der Erstellung von Projekten in Ihrer Umgebung helfen. 
+---
+= Szenarien für die Auswahl von Volumes in einem Projekt
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Die Planung eines Projektzusammenstells und die Entscheidung, welche 7-Mode Volumes in einem einzigen Migrationsvorgang Transition erfolgen sollen, können dazu beitragen, die Ausfallzeiten von Applikationen zu reduzieren. Das Verständnis einiger Beispielszenarien kann Ihnen bei der Erstellung von Projekten in Ihrer Umgebung helfen.
+
+
+
+== Bidirektionale SnapMirror Beziehung
+
+Um eine bidirektionale SnapMirror Beziehung zu verschieben, müssen Sie für jedes Volume unterschiedliche Übergangsprojekte erstellen.
+
+Wie in der Abbildung unten gezeigt, betrachten Sie zum Beispiel eine Volume SnapMirror Beziehung, die zwischen vf1:vol1 (primär) auf System1 und vf2:vol1 (sekundär) auf System2 besteht. Ähnlich besteht eine andere Volume SnapMirror Beziehung zwischen vf2:vol2 (primär) auf System2 und vf1:vol2 (sekundär) auf System1.
+
+image::../media/transition_bidirectional.gif[Bidirektionale Transition]
+
+Sie können die Volumes vf1:vol1 und vf1:vol2 nicht in einem Übergangsprojekt kombinieren. Ebenso können die Volumes vf2:vol1 und vf2:vol2 nicht in einem Übergangsprojekt kombiniert werden. Sie müssen für jedes Volume separate Transition-Projekte erstellen, um die Beziehung zu Volume SnapMirror zu verschieben.
+
+
+
+== Volumes mit CIFS-Konfiguration
+
+Sie müssen Volumes mit einer CIFS-Konfiguration in einem Projekt gruppieren, sodass alle CIFS-bezogenen Konfigurationen vollständig auf die SVM umgestellt werden.
+
+Wenn beispielsweise 10 Volumes in einem 7-Mode System oder einer vFiler Einheit über zugewiesene CIFS Shares, Home-Directory-Suchpfad und Audit-Konfiguration verfügen, müssen diese 10 Volumes in einem Projekt migriert werden. So wird sichergestellt, dass nach der Transition alle Volumes und CIFS-Konfigurationen vollständig auf der SVM angewendet werden.
+
+
+
+== SnapMirror Beziehung zwischen einem primären Volume und mehreren sekundären Volumes
+
+Wenn eine SnapMirror Beziehung zwischen einem primären Volume und mehreren sekundären Volumes besteht und sich alle sekundären Volumes auf demselben 7-Mode Controller befinden, können Sie ein sekundäres Projekt erstellen, in dem sich alle sekundären Volumes befinden und die Umstellung aller sekundären Volumes in diesem Projekt abgeschlossen ist. Anschließend können Sie ein primäres Projekt erstellen, um das primäre Volume zu verschieben und den SnapMirror Übergang abzuschließen.

@@ -1,0 +1,45 @@
+---
+permalink: copy-free/task_selecting_source_7_mode_systems_for_transition.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, create, project 
+summary: Der erste Schritt bei der Planung eines Umstiegsprojekts besteht darin, das 7-Mode HA-Paar der Quelle auszuwählen, von dem aus die Festplatten-Shelfs, Aggregate, Volumes und Konfigurationen verschoben und anschließend ein Übergangsprojekt erstellt werden sollen. 
+---
+= Erstellen eines Projekts für eine Copy-Free Transition
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Der erste Schritt bei der Planung eines Umstiegsprojekts besteht darin, das 7-Mode HA-Paar der Quelle auszuwählen, von dem aus die Festplatten-Shelfs, Aggregate, Volumes und Konfigurationen verschoben und anschließend ein Übergangsprojekt erstellt werden sollen.
+
+* Auf den 7-Mode Controllern im HA-Paar muss eine unterstützte ONTAP Version auf einer Plattform ausgeführt werden, die für eine Copy-Free-Transition unterstützt wird.
++
+https://mysupport.netapp.com/matrix["NetApp Interoperabilitäts-Matrix-Tool"]
+
+* Beide Controller in der HA-Konfiguration müssen in einem ordnungsgemäßen Zustand sein.
++
+.. Wählen Sie auf der Startseite die Migrationsmethode *Copy-Free Transition* aus und klicken Sie auf *Planung starten*.
++
+Wenn der für ein neues Projekt erforderliche Controller und Cluster nicht hinzugefügt werden, können Sie die Details im Fenster Geräteanmeldeinformationen eingeben eingeben.
+
+.. Wählen Sie das 7-Mode HA-Paar aus, das Sie wechseln möchten.
+.. Klicken Sie Auf *Projekt Erstellen*.
++
+... Geben Sie im Fenster Projektdetails einen Namen für das Projekt ein.
+... Wählen Sie eine Projektgruppe aus, der das Projekt hinzugefügt werden soll.
++
+Sie können entweder eine neue Projektgruppe erstellen oder das Projekt zur Standardgruppe hinzufügen.
+
++
+Durch das Erstellen einer Projektgruppe können Sie verwandte Projekte gruppieren und überwachen.
+
+... Klicken Sie Auf *Speichern*.
++
+Der Bildschirm Zielcluster auswählen wird angezeigt.
+
+
+
+
+
+

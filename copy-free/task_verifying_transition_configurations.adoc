@@ -1,0 +1,19 @@
+---
+permalink: copy-free/task_verifying_transition_configurations.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, verify, configurations 
+summary: Nachdem Sie die 7-Mode Volumes und Konfigurationen erfolgreich importiert haben, müssen Sie die übergewechselt Aggregate, Volumes, LUNs und Konfigurationen manuell überprüfen. 
+---
+= Überprüfung der übergewechselt-Konfigurationen
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Nachdem Sie die 7-Mode Volumes und Konfigurationen erfolgreich importiert haben, müssen Sie die übergewechselt Aggregate, Volumes, LUNs und Konfigurationen manuell überprüfen.
+
+.Schritte
+. Überprüfen Sie, ob die Aggregate, Volumes und LUNs von 7-Mode sowie die CIFS-Freigaben, NFS-Exporte und LUN-Zuordnungen migriert werden.
+. Vergewissern Sie sich, dass alle 7-Mode Konfigurationen beibehalten sind.
+

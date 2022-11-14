@@ -1,0 +1,28 @@
+---
+permalink: copy-free/concept_transition_overview.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, overview 
+summary: Beim Wechsel zu Clustered ONTAP müssen Sie Ihre aktuelle Umgebung ermitteln, den Migrationsumfang definieren, die optimale Konfiguration der Zielsysteme entwerfen, die Migration von Daten und Konfigurationen planen sowie die erforderlichen Umgebungs-Updates vornehmen. 
+---
+= Übergangsübersicht
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Beim Wechsel zu Clustered ONTAP müssen Sie Ihre aktuelle Umgebung ermitteln, den Migrationsumfang definieren, die optimale Konfiguration der Zielsysteme entwerfen, die Migration von Daten und Konfigurationen planen sowie die erforderlichen Umgebungs-Updates vornehmen.
+
+In dem aktuellen 7-Mode Transition Tool _Release Notes_ finden Sie die neuesten Informationen zu unterstützten Zielversionen und bekannten Problemen.
+
+link:https://docs.netapp.com/us-en/ontap-7mode-transition/releasenotes.html["Versionshinweise Für Das 7-Mode Transition Tool"]
+
+Sie müssen zunächst Informationen über die aktuelle Umgebung, einschließlich der aktuellen Storage-Umgebung sowie der Hosts und Applikationen, sammeln. Nach der Erfassung des Storage-Bestands können Sie die aktuellen Funktionen bewerten, die verwendet werden, und eventuelle Unterschiede in der ausgewählten ONTAP-Version identifizieren. Sie können die folgenden Aufgaben mit dem 7-Mode Transition Tool ausführen.
+
+Anschließend können Sie Ihr Migrationsprojekt definieren. Dazu müssen Sie ermitteln, welche Volumes und Workloads zusammen migriert werden sollen, dann können Sie das Cluster entwerfen und die Transition planen. Sie können die Migration zunächst planen, indem Sie die optimale Migrationsmethode auswählen. Beim Design des Clusters können Sie die über Ihre Storage-Umgebung erfassten Informationen verwenden, um vorhandene Konfigurationselemente den entsprechenden Elementen in ONTAP zuzuordnen. Beispielsweise sollte ein Volume mit 7-Mode einer SVM und einem Volume in ONTAP zugeordnet werden. Eine aus der Migration migrierte IP-Adresse sollte LIFs zugeordnet werden. Sie sollten außerdem feststellen, ob im ONTAP System Umgebungsänderungen vorgenommen werden müssen.
+
+Die Implementierung umfasst die Bereitstellung und Konfiguration des Clusters, die Migration von Daten, die Anwendung von Konfigurationsänderungen, die Trennung der Clients und die erneute Verbindung zum ONTAP Zielsystem, die Überprüfung des Zugriffs sowie die Durchführung erforderlicher Umgebungsänderungen.
+
+*Verwandte Informationen*
+
+http://docs.netapp.com/ontap-9/index.jsp["NetApp Dokumentation: ONTAP 9"]

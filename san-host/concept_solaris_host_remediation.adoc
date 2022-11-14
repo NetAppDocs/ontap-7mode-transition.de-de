@@ -1,0 +1,27 @@
+---
+permalink: san-host/concept_solaris_host_remediation.html 
+sidebar: sidebar 
+keywords: ontap, san, host, transition, solaris, host, remediation 
+summary: 'Wenn Sie für den Wechsel von ONTAP im 7-Mode zu Clustered ONTAP in einer SAN-Umgebung das 7-Mode Transition Tool \(7MTT\) verwenden, müssen Sie vor und nach dem Umstieg eine Reihe von Schritten auf Ihrem Solaris Host durchführen, um Komplikationen bei der Transition zu vermeiden.' 
+---
+= Solaris Host-Korrektur
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Wenn Sie für den Wechsel von ONTAP im 7-Mode auf Clustered ONTAP in einer SAN-Umgebung das 7-Mode Transition Tool (7MTT) verwenden, müssen Sie vor und nach dem Umstieg auf Ihrem Solaris Host eine Reihe von Schritten durchführen, um Komplikationen bei der Transition zu vermeiden.
+
+Die folgenden Szenarien werden für einen Übergangsworkflow nicht unterstützt (Unterstützung für Copy-Based- oder Copy-Free-Übergänge):
+
+* Transition von SAN Boot LUNs
++
+Sie können eine SAN-Boot-LUN einrichten, um in einer Veritas dynamischen Multipathing (DMP) Umgebung oder einer Solaris MPxIO-Umgebung zu arbeiten, indem Sie Solaris Host Utilities ausführen und das FC-Protokoll verwenden. Die Methode zur Einrichtung einer SAN-Boot-LUN kann je nach Volume-Manager und Dateisystem variieren.
+
++
+https://library.netapp.com/ecm/ecm_download_file/ECMLP2748974["Installations- und Setup-Leitfaden für Solaris Host Utilities 6.2"]
+
+* Solaris Host Clustering-Übergang
+* Konfiguration von Veritas
+

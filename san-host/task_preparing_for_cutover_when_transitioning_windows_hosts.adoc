@@ -1,0 +1,36 @@
+---
+permalink: san-host/task_preparing_for_cutover_when_transitioning_windows_hosts.html 
+sidebar: sidebar 
+keywords: ontap, san, host, transition, cutover, phase, windows, hosts 
+summary: Wenn Sie einen Windows Host von Data ONTAP 7-Mode auf Clustered Data ONTAP umstellen, müssen Sie nach dem Beginn der Transition, jedoch vor Beginn der Umstellungsphase Schritte durchführen. 
+---
+= Vorbereitung auf die Umstellungsphase bei der Umstellung von Windows Hosts
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Wenn Sie einen Windows Host von Data ONTAP 7-Mode auf Clustered Data ONTAP umstellen, müssen Sie nach dem Beginn der Transition, jedoch vor Beginn der Umstellungsphase Schritte durchführen.
+
+Wenn Sie Data ONTAP DSM ausführen, muss die auf dem Server installierte Version von Data ONTAP DSM für die Version von Data ONTAP unterstützt werden, die auf dem Clustered Data ONTAP Zielknoten ausgeführt wird.
+
+Wenn Sie MSDSM ausführen, muss die auf dem Server installierte Windows Host Utilities-Version für die Version von Data ONTAP unterstützt werden, die auf dem Clustered Data ONTAP-Zielknoten ausgeführt wird.
+
+* Führen Sie bei Copy-Based Transitions diese Schritte aus, bevor Sie den Storage-Umstellungsvorgang im 7-Mode Transition Tool (7MTT) initiieren.
+* Führen Sie bei Copy-Free Transitions die folgenden Schritte aus, bevor Sie den Vorgang „Export & Stop 7-Mode“ im 7MTT initiieren.
+
+
+.Schritte
+. Verwenden Sie Disk Manager, um die zu migrierte Festplatte in den Offline-Modus zu versetzen.
+. Wenn der Host aus dem SAN gebootet wird und die Boot-LUN migriert wird, fahren Sie den Boot-Host herunter.
+. Wenn der Host geclustert ist, verwenden Sie Failover Cluster Manager, um die geclusterten Festplatten, einschließlich der Quorum-Platte, offline zu schalten.
+. Wenn auf dem Host Windows Server 2003 ausgeführt wird und Sie das Quorum-Gerät migrieren müssen, beenden Sie die Cluster-Services auf allen Cluster-Knoten.
+. Wenn Sie LUNs auf einem Server mit aktiviertem Hyper-V verschieben, führen Sie die entsprechenden Schritte für die Migration auf Host-Seite für Ihr Gastbetriebssystem durch.
+. Wenn Sie LUNs auf einem Server verschieben, auf dem Hyper-V aktiviert ist und das Boot-Gerät des Gastbetriebssystems auf einer Data ONTAP LUN befindet, die migriert wird, gehen Sie wie folgt vor:
++
+.. Fahren Sie das Gastbetriebssystem herunter.
+.. Versetzen Sie die entsprechende Festplatte in den Offline-Modus des übergeordneten Systems.
+
+
+

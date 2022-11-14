@@ -1,0 +1,22 @@
+---
+permalink: san-host/concept_types_of_san_boot_luns_supported_for_transition.html 
+sidebar: sidebar 
+keywords: ontap, san, host, transition, san, boot, lun, supported 
+summary: Es werden nur bestimmte Typen von SAN Boot LUNs für die Transition von Data ONTAP 7-Mode zu Clustered Data ONTAP unterstützt. 
+---
+= Arten von SAN Boot LUNs werden für die Transition unterstützt
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Es werden nur bestimmte Typen von SAN Boot LUNs für die Transition von Data ONTAP 7-Mode zu Clustered Data ONTAP unterstützt.
+
+Die folgenden SAN Boot LUNs werden für die Transition unterstützt:
+
+* FC- oder FCoE-SAN-Boot-LUNs
+* ISCSI-SAN-Boot-LUNs für Red hat Enterprise Linux (RHEL) 6
+
+
+Die Umstellung von iSCSI-SAN-Boot-LUNs für RHEL 5.x wird nicht unterstützt.

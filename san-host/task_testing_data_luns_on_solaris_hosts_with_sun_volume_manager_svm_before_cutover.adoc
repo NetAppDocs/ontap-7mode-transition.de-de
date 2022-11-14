@@ -1,0 +1,155 @@
+---
+permalink: san-host/task_testing_data_luns_on_solaris_hosts_with_sun_volume_manager_svm_before_cutover.html 
+sidebar: sidebar 
+keywords: ontap, san, host, transition, testing, data, solaris, sun, volume, manager, cutover, copy, based 
+summary: 'Wenn Sie die Transition-LUNs mit dem 7-Mode Transition Tool \(7MTT\) 2.2 oder höher und mit Data ONTAP 8.3.2 oder höher für den Solaris Host ZFS testen, können Sie die ummigrierte Clustered Data ONTAP-LUNs testen, um zu überprüfen, ob Sie das MPIO-Gerät vor der Umstellungsphase mounten können. Der Quell-Host kann während des Tests weiterhin I/O-Vorgänge auf Ihren 7-Mode Quell-LUNs ausführen.' 
+---
+= Testen von Daten-LUNs auf Solaris Hosts mit Sun Volume Manager vor der Umstellungsphase kopierbasierter Umstellungen
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Wenn Sie zur Transition der ZFS-Daten-LUNs des Solaris Hosts mit dem 7-Mode Transition Tool (7MTT) 2.2 oder höher und Data ONTAP 8.3.2 oder höher verwenden, können Sie die zu migrierte Clustered Data ONTAP-LUNs testen, um zu überprüfen, ob Sie das MPIO-Gerät vor der Umstellungsphase mounten können. Der Quell-Host kann während des Tests weiterhin I/O-Vorgänge auf Ihren 7-Mode Quell-LUNs ausführen.
+
+Ihr Quell-Host mit Sun Volume Manager Daten-LUNs muss vor Beginn der Testphase offline sein.
+
+Die neuen Clustered Data ONTAP LUNs müssen Ihrem Testhost zugeordnet und die LUNs müssen für die Transition bereit sein
+
+Sie sollten die Hardwareparität zwischen dem Testhost und dem Quell-Host beibehalten, und Sie sollten auf dem Testhost die folgenden Schritte durchführen.
+
+Die Clustered Data ONTAP LUNs befinden sich während des Tests im Lese-/Schreibmodus. Sie werden in den schreibgeschützten Modus umgewandelt, wenn die Tests abgeschlossen sind und Sie die Umstellungsphase vorbereiten.
+
+.Schritte
+. Deaktivieren Sie auf dem Produktions-Host die Laufwerkssätze:
++
+`*metaset -s svm -t*`
+
++
+`*metaset -s svm -A disable*`
+
++
+`*metaset -s svm -r*`
+
++
+`*metaset -s svm -P*`
+
++
+`*metaset*`
+
+. Wählen Sie nach Abschluss der Basiskopie in der 7MTT Benutzeroberfläche *Testmodus* aus.
+. Klicken Sie in der 7MTT UI auf *Apply Configuration*.
+. Importieren Sie im Produktions-Host die Datenträgersätze:
++
+`*metaimport –s _set-name_*`
+
++
+[listing]
+----
+# metaimport -s svm
+Drives in regular diskset including disk c0t60A98000383035356C2447384D39654Ad0:
+  c0t60A98000383035356C2447384D39654Ad0
+  c0t60A98000383035356C2447384D396548d0
+More info:
+  metaimport -r -v c0t60A98000383035356C2447384D39654Ad0
+
+
+[22] 04:51:29 (root@sunx2-shu04) /
+# metastat -s svm
+svm/d2: Concat/Stripe
+    Size: 10452992 blocks (5.0 GB)
+    Stripe 0:
+        Device                                             Start Block  Dbase   Reloc
+        /dev/dsk/c0t60A98000383035356C2447384D396548d0s0          0     No      Yes
+
+svm/d1: Concat/Stripe
+    Size: 10452992 blocks (5.0 GB)
+    Stripe 0:
+        Device                                             Start Block  Dbase   Reloc
+        /dev/dsk/c0t60A98000383035356C2447384D39654Ad0s0          0     No      Yes
+
+Device Relocation Information:
+Device                                           Reloc  Device ID
+/dev/dsk/c0t60A98000383035356C2447384D396548d0   Yes    id1,sd@n60a98000383035356c2447384d396548
+/dev/dsk/c0t60A98000383035356C2447384D39654Ad0   Yes    id1,sd@n60a98000383035356c2447384d39654a
+----
+. Prüfen Sie auf dem Testhost Ihre neuen Clustered Data ONTAP LUNs erneut:
++
+.. Identifizieren Sie die FC-Host-Ports (Typ fc-Fabric): +
+`*#cfgadm –l*`
+.. Heben Sie die Konfiguration des ersten fc-Fabric-Ports auf: +
+`*#cfgadm –c unconfigure c1*`
+.. Konfigurieren Sie den ersten fc-Fabric-Port: +
+`*#cfgadm –c unconfigure c2*`
+.. Wiederholen Sie die Schritte für die anderen fc-Fabric-Ports.
+.. Informationen zu den Host-Ports und ihren angeschlossenen Geräten anzeigen: +
+`*# cfgadm –al*`
+.. Treiber neu laden: +
+`*# devfsadm –Cv*`
++
+`*# devfsadm –i iscsi*`
+
+
+
+. Vergewissern Sie sich, dass die Clustered Data ONTAP LUNs vorhanden sind:
++
+`*sanlun lun show*`
+
++
+[listing]
+----
+# sanlun lun show
+controller(7mode)/                    device                                            host                  lun
+vserver(Cmode)       lun-pathname     filename                                          adapter    protocol   size    mode
+--------------------------------------------------------------------------------------------------------------------------
+vs_5           /vol/zfs/zfs2    /dev/rdsk/c5t600A0980383030444D2B466542485935d0s2 scsi_vhci0 FCP        6g      C
+vs_5           /vol/zfs/zfs1    /dev/rdsk/c5t600A0980383030444D2B466542485934d0s2 scsi_vhci0 FCP        6g      C
+vs_5           /vol/ufs/ufs2    /dev/rdsk/c5t600A0980383030444D2B466542485937d0s2 scsi_vhci0 FCP        5g      C
+vs_5           /vol/ufs/ufs1    /dev/rdsk/c5t600A0980383030444D2B466542485936d0s2 scsi_vhci0 FCP        5g      C
+----
+. Überprüfen Sie, ob der zu testenden Sun Volume Manager zum Importieren verfügbar ist:
++
+`*metaimport –r –v*`
+
++
+[listing]
+----
+# metaimport -r -v
+Import: metaimport -s <newsetname> c5t600A0980383030444D2B466542485937d0
+Device                                      offset       length replica flags
+c5t600A0980383030444D2B466542485937d0           16         8192      a m     luo
+c5t600A0980383030444D2B466542485936d0           16         8192      a       luo
+----
+. Importieren Sie den Metaset mit einem neuen Namen:
++
+`*metaimport –s _set-name disk-id_*`
+
++
+Die Disk-id wird vom abgerufen `metaimport --r --v` Befehl.
+
++
+[listing]
+----
+# metaimport -s svm c5t600A0980383030444D2B466542485937d0
+Drives in regular diskset including disk c5t600A0980383030444D2B466542485937d0:
+  c5t600A0980383030444D2B466542485937d0
+  c5t600A0980383030444D2B466542485936d0
+More info:
+  metaimport -r -v c5t600A0980383030444D2B466542485937d0
+----
+. Prüfen Sie, ob der Metaset verfügbar ist:
++
+`*metaset*`
+
+. Führen Sie die Prüfung des Dateisystems aus:
++
+`*fsck -F ufs /dev/md/svm/rdsk/d1*`
+
+. Verwenden Sie den Mount-Befehl, um das manuelle Mounten zu verwenden.
+. Führen Sie die Tests nach Bedarf durch.
+. Fahren Sie den Testhost herunter.
+. Klicken Sie in der 7MTT-Benutzeroberfläche auf *Fertigstellen-Test*.
+
+
+Wenn die Clustered Data ONTAP LUNs Ihrem Quell-Host neu zugeordnet werden sollen, müssen Sie den Quell-Host auf die Umstellungsphase vorbereiten. Wenn die geclusterten Data ONTAP LUNs Ihrem Testhost zugeordnet bleiben sollen, sind keine weiteren Schritte auf dem Testhost erforderlich.

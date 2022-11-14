@@ -1,0 +1,18 @@
+---
+permalink: san-host/concept_downtime_at_precutover_phase_of_esxi_host_transition.html 
+sidebar: sidebar 
+keywords: ontap, san, host, transition, downtime, apply, configurations, precutover, phase, esxi, host 
+summary: 'Sie müssen Ausfallzeiten in der Phase Apply Configuration \(precutover\) planen, während Sie ESXi Hosts verschieben.' 
+---
+= Ausfallzeiten bei der Anwendung der Konfigurations- (Vorumstellungsphase) Phase der ESXi Host-Transition
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie müssen Ausfallzeiten in der Phase der Anwendung der Konfiguration (Vorumstellungsphase) planen, während Sie die ESXi Hosts verschieben.
+
+Nachdem Sie die Voraussetzungen für die ESXi Host-Transition erfüllt haben, können Sie mit dem 7-Mode Transition Tool (7MTT) Ihre LUNs von Data ONTAP 7-Mode auf ONTAP verschieben. ESXi Hosts, VMs und Applikationen können online sein, bis die Umstiegsphase der Apply-Konfiguration (Precutuover) der 7MTT Umstellung erfolgt. In der Phase der Apply-Konfiguration (precutuover) müssen jedoch alle Anwendungen und Gastbetriebssysteme abgeschaltet sein. Wenn ESXi Hosts über SAN gebootet werden oder wenn über SAN gestartete LUNs Teil des Übergangs sind, müssen die ESXi Hosts auch in der Phase Apply Configuration (precutuover) heruntergefahren werden.
+
+Wenn der Host nicht SAN gebootet wird und Sie Ihren Service für nicht-zu-migriert-LUNs oder Array-LUNs, die nicht von NetApp hergestellt werden, weiterhin ausführen müssen, können Sie ihn nicht herunterfahren. Wenn Sie es jedoch nicht herunterfahren, können Sie den Zustand All-Paths-Down (APD) erleben. Um die APD-Bedingung zu vermeiden, können Sie Data ONTAP mit 7-Mode LUNs maskieren. Siehe link:https://kb.vmware.com/s/article/1009449["VMware Knowledgebase-ID 1009449"] Finden Sie weitere Informationen.

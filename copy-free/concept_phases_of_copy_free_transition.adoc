@@ -1,0 +1,137 @@
+---
+permalink: copy-free/concept_phases_of_copy_free_transition.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, phases 
+summary: 'Der Copy-Free Transition mit dem 7-Mode Transition Tool umfasst die folgenden Phasen: Planung, SVM-Bereitstellung, Export und Anhalten, Verkabelung, Import, Tests vor der Produktion, Start der Produktion und Commit. Sie sollten die Phasen kennen, in denen Sie den Wechsel effektiv managen können.' 
+---
+= Phasen des Copy-Free Transition
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Der Copy-Free Transition mit dem 7-Mode Transition Tool umfasst die folgenden Phasen: Planung, SVM-Bereitstellung, Export und Anhalten, Verkabelung, Import, Tests vor der Produktion, Start der Produktion und Commit. Sie sollten die Phasen kennen, in denen Sie den Wechsel effektiv managen können.
+
+Der Copy-Free Transition ist für den Betrieb unterbrechen. Daher müssen Sie die Ausfallzeiten für die Applikationen und Workloads planen, die auf den 7-Mode Storage-Systemen ausgeführt werden.
+
+In den meisten Fällen kann die Storage-Umstellungszeit 3 bis 8 Stunden betragen. Die Umstellungszeit umfasst die vom Tool benötigte Zeit zur Durchführung von zwei automatischen Vorgängen – dem Export- und Stopp-Vorgang und dem Importvorgang – sowie die Zeit, die für die manuelle Verkabelung der Platten-Shelfs zu den neuen Controllern benötigt wird. Der Export- und Stopp-Betrieb und der Importvorgang können bis zu zwei Stunden dauern.
+
+
+NOTE: Bei skalierten Konfigurationen können der Export- und Stopp-Betrieb und der Import-Vorgang gemeinsam mehr als zwei Stunden dauern. Das 7-Mode Transition Tool erkennt solche Bedingungen und gibt eine Warnung aus.
+
+Die Verkabelung der Festplatten-Shelfs kann von 1 Stunde bis 6 Stunden dauern. Diese Anleitung zur Umstellung beinhaltet nicht die Zeit für die erforderlichen Vorabtests, sondern setzt einen fehlerfreien Übergang ohne unerwartete Fehler, wie zum Beispiel Festplattenausfälle, voraus.
+
+image::../media/cft_phases.gif[Phasen des Copy-Free Transition]
+
+
+
+== Planung des Projekts
+
+Sie können die folgenden Details zu Quelle und Ziel eines Copy-Free Transition Projekts planen:
+
+* Details zu 7-Mode HA-Paar und vFiler Einheit
+* Ziel-Cluster-Nodes und Zuordnung von Quell-Controllern zu Ziel-Nodes
+* 7-Mode Controller oder vFiler Einheit zu SVM-Zuordnung
+* IP-Adressen für die Transition (neue LIFs oder vorhandene 7-Mode IP-Adressen) und die IPspaces und Broadcast-Domänen auf der SVM
++
+
+NOTE: Das 7-Mode Transition Tool unterstützt die Umstellung von FC und iSCSI LIFs nicht. Diese LIFs müssen vor der Transition manuell auf den SVMs konfiguriert werden.
+
+
+
+In dieser Phase werden vorab-Tests durchgeführt, um zu überprüfen, ob das 7-Mode HA-Paar bereit ist, zu Clustered Data ONTAP zu migrieren. Darüber hinaus überprüft das 7-Mode Transition Tool, ob das Cluster ordnungsgemäß konfiguriert ist und die Transition unterstützen kann.
+
+Sie müssen alle Fehler beheben, bevor Sie den Übergang fortsetzen. Das Tool ermöglicht es Ihnen, ohne Warnungen zu beheben, aber es empfiehlt sich, alle Warnungen zu beheben, bevor Sie die Umstellung fortsetzen. Sie können die Vorabprüfungen mehrmals durchführen, um zu überprüfen, ob alle Fehler behoben wurden.
+
+
+
+== SVM Provisionierung
+
+Nach der Planung Ihres Übergangsprojekts müssen Sie einige manuelle Aufgaben durchführen, wie das Hinzufügen von Lizenzen, das Erstellen des CIFS-Servers und die Erstellung von SAN LIFs, um das Cluster und SVMs für die Transition vorzubereiten.
+
+Anschließend können Sie die Konfigurationen mithilfe des Tools auf die SVMs anwenden. Alle 7 Konfigurationen auf Controller- oder vFiler-Geräteebene wurden auf die zugewiesene SVM überführt. Volume- und LUN-Konfigurationen wurden in dieser Phase nicht migriert – in der Importphase erfolgt eine Transition.
+
+Am Ende dieser Phase sollten Sie die auf SVMs angewandten Konfigurationen manuell überprüfen und die erforderlichen Änderungen vornehmen.
+
+
+
+== Export von Storage-Konfigurationen und Unterbrechen von 7-Mode Systemen
+
+Diese Phase startet das Umstellungsfenster für den Copy-Free Transition. Der Client-Zugriff muss manuell getrennt werden. Allerdings müssen alle NAS- und SAN-Services auf dem 7-Mode HA-Paar betriebsbereit sein. Der Grund dafür ist, dass das 7-Mode Transition Tool alle Services für das Erfassen der Volume-Level-Konfigurationen aus den 7-Mode Systemen betriebsbereit erfordert.
+
+Das Tool führt in der Exportphase folgende Vorgänge durch:
+
+* Erfassung aller Volume- und Storage-Konfigurationen
+* Erstellt eine Snapshot Kopie jedes Umstiegs-Aggregats
++
+Diese Snapshot Kopie wird bei Bedarf für ein Rollback in den 7-Mode verwendet.
+
+* Bootet die 7-Mode Controller im Wartungsmodus
+* Beseitigt die Festplatteneigentümer von den Festplatten, die mit den 7-Mode Controllern verbunden sind
+* Deaktiviert die automatische Festplattenzuordnung auf den Ziel-Cluster-Knoten
+
+
+
+
+== Verkabelung der 7-Mode Platten-Shelves
+
+Sie müssen die Aufgaben in dieser Phase manuell ausführen. Sie müssen sicherstellen, dass die Festplatten-Shelf-IDs über die 7-Mode Controller und die Ziel-Cluster-Nodes hinweg eindeutig sind.
+
+
+NOTE: Wenn es doppelte Shelf-IDs gibt, müssen Sie die Festplatten-Shelf-IDs ändern und die Festplatten-Shelfs aus- und wieder einschalten.
+
+Es müssen alle 7-Mode Festplatten-Shelfs getrennt und den Ziel-Cluster-Nodes in einem laufenden Betrieb hinzugefügt werden. Nachdem die Festplatten-Shelfs mit den Ziel-Cluster-Nodes verbunden sind, müssen Sie die Festplatten-Shelfs aus- und wieder einschalten.
+
+Als Best Practice empfiehlt es sich, die Verkabelung mithilfe von Config Advisor manuell zu überprüfen. Config Advisor ist ein Tool zur Konfigurationsvalidierung und Statusüberprüfung von NetApp Systemen. Es kann sowohl an sicheren Standorten als auch an nicht sicheren Standorten zur Datenerfassung und Systemanalyse eingesetzt werden.
+
+Anschließend können Sie die Verkabelung mithilfe des 7-Mode Transition Tools überprüfen, um mit der Transition fortzufahren. Das 7-Mode Transition Tool führt nur einen Teil der von Config Advisor durchgeführten Verkabelungsprüfungen durch.
+
+
+
+== 7-Mode Daten und Konfigurationen werden importiert
+
+In dieser Phase wurden alle Storage-Objekte (Aggregate, Volumes und LUNs) und die zugehörigen Konfigurationen migriert.
+
+Das Tool führt in der Importphase folgende Vorgänge durch:
+
+* 7-Mode Festplatten sind den zugeordneten Ziel-Cluster-Knoten zugewiesen.
+* Alle 7-Mode Aggregate, Volumes und LUNs werden in das Clustered Data ONTAP Format konvertiert.
+* LIFs werden für die SVMs im Administrationsstatus konfiguriert.
+* Es werden alle Konfigurationen auf Volume- und LUN-Ebene angewendet.
+
+
+
+
+== Vorproduktionstests
+
+Sie müssen während dieser Phase alle überstieg Aggregate, Volumes und Konfigurationen manuell testen, die auf die Ziel-SVMs angewendet werden. Außerdem müssen Sie alle manuellen Aufgaben zum Abschluss der Konfiguration durchführen, z. B. die Konfiguration von Hosts und die Behebung von Host-Problemen für SAN-Hosts.
+
+Während dieser Phase können Sie keine bestimmten Vorgänge auf den übergewechselt Aggregaten oder Volumes durchführen. Außerdem gibt es bestimmte Vorgänge, die während der Testphase nicht empfohlen werden. Damit wird ein erfolgreicher Rollback-Vorgang sichergestellt, falls Sie in den 7-Mode zurückkehren möchten.
+
+Vor dem Datenzugriff in der Produktionsumgebung müssen alle Applikationen und Workloads manuell getestet werden.
+
+
+IMPORTANT: Aufgrund der Aggregat-Snapshot-Kopien und der Schreibvorgänge, die während des Tests durchgeführt werden, sind die Aggregate möglicherweise nicht mehr über genügend Speicherplatz verfügen. Wenn der freie physische Speicherplatz weniger als 5 % des gesamten Speicherplatzes beträgt, werden die Aggregate offline geschaltet. Sie müssen regelmäßig den freien physischen Speicherplatz in den übermigrierte Aggregaten überwachen, um Platzprobleme zu vermeiden.
+
+
+
+== Produktion starten
+
+Nach dem Testen aller Workloads und Applikationen können Kunden in der Produktionsumgebung auf die migrierte Daten zugreifen. Diese Übergangsphase – wo die Produktion gestartet wird und das Projekt noch nicht fest engagiert ist – ist die letzte Phase des Übergangs in 7-Mode. Sie dürfen diese Phase aus folgenden Gründen nicht verlängern:
+
+* Die Wahrscheinlichkeit, dass in den übergewechselt werden kann, steigt, wenn neue Daten auf die Volumes geschrieben werden.
+* Neue Daten, die während dieser Phase auf die Volumes geschrieben wurden, sind nach dem Rollback nicht verfügbar.
+
+
+
+
+== Bekenntnis des Projekts
+
+In dieser letzten Phase der Transition werden die Snapshot Kopien auf Aggregatebene, die während der Exportphase erstellt wurden, gelöscht.
+
+Sie können kein Rollback zu 7-Mode erstellen, nachdem Sie die 7-Mode Aggregate festgeschrieben und den Übergang abgeschlossen haben.
+
+*Verwandte Informationen*
+
+https://mysupport.netapp.com/site/tools/tool-eula/activeiq-configadvisor["NetApp Downloads: Config Advisor"]

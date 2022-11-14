@@ -1,0 +1,45 @@
+---
+permalink: copy-based/task_performing_on_demand_snapmirror_update_operation.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, perform, demand, snapmirror, updates 
+summary: Sie können inkrementelle SnapMirror Updates für alle Volumes vor der Umstellung durchführen, um die Umstellungszeit zu verringern. 
+---
+= Durchführen von On-Demand SnapMirror Updates
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können inkrementelle SnapMirror Updates für alle Volumes vor der Umstellung durchführen, um die Umstellungszeit zu verringern.
+
+* Sie können keine On-Demand SnapMirror Updates durchführen, wenn inkrementelle Datentransfers nach der Basiskopie der Daten und nach dem Vorumstellvorgang geplant werden.
+* Dies ist eine optionale Aufgabe.
++
+.. Klicken Sie auf *Jetzt aktualisieren*, um ein manuelles SnapMirror Update durchzuführen.
++
+Das Dialogfeld „Transition Update“ wird angezeigt. Dort können Sie auswählen, wie viele SnapMirror Transfers und Drosselklappengrenzen für diesen Vorgang angepasst werden sollen.
+
+.. Aktivieren Sie das Kontrollkästchen *Anzahl gleichzeitiger SnapMirror-Transfers und Drosselklappenbegrenzung für diesen Vorgang anpassen*, um die Anzahl der SnapMirror Datenkopievorgänge und das Drossellimit anzugeben.
++
+... Geben Sie die maximale Anzahl gleichzeitiger SnapMirror Transfers ein, die während der Transition ausgeführt werden sollen.
+... Geben Sie den Prozentsatz der verfügbaren Streams ein, die das Tool für SnapMirror Übertragungen verwenden kann.
++
+Standardmäßig nutzt das Tool 50 % der verfügbaren SnapMirror Übertragungen durch Volume.
+
+... Geben Sie die Drosselklappe ein, um die maximale Bandbreite zu nutzen.
++
+Standardmäßig verwendet das Tool maximale Drosselung für den Konfigurationsübergang.
+
+
+
+.. Klicken Sie Auf *Weiter*.
+
+
+
+
+*Verwandte Informationen*
+
+xref:task_starting_baseline_data_copy.adoc[Starten der Basiskopie der Daten]
+
+xref:task_creating_schedule_for_snapmirror_transfers.adoc[Erstellen eines Zeitplans für Datenkopien für SnapMirror Übertragungen]

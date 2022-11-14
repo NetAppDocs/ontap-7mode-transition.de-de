@@ -1,0 +1,24 @@
+---
+permalink: copy-based/task_post_transition_task_for_a_metrocluster_configuration.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, cron, job, schedules, metrocluster, remote, configuration 
+summary: Die während des Übergangs erstellten Cron Job-Zeitpläne werden nicht auf den Remote Standort repliziert, weshalb die ausgehandelte Umschaltung nach dem Umstieg fehlschlägt. Sie müssen die Zeitpläne für cron-Jobs manuell am Remote-Standort nach dem Umstieg erstellen. 
+---
+= Konfigurieren von cron-Job-Zeitplänen am Remote-Standort nach dem Übergang einer MetroCluster-Konfiguration
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Die während des Übergangs erstellten Cron Job-Zeitpläne werden nicht auf den Remote Standort repliziert, weshalb die ausgehandelte Umschaltung nach dem Umstieg fehlschlägt. Sie müssen die Zeitpläne für cron-Jobs manuell am Remote-Standort nach dem Umstieg erstellen.
+
+Die Storage-Umstellung für den aktiven Standort von 7-Mode muss erfolgreich abgeschlossen sein.
+
+.Schritte
+. Notieren Sie die bei der Speicherumstellung generierten Cron-Jobmeldungen, um die Zeitpläne zu ermitteln, die am Remote-Standort repliziert werden müssen.
++
+image::../media/mcc_cron_jobs.gif[mcc cron-Jobs]
+
+. Führen Sie in der Cluster-CLI des Remote-Standorts den aus `job schedule cron create` Befehle, die in aufgezeichnet wurden ,Schritt 1.
+

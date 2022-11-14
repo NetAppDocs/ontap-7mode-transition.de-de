@@ -1,0 +1,68 @@
+---
+permalink: san-host/task_preparing_for_cutover_when_transitioning_linux_host_file_systems_on_lvm_devices.html 
+sidebar: sidebar 
+keywords: ontap, san, host, transition, cutover, phase, host, lvm, device 
+summary: 'Wenn Sie ein Linux-Host-Dateisystem auf einem Gerät des Logical Volume Manager \(LVM\) umstellen, müssen Sie vor der Umstellungsphase Schritte durchführen.' 
+---
+= Vorbereitung auf die Umstellungsphase beim Umstieg auf Linux-Hostdateisysteme auf LVM-Geräten
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Wenn Sie ein Linux-Host-Filesystem auf einem LVM-Gerät (Logical Volume Manager) umstellen, müssen Sie vor der Umstellungsphase Schritte durchführen.
+
+* Für FC-Konfigurationen müssen Fabric-Konnektivität und Zoning zu geclusterten Data ONTAP Controllern verwendet werden.
+* Bei iSCSI-Konfigurationen müssen Ihre iSCSI-Sitzungen erkannt und bei Ihren geclusterten Data ONTAP Controllern angemeldet sein.
+* Sie müssen die folgenden Vorüberstellungen aus dem Arbeitsbuch _Inventory Assessment_ erhalten haben:
++
+** Die vom LVM verwendeten DMMP-Gerätenamen
+** Der Name der Volume-Gruppe
+** Der Name des logischen Volumes
+** Das auf dem logischen Volume-Gerät konfigurierte Dateisystem
+** Das Verzeichnis, auf dem die logischen Volumes angehängt sind
+
+
+* Führen Sie bei Copy-Based Transitions diese Schritte aus, bevor Sie den Storage-Umstellungsvorgang im 7-Mode Transition Tool (7MTT) initiieren.
+* Führen Sie bei Copy-Free Transitions die folgenden Schritte aus, bevor Sie den Vorgang „Export & Stop 7-Mode“ im 7MTT initiieren.
+
+
+.Schritte
+. E/A bis LV-Mount-Punkte stoppen.
+. Fahren Sie die Applikationen, die auf die LUNs zugreifen, gemäß den Empfehlungen des Applikationsanbieters herunter.
+. Montieren Sie den LV-Mount-Punkt:
++
+`*umount _dir_name_*`
+
+. Deaktivieren des logischen Volumes:
++
+`*vgchange -an _vg_name_*`
+
+. Überprüfung des Status des logischen Volumes:
++
+`*lvdisplay _dir_name_*`
+
++
+Der LV-Status sollte „`NOT available`“ anzeigen.
+
+. Exportieren Sie die Volume-Gruppe:
++
+`*vgexport _vg_name_*`
+
+. Überprüfen Sie den VG-Status:
++
+`*vgdisplay _vg_name_*`
+
++
+Der VG-Status sollte „`exportierte`“ anzeigen.
+
+. Spülen Sie die 7-Mode DDMP-Geräte-IDs:
++
+`*multipath -f _device_name_*`
+
+
+
+*Verwandte Informationen*
+
+xref:task_gathering_pretransition_information_from_inventory_assessment_workbook.adoc[Sammeln von Informationen zur Vorüberlösung aus dem Arbeitsbuch zur Bestandsbewertung]

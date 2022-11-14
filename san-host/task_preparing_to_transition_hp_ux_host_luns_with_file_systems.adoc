@@ -1,0 +1,108 @@
+---
+permalink: san-host/task_preparing_to_transition_hp_ux_host_luns_with_file_systems.html 
+sidebar: sidebar 
+keywords: ontap, san, host, transition, hp, ux, host, lun, file, system 
+summary: Bevor Sie die HP-UX Host-LUNs mit Dateisystemen von Data ONTAP 7-Mode auf Clustered Data ONTAP umstellen, müssen Sie die für den Übergangsprozess erforderlichen Informationen erfassen. 
+---
+= Vorbereitung der Umstellung von HP-UX-Host-LUNs auf Dateisysteme
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Bevor Sie die HP-UX Host-LUNs mit Dateisystemen von Data ONTAP 7-Mode auf Clustered Data ONTAP umstellen, müssen Sie die für den Übergangsprozess erforderlichen Informationen erfassen.
+
+.Schritte
+. Zeigen Sie Ihre LUNs an, um den Namen der zu migrenden LUNs zu ermitteln:
++
+`*lun show*`
+
+. Suchen Sie den SCSI-Gerätenamen für die zu migierender LUNs und den Agile-Namen für das SCSI-Gerät:
++
+`*sanlun lun show -p*`
+
++
+Im folgenden Beispiel sind die Transition LUNs „lun1“ und „lun3“. Die SCSI-Gerätenamen für lun1 lauten `/dev/dsk/c14t0d1`, `/dev/dsk/c27t0d1`, `/dev/dsk/c40t0d1`, und `/dev/dsk/c31t0d1`. Die SCSI-Gerätenamen für `lun3` Sind `/dev/dsk/c14t0d2`, `/dev/dsk/c27t0d2`, `/dev/dsk/c40t0d2`, und `/dev/dsk/c31t0d2`.
+
++
+Der agile Name für SCSI-Gerät `/dev/dsk/c31t0d1` Ist `/dev/rdisk/disk11`.
+
++
+[listing]
+----
+        ONTAP Path: f8040-211-185:/vol/vol185_n1/lun3
+               LUN: 1
+          LUN Size: 3g
+       Host Device: /dev/rdisk/disk11
+              Mode: 7
+Multipath Provider: None
+host      vserver   /dev/dsk
+path      path      filename           host     vserver
+state     type      or hardware path   adapter  LIF
+-----     --------- ----------------   -------  -------
+up        secondary /dev/dsk/c14t0d1   fcd0     fc4
+up        primary   /dev/dsk/c27t0d1   fcd0     fc2
+up        primary   /dev/dsk/c40t0d1   fcd1     fc1
+up        secondary /dev/dsk/c31t0d1   fcd1     fc3
+----
++
+[listing]
+----
+        ONTAP Path: f8040-211-183:/vol/vol183_n1/lun1
+               LUN: 3
+          LUN Size: 3g
+       Host Device: /dev/rdisk/disk14
+              Mode: 7
+Multipath Provider: None
+host      vserver   /dev/dsk
+path      path	     filename           host     vserver
+state     type      or hardware path   adapter  LIF
+-----     --------- ----------------   -------  -------
+up        secondary /dev/dsk/c14t0d1   fcd0     fc4
+up        primary   /dev/dsk/c27t0d1   fcd0     fc2
+up        primary   /dev/dsk/c40t0d1   fcd1     fc1
+up        secondary /dev/dsk/c31t0d1   fcd1     fc3
+----
+. Ermittlung der WWID für die LUN auf dem Host:
++
+`*scsimgr get_info -D _Agile_name_for_SCSI_device_*`
+
++
+In diesem Beispiel ist die LUN WWID für Gerät `/dev/rdisk/disk11` IS 0x600a09804d537739422445386b755529:
+
++
+[listing]
+----
+bash-2.05# scsimgr get_info -D /dev/rdisk/disk11 |grep WWID
+World  Wide Identifier (WWID)     = 0x600a09804d537739422445386b755529
+----
+. Listen Sie Ihre Volume-Gruppen auf und notieren Sie sie:
++
+`*vgdisplay*`
+
+. Listen Sie Ihre Volume-Gruppen, logischen Volumes und physischen Volumes auf und zeichnen Sie sie auf:
++
+`*vgdisplay -v _vg_name_*`
+
+. Schreiben Sie die VGID und logische Volumes für die Volume-Gruppe in eine mapfile:
++
+`*vgexport -p -s -m /tmp/mapfile/vg01 vg01*`
+
+. Erstellen Sie eine Sicherungskopie des `mapfile.vg01` Zu einer externen Quelle.
+. Die Bereitstellungspunkte auflisten und notieren:
++
+`*bdf*`
+
++
+Das folgende Beispiel zeigt, wie die Bereitstellungspunkte angezeigt werden sollen:
+
++
+[listing]
+----
+bash-2.05# bdf
+Filesystem     kbytes      used        avail   	used   Mounted on
+/dev/vg01/lvol 123592960   1050952   22189796   5%   /mnt/qa/vg01
+/dev/vg01/lvol2 23592960   588480    22645044   3%   /mnt/qa/vg02
+----
+

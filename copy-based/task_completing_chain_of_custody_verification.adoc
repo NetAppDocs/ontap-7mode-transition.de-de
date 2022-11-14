@@ -1,0 +1,35 @@
+---
+permalink: copy-based/task_completing_chain_of_custody_verification.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, complete, chain, custody, verification 
+summary: Wenn ein oder mehrere SnapLock-Volumes für die Überprüfung der Kette der Kustodie ausgewählt sind, müssen Sie die Kette der Kustodie Operation durchführen, um einen Bericht über die Kette der Kustodie zu generieren. 
+---
+= Abschluss der Überprüfung der Kette der Kustodie
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Wenn ein oder mehrere SnapLock-Volumes für die Überprüfung der Kette der Kustodie ausgewählt sind, müssen Sie die Kette der Kustodie Operation durchführen, um einen Bericht über die Kette der Kustodie zu generieren.
+
+Sie müssen die Umstellung des Projekts abgeschlossen haben.
+
+SnapLock Chain of Custody Operation wird für Volumes mit Dateien unterstützt, die Dateinamen mit nur ASCII-Zeichen haben.
+
+. Klicken Sie im Migrations-Dashboard auf *Startkette der Kustodie*.
++
+Wenn Sie die 7-Mode SnapLock Volumes nach der Überprüfung der Kette der Kustodie online lassen möchten, sollten Sie die *Take 7-Mode SnapLock Volumes ausgewählt für Chain of Custody Verification offline deaktivieren, nachdem die Kette der Custody Verification Operation abgeschlossen ist* Kontrollkästchen.
+
+. Klicken Sie Auf *Weiter*.
++
+Die Kontrollfunktion „Kette der Kustodie“ wird gestartet. Dieser Vorgang kann je nach Anzahl der Dateien auf den SnapLock Volumes sehr viel Zeit in Anspruch nehmen. Sie können auf *Ausführen im Hintergrund* klicken, um den Vorgang im Hintergrund auszuführen.
+
++
+Sie können den Fortschritt der Kontrollkette verfolgen, indem Sie im Fenster Migrationskonsole auf die Registerkarte SnapLock Chain of Custody klicken. Auf dieser Registerkarte wird der Fortschritt der „Kette der Kustodie“-Operation pro Volumen angezeigt.
+
+. Nachdem die Kette der Kustodie Operation abgeschlossen ist, klicken Sie auf der Registerkarte SnapLock Chain of Custody auf *Bericht herunterladen*, um den Bericht zur Überprüfung der Kette der Kustodie herunterzuladen.
++
+Der Prüfbericht „Kette der Kustodie“ enthält Einzelheiten darüber, ob die Überprüfung der SnapLock-Kette der Kustodie erfolgreich war. Der Bericht zeigt die Gesamtzahl der Dateien und die Anzahl der nicht-WORM-Dateien in jedem der 7-Mode SnapLock-Volumes an, die für den Vorgang „Kette der Kustodie“ ausgewählt wurden. Sie können auch die Anzahl der Dateien überprüfen, für die die Fingerabdrücke stimmen und nicht gefunden wurden. Der Bericht zeigt auch die Anzahl DER WORM-Dateien an, für die die Überprüfung der Kette der Kustodie fehlgeschlagen ist und den Grund für den Fehler.
+
+

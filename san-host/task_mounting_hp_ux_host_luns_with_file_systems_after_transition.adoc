@@ -1,0 +1,65 @@
+---
+permalink: san-host/task_mounting_hp_ux_host_luns_with_file_systems_after_transition.html 
+sidebar: sidebar 
+keywords: ontap, san, host, transition, mount, hp, ux, host, lun, file, system 
+summary: Nach dem Wechsel der HP-UX-Host-LUNs mit Dateisystemen von Data ONTAP im 7-Mode zu Clustered Data ONTAP müssen Sie die LUNs mounten. 
+---
+= Montage von HP-UX Host LUNs mit Dateisystemen nach der Umstellung
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Nach dem Wechsel der HP-UX-Host-LUNs mit Dateisystemen von Data ONTAP im 7-Mode zu Clustered Data ONTAP müssen Sie die LUNs mounten.
+
+Führen Sie bei Copy-Based Transitions diese Schritte nach Abschluss des Storage-Umstellungsvorgangs im 7-Mode Transition Tool (7MTT) durch. Copy-Free Transitions werden für HP-UX-Hosts nicht unterstützt.
+
+.Schritte
+. Neue LUNs für Clustered Data ONTAP:
++
+`*ioscan -fnC disk*`
+
+. Vergewissern Sie sich, dass die LUNs von Clustered Data ONTAP erkannt wurden:
++
+`*sanlun lun show*`
+
+. Überprüfen Sie das `lun-pathname` Für die Clustered Data ONTAP-LUNs ist das gleiche wie für die `lun-pathname` Vor der Transition für die 7-Mode LUNs.
+. Überprüfen Sie, ob die Ausgabe in der Spalte Modus von geändert wurde `7` Bis `C`.
+. Verwenden Sie die `mapfile` Datei zum Importieren der Volume-Gruppe:
++
+`*vgimport -s -v -m /tmp/mapfile.vg01 /dev/vg01"*`
+
+. Aktivieren der logischen Volumes:
++
+`*vgchange -a y _vg_name_*`
+
+. Konvertieren Sie den Legacy Device Special Filename (DSF) in das persistente DSF:
++
+`*vgdsf -c /dev/vg01*`
+
+. Stellen Sie sicher, dass der VG-Status wie verfügbar angezeigt wird:
++
+`*vgdisplay*`
+
+. Manuelles Montieren aller Geräte:
++
+`*mount -F vxfs -o largefiles _device_name mount_point_*`
+
+. Führen Sie den Befehl fsck aus, wenn Sie dazu aufgefordert werden.
+. Überprüfen Sie die Mount-Punkte:
++
+`*bdf*`
+
++
+Das folgende Beispiel zeigt, wie die Bereitstellungspunkte angezeigt werden sollen:
+
++
+[listing]
+----
+bash-2.05# bdf
+Filesystem          kbytes     used     avail     used   Mounted on
+/dev/vg01/lvol1   23592960   1050952   22189796    5%   /mnt/qa/vg01
+/dev/vg01/lvol2   23592960    588480   22645044    3%   /mnt/qa/vg02
+----
+

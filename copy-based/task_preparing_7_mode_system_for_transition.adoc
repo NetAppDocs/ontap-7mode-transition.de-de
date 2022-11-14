@@ -1,0 +1,109 @@
+---
+permalink: copy-based/task_preparing_7_mode_system_for_transition.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, prepare, 7, mode 
+summary: Vor dem Starten einer Transition müssen bestimmte Aufgaben auf dem 7-Mode System durchgeführt werden, z. B. Hinzufügen der SnapMirror Lizenz, Aktivierung der Kommunikation des 7-Mode Systems mit dem Ziel-Cluster und Aktivierung von TLS. 
+---
+= Vorbereiten des 7-Mode Systems für den Umstieg
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Vor dem Starten einer Transition müssen bestimmte Aufgaben auf dem 7-Mode System durchgeführt werden, z. B. Hinzufügen der SnapMirror Lizenz, Aktivierung der Kommunikation des 7-Mode Systems mit dem Ziel-Cluster und Aktivierung von TLS.
+
+Alle 7-Mode Volumes die Sie wechseln möchten, müssen online sein.
+
+.Schritte
+. Fügen Sie die SnapMirror Lizenz auf dem 7-Mode System hinzu und aktivieren Sie sie:
++
+.. Fügen Sie auf dem 7-Mode System die SnapMirror Lizenz hinzu:
++
+`*license add _license_code_*`
+
++
+`_license_code_` Ist der von Ihnen erworbene Lizenzcode.
+
+.. Aktivieren Sie die SnapMirror Funktion: +
+`*options snapmirror.enable on*`
+
+
+. Konfigurieren Sie das 7-Mode System und das Ziel-Cluster so, dass sie miteinander kommunizieren. Wählen Sie dazu eine der folgenden Optionen:
++
+** Stellen Sie die ein `snapmirror.access` Option zu allen.
+** Legen Sie den Wert des fest `snapmirror.access` Option zu den IP-Adressen aller Cluster-Intercluster LIFs auf dem Cluster.
+** Wenn der `snapmirror.access` Option ist `legacy` Und das `snapmirror.checkip.enable` Option ist `off`, Fügen Sie den SVM-Namen dem hinzu `/etc/snapmirror.allow` Datei:
+** Wenn der `snapmirror.access` Option ist `legacy` Und das `snapmirror.checkip.enable` Option ist `on`, Fügen Sie die IP-Adressen der Intercluster LIFs dem hinzu `/etc/snapmirror.allow` Datei:
+
+
+. Wenn HTTPS auf dem Speichersystem nicht aktiviert ist, aktivieren Sie HTTPS:
++
+`*options httpd.admin.ssl.enable on*`
+
++
+HTTPS ist standardmäßig aktiviert.
+
+. Aktivieren von TLS auf den 7-Mode Storage-Systemen für die Kommunikation des 7-Mode Transition Tools mit den 7-Mode Systemen:
++
+.. Wenn SSL auf dem Storage-System nicht bereits aktiviert ist, richten Sie SSL ein und starten Sie SSL:
++
+`*secureadmin setup ssl*`
+
++
+SSL ist standardmäßig für die Speichersysteme eingerichtet. Wenn SSL bereits für das Storage-System eingerichtet wurde, werden Sie gefragt, ob Sie fortfahren möchten. Sie können das SSL-Setup beenden, wenn Sie keine Änderungen vornehmen möchten.
+
+.. SSL aktivieren:
++
+`*options ssl.enable on*`
+
++
+Diese Option muss aktiviert sein, damit die Kommunikation über TLS möglich ist.
+
+.. TLS aktivieren:
++
+`*options tls.enable on*`
+
+.. Deaktivieren Sie SSLv2 und SSLv3 auf dem 7-Mode System:
++
+`*options ssl.v2.enable off*`
+
++
+`*options ssl.v3.enable off*`
+
+
+
++
+Das 7-Mode Transition Tool verwendet TLS- oder SSL-Protokolle für die Kommunikation mit den 7-Mode Storage-Systemen. Das Tool kommuniziert mit dem Storage-System über das TLS-Protokoll, wenn TLS auf dem Storage-System aktiviert ist. Wenn TLS deaktiviert ist und SSLv3 auf einem Speichersystem aktiviert ist, verwendet das Tool SSLv3 zur Kommunikation mit dem Speichersystem.
+
++
++ WICHTIG: Die Best Practice ist, TLS zu aktivieren und SSLv2 und SSLv3 zu deaktivieren, um Sicherheitslücken zu vermeiden.
+
+. Je nach Data ONTAP-Version Ihres 7-Mode Systems führen Sie die folgenden Schritte aus:
++
+.. Erlauben Sie SnapMirror Verkehr auf allen Schnittstellen:
++
+`*options interface.blocked.snapmirror ""*`
+
+.. Wenn Sie Data ONTAP Version 7.3.7, 8.0.3 oder 8.1 verwenden und Sie die IP-Adresse der E0M Schnittstelle als Management-IP-Adresse für die Interaktion mit dem 7-Mode Transition Tool verwenden, ermöglichen Sie Datenverkehr auf der E0M Schnittstelle:
++
+`*options interface.blocked.mgmt_data_traffic off*`
+
+
+
+. Wenn Sie die Optionen I2P, Read Allokation oder NVFAIL auf dem Volume festgelegt haben, führen Sie die folgenden Schritte aus:
++
+.. Stellen Sie sicher, dass andere Vorgänge nicht beeinträchtigt werden, wenn diese Optionen deaktiviert sind.
+.. Deaktivieren Sie die Optionen:
++
+`*vol options vol_name no_i2p off*`
+
++
+`*vol options vol_name read_realloc off*`
+
++
+`*vol options vol_name nvfail off*`
+
+
+
+

@@ -1,0 +1,93 @@
+---
+permalink: copy-free/task_applying_svm_configurations.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, apply, svm, configurations 
+summary: 'Vor der SVM-Bereitstellungsphase müssen Sie einige Konfigurationen manuell anwenden. Sie können dann mit dem Tool alle Konfigurationen anwenden, die im 7-Mode Controller \(Dateien im Verzeichnis /etc\) oder auf Ebene der vFiler-Einheit auf die zugeordneten SVMs definiert sind.' 
+---
+= Werden SVM-Konfigurationen angewendet
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Vor der SVM-Bereitstellungsphase müssen Sie einige Konfigurationen manuell anwenden. Sie können dann alle Konfigurationen anwenden, die im 7-Mode Controller definiert sind (Dateien im `/etc` Verzeichnis) oder auf der Ebene von vFiler zu den zugeordneten SVMs mithilfe des Tools.
+
+Wenn Sie nicht alle Konfigurationen auf die Ziel-SVMs übertragen möchten, müssen Sie die Eigenschaften festlegen, damit die Konfigurationen von den SVMs ausgeschlossen werden können.
+
+xref:task_customizing_configurations_for_transition.adoc[Anpassung des Übergangs von 7-Mode Konfigurationen]
+
+* Konfigurationen wie NFS-Exporte, CIFS-Shares und LUN-Mapping werden in der SVM-Bereitstellungsphase nicht auf die SVM angewendet.
+* In der SVM-Bereitstellungsphase werden die folgenden Konfigurationen vom Tool auf den SVMs angewendet:
++
+** *Name Services*
++
+*** DNS-Konfiguration
+*** LDAP-Konfiguration
+*** NIS-Konfiguration
+*** Name Service-Switch-Konfiguration
+*** Host-Konfiguration
+*** UNIX-Benutzer und -Gruppen
+*** Konfiguration von Netzgruppen
+
+
+** *Networking*
++
+*** Vorhandene 7-Mode IP-Adressen, die für den Wechsel ausgewählt wurden, werden im Status „Administratoren inaktiv“ erstellt.
++
+Während der Importphase werden diese IP-Adressen im administrativen up-Status konfiguriert.
+
+*** Neue IP-Adressen werden im Administrationsstatus erstellt.
+
+
+** *NFS*
++
+NFS-Optionen
+
+** *CIFS*
++
+*** Bevorzugte DC-Konfiguration für CIFS
+*** Konfiguration der Benutzerzuordnung
+*** Widelinks-Konfiguration
+*** CIFS-Optionen
+*** Audit-Konfiguration
+
+
+** *SAN*
++
+FC- und iSCSI-Services
+
++
+[IMPORTANT]
+====
+Sie können diesen Vorgang nach erfolgreichem Abschluss nicht erneut ausführen.
+
+Wenn Sie daher nach diesem Vorgang Änderungen an den Konfigurationen der 7-Mode Controller-Ebene vornehmen, müssen Sie die Konfigurationen vor der Exportphase manuell auf die Ziel-SVMs umstellen. Wenn Sie beispielsweise dem Controller 7-Mode eine neue Einheit von vFiler hinzufügen und dieser einem SVM nach diesem Vorgang zuordnen, müssen Sie die Konfigurationen dieser Einheit von vFiler manuell auf die zugeordnete SVM umstellen. Ein weiteres Beispiel: Wenn Sie einige UNIX Benutzer am 7-Mode Controller nach der SVM-Bereitstellungsphase hinzufügen, müssen Sie diese UNIX-Benutzer manuell auf den zugeordneten SVMs erstellen.
+
+====
+
+
+
+
+.Schritte
+. Klicken Sie auf *Anwenden SVM Config*, um die 7-Mode-Konfigurationen auf die Ziel-SVMs anzuwenden.
++
+Es wird eine Bestätigungsmeldung angezeigt, in der wichtige Überlegungen für diesen Vorgang aufgeführt sind.
+
+. Klicken Sie auf *Ja*, um fortzufahren.
+. Führen Sie nach Abschluss des Vorgangs die folgenden Schritte aus:
++
+.. Klicken Sie auf *als CSV speichern*, um die Operation zu speichern, führt zu einer Datei.
+.. Klicken Sie auf *Collect Project Logs*, um eine Sicherung aller Transition Log-Dateien zu erstellen.
++
+Es empfiehlt sich, die Protokolldateien nach jedem Übergangsvorgang zu speichern.
+
+.. Klicken Sie auf *Schließen*, um das Fenster mit den Operationsergebnissen zu schließen.
+
+
++
+Wenn der Vorgang lange dauert, können Sie auf *im Hintergrund* klicken, um das Fenster mit den Operationsergebnissen zu verlassen. Sie sollten das Projekt nicht bearbeiten oder eine andere Aufgabe ausführen, wenn der Vorgang im Hintergrund ausgeführt wird. Anschließend können Sie die Ergebnisse der Vorgänge auf der Registerkarte „Operation History“ anzeigen.
+
+. Überprüfen und Testen der Konfigurationen, die auf die Ziel-SVMs angewendet werden, manuell und nehmen die erforderlichen Änderungen vor.
+. Überprüfen Sie manuell die Verbindung zu externen Namensservern.
+

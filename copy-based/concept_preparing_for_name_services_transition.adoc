@@ -1,0 +1,14 @@
+---
+permalink: copy-based/concept_preparing_for_name_services_transition.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, prepare, name, services 
+summary: Name-Service-Konfigurationen, die DNS, LDAP, NIS, Hosts, Name Services Switch, UNIX-Benutzer und -Gruppen sowie Netzwerkgruppen-Konfigurationen werden durch das 7-Mode Transition Tool migriert. Vor dem Übergang von Name Services-Konfigurationen müssen Sie einige Überlegungen beachten. 
+---
+= Vorbereitung der Umstiegsservices
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Name-Service-Konfigurationen, die DNS, LDAP, NIS, Hosts, Name Services Switch, UNIX-Benutzer und -Gruppen sowie Netzwerkgruppen-Konfigurationen werden durch das 7-Mode Transition Tool migriert. Vor dem Übergang von Name Services-Konfigurationen müssen Sie einige Überlegungen beachten.

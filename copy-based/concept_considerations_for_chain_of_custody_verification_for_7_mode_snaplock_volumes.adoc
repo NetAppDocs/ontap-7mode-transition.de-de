@@ -1,0 +1,26 @@
+---
+permalink: copy-based/concept_considerations_for_chain_of_custody_verification_for_7_mode_snaplock_volumes.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, chain, custody, verification, snaplock, volumes, considerations 
+summary: Beachten Sie bitte die Überlegungen für den Einsatz von Chain of Custody Verification für 7-Mode SnapLock Volumes. 
+---
+= Überlegungen zur Verwendung der Kontrollkette für die Prüfung von 7-Mode SnapLock Volumes
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Beachten Sie bitte die Überlegungen für den Einsatz von Chain of Custody Verification für 7-Mode SnapLock Volumes.
+
+* Die Überprüfung der SnapLock-Chain-of-Custody muss nur durchgeführt werden, wenn sie für die Transition von SnapLock Volumes erforderlich ist.
++
+Sie können die Überprüfung der Kette der Kustodie für alle oder eine Untermenge von SnapLock-Volumes im Projekt durchführen.
+
+* Die Überprüfung der SnapLock-Kette von Kustodie kann je nach Anzahl der Dateien auf den 7-Mode SnapLock-Volumes sehr viel Zeit in Anspruch nehmen.
+* Die Kontrollkette der Kustodie wird nur für Lese-/Schreibmodus-SnapLock-Volumes mit 7-Mode unterstützt
++
+Die Überprüfung der Kette der Kustodie wird für schreibgeschützte Volumes nicht unterstützt.
+
+* Die Überprüfung der Kette der Kustodie wird für SnapLock-Volumes mit Dateien, die Namen mit nicht-ASCII-Zeichen enthalten, nicht unterstützt.
+

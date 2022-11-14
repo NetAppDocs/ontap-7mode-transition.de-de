@@ -1,0 +1,237 @@
+---
+permalink: copy-based/reference_configurations_that_can_be_excluded.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, configurations, excluded 
+summary: Der Konfigurationsübergang lässt sich anpassen, indem einige Konfigurationen auf Volume- oder SVM-Ebene für NFS, CIFS, SAN und Name-Services von der Transition ausgeschlossen werden. Dazu wird der Eigenschaftsname mit dem cbt-Eigenschaftensatz-Befehl der 7-Mode Transition Tool CLI angegeben. 
+---
+= Konfigurationen, die vom Umstieg ausgeschlossen werden können
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Die Konfigurationsüberführung lässt sich anpassen, indem einige Konfigurationen auf Volume- oder SVM-Ebene für NFS, CIFS, SAN und Name-Services von der Transition ausgeschlossen werden, indem der Eigenschaftsname mit dem angegeben wird `transition cbt property-set` Befehl des 7-Mode Transition Tool CLI.
+
+
+
+== NFS
+
+|===
+| 7-Mode-Konfiguration zum Ausschließen | Eigenschaftsname 
+
+
+ a| 
+Exportrichtlinien
+ a| 
+`ignore-nfs-exports-transition`
+
+
+
+ a| 
+NFS-Optionen
+ a| 
+`ignore-nfs-options-transition`
+
+
+
+ a| 
+Alle NFS-Konfigurationen
+ a| 
+`ignore-all-nfs-configurations-transition`
+
+|===
+
+
+== CIFS
+
+|===
+| 7-Mode-Konfiguration zum Ausschließen | Eigenschaftsname 
+
+
+ a| 
+Lokale Benutzer und Gruppen
+ a| 
+`ignore-local-users-groups-transition`
+
+
+
+ a| 
+Home Directory-Pfade
+ a| 
+`ignore-cifs-home-directory-paths-transition`
+
+
+
+ a| 
+Symbolische Links
+ a| 
+`ignore-cifs-symlinks-transition`
+
+
+
+ a| 
+Widelinks
+ a| 
+`ignore-cifs-widelinks-transition`
+
+
+
+ a| 
+Freigaben und ACLs gemeinsam nutzen
+ a| 
+`ignore-cifs-shares-and-acls-transition`
+
+
+
+ a| 
+CIFS-Optionen
+ a| 
+`ignore-cifs-options-transition`
+
+
+
+ a| 
+Namenszuweisung
+ a| 
+`ignore-cifs-name-mapping-transition`
+
+
+
+ a| 
+Audit-Konfiguration
+ a| 
+`ignore-cifs-audit-transition`
+
+
+
+ a| 
+Liste der bevorzugten Domänen-Controller
+ a| 
+`ignore-cifs-preferred-domain-controllers-list-transition`
+
+
+
+ a| 
+Alle CIFS-Konfigurationen
+ a| 
+`ignore-all-cifs-configurations-transition`
+
+|===
+
+
+== Name Services
+
+|===
+| 7-Mode-Konfiguration zum Ausschließen | Eigenschaftsname 
+
+
+ a| 
+Netzgruppen
+ a| 
+`ignore-netgroups-transition`
+
+
+
+ a| 
+UNIX-Benutzer und -Gruppen
+ a| 
+`ignore-unix-users-groups-transition`
+
+
+
+ a| 
+NIS
+ a| 
+`ignore-nis-transition`
+
+
+
+ a| 
+DNS
+ a| 
+`ignore-dns-transition`
+
+
+
+ a| 
+LDAP
+ a| 
+`ignore-ldap-transition`
+
+
+
+ a| 
+`/etc/nsswitch.conf` Datei
+ a| 
+`ignore-nsswitch-transition`
+
+
+
+ a| 
+LDAP-basierte Benutzerzuordnung
+ a| 
+`ignore-nmswitch-transition`
+
+
+
+ a| 
+`/etc/hosts` Dateien
+ a| 
+`ignore-etc-hosts-transition`
+
+
+
+ a| 
+Alle Name Services-Konfigurationen
+ a| 
+`ignore-all-nameservices-configurations-transition`
+
+|===
+
+
+== San
+
+|===
+| 7-Mode-Konfiguration zum Ausschließen | Eigenschaftsname 
+
+
+ a| 
+igroup und LUN-Zuordnung
+ a| 
+`ignore-igroup-and-lunmapping-transition`
+
+
+
+ a| 
+Alle Konfigurationen
+ a| 
+`ignore-all-san-configurations-transition`
+
+|===
+
+
+== Snapshot Zeitpläne
+
+|===
+| 7-Mode-Konfiguration zum Ausschließen | Eigenschaftsname 
+
+
+ a| 
+Snapshot Zeitpläne
+ a| 
+Transition ohne Snapshots ignorieren
+
+
+NOTE: Wenn diese Option auf „true“ gesetzt ist, wird die „Default“-Snapshot-Richtlinie auf die übergewechselt Volumes angewendet.
+
+|===
+*Verwandte Informationen*
+
+xref:concept_cifs_configurations_supported_unsupported_or_requiring_manual_steps_for_transition.adoc[Unterstützte und nicht unterstützte CIFS Konfigurationen für den Umstieg auf ONTAP]
+
+xref:concept_nfs_configurations_supported_unsupported_or_requiring_manual_steps_for_transition.adoc[NFS-Umstieg: Unterstützte und nicht unterstützte Konfigurationen und erforderliche manuelle Schritte]
+
+xref:concept_supported_and_unsupported_name_services_configurations.adoc[Name Services Transition: Unterstützte und nicht unterstützte Konfigurationen und erforderliche manuelle Schritte]
+
+xref:concept_san_transition_supported_and_unsupported_configurations_and_required_manual_steps.adoc[SAN-Transition: Unterstützte und nicht unterstützte Konfigurationen und erforderliche manuelle Schritte]

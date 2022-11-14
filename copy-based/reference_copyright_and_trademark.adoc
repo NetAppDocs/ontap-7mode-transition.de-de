@@ -1,0 +1,12 @@
+---
+permalink: copy-based/reference_copyright_and_trademark.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, copyright, trademark 
+summary: Copyright und Markeninformationen zu 7-Mode Transition Tool Copy-Based Transition Guide 
+---
+= Copyright, Markenrecht und maschinelle Übersetzung
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+

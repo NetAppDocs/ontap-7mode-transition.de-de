@@ -1,0 +1,24 @@
+---
+permalink: snapmirror/task_transitioning_volumes.html 
+sidebar: sidebar 
+keywords: ontap, 7, mode, snapmirror, transition, volume, data, protection, relationship, stand, alone 
+summary: 'Sie können ein eigenständiges Volume oder Volumes, die sich in Datensicherungsbeziehungen befinden \ (in Volume SnapMirror Beziehungen\) mithilfe der SnapMirror Technologie verschieben.' 
+---
+= Transition von Volumes
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können mithilfe der SnapMirror Technologie ein Standalone-Volume oder Volumes, die sich in Datensicherungsbeziehungen (in Volume SnapMirror Beziehungen) befinden, verschieben.
+
+Wenn ein fortlaufendes geplantes Update aufgrund eines NDO-Vorgangs (Übernahme oder Aggregatverschiebung) abgebrochen wird, wird das Update nach Abschluss des NDO-Vorgangs automatisch fortgesetzt.
+
+Wenn Sie ein Standalone-Volume oder eine SnapMirror Volume-Beziehung zu LUNs verschieben, müssen Sie Initiatorgruppen erstellen und LUNs zuordnen. Anschließend müssen die Hosts nach der Transition die erforderlichen Aufgaben ausführen, bevor der Zugriff auf die Clustered Data ONTAP Volumes konfiguriert wird.
+
+http://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-7mtt-sanspl/home.html["San-Host-Umstellung und Problembehebung"]
+
+*Verwandte Informationen*
+
+xref:task_transitioning_7_mode_volumes_using_snapmirror.adoc[Transition von 7-Mode Volumes mit SnapMirror]

@@ -1,0 +1,15 @@
+---
+section: command-map
+title: Befehlszuordnung für 7-Mode Administratoren
+url: "/command-map/index.html"
+entries:
+- title: Zuordnung von 7-Mode Befehlen zu ONTAP Befehlen
+  url: "/command-map/reference_how_7_mode_commands_map_to_clustered_ontap_commands.html"
+- title: Zuordnung der 7-Mode Optionen zu ONTAP Befehlen
+  url: "/command-map/reference_how_7_mode_options_map_to_clustered_ontap_commands.html"
+- title: Zuordnung der Konfigurationsdateien von 7-Mode zu den Clustered Data ONTAP
+    Befehlen
+  url: "/command-map/reference_how_7_mode_configuration_files_map_to_clustered_ontap_commands.html"
+- title: Interpretation der Clustered Data ONTAP Befehle, Optionen und Konfigurationsdateien
+    für Administratoren mit 7-Mode
+  url: "/command-map/concept_how_to_interpret_clustered_ontap_command_maps_for_7_mode_administrators.html"

@@ -1,0 +1,14 @@
+---
+permalink: copy-free/task_completing_post_transition_tasks_for_a_copy_free_transition.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, complete 
+summary: Beim Abschluss der Transition müssen die überprovisionierten Volumes und Konfigurationen manuell überprüft werden. Anschließend können Sie Ihren Workload testen, die Produktion starten und das Projekt für eine Copy-Free Transition festsetzen. Da Rollback nach dem Commit-Vorgang nicht erlaubt ist, sollten Sie alle Workloads überprüfen und für eine kurze Dauer mit der Produktion beginnen, um zu prüfen, ob ein Rollback erforderlich ist. 
+---
+= Abschluss der Transition
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Beim Abschluss der Transition müssen die überprovisionierten Volumes und Konfigurationen manuell überprüft werden. Anschließend können Sie Ihren Workload testen, die Produktion starten und das Projekt für eine Copy-Free Transition festsetzen. Da Rollback nach dem Commit-Vorgang nicht erlaubt ist, sollten Sie alle Workloads überprüfen und für eine kurze Dauer mit der Produktion beginnen, um zu prüfen, ob ein Rollback erforderlich ist.

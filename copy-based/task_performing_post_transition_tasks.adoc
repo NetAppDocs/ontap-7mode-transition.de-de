@@ -1,0 +1,40 @@
+---
+permalink: copy-based/task_performing_post_transition_tasks.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, perform, manual, post, tasks 
+summary: Nachdem die Storage-Umstellung erfolgreich abgeschlossen und der Umstieg abgeschlossen wurde, müssen nach dem Umstieg einige Aufgaben durchgeführt werden, um Funktionen zu konfigurieren, die nicht migriert wurden, bevor der Client-Zugriff auf die ONTAP Volumes möglich ist. 
+---
+= Durchführung manueller Aufgaben nach der Transition
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Nachdem die Storage-Umstellung erfolgreich abgeschlossen und der Umstieg abgeschlossen wurde, müssen nach dem Umstieg einige Aufgaben durchgeführt werden, um Funktionen zu konfigurieren, die nicht migriert wurden, bevor der Client-Zugriff auf die ONTAP Volumes möglich ist.
+
+.Schritte
+. Manuell: Führen Sie die erforderlichen Schritte aus, um Funktionen zu konfigurieren, die nicht verschoben wurden, wie im Vorprüfbericht aufgeführt.
++
+Sie müssen beispielsweise IPv6 und FPolicy nach der Umstellung manuell konfigurieren.
+
+. Löschen oder konsolidieren Sie die migrierte Konfiguration.
++
+Das 7-Mode Transition Tool erstellt für alle Konfigurationen, die von 7-Mode migriert werden, eine neue Instanz. Daher können einige Konfigurationen mehrere Instanzen enthalten, wie beispielsweise Cron-Zeitpläne, die möglicherweise manuell konsolidiert oder gelöscht werden müssen.
+
+. SAN-Transition: Manuelle Neukonfiguration der Hosts
++
+http://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-7mtt-sanspl/home.html["San-Host-Umstellung und Problembehebung"]
+
+. Vergewissern Sie sich, dass die SVM für die Bereitstellung von Daten für die Clients bereit ist, indem Sie Folgendes überprüfen:
++
+** Die Volumes auf der SVM sind online und lesen/schreiben.
+** Die IP-Adressen auf der SVM sind über die Nameserver aktiviert und erreichbar.
+
+
+. Umleiten des Client-Zugriffs auf die ONTAP Volumes
+
+
+*Verwandte Informationen*
+
+http://docs.netapp.com/ontap-9/index.jsp["NetApp Dokumentation: ONTAP 9"]

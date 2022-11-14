@@ -1,0 +1,25 @@
+---
+permalink: san-host/task_preparing_for_cutover_when_transitioning_aix_hosts_with_fc_fcoe_configurations.html 
+sidebar: sidebar 
+keywords: ontap, san, host, transition, cutover, phase, aix, host, fc, fcoe, configurations 
+summary: Bevor Sie die Umstellungsphase für AIX-Hosts mit FC- oder FCoE-Konfigurationen aufrufen, müssen Sie spezielle Schritte durchführen. 
+---
+= Vorbereitung auf die Umstellungsphase beim Wechsel von AIX-Hosts mit FC/FCoE-Konfigurationen
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Bevor Sie die Umstellungsphase für AIX-Hosts mit FC- oder FCoE-Konfigurationen aufrufen, müssen Sie spezielle Schritte durchführen.
+
+Es müssen Fabric-Konnektivität und Zoning für die Clustered Data ONTAP Nodes hergestellt werden.
+
+Führen Sie bei Copy-Based Transitions die folgenden Schritte aus, nachdem Sie den Storage-Umstellungsvorgang im 7-Mode Transition Tool abgeschlossen haben. Copy-Free Transitions werden auf AIX-Hosts nicht unterstützt.
+
+.Schritte
+. Beenden Sie Ihren Host:
++
+`*shutdown -h*`
+
+

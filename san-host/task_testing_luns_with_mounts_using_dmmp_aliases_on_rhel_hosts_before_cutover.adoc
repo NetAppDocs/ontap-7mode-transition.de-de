@@ -1,0 +1,81 @@
+---
+permalink: san-host/task_testing_luns_with_mounts_using_dmmp_aliases_on_rhel_hosts_before_cutover.html 
+sidebar: sidebar 
+keywords: ontap, san, host, transition, mount, pints, dmmp, alias, name, rhel 
+summary: 'Wenn Sie das 7-Mode Transition Tool \(7MTT\) 2.2 oder höher und Data ONTAP 8.3.2 oder höher für eine Copy-Based-Transition Ihres Red hat Enterprise Linux \(RHEL\)-Hosts verwenden, können Sie Ihre umgestiegen Data ONTAP-LUNs mit Mount-Punkten mithilfe von Aliasnamen vor der Umstellungsphase testen. Der Quell-Host kann während des Tests weiterhin I/O-Vorgänge auf Ihren 7-Mode Quell-LUNs ausführen.' 
+---
+= Testen von LUNs mit Bereitstellungspunkten unter Verwendung von DMMP-Alias-Namen auf RHEL-Hosts vor der Umstellungsphase von Copy-Based Transitions
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Wenn Sie das 7-Mode Transition Tool (7MTT) 2.2 oder höher und Data ONTAP 8.3.2 oder höher für eine Copy-Based Transition Ihres Red hat Enterprise Linux (RHEL) Hosts verwenden, können Sie Ihre überstiegenen Clustered Data ONTAP LUNs mit Bereitstellungspunkten unter Verwendung von Alias-Namen vor der Umstellungsphase testen. Der Quell-Host kann während des Tests weiterhin I/O-Vorgänge auf Ihren 7-Mode Quell-LUNs ausführen.
+
+Die neuen Clustered Data ONTAP LUNs müssen Ihrem Testhost zugeordnet und die LUNs müssen für die Transition bereit sein.
+
+Sie sollten die Hardwareparität zwischen dem Testhost und dem Quell-Host beibehalten, und Sie sollten auf dem Testhost die folgenden Schritte durchführen.
+
+Die Clustered Data ONTAP LUNs befinden sich während des Tests im Lese-/Schreibmodus. Sie werden in den schreibgeschützten Modus umgewandelt, wenn die Tests abgeschlossen sind und Sie die Umstellungsphase vorbereiten.
+
+.Schritte
+. Wählen Sie nach Abschluss der Basiskopie in der 7MTT Benutzeroberfläche *Testmodus* aus.
+. Klicken Sie in der 7MTT UI auf *Apply Configuration*.
+. Informieren Sie sich über die neuen SCSI-Gerätenamen für die Clustered Data ONTAP LUNs:
++
+`*sanlun lun show*`
+
++
+Im folgenden Beispiel: `/dev/sdl` Ist der SCSI-Gerätename für das `lun_dmmp_raw` LUN und `/dev/sdk` Ist der SCSI-Gerätename für das
+
++
+`lun_dmmp_raw_alias` LUN
+
++
+[listing]
+----
+[root@ibmx3550-229-108 /]# sanlun lun show
+controller(7mode/E-Series)/
+vserver (cDOT/FlashRay)     lun-pathname               filename
+-----------------------------------------------------------------
+vs_brb     /vol/dmmp_raw_vol/lun_dmmp_raw              /dev/sdl
+vs_brb     /vol/dmmp_raw_alias_vol/lun_dmmp_raw_alias  /dev/sdk
+----
+. Konfigurieren Sie die DMMP-Geräte für Ihre Data ONTAP-LUNs in Clustern:
++
+`*multipath*`
+
+. Beziehen Sie die Geräte-Handle-IDs für die Clustered Data ONTAP LUNs:
++
+`*multipath -ll*`
+
++
+Das folgende Beispiel zeigt eine Gerätehandle-ID: "`3600a09804d532d79565d47617679764d`"
+
+. Überprüfen Sie, ob ein Alias im definiert ist `/etc/multipath.conf` Datei auf dem Quell-Host.
+. Kopieren Sie die Alias-Konfiguration manuell in die `/etc/multipath.conf` Datei auf dem Testhost, aber ersetzen Sie die 7-Mode Geräte-Handle-ID durch die entsprechende Clustered Data ONTAP-Gerätehandle-ID.
+. Verwenden Sie die `multipath` Befehl zum Konfigurieren von DMMP-Geräten für die Data ONTAP-LUNs in Clustern.
+. Identifizieren des Dateisystems, das auf dem DMMP-Alias-Gerät erstellt wurde:
++
+`*blkid _dmmp_device_name_*`
+
+. Montieren Sie das DMMP-Gerät:
++
+`*mount*`
+
+. Führen Sie Ihre Tests nach Bedarf durch.
+. Fahren Sie nach Abschluss der Tests den Testhost herunter:
++
+`*shutdown -h -t0 now*`
+
+. Klicken Sie in der 7MTT Benutzeroberfläche auf *Fertigstellen testen*.
+
+
+Wenn die Clustered Data ONTAP LUNs Ihrem Quell-Host neu zugeordnet werden sollen, müssen Sie den Quell-Host auf die Umstellungsphase vorbereiten. Wenn die geclusterten Data ONTAP LUNs Ihrem Testhost zugeordnet bleiben sollen, sind keine weiteren Schritte auf dem Testhost erforderlich.
+
+*Verwandte Informationen*
+
+xref:task_gathering_pretransition_information_from_inventory_assessment_workbook.adoc[Sammeln von Informationen zur Vorüberlösung aus dem Arbeitsbuch zur Bestandsbewertung]
+
+xref:task_preparing_for_cutover_when_transitioning_luns_with_mounts_using_dmmp_aliases_on_linux_hosts.adoc[Vorbereitung auf die Umstellungsphase beim Umstellen von LUNs mit Bereitstellungspunkten unter Verwendung von DMMP-Gerätenamen auf Linux-Hosts]

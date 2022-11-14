@@ -1,0 +1,33 @@
+---
+permalink: copy-free/concept_when_to_revert_and_when_to_call_technical_support_transition.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, roll, back, transition, technical, support 
+summary: Ein Rollback ist bei Test- oder Lab-Clustern ohne Unterstützung möglich. Wenn Probleme auftreten, die während oder nach der Transition auftreten, oder ein Rollback einer Transition in einem Produktions-Cluster durchgeführt werden soll, muss der technische Support hinzugezogen werden. 
+---
+= Wann ein Rollback durchgeführt wird und wann Sie den technischen Support anrufen müssen
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Ein Rollback ist bei Test- oder Lab-Clustern ohne Unterstützung möglich. Wenn Probleme auftreten, die während oder nach der Transition auftreten, oder ein Rollback einer Transition in einem Produktions-Cluster durchgeführt werden soll, muss der technische Support hinzugezogen werden.
+
+
+IMPORTANT: Sie sollten nicht versuchen, einen Wechsel in einer Produktionsumgebung wiederherzustellen, ohne dass Sie durch den technischen Support dazu Unterstützung erhalten.
+
+Wenn Sie einen der folgenden Umstände haben, wenden Sie sich sofort an den technischen Support:
+
+* Der Übergangsprozess schlägt fehl und kann nicht abgeschlossen werden. Sie sind sich nicht sicher, was als Nächstes tun soll.
+* Der Umstieg ist abgeschlossen, aber der Cluster kann in einer Produktionsumgebung nicht verwendet werden.
+* Der Umstieg wird beendet und das Cluster geht in die Produktion. Sie sind mit seinem Verhalten jedoch nicht zufrieden.
+* Der Wechsel ist für einige, jedoch nicht für alle Daten und Konfigurationen abgeschlossen, und Sie entscheiden, ein Rollback des Übergangs durchzuführen.
+* Sie haben ein Problem mit dem Übergangsprozess und können das Problem durch Fehlermeldungen im 7-Mode Transition Tool, in den EMS-Ereignismeldungen von Data ONTAP und der NetApp Knowledgebase nicht lösen.
++
+https://kb.netapp.com/["NetApp Knowledge Base"]
+
+
+
+*Verwandte Informationen*
+
+xref:task_collecting_tool_logs.adoc[Die Log-Dateien für die Transition werden heruntergeladen]

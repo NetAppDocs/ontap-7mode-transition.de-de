@@ -1,0 +1,14 @@
+---
+permalink: copy-based/concept_preparing_data_protection_features_for_transition.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, prepare, data, protection, features 
+summary: Für die Transition von 7-Mode SnapMirror Beziehungen müssen Sie einige manuelle Schritte durchführen. Sie müssen auch die Datensicherungsbeziehungen kennen, die für die Transition unterstützt und nicht unterstützt werden. 
+---
+= Vorbereiten von Datensicherungsfunktionen für die Transition
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Für die Transition von 7-Mode SnapMirror Beziehungen müssen Sie einige manuelle Schritte durchführen. Sie müssen auch die Datensicherungsbeziehungen kennen, die für die Transition unterstützt und nicht unterstützt werden.

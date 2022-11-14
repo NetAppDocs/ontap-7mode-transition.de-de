@@ -1,0 +1,18 @@
+---
+permalink: san-host/concept_preparing_windows_guest_operating_systems_for_transition.html 
+sidebar: sidebar 
+keywords: ontap, san, host, transition, windows, guest, operating, systems 
+summary: 'Wenn Ihre Windows-VMs physische kompatible RDM \(PTRDM\)-Geräte verwenden, müssen Sie die Festplatten vor der Umstellung in den Offline-Modus der Windows-VM versetzen. Sie können Disk Manager verwenden, um die Festplatten in den Offline-Modus zu versetzen.' 
+---
+= Vorbereiten von Windows Gastbetriebssystemen für die Umstellung
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Wenn Ihre Windows-VMs physische kompatible RDM-Geräte (PTRDM) verwenden, müssen Sie die Festplatten vor der Umstellung in den Offline-Modus der Windows-VM versetzen. Sie können Disk Manager verwenden, um die Festplatten in den Offline-Modus zu versetzen.
+
+* Führen Sie bei Copy-Based Transitions diese Schritte aus, bevor Sie den Storage-Umstellungsvorgang im 7-Mode Transition Tool (7MTT) initiieren.
+* Führen Sie bei Copy-Free Transitions die folgenden Schritte aus, bevor Sie den Betrieb der 7-Mode Systeme im 7MTT initiieren und anhalten.
+

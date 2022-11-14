@@ -1,0 +1,465 @@
+---
+permalink: copy-based/task_creating_schedule_for_snapmirror_transfers.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, create, data, copy, schedule, snapmirror, transfer 
+summary: Es können Zeitpläne für Datenkopiekopien erstellt werden, um die Vorgänge zu Transition-Datenkopiekopien für Volumes in einem Projekt effektiv zu managen. Sie können auch die Anzahl der gleichzeitigen SnapMirror Transfers angeben, die während dieses Zeitplans laufen müssen, um sicherzustellen, dass jeder Replizierungsvorgang nicht fehlschlägt, weil die simultanen SnapMirror Transfers das maximale Limit erreichen. 
+---
+= Erstellen eines Zeitplans für Datenkopien für SnapMirror Übertragungen
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Es können Zeitpläne für Datenkopiekopien erstellt werden, um die Vorgänge zu Transition-Datenkopiekopien für Volumes in einem Projekt effektiv zu managen. Sie können auch die Anzahl der gleichzeitigen SnapMirror Transfers angeben, die während dieses Zeitplans laufen müssen, um sicherzustellen, dass jeder Replizierungsvorgang nicht fehlschlägt, weil die simultanen SnapMirror Transfers das maximale Limit erreichen.
+
+* Das Projekt muss in der Vorbereitungsphase, der Datenkopieerstellung oder der Apply Configuration (precutuover)-Phase sein.
+* Damit die Zeitpläne effektiv sind, muss der 7-Mode Transition Tool Service immer ausgeführt werden.
+
+
+
+NOTE: Der Zeitplan für die Datenkopieerstellung wird für die Operationen der SnapMirror Basiskopie, Aktualisierung und Neusynchronisierung verwendet.
+
+* Sie müssen für jedes Projekt mindestens einen Zeitplan für die Datenkopieerstellung erstellen.
+* Sie können maximal 7 Zeitpläne pro Projekt erstellen. Die Zeitpläne können sich jedoch nicht innerhalb eines Projekts überschneiden.
++
+Sie können beispielsweise individuelle Zeitpläne für Geschäftszeiten und nicht-Geschäftszeiten, DR-Stunden, außerhalb der DR-Geschäftszeiten und an Wochentagen und an Wochenenden erstellen.
+
++
+
+NOTE: Wenn Projekte denselben 7-Mode Controller oder denselben Cluster verwenden, stellen Sie sicher, dass sich die Zeitpläne für Datenkopiekopien nicht für verschiedene Projekte überlappen.
+
+* Die konfigurierten Zeitpläne werden auf Grundlage der Zeitzone des 7-Mode Controllers angewendet.
+* Die Anzahl gleichzeitiger SnapMirror Transfers, die während des Zeitplans verwendet werden, wird zur Laufzeit basierend auf dem Prozentsatz gleichzeitiger SnapMirror Streams ermittelt, die verwendet werden sollen, und dem konfigurierten Höchstlimit.
+* Die Anzahl gleichzeitiger SnapMirror Transfers, die im Zeitplan verwendet werden, sollte so vorgesehen werden, dass die bestehenden 7-Mode DR-Zeitpläne aufgrund des Tools unter Verwendung der mit dem Zeitplan angegebenen SnapMirror Transfers nicht beeinträchtigt werden.
+* Wenn die Anzahl der gleichzeitigen SnapMirror Transfers vom Tool geringer ist als die konfigurierte Anzahl gleichzeitiger SnapMirror Transfers, die während des Zeitplans verwendet werden, so plant das Tool neue Transfers für die Nutzung der verbleibenden Transfers.
+* Sollte der Zeitplan enden oder die Anzahl gleichzeitiger SnapMirror Transfers auf dem 7-Mode Storage-System verringern, so bricht das Tool die zusätzlichen Transfers ab, um sicherzustellen, dass nur die konfigurierte Anzahl an Transfers zu einem beliebigen Zeitpunkt genutzt wird.
++
+
+NOTE: Wenn eine Baseline läuft und ein Snapshot Checkpoint noch nicht erstellt wird, wird der Transfer nicht abgebrochen, es wartet jedoch, bis der Snapshot Checkpoint erstellt wird, bevor der Transfer abgebrochen wird.
+
+
+
+.Schritte
+. Erstellen Sie Zeitpläne auf der Seite „Zeitplan für Datenkopiekopien“ des Dashboards, indem Sie auf *Projekt bearbeiten* klicken und dann *Zeitplan konfigurieren* wählen.
+. Geben Sie einen Namen für den neuen Zeitplan ein.
+. Wählen Sie im Fenster wiederkehrende Tage die Tage aus, an denen der Vorgang der Datenkopieerstellung ausgeführt werden soll.
++
+|===
+| Wenn Sie Datenkopievorgänge ausführen möchten... | Dann... 
+
+
+ a| 
+Täglich
+ a| 
+Wählen Sie * Daily*. Dies ist der Standardwert.
+
+
+
+ a| 
+Nur an bestimmten Tagen
+ a| 
+.. Wählen Sie *Tage Auswählen*.
+.. Wählen Sie die Wochentage aus.
+
+
+|===
+. Geben Sie im Fenster Zeitintervall die Startzeit, die Dauer und die Häufigkeit des Zeitplans für die Datenkopieerstellung an.
++
+.. Geben Sie die Zeit ein, zu der die Datenkopievorgänge beginnen sollen, indem Sie die Stunden und Minuten aus der Dropdown-Liste *Startzeit* auswählen.
++
+Gültige Werte liegen zwischen 00:00 und 23:30 Uhr.
+
+.. Geben Sie den Zeitraum ein, für den die Datenkopievorgänge ausgeführt werden sollen. Wählen Sie aus der Dropdown-Liste *Dauer* die Stunden und Minuten aus.
++
+
+NOTE: Die Dauer eines Zeitplans sollte eine Woche (167 Stunden und 30 Minuten) nicht überschreiten.
+
++
+Wenn beispielsweise 20:30 angegeben wird, werden die SnapMirror Vorgänge für die nächsten 20 Stunden und 30 Minuten nach dem Start ausgeführt.
+
+.. Wählen Sie die Häufigkeit aus, mit der nach Abschluss des Basistransfers (innerhalb der erstellten Zeitplandauer) inkrementelle Transfers durchgeführt werden sollen, indem Sie eine der folgenden Aktionen durchführen:
++
+*** Wählen Sie die Stunden und Minuten aus der Dropdown-Liste *Häufigkeit aktualisieren* aus.
+*** Wählen Sie *Kontinuierliche Updates*.
++
+Die minimale Verzögerung zwischen zwei aufeinanderfolgenden Aktualisierungen beträgt 5 Minuten.
+
+
+
+
+
++
+Standardmäßig werden SnapMirror Updates alle 30 Minuten ausgeführt.
+
+. Geben Sie im Teilfenster „Parameter für Transition Data Copy Operations“ die SnapMirror-Parameter ein.
++
+.. Geben Sie die maximale Anzahl gleichzeitiger SnapMirror Transfers an, die für Datenkopieerstellung verwendet werden sollen, indem Sie eine oder alle der folgenden Vorgänge ausführen:
++
+*** Geben Sie den Prozentsatz der verfügbaren SnapMirror Transfers des Volume an, die für Datenkopieerstellung verwendet werden sollen (wenn der Zeitplan aktiv ist), indem Sie den Prozentsatz in das Feld *maximale Anzahl gleichzeitiger VSM Transfers* eingeben.
++
+Die verfügbaren SnapMirror Transfers des Volume werden während der Laufzeit berechnet.
+
++
+
+NOTE: In diesem Teilfenster wird die maximale Anzahl gleichzeitiger SnapMirror Transfers auf Ihrer Plattform angezeigt.
+
+*** Geben Sie die maximale Anzahl gleichzeitiger Volume SnapMirror Transfers an, die während dieses Zeitplans im Feld *nicht größer als* ausgeführt werden können. Wenn Sie beide Werte eingeben, wird der niedrigste Wert als Anzahl gleichzeitiger Transfers verwendet.
+
+
+
+
++
+Die Anzahl der gleichzeitigen Transfers, die für den Übergang verwendet werden, wird zur Laufzeit auf der Grundlage des Zeitplans und der Anzahl der konfigurierten gleichzeitigen Transfers berechnet.
+
++
++ Ihre Plattform unterstützt maximal 100 gleichzeitige Volume SnapMirror Transfers, derzeit sind 60 verfügbar, und Sie haben die folgenden Werte angegeben:
+
++
+** Der Prozentsatz der verfügbaren Option für die Übertragung von Volume SnapMirror beträgt 50 %.
++
+Die maximale Anzahl gleichzeitiger Transfers basierend auf der Option „Prozentsatz“ beträgt 50 % von 60 = 30.
+
+** Die maximale Anzahl der gleichzeitigen Volume SnapMirror Transfers ist 25. In diesem Szenario setzt das Tool die maximale Anzahl gleichzeitiger Volume SnapMirror Transfers auf 25, was die niedrigste der beiden Werte ist.
++
+... Geben Sie die maximale Bandbreite in MB/s (Drosselklappe) an, indem Sie einen der folgenden Schritte ausführen:
++
+|===
+| Ihr Ziel ist | Dann... 
+
+
+ a| 
+Nutzung der gesamten verfügbaren Bandbreite
+ a| 
+Wählen Sie *Maximum*. Dies ist der Standardwert.
+
+
+
+ a| 
+Geben Sie den Drosselwert an
+ a| 
+Geben Sie den Wert in das Feld *nicht größer* ein. Maximal zulässiger Eingabewert: 4194303.
+
++
+
+|===
++
+Der Drosselwert wird gleichmäßig auf alle aktiven Transfers im Projekt verteilt.
+
++
+
+NOTE: Die Drosselklappe für jeden Transfer wird während der Laufzeit basierend auf der Anzahl der verfügbaren gleichzeitigen Volume SnapMirror Transfers ermittelt.
+
++
+Wenn der aktive Zeitplan mit dem Drosselwert von 200 Mbit/s konfiguriert ist und nur 10 gleichzeitige Transfers verfügbar sind, benötigt jede Übertragung 20 Mbit/s Bandbreite.
+
+
+
+
+
+
+
+Die Zeitpläne werden nur wirksam, wenn sich das Projekt in der Datenkopieerstellung befindet oder die Konfigurationsphase (Vorumstellungsphase) angewendet wird.
+
+
+
+== Beispiel für die Planung eines Datenkopieplans
+
+Betrachten Sie einen 7-Mode Controller, der 100 gleichzeitige SnapMirror Transfers mit 75 DR-Beziehungen unterstützt. Die geschäftlichen Anforderungen müssen SnapMirror Vorgänge während der folgenden Zeiträume ausführen:
+
+|===
+| Tage | Zeit | Derzeit werden SnapMirror-Transfers genutzt 
+
+
+ a| 
+Montag bis Freitag
+ a| 
+9:00 Uhr Bis 5:00 Uhr
+ a| 
+50% der verfügbaren Transfers
+
+
+
+ a| 
+Montag bis Freitag
+ a| 
+11:30 Uhr Bis 2:30 Uhr
+ a| 
+75 Transfers für DR verwendet
+
+
+
+ a| 
+Montag bis Freitag
+ a| 
+2:30 Uhr Bis 9:00 Uhr Und
+
+5:00 Uhr Bis 11:30 Uhr
+ a| 
+25% der verfügbaren Transfers
+
+
+
+ a| 
+Samstag bis Montag
+ a| 
+2:30 Uhr (Samstag) bis 9:00 Uhr (Montag)
+ a| 
+10% der verfügbaren Transfers
+
+|===
+Sie können die folgenden Zeitpläne für Datenkopiekopien erstellen, um den Betrieb Ihrer Transition-Datenkopievorgänge zu managen:
+
+|===
+| Zeitplan | Option | Wert 
+
+
+ a| 
+Spitzenzeiten
+ a| 
+Tagesspanne
+ a| 
+Montag bis Freitag
+
+
+
+ a| 
+Startzeit
+ a| 
+09:30 Uhr
+
+
+
+ a| 
+Dauer
+ a| 
+8:00 Uhr
+
+
+
+ a| 
+Prozentsatz der maximalen Anzahl gleichzeitiger Transfers
+ a| 
+50
+
+
+
+ a| 
+Die maximale Anzahl gleichzeitiger Transfers
+ a| 
+
+
+
+ a| 
+Drosselklappe (MB/s)
+ a| 
+100
+
+
+
+ a| 
+Aktualisierungshäufigkeit
+ a| 
+0:00
+
+
+
+ a| 
+dr_aktiv
+ a| 
+Tagesspanne
+ a| 
+Montag bis Freitag
+
+
+
+ a| 
+Startzeit
+ a| 
+23:30 Uhr
+
+
+
+ a| 
+Dauer
+ a| 
+3:00 Uhr
+
+
+
+ a| 
+Prozentsatz der maximalen Anzahl gleichzeitiger Transfers
+ a| 
+
+
+
+ a| 
+Die maximale Anzahl gleichzeitiger Transfers
+ a| 
+25
+
+
+
+ a| 
+Drosselklappe (MB/s)
+ a| 
+200
+
+
+
+ a| 
+Aktualisierungshäufigkeit
+ a| 
+0:30
+
+
+
+ a| 
+Non_Peak_Non_dr1
+ a| 
+Tagesspanne
+ a| 
+Montag bis Freitag
+
+
+
+ a| 
+Startzeit
+ a| 
+17:00 Uhr
+
+
+
+ a| 
+Dauer
+ a| 
+6:30 Uhr
+
+
+
+ a| 
+Prozentsatz der maximalen Anzahl gleichzeitiger Transfers
+ a| 
+75
+
+
+
+ a| 
+Die maximale Anzahl gleichzeitiger Transfers
+ a| 
+
+
+
+ a| 
+Drosselklappe (MB/s)
+ a| 
+300
+
+
+
+ a| 
+Aktualisierungshäufigkeit
+ a| 
+1:00
+
+
+
+ a| 
+Non_Peak_Non_dr2
+ a| 
+Tagesspanne
+ a| 
+Montag bis Freitag
+
+
+
+ a| 
+Startzeit
+ a| 
+02:30 Uhr
+
+
+
+ a| 
+Dauer
+ a| 
+6:30 Uhr
+
+
+
+ a| 
+Prozentsatz der maximalen Anzahl gleichzeitiger Transfers
+ a| 
+75
+
+
+
+ a| 
+Die maximale Anzahl gleichzeitiger Transfers
+ a| 
+
+
+
+ a| 
+Drosselklappe (MB/s)
+ a| 
+300
+
+
+
+ a| 
+Aktualisierungshäufigkeit
+ a| 
+1:00
+
+
+
+ a| 
+Wochenende
+ a| 
+Tagesspanne
+ a| 
+Samstag
+
+
+
+ a| 
+Startzeit
+ a| 
+02:30 Uhr
+
+
+
+ a| 
+Dauer
+ a| 
+53:30 Uhr
+
+
+
+ a| 
+Prozentsatz der maximalen Anzahl gleichzeitiger Transfers
+ a| 
+90
+
+
+
+ a| 
+Die maximale Anzahl gleichzeitiger Transfers
+ a| 
+
+
+
+ a| 
+Drosselklappe (MB/s)
+ a| 
+500
+
+
+
+ a| 
+Aktualisierungshäufigkeit
+ a| 
+2:00
+
+|===

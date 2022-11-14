@@ -1,0 +1,26 @@
+---
+permalink: copy-based/task_editing_a_subproject.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, edit, project 
+summary: Sie können ein Projekt bearbeiten, um Volumes hinzuzufügen oder zu entfernen und die Umstiegkonfigurationen zu ändern. 
+---
+= Bearbeiten eines Projekts
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können ein Projekt bearbeiten, um Volumes hinzuzufügen oder zu entfernen und die Umstiegkonfigurationen zu ändern.
+
+* Sie müssen ein Projekt erstellt haben.
+* Sie dürfen das Projekt, das Sie bearbeiten möchten, nicht gestartet haben.
+
+
+Sie können ein Projekt bearbeiten, um die Volumes zu ändern, die für den Übergang ausgewählt wurden. Sie können außerdem ein Projekt bearbeiten, um die SVM-Zuordnung, die Volume-Zuordnung und die Schnittstellenzuordnung zu ändern und den Zeitplan für Datenkopieerstellung zu planen. Sie können den Projekttyp oder die Einheit von vFiler nicht ändern, wenn ein Projekt bearbeitet wird.
+
+.Schritte
+. Wählen Sie im Fenster *Dashboard* das Projekt aus, das Sie bearbeiten möchten.
+. Klicken Sie auf *Projekt bearbeiten* und wählen Sie den gewünschten Schritt aus der Dropdown-Liste aus.
+. Füllen Sie den Assistenten aus, um Ihr Projekt zu bearbeiten.
+

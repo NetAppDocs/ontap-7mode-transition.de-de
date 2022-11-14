@@ -1,0 +1,61 @@
+---
+permalink: copy-free/task_exporting_7_mode_system_and_hardware_information.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, exporte, storage, configurations, halt 
+summary: Das Umstellungsfenster für den Übergang beginnt in der Exportphase. In dieser Phase sammelt das Tool Systeminformationen, Festplatten-Shelf-Details und Storage-Konfigurationen aus den 7-Mode Systemen und stoppt dann die 7-Mode Storage-Systeme. 
+---
+= Export von Storage-Konfigurationen und Unterbrechen von 7-Mode Systemen
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Das Umstellungsfenster für den Übergang beginnt in der Exportphase. In dieser Phase sammelt das Tool Systeminformationen, Festplatten-Shelf-Details und Storage-Konfigurationen aus den 7-Mode Systemen und stoppt dann die 7-Mode Storage-Systeme.
+
+* Der Service-Prozessor (SP) oder das Remote LAN-Modul (RLM) muss auf dem 7-Mode System mit einer IPv4-Adresse konfiguriert sein.
+* Alle Clients müssen von den 7-Mode Systemen getrennt werden (durch das Trennen der NFS-Exporte, die Trennung von CIFS-Freigaben und das Herunterfahren von SAN-Hosts). Auf den 7-Mode Systemen müssen jedoch die entsprechenden NAS- und SAN-Services ausgeführt werden.
++
+
+IMPORTANT: Sie dürfen keine Protokollservices anhalten, da sie für das Erfassen der Protokollkonfigurationen von den 7-Mode Storage-Systemen erforderlich sind.
+
+* Alle Daten, die während dieses Vorgangs auf die 7-Mode Volumes geschrieben wurden, gehen verloren.
+* Während dieses Vorgangs sind keine Managementvorgänge auf den 7-Mode Systemen auszuführen.
+* Das Tool führt in der Exportphase folgende Vorgänge durch:
++
+** Erfassung aller Volume- und Storage-Konfigurationen
+** Erstellt eine Snapshot Kopie jedes Umstiegs-Aggregats
++
+Wenn Sie sich dazu entscheiden, in jeder Phase des Übergangs auf 7-Mode zurückzusetzen, werden die Snapshot Kopien vom Tool für den Wechsel verwendet.
+
+** Bootet die 7-Mode Controller im Wartungsmodus
+** Entfernt Festplatteneigentümerschaften von den 7-Mode Controllern
+** Deaktiviert die automatische Festplattenzuordnung auf den Ziel-Cluster-Knoten
+
+
+
+
+.Schritte
+. Klicken Sie Auf *Exportieren & Anhalten*.
++
+Es wird eine Meldung angezeigt, in der wichtige Überlegungen für diesen Vorgang aufgeführt sind.
+
+. Aktivieren Sie das Kontrollkästchen *Bestätigen, dass der Clientzugriff getrennt ist*.
+. Klicken Sie auf *Ja*, um mit dem Export und dem Stoppen fortzufahren.
++
+Die Operationsergebnisse werden angezeigt.
+
+. Warten Sie, bis der Vorgang abgeschlossen ist, und führen Sie die folgenden Schritte aus, um die Operationsergebnisse zu speichern und die Werkzeugprotokolle zu erfassen:
++
+.. Klicken Sie auf *als CSV speichern*, um die Operation zu speichern, führt zu einer Datei.
+.. Klicken Sie auf *Collect Tool Logs*, um eine Sicherung aller Transition Log-Dateien zu erstellen.
++
+Es empfiehlt sich, die Protokolldateien nach jedem Übergangsvorgang zu speichern.
+
+.. Klicken Sie auf *Schließen*, um das Fenster mit den Operationsergebnissen zu schließen.
+
+
++
+Wenn der Vorgang lange dauert, können Sie auf *im Hintergrund* klicken, um das Fenster mit den Operationsergebnissen zu verlassen. Sie sollten das Projekt nicht bearbeiten oder eine andere Aufgabe ausführen, wenn der Vorgang im Hintergrund ausgeführt wird. Anschließend können Sie die Ergebnisse der Vorgänge auf der Registerkarte „Operation History“ anzeigen.
+
+

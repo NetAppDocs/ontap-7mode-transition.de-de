@@ -1,0 +1,151 @@
+---
+permalink: copy-free/concept_restrictions_during_preproduction_testing.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, preproduction, testing, restrictions 
+summary: Einige Vorgänge sind blockiert und einige Operationen werden nicht während der Vorproduktionstests empfohlen. Diese Einschränkungen werden auferlegt, um ein Rollback auf 7-Mode zu ermöglichen, wenn der Übergang nicht durchgeführt werden soll. 
+---
+= Einschränkungen bei Vorproduktionstests
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Einige Vorgänge sind blockiert und einige Operationen werden nicht während der Vorproduktionstests empfohlen. Diese Einschränkungen werden auferlegt, um ein Rollback auf 7-Mode zu ermöglichen, wenn der Übergang nicht durchgeführt werden soll.
+
+
+
+== Blockierte Vorgänge
+
+|===
+| Betrieb | Beschreibung 
+
+
+ a| 
+Automatisches Löschen (Löschen) von Snapshot-Kopien von Aggregaten
+ a| 
+Da für Rollbacks die während des Exportvorgangs erstellten Snapshot Kopien auf Aggregatebene mit 7-Mode erforderlich sind, werden die Snapshot Kopien nicht automatisch gelöscht, wenn der genutzte Speicherplatz im Aggregat wächst.
+
+
+IMPORTANT: Sie müssen den freien physischen Speicherplatz im Aggregat überwachen und sicherstellen, dass den Aggregaten während des Tests nicht mehr genügend Speicherplatz zur Verfügung steht.
+
+
+
+ a| 
+Verschieben von Volumes zu einem anderen Aggregat
+ a| 
+* Sie können Volumes nicht in die übergewechselt Aggregate verschieben.
+* Sie können Volumes aus den übergewechselt Aggregaten zu Aggregaten im Cluster verschieben.
+
+
+
+
+ a| 
+Kopieren oder Verschieben von LUNs über Volumes hinweg
+ a| 
+* Sie können LUNs nicht auf die Volumes kopieren oder verschieben, die aus dem Wechsel migriert wurden.
+* Sie können LUNs aus den übergewechselt Volumes auf andere Volumes im Cluster kopieren oder verschieben.
+
+
+
+
+ a| 
+Erstellung eines Aggregats
+ a| 
+Dieser Vorgang ist auf das HA-Paar des Ziel-Clusters beschränkt. Sie können Aggregate auf anderen Nodes im Cluster erstellen.
+
+
+
+ a| 
+Zerstören eines Aggregats
+ a| 
+Da bei einem Rollback die während des Exportvorgangs erstellten Snapshot Kopien auf Aggregatebene mit 7-Mode erforderlich sind, können die ummigrierte Aggregate nicht zerstört werden.
+
+
+
+ a| 
+Einrichtung eines migrierte Aggregats als Root-Aggregat
+ a| 
+Die ummigrierte Aggregate können nicht als Root-Aggregate ausgewählt werden. Außerdem können Sie die HA-Richtlinie der übermigrierte Aggregate nicht an den CFO ändern.
+
+
+
+ a| 
+Durchführen von Dateikopiervorgängen
+ a| 
+* Es ist nicht möglich, Dateien (einzelne Dateikopien) nach Bedarf zu den überstellt Volumes zu verschieben oder zu kopieren.
+* Sie können Dateien von den übergewechselt-Volumes auf andere Volumes im Cluster verschieben oder kopieren.
+
+
+
+
+ a| 
+Spiegelung eines vorhandenen Aggregats
+ a| 
+Der Vorgang ist für alle Aggregate im Cluster gesperrt.
+
+
+
+ a| 
+Aktualisieren oder Zurücksetzen der Data ONTAP-Version auf den Ziel-Cluster-Nodes
+ a| 
+Sie müssen das Projekt festlegen, bevor Sie die Ziel-Cluster-Nodes aktualisieren oder zurücksetzen.
+
+
+
+ a| 
+Hinzufügen von Festplatten
+ a| 
+Sie können den nicht ausführen `storage aggregate add-disks` Befehl in der Administrator-Berechtigungsebene. Sie können diesen Befehl jedoch in der erweiterten Berechtigungsebene ausführen.
+
+
+IMPORTANT: Es muss sichergestellt werden, dass nur die freien Festplatten der 7-Mode Platten-Shelves hinzugefügt werden, um den Speicherplatz in den überlauften Aggregaten zu erhöhen. Sie müssen Ersatzfestplatten mithilfe der hinzufügen `-disklist` Parameter (das `-diskcount` Parameter darf nicht verwendet werden).
+
+
+
+ a| 
+Festlegen eines übergegangen Volume als SVM-Root-Volume
+ a| 
+Sie können den nicht ausführen `volume make-vsroot` Befehl für die übergewechselt-Volumes.
+
+|===
+
+
+== Vorgänge, die nicht empfohlen werden
+
+|===
+| Betrieb | Korrekturmaßnahmen vor dem Rollback 
+
+
+ a| 
+Verschieben von Aggregaten
+
+Die Eigentümerschaft des aus- und wieder übergegangen Aggregats wird zu seinem HA-Partner geändert.
+ a| 
+Tauschen Sie die Eigentümerschaft des Aggregats vor dem Rollback aus, da das 7-Mode Transition Tool die Aggregate basierend auf den im Projekt gespeicherten Informationen zur Zuordnung der Ziel-Nodes zu den 7-Mode Controllern zuordnet.
+
+
+
+ a| 
+Erstellung von Volumes auf den übergewechselt Aggregaten
+ a| 
+Sie müssen diese Volumes löschen oder sie in andere Aggregate verschieben.
+
+
+
+ a| 
+Umbenennen von Aggregaten oder Volumes
+ a| 
+Benennen Sie die Aggregate oder Volumes in ihre ursprünglichen Namen um.
+
+
+
+ a| 
+Ändern des RAID-Typs
+ a| 
+Der RAID-Typ muss mit dem 7-Mode RAID-Typ übereinstimmen, wenn Sie einen Rollback zu 7-Mode durchführen.
+
+|===
+*Verwandte Informationen*
+
+http://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-cmpr/GUID-5CB10C70-AC11-41C0-8C16-B4D0DF916E9B.html["ONTAP 9-Befehle"]

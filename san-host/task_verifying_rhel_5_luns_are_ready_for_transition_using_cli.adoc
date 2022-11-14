@@ -1,0 +1,35 @@
+---
+permalink: san-host/task_verifying_rhel_5_luns_are_ready_for_transition_using_cli.html 
+sidebar: sidebar 
+keywords: ontap, san, host, transition, rhel, 5, lun, cli 
+summary: 'Wenn Ihre Red hat Enterprise Linux \(RHEL\) 5 LUN mit einem Device Mapper Multipath \ (DMMP\) konfiguriert ist, sollten Sie vor der Umstellung der LUN von Data ONTAP 7-Mode auf Clustered Data ONTAP überprüfen, ob ein Dateisystem nicht konfiguriert ist.' 
+---
+= Überprüfung, ob RHEL 5 LUNs über die CLI bereit für den Umstieg sind
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Wenn Ihre Red hat Enterprise Linux (RHEL) 5 LUN mit einem Device Mapper Multipath (DMMP) konfiguriert ist, sollten Sie vor der Umstellung der LUN von Data ONTAP 7-Mode auf Clustered Data ONTAP überprüfen, ob ein Dateisystem nicht konfiguriert ist.
+
+.Schritte
+. Suchen Sie den SCSI-Gerätenamen für die zu migrierte LUN:
++
+`*sanlun lunshow*`
+
+. Identifizieren Sie den DMMP-Gerätenamen für die LUN:
++
+`*multipath -11*`
+
++
+Der DMMP-Gerätename kann eine Geräte-Handle-ID (WWID) sein, z. B. `360a980003753456258244538554b4b53`Oder es kann ein Alias sein, wie, `dmmp_raw_lun`.
+
+. Vergewissern Sie sich, dass die LUN kein Dateisystem besitzt:
++
+`*dumpe2fs/dev/mapper/__DMMP device name__*`
+
++
+Wenn die LUN kein Dateisystem hat, konnte kein gültiges Dateisystem-Superblock finden wird in der Ausgabe angezeigt.
+
+

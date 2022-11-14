@@ -1,0 +1,56 @@
+---
+permalink: copy-based/task_recovering_from_a_failed_lun_transition.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, recover, failed, lun 
+summary: Wenn der Übergang von Volumes mit LUNs fehlschlägt, können Sie mit dem 7-Mode show-Befehl für die lun Transition überprüfen, welche LUNs nicht zu ONTAP migriert wurden, und dann eine Korrekturmaßnahme ermitteln. 
+---
+= Wiederherstellung nach einer fehlerhaften LUN-Umstellung
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Wenn der Übergang von Volumes mit LUNs fehlschlägt, können Sie mit dem 7-Mode show-Befehl für die lun Transition überprüfen, welche LUNs nicht zu ONTAP migriert wurden, und dann eine Korrekturmaßnahme ermitteln.
+
+.Schritte
+. Ändern Sie die erweiterte Berechtigungsebene:
++
+`*set -privilege advanced*`
+
+. Überprüfen Sie, welche LUNs fehlgeschlagen sind:
++
+`*lun transition 7-mode show*`
+
+. Überprüfen Sie die EMS-Protokolle, und bestimmen Sie die erforderlichen Korrekturmaßnahmen.
+. Führen Sie die in der EMS-Meldung aufgeführten Schritte aus, um den Fehler zu beheben.
+. Wenn alle unterstützten LUNs den Übergang fehlgeschlagen haben, schließen Sie den Übergang ab:
++
+`*lun transition start*`
+
+. Anzeigen des Übergangsstatus der Volumes:
++
+`*lun transition show*`
+
++
+Der Übergangsstatus kann einer der folgenden Werte sein:
+
++
+** `active`: Das Volumen befindet sich in einer aktiven SnapMirror Übergangsbeziehung und noch nicht verschoben.
+** `complete`: Alle unterstützten LUNs werden für dieses Volume verschoben.
+** `failed`: LUN-Übergang für das Volume fehlgeschlagen.
+** `none`: Das Volumen enthielt keine LUNs zum Übergang von 7-Mode Systemen.
+
+
++
+[listing]
+----
+cluster1::*> lun transition show
+Vserver              Volume             Transition Status
+-------------------- ------------------ -----------------
+vs1                  vol0               none
+                     vol1               complete
+                     vol2               failed
+                     vol3               active
+----
+

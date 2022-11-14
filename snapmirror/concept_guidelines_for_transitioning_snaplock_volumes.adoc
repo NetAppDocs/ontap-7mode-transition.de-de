@@ -1,0 +1,34 @@
+---
+permalink: snapmirror/concept_guidelines_for_transitioning_snaplock_volumes.html 
+sidebar: sidebar 
+keywords: ontap, 7, mode, transition, guidelines, snaplock, volumes, requirements 
+summary: Sie können 7-Mode SnapLock Volumes zu SnapLock Volumes überführen, die in ONTAP 9.5 oder früher erstellt wurden. Sie müssen die Anforderungen und Richtlinien für den Wechsel zu SnapLock Volumes kennen. 
+---
+= Richtlinien für die Transition von SnapLock Volumes
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können 7-Mode SnapLock Volumes zu SnapLock Volumes überführen, die in ONTAP 9.5 oder früher erstellt wurden. Sie müssen die Anforderungen und Richtlinien für den Wechsel zu SnapLock Volumes kennen.
+
+* Eine Transition von 7-Mode SnapLock Volumes wird nicht unterstützt, wenn die SnapLock Volumes LUNs enthalten.
+* Sie können 7-Mode SnapLock Enterprise Volumes nur in ONTAP 9.5 oder einer älteren Version auf SnapLock Enterprise Volumes migrieren.
+* Sie können 7-Mode SnapLock Compliance Volumes nur in ONTAP 9.5 oder früher auf SnapLock Compliance Volumes umstellen.
+* Beim Wechsel einer 7-Mode Volume SnapMirror Beziehung können Sie gestaffelte Transition (zuerst sekundärer und dann primärer Übergang) nur für SnapLock Enterprise Volumes nutzen.
++
+Disaster Recovery (DR)-Beziehung zwischen 7-Mode primären Volumes und sekundären ONTAP Volumes wird nur für SnapLock Enterprise Volumes unterstützt, nicht aber für SnapLock Compliance Volumes.
+
++
+xref:task_transitioning_a_data_protection_relationship.adoc[Umstellung einer Volume SnapMirror Beziehung in einer gestaffelten Konfiguration]
+
+* Sie müssen eine 7-Mode Volume SnapMirror Beziehung zwischen SnapLock Compliance Volumes verschieben, indem Sie die primären und sekundären Volumes parallel verschieben.
++
+xref:task_transitioning_a_volume_snapmirror_relationship_in_parallel.adoc[Parallel zur Transition einer Volume-SnapMirror-Beziehung]
+
+
+
+*Verwandte Informationen*
+
+https://docs.netapp.com/ontap-9/topic/com.netapp.doc.pow-arch-con/home.html["Archivierung und Compliance mit SnapLock Technologie"]

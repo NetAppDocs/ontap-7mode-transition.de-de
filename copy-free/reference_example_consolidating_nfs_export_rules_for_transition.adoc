@@ -1,0 +1,298 @@
+---
+permalink: copy-free/reference_example_consolidating_nfs_export_rules_for_transition.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, examples, nfs, export, rules, snapshot, schedules 
+summary: Vielleicht möchten Sie noch einmal Beispiele dafür finden, wie ähnliche 7-Mode Exportregeln und 7-Mode Snapshot Zeitpläne zu einer einzelnen NFS-Exportrichtlinie und einer einzelnen Snapshot-Richtlinie in ONTAP konsolidiert werden. Es könnte sich auch interessieren, wie die konsolidierten Richtlinien den übergewechselt werden Volumes oder qtrees mit oder ohne eine entsprechende vorhandene Richtlinie auf der Ziel-SVM zugewiesen werden. 
+---
+= Beispiele für die Konsolidierung von NFS-Exportregeln und Snapshot-Zeitplänen für die Transition
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Vielleicht möchten Sie noch einmal Beispiele dafür finden, wie ähnliche 7-Mode Exportregeln und 7-Mode Snapshot Zeitpläne zu einer einzelnen NFS-Exportrichtlinie und einer einzelnen Snapshot-Richtlinie in ONTAP konsolidiert werden. Es könnte sich auch interessieren, wie die konsolidierten Richtlinien den übergewechselt werden Volumes oder qtrees mit oder ohne eine entsprechende vorhandene Richtlinie auf der Ziel-SVM zugewiesen werden.
+
+
+
+== Beispiel für die Konsolidierung von NFS-Exportregeln für den Übergang
+
+*NFS-Exportregeln in 7-Mode und ONTAP vor dem Übergang*
+
+*7-Mode-Exportregeln*
+
+[listing]
+----
+/vol/vol1       -sec=sys,rw,nosuid
+/vol/vol2       -sec=sys,rw,nosuid
+/vol/vol3       -sec=sys,rw,nosuid
+----
+*Exportrichtlinien in ONTAP* vorhanden
+
+[listing]
+----
+cluster-2::> vserver export-policy show -vserver vs1
+Vserver          Policy Name
+---------------  -------------------
+vs1              default
+vs1              export_policy_1
+----
+Die vorhandene Exportrichtlinie Export_Policy_1 hat die folgende Exportregel:
+
+[listing]
+----
+cluster-2::> vserver export-policy rule show -vserver vs1 -policyname export_policy_1
+             Policy          Rule    Access   Client                RO
+Vserver      Name            Index   Protocol Match                 Rule
+------------ --------------- ------  -------- --------------------- ---------
+vs1          export_policy_1 1       nfs      0.0.0.0/0             sys
+----
+*Exportrichtlinien in ONTAP nach dem Übergang mit Konsolidierung (keine Wiederverwendung)*
+
+Volumes vol1, vol2 und vol3 haben ähnliche Exportregeln im 7-Mode. Daher wird nach dem Übergang eine neue konsolidierte Exportrichtlinie, Transition_Export_Policy_1, diesen Volumes zugewiesen:
+
+[listing]
+----
+cluster-2::> vserver export-policy show -vserver vs1
+Vserver          Policy Name
+---------------  -------------------
+vs1              default
+vs1              export_policy_1
+vs1              transition_export_policy_1
+3 entries were displayed.
+----
+[listing]
+----
+cluster-2::> vserver export-policy rule show -vserver vs1 -policyname transition_export_policy_1
+             Policy          Rule    Access   Client                RO
+Vserver      Name            Index   Protocol Match                 Rule
+------------ --------------- ------  -------- --------------------- ---------
+vs1          transition_export_policy_1
+                             1       nfs      0.0.0.0/0             sys
+----
+[listing]
+----
+cluster-2::> volume show -vserver vs1 -volume vol1,vol2,vol3 -fields policy
+vserver volume policy
+------- ------ --------------------------
+vs1     vol1   transition_export_policy_1
+vs1     vol2   transition_export_policy_1
+vs1     vol3   transition_export_policy_1
+3 entries were displayed.
+----
+*Exportpolitik in ONTAP nach dem Übergang mit Konsolidierung und Wiederverwendung*
+
+Volumes vol1, vol2 und vol3 haben ähnliche Exportregeln in 7-Mode. Daher wird diesen Volumes nach dem Übergang eine konsolidierte Exportrichtlinie zugewiesen. Die Exportrichtlinie „Export_Policy_1“, die den Exportregeln für 7-Mode entspricht, ist bereits auf der SVM vorhanden. Die Richtlinie wird daher auf diese Volumes angewendet:
+
+[listing]
+----
+cluster-2::> vserver export-policy show -vserver vs1
+Vserver          Policy Name
+---------------  -------------------
+vs1              default
+vs1              export_policy_1
+2 entries were displayed.
+----
+[listing]
+----
+cluster-2::> vserver export-policy rule show -vserver vs1 -policyname export_policy_1
+             Policy          Rule    Access   Client                RO
+Vserver      Name            Index   Protocol Match                 Rule
+------------ --------------- ------  -------- --------------------- ---------
+vs1          export_policy_1 1       nfs      0.0.0.0/0             sys
+----
+[listing]
+----
+cluster-2::> volume show -vserver vs1 -volume vol1,vol2,vol3 -fields policy
+vserver volume policy
+------- ------ --------------------------
+vs1     vol1   export_policy_1
+vs1     vol2   export_policy_1
+vs1     vol3   export_policy_1
+3 entries were displayed.
+----
+
+
+== Beispiel einer Konsolidierung von Snapshot Richtlinien für den Übergang
+
+*Snapshot-Zeitpläne in 7-Mode und ONTAP vor dem Übergang*
+
+*7-Mode Zeitplan*
+
+|===
+| 7-Mode Volumes | 7-Mode Snapshot Zeitplan 
+
+
+ a| 
+Vol. 1
+ a| 
+0 2 4@8,12,16,20 (wöchentliche Snapshot-Kopien: 0, tägliche Snapshot-Kopien: 2, stündliche Snapshot-Kopien: 6 bei 2, 4, 8, 12, 16, 20 Stunden)
+
+
+
+ a| 
+vol. 2
+ a| 
+0 2 4@8,12,16,20
+
+
+
+ a| 
+vol. 3
+ a| 
+0 2 4@8,12,16,20
+
+
+
+ a| 
+vol. 4
+ a| 
+1 2 3@8,12,16 (wöchentliche Snapshot-Kopien: 1, tägliche Snapshot-Kopien: 2, stündliche Snapshot-Kopien: 3 bei 8,12,16 Stunden)
+
+
+
+ a| 
+vol. 5
+ a| 
+2 2 2 3@8,12,16 (wöchentliche Snapshot-Kopien: 2, tägliche Snapshot-Kopien: 2, stündliche Snapshot-Kopien: 3 bei 8,12,16 Stunden)
+
+|===
+*Snapshot-Richtlinien in ONTAP* vorhanden
+
+|===
+| Name der Snapshot-Richtlinie | Richtliniendetails 
+
+
+ a| 
+Zeitplanwöchentlich
+ a| 
+Wöchentlich, zählen: 1
+
+
+
+ a| 
+ZeitplanDailyHourly4
+ a| 
+*Terminplandetails*
+
+* Zeitplan1: Täglich, Gegen1: 2
+* Zeitplan2: Stündlich, Gegen2: 4 alle 8, 12, 16, 20 Stunden
+
+
+
+
+ a| 
+Zeitplan1
+ a| 
+Stündlich bei 8, 12, 16, 20 Stunden, zählen: 4
+
+|===
+*Snapshot-Richtlinie in ONTAP nach dem Übergang mit Konsolidierung (keine Wiederverwendung)*
+
+|===
+| 7-Mode Volumes | 7-Mode Snapshot Zeitplan | Snapshot-Richtlinie in ONTAP 
+
+
+ a| 
+Vol. 1
+ a| 
+0 2 4@8,12,16,20 (wöchentliche Snapshot-Kopien: 0, tägliche Snapshot-Kopien: 2, stündliche Snapshot-Kopien: 4 bei 8, 12, 16, 20 Stunden)
+ a| 
+*Konsolidierte Politik für vol1, vol2 und vol3*
+
+* Name: Transition_Snapshot_Policy_0
+* Einzelheiten zum Zeitplan
++
+** Zeitplan1: Täglich, Gegen1: 2
+** Zeitplan2: Stündlich, Gegen2: 4 alle 8, 12, 16, 20 Stunden
+
+
+
+
+
+
+ a| 
+vol. 2
+ a| 
+0 2 4@8,12,16,20
+ a| 
+vol. 3
+
+
+
+ a| 
+0 2 4@8,12,16,20
+ a| 
+vol. 4
+ a| 
+1 2 3@8,12,16 (wöchentliche Snapshot-Kopien: 1, tägliche Snapshot-Kopien: 2, stündliche Snapshot-Kopien: 3 bei 8,12,16 Stunden)
+
+
+
+ a| 
+* Name: Transition_Snapshot_Policy_1
+* Einzelheiten zum Zeitplan
++
+** Zeitplan1: Wöchentlich, Account1: 1
+** Zeitplan2: Täglich, Gegen2: 2
+** Zeitplan3: Stündlich, Gegen3: 3 alle 8,12,16 Stunden
+
+
+
+ a| 
+vol. 5
+ a| 
+2 2 2 3@8,12,16 (wöchentliche Snapshot-Kopien: 2, tägliche Snapshot-Kopien: 2, stündliche Snapshot-Kopien: 3 bei 8,12,16 Stunden)
+
+|===
+*Snapshot-Richtlinie in ONTAP nach dem Übergang mit Konsolidierung und Wiederverwendung*
+
+|===
+| 7-Mode Volumes | 7-Mode Snapshot Zeitplan | Snapshot-Richtlinie in ONTAP 
+
+
+ a| 
+Vol. 1
+ a| 
+0 2 4@8,12,16,20 (wöchentliche Snapshot-Kopien: 0, tägliche Snapshot-Kopien: 2, stündliche Snapshot-Kopien: 4 bei 2, 4, 8, 12, 16, 20 Stunden)
+ a| 
+Konsolidierte Richtlinie für vol1, vol2 und vol3, für die die vorhandene ONTAP-Richtlinie wiederverwendet wird
+
+Name: ZeitplanDailyHourly4
+
+
+
+ a| 
+vol. 2
+ a| 
+0 2 4@8,12,16,20
+ a| 
+vol. 3
+
+
+
+ a| 
+0 2 4@8,12,16,20
+ a| 
+vol. 4
+ a| 
+1 2 3@8,12,16 (wöchentliche Snapshot-Kopien: 1, tägliche Snapshot-Kopien: 2, stündliche Snapshot-Kopien: 3 bei 8,12,16 Stunden)
+
+
+
+ a| 
+* Name: Transition_Snapshot_Policy_1
+* Einzelheiten zum Zeitplan
++
+** Zeitplan1: Wöchentlich, Account1: 1
+** Zeitplan2: Täglich, Gegen2: 2
+** Zeitplan3: Stündlich, Gegen3: 3 alle 8,12,16 Stunden
+
+
+
+ a| 
+vol. 5
+ a| 
+2 2 2 3@8,12,16 (wöchentliche Snapshot-Kopien: 2, tägliche Snapshot-Kopien: 2, stündliche Snapshot-Kopien: 3 bei 8,12,16 Stunden)
+
+|===

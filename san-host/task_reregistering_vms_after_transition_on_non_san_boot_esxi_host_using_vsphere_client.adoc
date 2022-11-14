@@ -1,0 +1,36 @@
+---
+permalink: san-host/task_reregistering_vms_after_transition_on_non_san_boot_esxi_host_using_vsphere_client.html 
+sidebar: sidebar 
+keywords: ontap, san, host, transition, vm, esxi, vsphere, client 
+summary: 'Nachdem Sie einen nicht über SAN gestarteten Host gewechselt haben, müssen Sie Ihre virtuellen Maschinen \(VMs\) erneut registrieren.' 
+---
+= Erneute Registrierung von VMs nach dem Übergang auf ESXi Hosts, die nicht über SAN gestartet wurden, mithilfe des vSphere Clients
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Nachdem Sie einen nicht über SAN gestarteten Host gewechselt haben, müssen Sie Ihre virtuellen Maschinen (VMs) erneut registrieren.
+
+Der Host muss online sein und die LUNs müssen erkannt werden.
+
+* Führen Sie bei Copy-Based Transitions diese Schritte aus, bevor Sie den Storage-Umstellungsvorgang im 7-Mode Transition Tool initiieren.
+* Führen Sie bei Copy-Free Transitions die folgenden Schritte aus, bevor Sie den Betrieb der 7-Mode Systeme im 7MTT initiieren und anhalten.
+
+
+.Schritte
+. Öffnen Sie das vom Inventory Collect Tool (ICT) generierte Arbeitsbuch _Inventory Assessment_.
+. Navigieren Sie zur Registerkarte Host VMs, und notieren Sie anschließend den Pfad *VM Config File* und *Location/Datastore Name* der VM.
+. Verwenden Sie den vSphere-Client, um sich beim ESXi-Host oder beim vCenter-Server anzumelden, der den ESXi-Host verwaltet.
+. Wählen Sie unter *Host und Cluster* den ESXi-Host aus.
+. Navigieren Sie zu *Konfiguration* > *Hardware* > *Storage*.
+. Wählen Sie den Datenspeicher mit dem zuvor erwähnten Datenspeichernamen aus.
+. Klicken Sie mit der rechten Maustaste, und wählen Sie *Datenspeicher durchsuchen*.
++
+Das Datastore-Browser-Fenster wird geöffnet.
+
+. Navigieren Sie zum Pfad *VM Config File*, den Sie zuvor erwähnt haben.
+. Klicken Sie mit der rechten Maustaste auf die Datei `.vmx `, und wählen Sie dann *zu Bestand hinzufügen* aus.
+. Wiederholen Sie diese Schritte für jede VM, die auf der Registerkarte * Host-VMs* im von der ICT generierten _Inventory Assessment Workbook_ aufgeführt ist.
+

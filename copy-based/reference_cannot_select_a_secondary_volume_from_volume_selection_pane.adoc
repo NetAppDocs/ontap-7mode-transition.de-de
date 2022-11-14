@@ -1,0 +1,24 @@
+---
+permalink: copy-based/reference_cannot_select_a_secondary_volume_from_volume_selection_pane.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, select, secondary, volume, pan, selection 
+summary: Sie können kein sekundäres Volume aus dem Auswahlbereich Volumes auswählen und es als SnapMirror Volume-Beziehung verschieben, wenn das Volume nicht online ist oder die SnapMirror-Beziehung unterbrochen wird. 
+---
+= Ein sekundäres Volume kann nicht im Bereich Volume-Auswahl ausgewählt werden
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können kein sekundäres Volume aus dem Auswahlbereich Volumes auswählen und es als SnapMirror Volume-Beziehung verschieben, wenn das Volume nicht online ist oder die SnapMirror-Beziehung unterbrochen wird.
+
+
+
+== Behelfslösung
+
+Verwenden Sie die ONTAP-Befehlszeile, um eine der folgenden Problemumgehungen durchzuführen:
+
+* Versetzen Sie das sekundäre Volume in den Online-Modus, wenn es offline ist.
+* Reparieren Sie die SnapMirror Beziehung wenn sie beschädigt ist.
+

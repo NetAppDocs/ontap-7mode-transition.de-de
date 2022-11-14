@@ -1,0 +1,29 @@
+---
+permalink: copy-based/concept_considerations_for_deduplication_and_compression.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, deduplication, compression 
+summary: Bei Verwendung der Komprimierung müssen Quell- und Ziel-Volumes zu einem 64-Bit-Aggregat gehören. Alle Einsparungen durch Komprimierung und Deduplizierung auf dem Quell-Volume werden während der Umstellung über das Netzwerk beibehalten. Nach dem Umstieg übernimmt das Ziel-Volume alle Komprimierungs- und Deduplizierungsattribute und Storage-Einsparungen vom Quell-Volume. 
+---
+= Überlegungen bei Deduplizierung und Komprimierung
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Bei Verwendung der Komprimierung müssen Quell- und Ziel-Volumes zu einem 64-Bit-Aggregat gehören. Alle Einsparungen durch Komprimierung und Deduplizierung auf dem Quell-Volume werden während der Umstellung über das Netzwerk beibehalten. Nach dem Umstieg übernimmt das Ziel-Volume alle Komprimierungs- und Deduplizierungsattribute und Storage-Einsparungen vom Quell-Volume.
+
+Der Umstieg auf deduplizierte und komprimierte Daten reduziert die Netzwerkbandbreite während des Übergangs. Dies liegt vor den folgenden Gründen:
+
+* Gemeinsam genutzte Datenblöcke werden nur einmal übertragen.
+* Die Komprimierung wird während der Übertragung beibehalten.
+* Komprimierte und deduplizierte Daten weisen aufgrund von Platzeinsparungen durch Komprimierung und Deduplizierung geringere Übertragungsgrößen auf. Somit können die Transfers schneller abgeschlossen werden.
+
+
+Sie sollten während der Umstellung nicht mit der Komprimierung oder Deduplizierung vorhandener Daten auf dem Quell-Volume beginnen. Wenn die Deduplizierung oder Komprimierung läuft, sollte der Übergang erst nach Abschluss des Deduplizierungs- oder Komprimierungsvorgangs gestartet werden. Daher werden nicht deduplizierte oder unkomprimierte Daten und zusätzliche temporäre Metadaten nicht über das Netzwerk an das Ziel-Volume übertragen.
+
+Damit Deduplizierung und Komprimierung alle neuen Daten, die auf das ONTAP Volume geschrieben wurden, wirksam werden können, müssen nach der Umstellung die Zeitpläne für Deduplizierung und Komprimierung aktivieren.
+
+Ab Data ONTAP 8.1 wird durch die Deduplizierung zusammen mit der Aggregatkopie eine teilweise geordnete Fingerabdruckdatenbank im Volume gespeichert. Infolgedessen verfügt das Zielsystem über die Platzeinsparungen vom Quell-Volume sowie eine Kopie der bestellten Signaturdatenbank. Wenn nach der Migration die Volume-Effizienz zum ersten Mal auf dem neuen Volume ausgeführt wird, wird die aggregierte Signaturdatenbank automatisch aus der Kopie im Ziel-Volume erstellt. Dies kann zu einer einmalige Zunahme der erforderlichen Zeit bis zum Abschluss der Volume-Effizienzvorgänge führen.
+
+Wenn auf dem Quell-Volume eine Data ONTAP in 7-Mode vor 8.1 ausgeführt wird, müssen Sie die ausführen `volume efficiency start` Befehl mit dem `-scan-old-data option` Parameter zum Optimieren der Speicherersparnis. Nach Abschluss der Migration sollten Sie prüfen, ob der Deduplizierungszeitplan den Anforderungen des Clusters entspricht, und erwägen Sie den Wechsel zu einer Volume-Effizienzrichtlinie.

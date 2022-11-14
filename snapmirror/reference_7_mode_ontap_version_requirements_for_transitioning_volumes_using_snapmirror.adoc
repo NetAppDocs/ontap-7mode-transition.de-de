@@ -1,0 +1,45 @@
+---
+permalink: snapmirror/reference_7_mode_ontap_version_requirements_for_transitioning_volumes_using_snapmirror.html 
+sidebar: sidebar 
+keywords: ontap, 7, mode, version, transition, requirements, data, clustered 
+summary: Sie sollten die Versionen von Data ONTAP 7-Mode kennen, die für den Umstieg auf Clustered Data ONTAP 8.3 oder höher unterstützt werden. 
+---
+= Versionsanforderungen für den Umstieg von 7-Mode
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie sollten die Versionen von Data ONTAP 7-Mode kennen, die für den Umstieg auf Clustered Data ONTAP 8.3 oder höher unterstützt werden.
+
+Wenn das 7-Mode System nur 64-Bit-Aggregate und Volumes enthält, können Sie Volumes von Systemen mit den folgenden 7-Mode Versionen auf Clustered Data ONTAP 8.3 oder höher verschieben:
+
+* Data ONTAP 8.0
+* Data ONTAP 8.0.1
+* Data ONTAP 8.0.2
+* Data ONTAP 8.0.3
+* Data ONTAP 8.0.4
+* Data ONTAP 8.0.5
+* Data ONTAP 8.1
+* Data ONTAP 8.1.2
+* Data ONTAP 8.1.3
+* Data ONTAP 8.1.4
+* Data ONTAP 8.2
+* Data ONTAP 8.2.1
+* Data ONTAP 8.2.2
+* Data ONTAP 8.2.3
+* Data ONTAP 8.2.4
+* Data ONTAP 8.2.5
+
+
+Wenn auf dem 7-Mode System Data ONTAP 8.0.x, 8.1.x oder 8.2 ausgeführt wird und 32-Bit-Aggregate oder Volumes mit 32-Bit-Snapshot-Kopien enthält, müssen Sie ein Upgrade auf 8.1.4 P4 oder 8.2 durchführen. Nach dem Upgrade müssen Sie die 32-Bit-Aggregate auf 64-Bit erweitern und dann 32-Bit-Daten finden und entfernen.
+
+Sie müssen die folgenden 7-Mode Versionen auf Data ONTAP 8.1.4 P4 aktualisieren, bevor Sie auf Clustered Data ONTAP 8.3 oder höher umstellen:
+
+* Data ONTAP 7.3.3
+* Data ONTAP 7.3.4
+* Data ONTAP 7.3.5
+* Data ONTAP 7.3.6
+* Data ONTAP 7.3.7
+

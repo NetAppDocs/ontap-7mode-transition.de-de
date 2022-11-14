@@ -1,0 +1,24 @@
+---
+permalink: copy-free/task_transitioning_a_snapmirror_relationship.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, snapmirror, relationship 
+summary: Sie können zuerst das sekundäre HA-Paar umstellen, eine gestaffelte SnapMirror Beziehung zwischen den 7-Mode primären Volumes und sekundären Clustered Data ONTAP Volumes einrichten und dann das primäre HA-Paar später umstellen. In einigen Szenarien müssen Sie die sekundäre und primäre HA-Paare einer 7-Mode SnapMirror Beziehung parallel verschieben. 
+---
+= Umstellung einer SnapMirror Beziehung
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können zuerst das sekundäre HA-Paar umstellen, eine gestaffelte SnapMirror Beziehung zwischen den 7-Mode primären Volumes und sekundären Clustered Data ONTAP Volumes einrichten und dann das primäre HA-Paar später umstellen. In einigen Szenarien müssen Sie die sekundäre und primäre HA-Paare einer 7-Mode SnapMirror Beziehung parallel verschieben.
+
+Wenn alle primären Volumes zu einem HA-Paar gehören und alle sekundären Volumes zu dem anderen HA-Paar gehören, können Sie mithilfe der gestaffelten Methode umsteigen.
+
+Wenn eines der beiden HA-Paare eine Mischung aus primären und sekundären Volumes hat, müssen Sie die parallele Methode verwenden.
+
+Nach dem Wechsel der primären und sekundären HA-Paare müssen Sie nach der Transition die SnapMirror Beziehung für Volumes in Clustered Data ONTAP manuell einrichten. Für eine erfolgreiche Neusynchronisierung muss mindestens eine gemeinsame Snapshot Kopie, die in Data ONTAP 8.1 oder neuer erstellt wird, zwischen den primären und sekundären Volumes der SnapMirror Beziehung vorhanden sein.
+
+*Verwandte Informationen*
+
+https://docs.netapp.com/ontap-9/topic/com.netapp.doc.onc-sm-help/GUID-DF04A607-30B0-4B98-99C8-CB065C64E670.html["Cluster Management mit System Manager"]

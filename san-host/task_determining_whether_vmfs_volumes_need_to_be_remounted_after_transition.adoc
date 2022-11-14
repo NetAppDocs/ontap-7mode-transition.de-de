@@ -1,0 +1,40 @@
+---
+permalink: san-host/task_determining_whether_vmfs_volumes_need_to_be_remounted_after_transition.html 
+sidebar: sidebar 
+keywords: ontap, san, host, transition, vmfs, volumes, remounted 
+summary: Nach der Transition von Data ONTAP 7-Mode zu Clustered Data ONTAP können Sie eventuell VMFS Volumes neu einbinden, um die VMFS-Datenspeicher und -VMs vor dem Wechsel zu verschieben. 
+---
+= Ermitteln, ob VMFS Volumes nach dem Umstieg neu eingebunden werden müssen
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Nach der Transition von Data ONTAP 7-Mode zu Clustered Data ONTAP können Sie eventuell VMFS Volumes neu einbinden, um die VMFS-Datenspeicher und -VMs vor dem Wechsel zu verschieben.
+
+* Führen Sie bei Copy-Based Transitions diese Schritte aus, bevor Sie den Storage-Umstellungsvorgang im 7-Mode Transition Tool (7MTT) initiieren.
+* Führen Sie bei Copy-Free Transitions die folgenden Schritte aus, bevor Sie den Betrieb der 7-Mode Systeme im 7MTT initiieren und anhalten.
+
+
+.Schritte
+. Öffnen Sie das vom Inventory Collect Tool (ICT) generierte Arbeitsbuch _Inventory Assessment_.
+. Klicken Sie auf die Registerkarte *SAN Host-Dateisysteme*.
+. Prüfen Sie vor dem Übergang die Spalte *Drive / Mount / Datastore Name* für die Dateisysteme und Datenspeicher, die auf dem Host montiert sind.
+. Notieren Sie sich die entsprechenden LUN-naa-IDs in der Spalte *SCSI Device ID/Device Name* für den Datastore.
+. Überprüfen Sie, ob die für den Datastore angegebenen naa-IDs in der nach der Umstellung generierten 7MTT-Zuordnungsdatei aufgeführt sind.
++
+** Wenn sich keine der naa-IDs in der 7MTT-Zuordnungsdatei befinden, waren der Datenspeicher und die zugrunde liegenden LUNs nicht Bestandteil der 7MTT-Transition. Es ist keine Bereinigung erforderlich.
+** Wenn nur ein Teil der naa-IDs in der 7MTT-Zuordnungsdatei vorhanden ist, ist der Übergang unvollständig und Sie können nicht fortfahren.
+** Wenn alle naa-IDs vorliegen, müssen Sie Ihre VMFS-Volumes neu mounten.
+
+
+
+
+*Verwandte Informationen*
+
+xref:task_remounting_vmfs_volumes_after_transition_using_vsphere_client.adoc[NeuMounten von VMFS-Volumes nach dem Umstieg mit vSphere Client]
+
+xref:task_remounting_vmfs_volumes_after_transition_using_esxi_cli_console.adoc[NeuMounten von VMFS-Volumes nach dem Übergang mit der ESXi CLI]
+
+xref:concept_what_the_inventory_collect_tool_is.adoc[Was ist das Tool zum Erfassen von Inventarbeständen]

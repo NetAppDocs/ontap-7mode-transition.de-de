@@ -1,0 +1,26 @@
+---
+permalink: copy-based/concept_considerations_for_quotas.html 
+sidebar: sidebar 
+keywords: ontap, copy, based, transition, quotas 
+summary: 'Sie müssen sich bewusst sein, wie Quoten umgeschaltet werden, wenn „Apply Configuration“ \ (precutover\) im schreibgeschützten und Lese-Schreib-Modus ausgeführt wird.' 
+---
+= Überlegungen zu Kontingenten
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie müssen sich bewusst sein, wie Quoten übertragen werden, wenn „`Apply Configuration`“ (precutover) im schreibgeschützten und Lese-Schreib-Modus ausgeführt wird.
+
+Quoten werden in der Vorumstellungsphase auf folgende Weise angewendet:
+
+* Lesemodus
++
+Kontingente werden im schreibgeschützten Modus des ONTAP Systems nicht angewendet, da sie nur während der Storage-Umstellungsphase angewendet werden.
+
+* Lese-Schreib-Modus
++
+Quoten werden im Vorüberlesen Lese-/Schreib-Modus auf dem ONTAP System angewendet, sodass Sie sie in ONTAP testen können. Die Quoten werden jedoch während der Resynchronisierung (nach Abschluss des Tests) der ONTAP Volumes entfernt. Die Kontingente werden während der Storage-Umstellungsphase erneut angewendet.
+
+

@@ -1,0 +1,36 @@
+---
+permalink: copy-free/task_selecting_target_cluster_for_transition.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, select, target, cluster, nodes 
+summary: Sie können das Cluster-HA-Paar auswählen und jeden 7-Mode Controller im HA-Paar einem entsprechenden Ziel-Cluster Node zuordnen. Der zugeordnete Node gibt den Cluster-Node an, mit dem die Festplatten-Shelfs des entsprechenden 7-Mode Controllers verbunden werden müssen. 
+---
+= Auswahl der Ziel-Cluster-Nodes für die Transition
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können das Cluster-HA-Paar auswählen und jeden 7-Mode Controller im HA-Paar einem entsprechenden Ziel-Cluster Node zuordnen. Der zugeordnete Node gibt den Cluster-Node an, mit dem die Festplatten-Shelfs des entsprechenden 7-Mode Controllers verbunden werden müssen.
+
+Der Ziel-Cluster muss Data ONTAP 8.3.2 oder höher ausführen.
+
+Die 7-Mode Festplatten-Shelfs können auf ein Ziel-HA-Paar mit bereits vorhandenen Datenaggregaten und Volumes verschoben werden.
+
+Für ein Cluster mit zwei Nodes muss ein Datenaggregat vorhanden sein, um die Root-Volumes der Ziel-SVMs zu hosten. In einem Cluster mit vier oder mehr Nodes können die Root-Volumes der SVMs entweder auf den Ziel-Nodes der Transition oder auf anderen Nodes im Cluster gehostet werden.
+
+.Schritte
+. Wählen Sie das Ziel-HA-Paar aus, mit dem die 7-Mode Festplatten-Shelfs verbunden werden müssen.
++
+Jedes 7-Mode Storage-System wird automatisch einem Ziel-Cluster Node zugeordnet.
+
++
+
+NOTE: Die Festplatten- und Aggregateigentümer jedes 7-Mode Controllers wird während der Importphase auf den entsprechenden zugeordneten Ziel-Cluster-Node übertragen.
+
+. Klicken Sie auf *Knotenzuordnung tauschen*, um die automatische Zuordnung der Quell-zu-Ziel-Knotenzuordnung zu ändern.
+. Klicken Sie auf *Speichern und fortfahren*.
++
+Der Bildschirm SVM und Volume Mapping wird angezeigt.
+
+

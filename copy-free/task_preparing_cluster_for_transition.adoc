@@ -1,0 +1,99 @@
+---
+permalink: copy-free/task_preparing_cluster_for_transition.html 
+sidebar: sidebar 
+keywords: ontap, transition, copy, free, cluster, prepare 
+summary: Vor der Transition müssen Sie den Cluster für die Kommunikation mit dem 7-Mode Transition Tool vorbereiten und die SVMs für die Transition vorbereiten. Sie können zu einem Ziel-HA-Paar mit Datenaggregaten wechseln. 
+---
+= Vorbereiten des Clusters für die Transition
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Vor der Transition müssen Sie den Cluster für die Kommunikation mit dem 7-Mode Transition Tool vorbereiten und die SVMs für die Transition vorbereiten. Sie können zu einem Ziel-HA-Paar mit Datenaggregaten wechseln.
+
+* Der Cluster muss bereits eingerichtet werden und die Ziel-Cluster-Nodes müssen mit dem Cluster verbunden werden.
++
+https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-ssg/home.html["Software Setup"]
+
+* Die SVMs müssen erstellt und einem IPspace zugewiesen werden.
+* Die 7-Mode Festplatten-Shelfs können auf ein Ziel-HA-Paar mit bereits vorhandenen Datenaggregaten und Volumes verschoben werden.
++
+Für ein Cluster mit zwei Nodes muss ein Datenaggregat vorhanden sein, um die Root-Volumes der Ziel-SVMs zu hosten. In einem Cluster mit vier oder mehr Nodes können die Root-Volumes der SVMs entweder auf den Ziel-Nodes der Transition oder auf anderen Nodes im Cluster gehostet werden.
+
+
+
+Sie sollten während der Umstellung kein Upgrade des Clusters auf eine andere ONTAP Version durchführen.
+
+
+NOTE: Sie können bei Bedarf ein Upgrade des Clusters auf einen Patch-Release derselben ONTAP Version durchführen.
+
+. Vergewissern Sie sich über einen Administrationshost, dass das Cluster mithilfe der Cluster-Management-LIF erreichbar ist:
++
+`*ssh _username@cluster_mgmt_IP_*`
+
+. Aktivieren Sie SSLv3 oder FIPS auf dem Cluster:
++
+|===
+| Aktivieren... | Eingeben... 
+
+
+ a| 
+SSLv3
+ a| 
+`*system services web modify -sslv3-enabled true*`
+
+
+
+ a| 
+FIPS 140-2 Compliance
+ a| 
+`*system services web modify -ssl-fips-enabled true*`
+
+|===
++
+Wenn die FIPS 140-2-Konformität aktiviert ist, ist SSLv3 deaktiviert. ONTAP verhindert, dass Sie SSLv3 aktivieren, wenn die FIPS 140-2-Compliance aktiviert ist. Wenn Sie FIPS 140-2 aktivieren und anschließend deaktivieren, bleibt SSLv3 deaktiviert.
+
++
+
+IMPORTANT: Die Best Practice besteht in der Aktivierung von FIPS aufgrund der Sicherheitsschwachstellen in SSLv3.
+
+. Vergewissern Sie sich, dass HTTPS auf der Cluster-Management-LIF zulässig ist:
++
+.. Zeigen Sie die Firewall-Richtlinie für die Cluster-Management-LIF an: +
+`*network interface show -vserver _svm_name_ -lif _cluster_mgmt_lif_ -fields firewall-policy*`
++
+[listing]
+----
+cluster1::> network interface show -vserver cluster1 -lif cluster_mgmt -fields firewall-policy
+vserver lif          firewall-policy
+------- ------------ ---------------
+cluster1  cluster_mgmt mgmt
+----
+.. Überprüfen Sie, ob die mit der Cluster-Management-LIF verknüpfte Firewallrichtlinie HTTPS-Zugriff ermöglicht: +
+`*system services firewall policy show -policy mgmt*`
++
+[listing]
+----
+cluster1::> system services firewall policy show -policy mgmt
+Policy           Service    Action IP-List
+---------------- ---------- ------ --------------------
+mgmt
+                 dns        allow  0.0.0.0/0, ::/0
+                 http       allow  0.0.0.0/0, ::/0
+                 https      allow  0.0.0.0/0, ::/0
+                 ndmp       allow  0.0.0.0/0, ::/0
+                 ntp        allow  0.0.0.0/0, ::/0
+                 rsh        deny   0.0.0.0/0, ::/0
+                 snmp       allow  0.0.0.0/0, ::/0
+                 ssh        allow  0.0.0.0/0, ::/0
+                 telnet     deny   0.0.0.0/0, ::/0
+9 entries were displayed.
+----
+
+
++
+https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-sag/home.html["Systemadministration"]
+
+

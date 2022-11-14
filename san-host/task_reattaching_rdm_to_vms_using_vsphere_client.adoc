@@ -1,0 +1,54 @@
+---
+permalink: san-host/task_reattaching_rdm_to_vms_using_vsphere_client.html 
+sidebar: sidebar 
+keywords: ontap, san, host, transition, rdm, vm, vshpere, client 
+summary: 'Nach dem Umstieg eines ESXi Hosts mit dem 7-Mode Transition Tool \ (7MTT\) müssen Sie Ihre RDMs erneut an virtuelle Maschinen \ (VMs\) anhängen.' 
+---
+= Erneutes Anbringen von RDM an VMs mit vSphere Client
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Nach der Transition eines ESXi Hosts mit dem 7-Mode Transition Tool (7MTT) müssen Sie Ihre RDMs mit Virtual Machines (VMs) neu anhängen.
+
+Ihre veralteten Raw Device Mapping (RDM) muss entfernt worden sein.
+
+.Schritte
+. Öffnen Sie den ESXi-Host oder vCenter-Server, der den ESXi-Host verwaltet.
+. Klicken Sie mit der rechten Maustaste auf die VM und wählen Sie dann *Einstellungen bearbeiten* aus.
++
+Das Fenster VM Properties wird geöffnet.
+
+. Klicken Sie Auf *Hinzufügen*.
++
+Das Fenster Hardware hinzufügen wird geöffnet.
+
+. Klicken Sie Auf *Festplatte*.
+. Klicken Sie auf *Weiter*, um den Datenträger auszuwählen.
+. Wählen Sie *Raw Device Mapping* Aus.
+. Klicken Sie auf *Weiter*, um die Ziel-LUN auszuwählen.
+. Wählen Sie die LUN mit der neuen Clustered Data ONTAP NAA-ID aus, die Sie aus der 7MTT-Zuordnungsdatei angegeben haben.
+. Klicken Sie Auf *Weiter*.
+. Wählen Sie * Datastore Auswählen*.
+. Wählen Sie den Datenspeicher aus, der dem in der 7MTT-Zuordnungsdatei angegebenen Festplattenpfad entspricht.
+. Klicken Sie Auf *Weiter*.
+. Wählen Sie entweder *physisch* oder *virtuell* für den *Kompatibilitätsmodus*.
++
+Wählen Sie den Kompatibilitätsmodus aus, der angegeben wurde, als das veraltete RDM entfernt wurde.
+
+. Klicken Sie Auf *Weiter*.
+. Wählen Sie *Vorschaussoptionen*.
+. Wählen Sie den Knoten für virtuelle Geräte* aus.
++
+Wählen Sie den virtuellen Gerätemodus aus, den Sie beim Entfernen des veralteten RDM angegeben haben.
+
+. Klicken Sie Auf *Weiter*.
+. Klicken Sie auf *Fertig stellen*, um Ihre Änderungen zu übermitteln.
+. Wiederholen Sie die Schritte für alle VMs mit beigefügtem RDM.
+
+
+*Verwandte Informationen*
+
+xref:task_removing_stale_rdm_using_vsphere_client.adoc[Entfernen veralteter RDMs mit vSphere Client]

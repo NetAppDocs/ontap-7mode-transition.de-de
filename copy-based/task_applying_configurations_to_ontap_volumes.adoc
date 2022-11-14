@@ -1,0 +1,67 @@
+---
+permalink: copy-based/task_applying_configurations_to_ontap_volumes.html 
+sidebar: sidebar 
+keywords: apply, configuration, ontap, copy, based, transition 
+summary: 'Nach Abschluss der Basiskopie können Sie alle NAS-Konfigurationen des 7-Mode Systems \ (einschließlich der Konfiguration von Protokollen und Services\) auf die ONTAP Volumes kopieren und anwenden. Wenn im Ziel-Cluster Data ONTAP 8.3.2 oder höher ausgeführt wird, sind in dieser Phase SAN-Konfigurationen migriert.' 
+---
+= Anwenden von Konfigurationen auf ONTAP Volumes
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Nach Abschluss der Basiskopie können Sie alle NAS-Konfigurationen des 7-Mode Systems (einschließlich der Protokolle- und Servicekonfiguration) auf die ONTAP Volumes kopieren und anwenden. Wenn im Ziel-Cluster Data ONTAP 8.3.2 oder höher ausgeführt wird, sind in dieser Phase SAN-Konfigurationen migriert.
+
+* Die Konfigurationen werden in der Vorumstellungsphase angewendet, die zwei Modi hat: Vorumlesen schreibgeschützter Modus und Vorumstellungsmodus Lese-/Schreibmodus.
+* Der Vorüberlesen-/Schreibmodus wird nicht unterstützt, wenn das Projekt Folgendes enthält:
++
+** SAN Volumes und der Ziel-Cluster führen Data ONTAP 8.3.1 oder eine frühere Version aus. In dieser Situation werden die folgenden Konfigurationen nicht in der Vorumstellungsphase angewendet, sondern während der Umstellungsphase:
++
+*** SAN-Konfigurationen
+*** Snapshot Zeitplan-Konfigurationen
+
+
+** SnapLock Compliance Volumes:
++
+Wenn das Projekt SnapLock Compliance Volumes enthält, werden die Snapshot-Planungskonfigurationen nicht in der Vorumstellungsphase angewendet, sondern während der Umstellungsphase angewendet.
+
++
+Siehe xref:concept_considerations_for_transitioning_of_snaplock_compliance_volumes.adoc[Überlegungen für den Wechsel zu SnapLock Compliance Volumes].
+
+
+
+* Wenn auf dem Ziel-Cluster Data ONTAP 8.3.1 oder eine frühere Version ausgeführt wird, wird der Lese-/Schreibmodus nicht unterstützt, wenn ein Volume im Projekt LUNs enthält.
+* Wenn auf dem Ziel-Cluster Data ONTAP 8.3.1 oder früher ausgeführt wird und ein Projekt sowohl SAN- als auch NAS-Volumes enthält, befinden sich in der Vorumstellungsphase nur NAS-Konfigurationen. Diese NAS-Konfigurationen können nur im schreibgeschützten Modus getestet werden.
++
+SAN-Konfigurationen werden nur in der Storage-Umstellungsphase migriert.
+
++
+
+NOTE: SAN LIFs sind nicht konfiguriert.
+
+* Wenn auf dem Ziel-Cluster Data ONTAP 8.3.1 oder früher ausgeführt wird und das Projekt SAN-Volumes enthält, wird die Snapshot-Zeitplankonfiguration während der Vorumstellungsphase nicht angewendet.
++
+Diese Konfigurationen werden während der Umstellungsphase angewendet.
+
+* Wenn auf dem Ziel-Cluster Data ONTAP 8.3.1 oder früher ausgeführt wird und das Projekt SAN-Volumes enthält, wird die Snapshot-Zeitplankonfiguration während der Vorumstellungsphase nicht angewendet.
++
+Diese Konfigurationen werden während der Umstellungsphase angewendet.
+
+
+
+.Schritte
+* Führen Sie den Übergangsvorgang im schreibgeschützten Modus aus:
++
+`*transition cbt precutover -p _project_name_ -m ro_test -c _max_cap_concurrent_transfers_ -b _snapmirror_throttle_*`
+
+* Führen Sie den Übergangsvorgang im Lese-/Schreibmodus aus:
++
+.. Wenden Sie die Konfigurationen auf ONTAP: + an
+`*transition cbt precutover -p _project_name_ -m rw_test -c _max_cap_concurrent_transfers_ -b _snapmirror_throttle_*`
+.. Testen und überprüfen Sie die Konfigurationen in ONTAP manuell.
+.. Starten Sie die Neusynchronisierung: +
+`*transition cbt resync -p _project_name_*`
+
+
+

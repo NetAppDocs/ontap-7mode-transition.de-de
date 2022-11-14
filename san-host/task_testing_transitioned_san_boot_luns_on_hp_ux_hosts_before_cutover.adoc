@@ -1,0 +1,39 @@
+---
+permalink: san-host/task_testing_transitioned_san_boot_luns_on_hp_ux_hosts_before_cutover.html 
+sidebar: sidebar 
+keywords: ontap, san, host, transition, boot, lun, hp, ux, cutover, phase, copy, based 
+summary: 'Wenn Sie für die Transition Ihrer HP-UX Host SAN Boot LUNs das 7-Mode Transition Tool \(7MTT\) 2.2 oder höher und Data ONTAP 8.3.2 oder höher verwenden, können Sie vor der Umstellungsphase Ihre Clustered Data ONTAP LUNs testen. Der Quell-Host kann während des Tests weiterhin I/O-Vorgänge auf Ihren 7-Mode Quell-LUNs ausführen.' 
+---
+= Tests übergegangen sind SAN Boot LUNs auf HP-UX Hosts vor der Umstellungsphase des auf Kopien basierenden Umstiegs
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Wenn Sie zur Transition Ihrer HP-UX Host SAN Boot LUNs das 7-Mode Transition Tool (7MTT) 2.2 oder höher und Data ONTAP 8.3.2 oder höher verwenden, können Sie die überstiegenen Clustered Data ONTAP LUNs vor der Umstellungsphase testen. Der Quell-Host kann während des Tests weiterhin I/O-Vorgänge auf Ihren 7-Mode Quell-LUNs ausführen.
+
+Die neuen Clustered Data ONTAP LUNs müssen Ihrem Testhost zugeordnet und die LUNs müssen für die Transition bereit sein
+
+Sie sollten die Hardwareparität zwischen dem Testhost und dem Quell-Host beibehalten, und Sie sollten auf dem Testhost die folgenden Schritte durchführen.
+
+Die Clustered Data ONTAP LUNs befinden sich während des Tests im Lese-/Schreibmodus. Sie werden in den schreibgeschützten Modus umgewandelt, wenn die Tests abgeschlossen sind und Sie die Umstellungsphase vorbereiten.
+
+.Schritte
+. Wählen Sie nach Abschluss der Basiskopie in der 7MTT Benutzeroberfläche *Testmodus* aus.
+. Klicken Sie in der 7MTT UI auf *Apply Configuration*.
+. Geben Sie auf dem Testhost das HBA-BIOS ein.
+. Ändern Sie die IP-Adresse und den Hostnamen auf dem Testhost.
+. Überprüfen Sie, ob die Clustered Data ONTAP LUNs auf dem Test-Host vorhanden sind:
++
+`*sanlun lun show*`
+
+. Führen Sie Ihre Tests nach Bedarf durch.
+. Fahren Sie den Testhost herunter:
++
+`*shutdown -h -y 0*`
+
+. Klicken Sie in der 7MTT Benutzeroberfläche auf *Fertigstellen testen*.
+
+
+Wenn die Clustered Data ONTAP LUNs Ihrem Quell-Host neu zugeordnet werden sollen, müssen Sie den Quell-Host auf die Umstellungsphase vorbereiten. Wenn die geclusterten Data ONTAP LUNs Ihrem Testhost zugeordnet bleiben sollen, sind keine weiteren Schritte auf dem Testhost erforderlich.

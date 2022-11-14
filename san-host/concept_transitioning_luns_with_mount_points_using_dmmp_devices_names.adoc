@@ -1,0 +1,24 @@
+---
+permalink: san-host/concept_transitioning_luns_with_mount_points_using_dmmp_devices_names.html 
+sidebar: sidebar 
+keywords: ontap, san, host, transition, lun, mount, points, dmmp, device, name 
+summary: 'Bevor Sie eine LUN mit einem Bereitstellungspunkt unter Verwendung eines DMMP-Gerätenamens verschieben, müssen Sie den DMMP-Gerätenamen durch die entsprechende UUID-Nummer des Dateisystems ersetzen. Sie müssen spezifische Schritte durchführen, um sich auf die Umstellungsphase vorzubereiten, und Sie müssen die DMMP-Geräte nach der Umstellung auf dem Host neu einbinden. Sie führen die gleichen Verfahren für Red hat Enterprise Linux \(RHEL\) 5 und RHEL 6 durch.' 
+---
+= Verschieben von LUNs mit Mount-Punkten mithilfe von DMMP-Gerätenamen
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Bevor Sie eine LUN mit einem Bereitstellungspunkt unter Verwendung eines DMMP-Gerätenamens verschieben, müssen Sie den DMMP-Gerätenamen durch die entsprechende UUID-Nummer des Dateisystems ersetzen. Sie müssen spezifische Schritte durchführen, um sich auf die Umstellungsphase vorzubereiten, und Sie müssen die DMMP-Geräte nach der Umstellung auf dem Host neu einbinden. Sie führen die gleichen Verfahren für Red hat Enterprise Linux (RHEL) 5 und RHEL 6 durch.
+
+*Verwandte Informationen*
+
+xref:task_preparing_rhel_luns_transition_using_inventory_assessment_workbook.adoc[Vorbereiten von RHEL-LUNs mit Bereitstellungspunkten mithilfe von DMMP-Gerätenamen für die Transition mit dem Arbeitsbuch zur Bestandsbeurteilung]
+
+xref:task_preparing_rhel_luns_for_transition_using_the_cli.adoc[Vorbereiten von RHEL-LUNs mit Mount-Punkten unter Verwendung von DMMP-Aliasnamen für die Transition mit der CLI]
+
+xref:task_preparing_for_cutover_when_transitioning_luns_with_mounts_using_dmmp_aliases_on_linux_hosts.adoc[Vorbereitung auf die Umstellungsphase beim Umstellen von LUNs mit Bereitstellungspunkten unter Verwendung von DMMP-Gerätenamen auf Linux-Hosts]
+
+xref:task_remounting_dmmp_devices_on_linux_hosts_after_transition.adoc[Erneutes Mounten von DMMP-Geräten auf Linux-Hosts nach der Umstellung]
