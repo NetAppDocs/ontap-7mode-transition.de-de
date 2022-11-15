@@ -1,0 +1,1 @@
+Sitemap: https://docs.netapp.com/de-de/ontap-7mode-transition/sitemap.xml
