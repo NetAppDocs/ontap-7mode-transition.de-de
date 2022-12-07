@@ -20,5 +20,5 @@ Die Storage-Umstellung für den aktiven Standort von 7-Mode muss erfolgreich abg
 +
 image::../media/mcc_cron_jobs.gif[mcc cron-Jobs]
 
-. Führen Sie in der Cluster-CLI des Remote-Standorts den aus `job schedule cron create` Befehle, die in aufgezeichnet wurden ,Schritt 1.
+. Führen Sie in der Cluster-CLI des Remote-Standorts den aus `job schedule cron create` Befehle, die in aufgezeichnet wurden <<STEP_F72D5FA759564336A365328A3414D57A,Schritt 1>>.
 

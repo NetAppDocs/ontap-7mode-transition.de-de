@@ -11,14 +11,28 @@ summary: Sie können 7-Mode Volumes in einer NAS- und SAN-Umgebung mithilfe von 
 
 
 [role="lead"]
-Sie können 7-Mode Volumes in einer NAS- und SAN-Umgebung mithilfe von Clustered Data ONTAP SnapMirror Befehlen auf Clustered Data ONTAP Volumes verschieben. Nach Abschluss der Transition müssen Sie auf dem Cluster die Protokolle, Services und andere Konfiguration einrichten.
+Ab ONTAP 9.12.1 können Sie 7-Mode Volumes nicht mehr mithilfe der SnapMirror Technologie verschieben.
 
-*Empfehlung:* Sie sollten das 7-Mode Transition Tool für einen Copy-Based Transition zu Transition zu 7-Mode Volumes verwenden, da das Tool im Rahmen von Vorabprüfungen sowohl 7-Mode als auch den Cluster in jedem Schritt des Migrationsprozesses überprüfen kann. Auf diese Weise können Sie viele potenzielle Probleme vermeiden. Das Tool vereinfacht zudem die Migration aller Protokolle, Netzwerk- und Servicekonfigurationen zusammen mit der Datenmigration.
+Für ONTAP 9.11.1 und frühere Versionen können Sie jedoch 7-Mode Volumes in einer NAS- und SAN-Umgebung mithilfe von Clustered Data ONTAP SnapMirror Befehlen auf Clustered Data ONTAP Volumes verschieben. Nach Abschluss der Transition müssen Sie auf dem Cluster die Protokolle, Services und andere Konfigurationen einrichten.
+
+*Empfehlung:* Sie sollten das 7-Mode Transition Tool für einen Copy-Based Transition zu 7-Mode Volumes für ONTAP 9.11.1 und frühere Versionen verwenden, da das Tool vorab Überprüfungen zur Überprüfung von 7-Mode und des Clusters in jedem Schritt des Migrationsprozesses bietet und so viele potenzielle Probleme vermeiden kann. Das Tool vereinfacht zudem die Migration aller Protokolle, Netzwerk- und Servicekonfigurationen zusammen mit der Datenmigration.
 
 http://docs.netapp.com/us-en/ontap-7mode-transition/releasenotes.html["Versionshinweise Für Das 7-Mode Transition Tool"]
 
 Dieses Verfahren enthält die grundlegenden Aufgaben, die Sie für die Transition mit SnapMirror ausführen müssen.
 
+[NOTE]
+====
+Bevor Sie ein Upgrade auf ONTAP 9.12.1 durchführen, müssen Sie Folgendes tun:
+
+.Schritte
+. Führen Sie den folgenden Befehl aus, um das SnapMirror Ziel-Volume beschreibbar zu machen:
+`snapmirror break`
+. Führen Sie den folgenden Befehl aus, um alle TDP-SnapMirror-Beziehungen zu löschen:
+`snapmirror delete`
+
+
+====
 . xref:concept_planning_for_transition.adoc[Überprüfung, ob die Volumes, die Sie für die Transition planen, unterstützt werden].
 . xref:task_preparing_7_mode_system_for_transition.adoc[Vorbereiten des 7-Mode Systems für den Umstieg].
 . xref:task_preparing_cluster_for_transition.adoc[Bereiten Sie den Cluster für die Transition vor].

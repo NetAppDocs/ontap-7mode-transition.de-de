@@ -80,7 +80,7 @@ Die Auswahl der Ziel-Ports hängt von einigen der folgenden Faktoren ab:
 +
 .. Notieren Sie die verwendeten Ports auf den 7-Mode Controllern im Verkabelungsarbeitsblatt.
 .. Notieren Sie die verwendeten Ports auf den Ziel-Cluster-Knoten im Verkabelungsarbeitsblatt.
-.. Notieren Sie die Ziel-Ports, die für die Verbindung der 7-Mode Platten-Shelves verwendet werden sollen, wie in Schritt geplant ,#STEP_D0CFE719A0384F7FA5D9E73C8EA6C2E7.
+.. Notieren Sie die Ziel-Ports, die für die Verbindung der 7-Mode Platten-Shelves verwendet werden sollen, wie in Schritt geplant <<STEP_D0CFE719A0384F7FA5D9E73C8EA6C2E7,#STEP_D0CFE719A0384F7FA5D9E73C8EA6C2E7>>.
 .. Stellen Sie sicher, dass Sie die richtigen Kabel zum Anschließen der Platten-Shelves haben.
 +
 Sie sollten alle Probleme mit der Verkabelung identifizieren, basierend auf dem neuen Platten-Shelf-Stack-Standort.
