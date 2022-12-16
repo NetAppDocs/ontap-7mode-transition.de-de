@@ -23,7 +23,11 @@ SnapMirror Beziehungen zwischen 7-Mode und Clustered ONTAP Volumes werden in den
 * ONTAP 9.7P2 und höher 9.7 Versionen
 * ONTAP 9.6P7 und höher 9.6 Versionen
 * ONTAP 9.0 auf ONTAP 9.5
+* ONTAP 9.9.1 und neuere Versionen
+* ONTAP 9.10.1 und neuere Versionen
 
+
+Ab ONTAP 9.12.1 können Sie 7-Mode Volumes nicht mehr mithilfe der SnapMirror Technologie verschieben.
 
 SnapMirror ermöglicht die Datenmigration in folgenden Szenarien:
 
