@@ -3832,15 +3832,10 @@
   <block id="d7b115c16739a449f3e88597cc6259c8" category="paragraph"><block ref="d7b115c16739a449f3e88597cc6259c8" category="inline-xref-macro-rx"></block></block>
   <block id="9ab93b9801d24dd493ae9317fa868d24" category="summary">Sie können 7-Mode SnapLock Volumes zu SnapLock Volumes überführen, die in ONTAP 9.5 oder früher erstellt wurden. Sie müssen die Anforderungen und Richtlinien für den Wechsel zu SnapLock Volumes kennen.</block>
   <block id="9775f07e175b548ab2bd419f19070f93" category="list-text">Eine Transition von 7-Mode SnapLock Volumes wird nicht unterstützt, wenn die SnapLock Volumes LUNs enthalten.</block>
-  <block id="cf4fd90637510c596991d81db7107f4e" category="list-text">Sie können 7-Mode SnapLock Enterprise Volumes nur in ONTAP 9.5 oder einer älteren Version auf SnapLock Enterprise Volumes migrieren.</block>
-  <block id="0c8ef814c009d3861680ce164fba0dec" category="list-text">Sie können 7-Mode SnapLock Compliance Volumes nur in ONTAP 9.5 oder früher auf SnapLock Compliance Volumes umstellen.</block>
   <block id="8a7eb801e6d32d53d8569ffc29d3b3b4" category="list-text">Beim Wechsel einer 7-Mode Volume SnapMirror Beziehung können Sie gestaffelte Transition (zuerst sekundärer und dann primärer Übergang) nur für SnapLock Enterprise Volumes nutzen.</block>
   <block id="f49c7c11d30827c5826315411d6e270b" category="paragraph">Disaster Recovery (DR)-Beziehung zwischen 7-Mode primären Volumes und sekundären ONTAP Volumes wird nur für SnapLock Enterprise Volumes unterstützt, nicht aber für SnapLock Compliance Volumes.</block>
-  <block id="1cde198e883c2df917f6d51bae4a77b1" category="paragraph"><block ref="1cde198e883c2df917f6d51bae4a77b1" category="inline-xref-macro-rx"></block></block>
   <block id="49b288fe4fe7fdfa9bacf0edfbf42dd0" category="list-text">Sie müssen eine 7-Mode Volume SnapMirror Beziehung zwischen SnapLock Compliance Volumes verschieben, indem Sie die primären und sekundären Volumes parallel verschieben.</block>
-  <block id="bbdb7841fc38b8d7be1d2a2b7d6c3514" category="paragraph"><block ref="bbdb7841fc38b8d7be1d2a2b7d6c3514" category="inline-xref-macro-rx"></block></block>
   <block id="0fa5978d853b9b8f9a804a9ddf7dacd7" category="inline-link">Archivierung und Compliance mit SnapLock Technologie</block>
-  <block id="acd084e701650a06feecd55f2315ff07" category="paragraph"><block ref="acd084e701650a06feecd55f2315ff07" category="inline-link-rx"></block></block>
   <block id="78390fb015afc9c38c53377d17fcab49" category="summary">Sie müssen das Cluster vor dem Wechsel zu einem 7-Mode System einrichten und sicherstellen, dass das Cluster Anforderungen erfüllt, z. B. das Einrichten von LIFs und die Überprüfung der Netzwerkverbindung für die Transition.</block>
   <block id="9218a522ea0675ebb288cbdfd9eb1fe6" category="list-text">Der Cluster muss über die Cluster-Management-LIF erreichbar sein.</block>
   <block id="a148b5b951595ea993a998bf8c4e3557" category="paragraph">Sie können lokale LIFs einrichten, die sich im Standard-IPspace befinden oder Intercluster LIFs auf jedem Node des Clusters befinden, um zwischen dem Cluster und 7-Mode Systemen zu kommunizieren. Wenn Sie lokale LIFs einrichten müssen, müssen Sie keine Intercluster LIFs einrichten. Wenn Sie sowohl Intercluster LIFs als auch lokale LIFs eingerichtet haben, dann sind die lokalen LIFs bevorzugt.</block>
@@ -7402,4 +7397,15 @@
   <block id="30f60d67f457bb040dffde52197a54da" category="paragraph-title">Verwandte Informationen</block>
   <block id="bcb3bf3e1c3ba469a7b1637a41c81602" category="list-text">ONTAP 9.9.1 und neuere Versionen</block>
   <block id="3b6e2da5c7b4f7bde13de4a566801528" category="list-text">ONTAP 9.10.1 und neuere Versionen</block>
+  <block id="02c0afc6dc57e30e77048bd78577f569" category="paragraph">Um 7-Mode SnapLock Volumes auf ONTAP 9 zu übertragen, müssen Sie diese Anforderungen und Richtlinien kennen.</block>
+  <block id="3c6e2b20b81b258a6d07d897dcbc8837" category="list-text">Sie können 7-Mode SnapLock Enterprise Volumes in jeder beliebigen ONTAP 9 Version zu SnapLock Enterprise Volumes übertragen, außer ONTAP 9.6.</block>
+  <block id="608d66a1ffc83b62ff9b96b7a6066895" category="list-text">Sie können 7-Mode SnapLock Compliance Volumes in beliebigen ONTAP 9 Versionen, außer ONTAP 9.6, zu SnapLock Compliance Volumes übertragen.</block>
+  <block id="d36c067563923a380ef9881a94cc42b6" category="inline-xref-macro">Umstellung einer SnapMirror-Beziehung auf einem Volume in einer gestaffelten Konfiguration^</block>
+  <block id="0cd6f41df3c2d79cbd91a1447c9355fe" category="paragraph"><block ref="0cd6f41df3c2d79cbd91a1447c9355fe" category="inline-xref-macro-rx"></block></block>
+  <block id="17fe715938ef8ba6b00ab8211c5adc65" category="inline-xref-macro">Paralleles Überführen einer Volume-SnapMirror-Beziehung^</block>
+  <block id="99697f507574bc1c8485cdace03a71af" category="paragraph"><block ref="99697f507574bc1c8485cdace03a71af" category="inline-xref-macro-rx"></block></block>
+  <block id="c905bec502c0652d10ba29c85c9c376b" category="list-text">Ab ONTAP 9.10.1 können im selben Aggregat SnapLock und nicht-SnapLock Volumes erstellt werden.</block>
+  <block id="856bd2e5c36198b1a4a96c3c36174ff1" category="paragraph">Um 7-Mode SnapLock Volumes zu ONTAP 9.10.1 oder höher zu übertragen, müssen Sie die ONTAP Volumes manuell mit dem erstellen<block ref="9febb3295321c7fd9a2154b2dd4fe68c" prefix=" " category="inline-code"></block> Flagge. Nachdem Sie die Volumes manuell erstellt haben, managen Sie die Transition mit dem 7-Mode Transition Tool.</block>
+  <block id="a0067b25c6979c2f6c86fb81b30b1b94" category="paragraph">Wenn Sie mit dem 7-Mode Transition Tool ein Volume in ONTAP 9.10.1 oder höher erstellen, wird das Volume nicht als SnapLock Volume erstellt, was zu einer fehlgeschlagenen SnapMirror Basis führt.</block>
+  <block id="b5d693096cb7f86384fa4012d1d2a0cb" category="paragraph"><block ref="b5d693096cb7f86384fa4012d1d2a0cb" category="inline-link-rx"></block></block>
 </blocks>
