@@ -30,9 +30,9 @@ Beispiel: IOM6e (Controller)--IOM6 (Shelf)--IOM3 (Shelf)--IOM3 (Shelf) ist eine 
 .. Wenn doppelte Shelf-IDs vorhanden sind (wenn die 7-Mode Festplatten-Shelf-IDs für die Festplatten-Shelfs in den Ziel-Cluster-Nodes verwendet werden), ändern Sie die Festplatten-Shelf-IDs.
 +
 *** Für SAS-Festplatten-Shelfs beträgt eine gültige Shelf-ID 00 bis 99.
-*** SAS-Shelf-IDs müssen innerhalb des HA-Paars eindeutig sein.https://library.netapp.com/ecm/ecm_download_file/ECMP1119629["Installation und Service Guide für SAS-Platten-Shelfs für DS4243, DS2246, DS4486 und DS4246"]
+*** SAS-Shelf-IDs müssen innerhalb des HA-Paars eindeutig sein.https://["Installation und Service Guide für SAS-Platten-Shelfs für DS4243, DS2246, DS4486 und DS4246"]
 *** Für FC-Festplatten-Shelfs beträgt eine gültige Shelf-ID 1 bis 7.
-*** FC-Shelf-IDs müssen innerhalb jeder FC-Schleife eindeutig sein.https://library.netapp.com/ecm/ecm_download_file/ECMP1112854["DS14mk2 FC und DS14mk4 FC Hardware Service Guide"]
+*** FC-Shelf-IDs müssen innerhalb jeder FC-Schleife eindeutig sein.https://["DS14mk2 FC und DS14mk4 FC Hardware Service Guide"]
 
 
 .. Schalten Sie die Festplatten-Shelfs aus und wieder ein, damit die neuen IDs wirksam werden.
@@ -69,13 +69,13 @@ Sie müssen überprüfen, ob die Erweiterungskarte auf der Zielplattform unterst
 
 |===
 +
-https://library.netapp.com/ecm/ecm_download_file/ECMP1119629["Installation und Service Guide für SAS-Platten-Shelfs für DS4243, DS2246, DS4486 und DS4246"]
+https://["Installation und Service Guide für SAS-Platten-Shelfs für DS4243, DS2246, DS4486 und DS4246"]
 
 +
-https://library.netapp.com/ecm/ecm_download_file/ECMM1280273["DiskShelf14mk2 AT Hardware Service Guide"]
+https://["DiskShelf14mk2 AT Hardware Service Guide"]
 
 +
-https://library.netapp.com/ecm/ecm_download_file/ECMP1112854["DS14mk2 FC und DS14mk4 FC Hardware Service Guide"]
+https://["DS14mk2 FC und DS14mk4 FC Hardware Service Guide"]
 
 . Schalten Sie die Festplatten-Shelfs ein.
 +
@@ -87,7 +87,7 @@ IMPORTANT: Sie müssen mindestens 70 Sekunden warten, bevor Sie fortfahren.
 Sie müssen alle durch Config Advisor identifizierten Verkabelungsprobleme beheben.
 
 +
-https://mysupport.netapp.com/site/tools/tool-eula/activeiq-configadvisor["NetApp Downloads: Config Advisor"]
+https://["NetApp Downloads: Config Advisor"]
 
 . Klicken Sie im 7-Mode Transition Tool auf *Verkabelung überprüfen*.
 +

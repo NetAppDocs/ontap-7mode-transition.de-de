@@ -15,4 +15,4 @@ Sie müssen die Versionen von Data ONTAP 7-Mode, Hosts und FC Switches kennen, m
 
 Eine Liste der 7-Mode Versionen, Hosts und FC Switches, die vom Inventory Collect Tool unterstützt werden, finden Sie in der Interoperabilitäts-Matrix.
 
-https://mysupport.netapp.com/matrix["NetApp Interoperabilitäts-Matrix-Tool"]
+https://["NetApp Interoperabilitäts-Matrix-Tool"]

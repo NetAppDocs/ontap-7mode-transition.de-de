@@ -17,7 +17,7 @@ Für ONTAP 9.11.1 und frühere Versionen können Sie jedoch 7-Mode Volumes in ei
 
 *Empfehlung:* Sie sollten das 7-Mode Transition Tool für einen Copy-Based Transition zu 7-Mode Volumes für ONTAP 9.11.1 und frühere Versionen verwenden, da das Tool vorab Überprüfungen zur Überprüfung von 7-Mode und des Clusters in jedem Schritt des Migrationsprozesses bietet und so viele potenzielle Probleme vermeiden kann. Das Tool vereinfacht zudem die Migration aller Protokolle, Netzwerk- und Servicekonfigurationen zusammen mit der Datenmigration.
 
-http://docs.netapp.com/us-en/ontap-7mode-transition/releasenotes.html["Versionshinweise Für Das 7-Mode Transition Tool"]
+http://["Versionshinweise Für Das 7-Mode Transition Tool"]
 
 Dieses Verfahren enthält die grundlegenden Aufgaben, die Sie für die Transition mit SnapMirror ausführen müssen.
 
@@ -44,23 +44,23 @@ Nach Abschluss der Datenmigration müssen Sie die folgenden Aufgaben durchführe
 
 * Optional: Erstellen Sie eine Daten-LIF auf der SVM, um den Client-Zugriff zu ermöglichen.
 +
-https://docs.netapp.com/us-en/ontap/networking/index.html["Netzwerk- und LIF-Management"].
+https://["Netzwerk- und LIF-Management"].
 
 * Konfiguration von Protokollen, Netzwerken und Services auf der SVM
 +
-** https://docs.netapp.com/us-en/ontap/networking/index.html["Netzwerk- und LIF-Management"].
-** http://docs.netapp.com/ontap-9/topic/com.netapp.doc.cdot-famg-cifs/home.html["SMB/CIFS-Management"]
-** https://docs.netapp.com/ontap-9/topic/com.netapp.doc.cdot-famg-nfs/home.html["NFS-Management"]
+** https://["Netzwerk- und LIF-Management"].
+** http://["SMB/CIFS-Management"]
+** https://["NFS-Management"]
 
 
 * Erstellen von Initiatorgruppen und Zuordnen von LUNs
 +
-https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-sanag/home.html["SAN-Administration"]
+https://["SAN-Administration"]
 
 * Falls Sie Volumes mit LUNs umstellen, müssen Sie die erforderlichen Aufgaben nach dem Umstieg auf den Hosts ausführen, bevor Sie den Zugriff auf die übergewechselt werden können. Clustered Data ONTAP Volumes müssen dann wiederhergestellt werden.
 +
-http://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-7mtt-sanspl/home.html["San-Host-Umstellung und Problembehebung"]
+http://["San-Host-Umstellung und Problembehebung"]
 
 
 
-https://mysupport.netapp.com/site/global/dashboard["NetApp Support"]
+https://["NetApp Support"]

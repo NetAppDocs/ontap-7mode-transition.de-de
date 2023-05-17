@@ -28,7 +28,7 @@ Sie können Volume SnapMirror Beziehungen mit dem 7-Mode Transition Tool verschi
 Volumes, die Quelle einer SnapVault Beziehung sind, können migriert werden. Die SnapVault Beziehung erfolgt jedoch nicht. Ein Volume, das Ziel einer SnapVault-Beziehung ist, kann erst migriert werden, nachdem die SnapVault-Backups angehalten sind.
 
 +
-http://www.netapp.com/us/media/tr-4052.pdf["Technischer Bericht 4052 von NetApp: Erfolgreicher Wechsel zu Clustered Data ONTAP (Data ONTAP 8.2.x und 8.3)"]
+http://["Technischer Bericht 4052 von NetApp: Erfolgreicher Wechsel zu Clustered Data ONTAP (Data ONTAP 8.2.x und 8.3)"]
 
 * Qtree SnapMirror Beziehungen
 +
@@ -43,7 +43,7 @@ Volumes, die eine Disaster Recovery vFiler Einheit bilden, können migriert werd
 Nach Abschluss der Umstellung müssen Sie manuell Backup-Richtlinien für die migrierte Volumes in ONTAP festlegen.
 
 +
-https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-ptbrg/home.html["Datensicherung mithilfe von Tape Backup"]
+https://["Datensicherung mithilfe von Tape Backup"]
 
 * Synchrone SnapMirror Beziehungen
 +

@@ -15,9 +15,9 @@ Sie sollten jeden 7-Mode Controller im HA-Paar einer Ziel-SVM zuordnen. Wenn Sie
 
 Sie müssen die SVMs auf dem Ziel-Cluster erstellt haben.
 
-https://docs.netapp.com/ontap-9/topic/com.netapp.doc.onc-sm-help/GUID-DF04A607-30B0-4B98-99C8-CB065C64E670.html["Cluster Management mit System Manager"]
+https://["Cluster-Management mit System Manager"]
 
-https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-sag/home.html["Systemadministration"]
+https://["Systemadministration"]
 
 Eine vFiler Einheit kann nur einer einzelnen SVM zugeordnet werden. Volumes eines anderen 7-Mode Controllers oder einer vFiler Einheit können nicht zu einer zugewiesenen SVM migriert werden.
 

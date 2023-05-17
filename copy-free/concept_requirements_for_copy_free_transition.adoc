@@ -19,11 +19,11 @@ link:https://docs.netapp.com/us-en/ontap-7mode-transition/releasenotes.html["Ver
 
 * * Plattformmodelle*
 +
-Der Copy-Free Transition wird nur bei Mid-End- und High-End-Systemen der FAS sowie bei IBM N Series Systemen unterstützt. Der https://mysupport.netapp.com/matrix["NetApp Interoperabilitäts-Matrix-Tool"] Verfügt über die neuesten Informationen zu den unterstützten Plattformen für 7-Mode Systeme und den Ziel-Cluster-Nodes.
+Der Copy-Free Transition wird nur bei Mid-End- und High-End-Systemen der FAS sowie bei IBM N Series Systemen unterstützt. Der https://["NetApp Interoperabilitäts-Matrix-Tool"] Verfügt über die neuesten Informationen zu den unterstützten Plattformen für 7-Mode Systeme und den Ziel-Cluster-Nodes.
 
 * *Data ONTAP in 7-Mode Quellsystemen*
 +
-Eine Liste der 7-Mode Versionen, die von der Migration durch das 7-Mode Transition Tool unterstützt werden, finden Sie im https://mysupport.netapp.com/matrix["NetApp Interoperabilitäts-Matrix-Tool"]
+Eine Liste der 7-Mode Versionen, die von der Migration durch das 7-Mode Transition Tool unterstützt werden, finden Sie im https://["NetApp Interoperabilitäts-Matrix-Tool"]
 
 * *ONTAP-Zielsysteme*
 +
@@ -65,19 +65,19 @@ NOTE: Das Platten-Shelf-Modell DS14mk2 FC wird nicht unterstützt.
 Sie müssen das neueste Qualifizierungspaket für Festplatten, Festplatten-Firmware sowie Festplatten-Shelf und ACP-Firmware auf den 7-Mode Systemen und Ziel-Cluster Nodes herunterladen und installieren.
 
 +
-https://mysupport.netapp.com/NOW/download/tools/diskqual/["NetApp Downloads: Disk Qualification Package"]
+https://["NetApp Downloads: Disk Qualification Package"]
 
 +
-https://mysupport.netapp.com/site/downloads/firmware/disk-drive-firmware["NetApp Downloads: Festplatten-Firmware"]
+https://["NetApp Downloads: Festplatten-Firmware"]
 
 +
-https://mysupport.netapp.com/site/downloads/firmware/disk-shelf-firmware["NetApp Downloads: Festplatten-Shelf Firmware"]
+https://["NetApp Downloads: Festplatten-Shelf Firmware"]
 
 * *Werkzeug zur Überprüfung der Verkabelung*
 +
 Nach dem Verbinden der 7-Mode Festplatten-Shelfs mit den Ziel-Cluster Nodes während der Transition müssen Sie die Verkabelung mithilfe von Config Advisor überprüfen.
 
 +
-https://mysupport.netapp.com/site/tools/tool-eula/activeiq-configadvisor["NetApp Downloads: Config Advisor"]
+https://["NetApp Downloads: Config Advisor"]
 
 

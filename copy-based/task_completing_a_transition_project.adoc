@@ -55,7 +55,7 @@ NOTE: Falls Sie eine neue LIF erstellt haben, müssen Benutzer und Applikationen
 
 Wenn Sie die Transition einer SnapMirror Beziehung zwischen Clustern mit unterstützten ONTAP 9.3 oder höher abgeschlossen haben, müssen Sie die SnapMirror Beziehung vom Typ DP in Typ XDP konvertieren.
 
-http://docs.netapp.com/ontap-9/topic/com.netapp.doc.pow-dap/home.html["Datensicherung"]
+http://["Datensicherung"]
 
 *Verwandte Informationen*
 

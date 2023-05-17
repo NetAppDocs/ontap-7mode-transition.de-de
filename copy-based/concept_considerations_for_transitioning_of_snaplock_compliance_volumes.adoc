@@ -23,4 +23,4 @@ Der Lese-/Schreibmodus für Vorüberschreibungen wird bei Projekten mit SnapLock
 
 Wenn während der Umstellung das ausgewählte Volume ein SnapLock-Compliance Volume ist und es Ziel einer SnapMirror Beziehung ist, wird die SnapMirror Beziehung zwischen dem 7-Mode Volume und dem ONTAP Volume ohne SnapMirror Break-Vorgang gelöscht. Durch diese Aktion bleiben die sekundären ONTAP SnapLock-Compliance-Volumes schreibgeschützt. Die sekundären ONTAP SnapLock Compliance Volumes müssen sich für die Neusynchronisierung im schreibgeschützten Modus befinden, damit die primären und sekundären SnapLock Compliance Volumes erfolgreich bestehen können.
 
-Siehe https://kb.netapp.com/Advice_and_Troubleshooting/Data_Protection_and_Security/SnapMirror/How_to_transition_the_7-Mode_SnapLock_Compliance_volumes_with_SnapMirror_relationship_to_clustered_Data_ONTAP["Transition der 7-Mode SnapLock Compliance Volumes mit SnapMirror Beziehung zu Clustered Data ONTAP"]
+Siehe https://["Transition der 7-Mode SnapLock Compliance Volumes mit SnapMirror Beziehung zu Clustered Data ONTAP"]

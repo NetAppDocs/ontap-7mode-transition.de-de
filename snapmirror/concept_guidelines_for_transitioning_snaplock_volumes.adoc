@@ -38,4 +38,4 @@ Wenn Sie mit dem 7-Mode Transition Tool ein Volume in ONTAP 9.10.1 oder höher e
 
 *Verwandte Informationen*
 
-https://docs.netapp.com/ontap-9/topic/com.netapp.doc.pow-arch-con/home.html["Archivierung und Compliance mit SnapLock Technologie"^]
+https://["Archivierung und Compliance mit SnapLock Technologie"^]

@@ -22,4 +22,4 @@ image::../media/32bit_upgrade_path_updated.gif[32-Bit-Upgrade-Pfad aktualisiert]
 
 *Verwandte Informationen*
 
-http://www.netapp.com/us/media/tr-3978.pdf["Technischer Bericht 3978 von NetApp: In-Place-Erweiterung von 32-Bit-Aggregaten auf 64-Bit-Übersicht und Best Practices"]
+http://["Technischer Bericht 3978 von NetApp: In-Place-Erweiterung von 32-Bit-Aggregaten auf 64-Bit-Übersicht und Best Practices"]

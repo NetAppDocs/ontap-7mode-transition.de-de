@@ -22,7 +22,7 @@ Bevor Sie mit der Transition beginnen, sollten Sie überprüfen, ob Sie alle Vor
 
 
  a| 
-Unterstützte Version mit 7-Mode https://mysupport.netapp.com/matrix["NetApp Interoperabilitäts-Matrix-Tool"]
+Unterstützte Version mit 7-Mode https://["NetApp Interoperabilitäts-Matrix-Tool"]
  a| 
 
 

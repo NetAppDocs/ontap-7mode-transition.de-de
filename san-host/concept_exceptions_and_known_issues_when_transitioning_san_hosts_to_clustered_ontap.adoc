@@ -19,6 +19,6 @@ Weitere Informationen zur Hyper-V Storage-Live-Migration finden Sie in der Micro
 
 * Wenn Sie auf beiden Knoten des 7-Mode Controllers denselben igroup-Namen verwendet haben, kann das Umstiegs-Tool den Initiatorgruppenkonflikt möglicherweise nicht lösen.
 +
-Fehler-ID https://mysupport.netapp.com/NOW/cgi-bin/bol?Type=Detail&Display=769715["769715"].
+Fehler-ID https://["769715"].
 
 

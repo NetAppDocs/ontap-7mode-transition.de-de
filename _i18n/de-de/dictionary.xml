@@ -275,10 +275,6 @@
   <block id="ecd166a2aa166eb5b83717effda933df" category="list-text"><block ref="f4c99bcc626270cf329abbc78806d5f6" prefix="" category="inline-code"></block></block>
   <block id="2cc25a4f99449a7599c23ffac20f5f0a" category="inline-link">NFS-Management</block>
   <block id="3be17743d367838fefef31a3d1385122" category="paragraph"><block ref="3be17743d367838fefef31a3d1385122" category="inline-link-rx"></block></block>
-  <block id="344245ffd5e989ae89c20e32c008fa81" category="inline-link">Netzwerk- und LIF-Management/ONTAP 9.7 und früher</block>
-  <block id="deacabb337a4e4593417f763b7ee9cdd" category="paragraph"><block ref="deacabb337a4e4593417f763b7ee9cdd" category="inline-link-rx"></block></block>
-  <block id="1d3cfe94d22cd88aa57d3292be16ce6a" category="inline-link">Netzwerk- und LIF-Management/ONTAP 9.8 und höher</block>
-  <block id="7c2408d034a81cd431503102ae3cf257" category="paragraph"><block ref="7c2408d034a81cd431503102ae3cf257" category="inline-link-rx"></block></block>
   <block id="5492ed7f2db867272d013736d8246767" category="summary">Das Umstiegstool für 7-Mode unterstützt den Übergang von SnapLock Audit Volumes. Der Workflow für die Transition von SnapLock Audit Volumes ist derselbe wie für die Transition von SnapLock Compliance Volumes.</block>
   <block id="972d2569b6d3ec0dfa4800cf1b4c2443" category="doc">Überlegungen für den Wechsel von SnapLock Audit Volumes</block>
   <block id="bb25a39126a66be9daeb7680b072e8ce" category="paragraph">Nachdem Sie Audit Volumes in die ONTAP übergeben haben, müssen Sie das ummigrierte Audit-Volume manuell als SnapLock Audit Volume für die Ziel-SVM zuweisen.</block>
@@ -613,7 +609,6 @@
   <block id="daac7c5e933e7182b9747eedf6596702" category="paragraph">Die 7-Mode IP-Adressen oder die neuen für den Wechsel ausgewählten LIFs werden im IPspace der zugeordneten SVM erstellt.</block>
   <block id="d0342cf9d6f5d666bdde2bd79ba27922" category="admonition">IPv6-Adressen können nicht migriert werden und müssen nach der Transition manuell konfiguriert werden.</block>
   <block id="4344cf9672839a368c8fd958fef1ec6a" category="inline-link">Netzwerk- und LIF-Management</block>
-  <block id="bc3d619cb2db28a4bb6fdf98a10e1f1f" category="paragraph"><block ref="bc3d619cb2db28a4bb6fdf98a10e1f1f" category="inline-link-rx"></block></block>
   <block id="d4b08c21f0e57a8eeedb09ebd3ae21ab" category="summary">Das 7-Mode Transition Tool unterstützt die Transition von Standalone SnapLock Enterprise Volumes und SnapLock Enterprise Volumes in einer SnapMirror Beziehung.</block>
   <block id="8486dd384038b5c93732269cf20b01a4" category="doc">Überlegungen für den Umstieg auf SnapLock Enterprise Volumes</block>
   <block id="d1cb4d6ca63ddd4d145f373605c2a97b" category="paragraph">Der Workflow für die Transition von SnapLock Enterprise Volumes ist derselbe wie für FlexVol Volumes.</block>
@@ -4577,8 +4572,6 @@
   <block id="3d8681c4860ac3a57d1d2f7bc8baa5bb" category="summary">Sie sollten jeden 7-Mode Controller im HA-Paar einer Ziel-SVM zuordnen. Wenn Sie über vFiler Einheiten verfügen, sollten Sie für jede vFiler Einheit eine Ziel-SVM auswählen. Die Volumes des 7-Mode Controllers oder der vFiler Einheit werden auf die zugewiesene SVM umgestellt.</block>
   <block id="e355b11e2eaa9d7eea05fa53b25548c5" category="doc">Zuordnen von SVMs und Volumes</block>
   <block id="e864ae7abd9c7cc9f36d51906c0d8eda" category="paragraph">Sie müssen die SVMs auf dem Ziel-Cluster erstellt haben.</block>
-  <block id="c7e90c4bd08c796e50d8af0c6b346a93" category="inline-link">Cluster Management mit System Manager</block>
-  <block id="e68762e2e9b4dde18fd46ef04bf3d83f" category="paragraph"><block ref="e68762e2e9b4dde18fd46ef04bf3d83f" category="inline-link-rx"></block></block>
   <block id="5e182e8774fba8b1f9c1b6c53951c7e8" category="paragraph">Eine vFiler Einheit kann nur einer einzelnen SVM zugeordnet werden. Volumes eines anderen 7-Mode Controllers oder einer vFiler Einheit können nicht zu einer zugewiesenen SVM migriert werden.</block>
   <block id="3d70219dc8889e33c3d610573ae98ff5" category="list-text">Wählen Sie auf der Registerkarte SVM und Volume Mapping die Ziel-SVM aus, zu der Sie die Volumes von jedem 7-Mode Controller oder einer vFiler Einheit übertragen möchten.</block>
   <block id="ef57257a0f8fb5ef6b194bfb4db960a2" category="paragraph">Die Ziel-SVM kann sich im standardmäßigen oder nicht standardmäßigen IPspace enthalten.</block>
@@ -4924,11 +4917,7 @@
   <block id="89e9376c64d88102a1755b2bcb5ebdc8" category="paragraph">Speicherplatzgarantie für Volumes ist derzeit deaktiviert, da kein Speicherplatz in den Volumes vorhanden ist.</block>
   <block id="37cbd8ae933eaccbe38fb27aa9624b57" category="paragraph">Das 7-Mode System bietet qtree Exportregeln.</block>
   <block id="0529ad04c3bacd18bc088e405c872bc9" category="paragraph">Erkennen dieses Fehlers bedeutet, dass Sie die Unterschiede in den Qtree-Exportregeln zwischen Data ONTAP 7-Mode und ONTAP verstanden haben. Möglicherweise müssen Sie einige manuelle Schritte durchführen, nachdem die NFS-Exportregeln vom 7-Mode Transition Tool angewendet wurden.</block>
-  <block id="635d884e298b628bc86c8dfa3beaa43b" category="inline-link">NetApp KB-Artikel 8010371:7MTT Vorabprüfung 10111 - 7-Mode Volumes mit qtree-Exporte verschieben</block>
-  <block id="b7d9c1c9dc21f73a9710e128f255e3de" category="paragraph"><block ref="76cc089251289f20d272d580a0cb7fad" category="inline-link-rx"></block></block>
   <block id="5124096f4b11e70bfd162b28f23501b0" category="paragraph">Die zu übertragenden Objekte und Konfigurationen überschreiten ein bestimmtes Limit. Die Storage-Umstellung kann sehr viel Zeit in Anspruch nehmen und es muss darauf vorbereitet werden.</block>
-  <block id="55aa226e76142230ea3e2e60c3300d1c" category="inline-link">NetApp KB-Artikel 3014882: Überlegungen zur Reduzierung der Storage-Umstellungszeit während der Copy-Free Transition</block>
-  <block id="f5620ac4f331783f990692b9f2078fe8" category="paragraph"><block ref="a86b9e1b927d9778e699c72d1d375399" category="inline-link-rx"></block></block>
   <block id="c75b197507e2d158f2e5b19e24d219f3" category="paragraph">Das 7-Mode Transition Tool wird mit der Umstellung der CIFS-Konfiguration fortgesetzt, auch wenn sich die CIFS Active Directory-Domäne des 7-Mode Systems von der CIFS Active Directory-Domäne der Ziel-SVM unterscheidet.</block>
   <block id="41c2904cfced31e323718ea98cede375" category="paragraph">Sie müssen sicherstellen, dass die CIFS Active Directory Domänen des 7-Mode Systems und der Ziel-SVM vertrauenswürdige Domänen sind. Andernfalls schlägt der Übergang von CIFS-Konfigurationen zur Ziel-SVM fehl.</block>
   <block id="32f0eae804f29186c7413dc355cd4b42" category="paragraph"><block ref="32f0eae804f29186c7413dc355cd4b42" category="inline-link-rx"></block></block>
@@ -7408,4 +7397,10 @@
   <block id="856bd2e5c36198b1a4a96c3c36174ff1" category="paragraph">Um 7-Mode SnapLock Volumes zu ONTAP 9.10.1 oder höher zu übertragen, müssen Sie die ONTAP Volumes manuell mit dem erstellen<block ref="9febb3295321c7fd9a2154b2dd4fe68c" prefix=" " category="inline-code"></block> Flagge. Nachdem Sie die Volumes manuell erstellt haben, managen Sie die Transition mit dem 7-Mode Transition Tool.</block>
   <block id="a0067b25c6979c2f6c86fb81b30b1b94" category="paragraph">Wenn Sie mit dem 7-Mode Transition Tool ein Volume in ONTAP 9.10.1 oder höher erstellen, wird das Volume nicht als SnapLock Volume erstellt, was zu einer fehlgeschlagenen SnapMirror Basis führt.</block>
   <block id="b5d693096cb7f86384fa4012d1d2a0cb" category="paragraph"><block ref="b5d693096cb7f86384fa4012d1d2a0cb" category="inline-link-rx"></block></block>
+  <block id="62862e43a259c6f657835385994bd50d" category="inline-link">7MTT Precheck 10111 - Transition von 7-Mode Volumes mit qtree-Level Exporten</block>
+  <block id="57c8efcc3c67cc0cf40f5ccea4480938" category="paragraph"><block ref="57c8efcc3c67cc0cf40f5ccea4480938" category="inline-link-rx"></block></block>
+  <block id="fe4c4243327571d5d4dfbb7d050df34d" category="inline-link">Überlegungen, die bei der Verkürzung der Storage-Umstellungszeit während der Copy-Free Transition zu berücksichtigen sind</block>
+  <block id="6705b8d93729b2ab59445f3c547fe952" category="paragraph"><block ref="6705b8d93729b2ab59445f3c547fe952" category="inline-link-rx"></block></block>
+  <block id="53b500e941f815e0da37832bbbb3f265" category="inline-link">Cluster-Management mit System Manager</block>
+  <block id="54875b6362e405aeb3f3e1f1b65a3cc7" category="paragraph"><block ref="54875b6362e405aeb3f3e1f1b65a3cc7" category="inline-link-rx"></block></block>
 </blocks>

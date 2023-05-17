@@ -23,4 +23,4 @@ Wenn es Volumes gibt, die Platz-reservierte LUNs enthalten, kann das Volumen um 
 
 *Verwandte Informationen*
 
-http://docs.netapp.com/ontap-9/index.jsp["NetApp Dokumentation: ONTAP 9"]
+http://["NetApp Dokumentation: ONTAP 9"]

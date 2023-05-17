@@ -104,4 +104,4 @@ Eine Transition wird nicht unterstützt, wenn der freie Speicherplatz in den SSD
 
 xref:reference_ignorable_errors_during_transition.adoc[Unwissbare Fehler während des Übergangs]
 
-https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-psmg/home.html["Festplatten- und Aggregatmanagement"]
+https://["Festplatten- und Aggregatmanagement"]

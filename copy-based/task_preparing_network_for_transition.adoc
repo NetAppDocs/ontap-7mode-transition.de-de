@@ -44,4 +44,4 @@ NOTE: IPv6-Adressen können nicht migriert werden und müssen nach der Transitio
 
 *Verwandte Informationen*
 
-https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-nmg/home.html["Netzwerk- und LIF-Management"]
+https://["Netzwerk- und LIF-Management"]

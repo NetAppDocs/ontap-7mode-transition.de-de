@@ -64,6 +64,6 @@ Sie müssen die folgenden LDAP-Optionen auf den SVMs manuell konfigurieren:
 
 xref:task_customizing_configurations_for_transition.adoc[Anpassung des Übergangs von 7-Mode Konfigurationen]
 
-https://docs.netapp.com/ontap-9/topic/com.netapp.doc.cdot-famg-nfs/home.html["NFS-Management"]
+https://["NFS-Management"]
 
-https://docs.netapp.com/us-en/ontap/networking/index.html["Netzwerk- und LIF-Management"]
+https://["Netzwerk- und LIF-Management"]

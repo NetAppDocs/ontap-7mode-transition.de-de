@@ -87,8 +87,6 @@ Sie müssen Initiatorgruppen manuell konfigurieren, die nach der Umstellung an e
 
 *Verwandte Informationen*
 
-https://docs.netapp.com/ontap-9/topic/com.netapp.doc.cdot-famg-nfs/home.html["NFS-Management"]
+https://["NFS-Management"]
 
-https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-nmg/home.html["Netzwerk- und LIF-Management/ONTAP 9.7 und früher"]
-
-https://docs.netapp.com/us-en/ontap/networking/index.html["Netzwerk- und LIF-Management/ONTAP 9.8 und höher"]
+https://["Netzwerk- und LIF-Management"]

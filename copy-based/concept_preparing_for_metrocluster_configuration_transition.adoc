@@ -40,10 +40,10 @@ Sie sollten das 7-Mode Transition Tool auf jeder MetroCluster Site installieren 
 Am besten sollten die Switch-Fabrics nur für die Dauer des Übergangs genutzt werden.
 
 +
-https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-mcc-inst-cnfg-fabric/home.html["Installation und Konfiguration von Fabric-Attached MetroCluster, ONTAP 9.8 oder früher"]
+https://["Installation und Konfiguration von Fabric-Attached MetroCluster, ONTAP 9.8 oder früher"]
 
 +
-https://docs.netapp.com/us-en/ontap-metrocluster/install-fc/index.html["Installation und Konfiguration von Fabric-Attached MetroCluster, ONTAP 9.9.1"]
+https://["Installation und Konfiguration von Fabric-Attached MetroCluster, ONTAP 9.9.1"]
 
 * Die während des Übergangs erstellten Cron Job-Zeitpläne werden nicht auf den Remote Standort repliziert, weshalb die ausgehandelte Umschaltung nach einem Übergang fehlschlägt.
 +

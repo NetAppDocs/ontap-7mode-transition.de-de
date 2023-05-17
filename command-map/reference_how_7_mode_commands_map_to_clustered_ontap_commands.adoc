@@ -859,7 +859,7 @@ Dump
  a| 
 Nicht unterstütztSie müssen das Backup mithilfe von NDMP wie in der Tape Backup-Dokumentation beschrieben initiieren. Für die Funktion dump-to-null müssen Sie die NDMP-Umgebungsvariable DUMP_TO_Null einstellen.
 
-https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-ptbrg/home.html["Datensicherung mithilfe von Tape Backup"]
+https://["Datensicherung mithilfe von Tape Backup"]
 
 |===
 [role="lead"]
@@ -2500,7 +2500,7 @@ Nicht unterstützt
 
 Sie müssen die Wiederherstellung mithilfe von NDMP initiieren. Dies ist in der Dokumentation des Tape-Backups beschrieben.
 
-https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-ptbrg/home.html["Datensicherung mithilfe von Tape Backup"]
+https://["Datensicherung mithilfe von Tape Backup"]
 
 
 
@@ -4053,7 +4053,7 @@ Nicht unterstütztSie müssen eine der folgenden Methoden verwenden, wie in der 
 * Replizieren Sie das ursprüngliche Volume mit SnapMirror und unterbrechen Sie dann die SnapMirror Beziehung, um eine Kopie des Lese- und Schreibvolumens zu erstellen.
 
 
-http://docs.netapp.com/ontap-9/index.jsp?topic=%2Fcom.netapp.doc.dot-cm-vsmg%2FGUID-5578BA46-5522-4BA6-B354-5C924B8207B1.html["Logischer Storage-Management-Leitfaden"]
+http://["Logischer Storage-Management-Leitfaden"]
 
 
 

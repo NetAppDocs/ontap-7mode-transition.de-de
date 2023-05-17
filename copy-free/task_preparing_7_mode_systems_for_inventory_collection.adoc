@@ -102,4 +102,4 @@ Informationen zum Herunterladen und Installieren der NetApp Host Utilities Softw
 
 *Verwandte Informationen*
 
-http://mysupport.netapp.com/["Dokumentation auf der NetApp Support Site: mysupport.netapp.com"]
+http://["Dokumentation auf der NetApp Support Site: mysupport.netapp.com"]

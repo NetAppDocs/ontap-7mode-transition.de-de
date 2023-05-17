@@ -107,7 +107,7 @@ Das 7-Mode System bietet qtree Exportregeln.
 
 Erkennen dieses Fehlers bedeutet, dass Sie die Unterschiede in den Qtree-Exportregeln zwischen Data ONTAP 7-Mode und ONTAP verstanden haben. Möglicherweise müssen Sie einige manuelle Schritte durchführen, nachdem die NFS-Exportregeln vom 7-Mode Transition Tool angewendet wurden.
 
-https://kb.netapp.com/support/index?page=content&id=8010371["NetApp KB-Artikel 8010371:7MTT Vorabprüfung 10111 - 7-Mode Volumes mit qtree-Exporte verschieben"]
+https://["7MTT Precheck 10111 - Transition von 7-Mode Volumes mit qtree-Level Exporten"]
 
 
 
@@ -116,7 +116,7 @@ https://kb.netapp.com/support/index?page=content&id=8010371["NetApp KB-Artikel 8
  a| 
 Die zu übertragenden Objekte und Konfigurationen überschreiten ein bestimmtes Limit. Die Storage-Umstellung kann sehr viel Zeit in Anspruch nehmen und es muss darauf vorbereitet werden.
 
-https://kb.netapp.com/support/index?page=content&id=3014882["NetApp KB-Artikel 3014882: Überlegungen zur Reduzierung der Storage-Umstellungszeit während der Copy-Free Transition"]
+https://["Überlegungen, die bei der Verkürzung der Storage-Umstellungszeit während der Copy-Free Transition zu berücksichtigen sind"]
 
 
 
@@ -127,7 +127,7 @@ Das 7-Mode Transition Tool wird mit der Umstellung der CIFS-Konfiguration fortge
 
 Sie müssen sicherstellen, dass die CIFS Active Directory Domänen des 7-Mode Systems und der Ziel-SVM vertrauenswürdige Domänen sind. Andernfalls schlägt der Übergang von CIFS-Konfigurationen zur Ziel-SVM fehl.
 
-https://kb.netapp.com/Advice_and_Troubleshooting/Data_Storage_Software/ONTAP_OS/How_to_transition_CIFS_configurations_when_Active_Directory_Domain_of_CIFS_server_on_7-Mode_and_target_SVM_are_different["Wie lassen sich CIFS-Konfigurationen übertragen, wenn sich Active Directory Domain des CIFS-Servers auf 7-Mode und Ziel-SVM unterscheiden"]
+https://["Wie lassen sich CIFS-Konfigurationen übertragen, wenn sich Active Directory Domain des CIFS-Servers auf 7-Mode und Ziel-SVM unterscheiden"]
 
 |===
 

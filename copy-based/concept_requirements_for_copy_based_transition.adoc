@@ -15,7 +15,7 @@ Sie müssen die Versionsanforderungen von ONTAP und die Lizenzierungsanforderung
 
 * *Data ONTAP 7-Mode Quellsysteme*
 +
-Eine Liste der 7-Mode Versionen, die von der Migration durch das 7-Mode Transition Tool unterstützt werden, finden Sie im https://mysupport.netapp.com/matrix["NetApp Interoperabilitäts-Matrix-Tool"].
+Eine Liste der 7-Mode Versionen, die von der Migration durch das 7-Mode Transition Tool unterstützt werden, finden Sie im https://["NetApp Interoperabilitäts-Matrix-Tool"].
 
 * *ONTAP-Zielsysteme*
 +
@@ -93,6 +93,6 @@ Damit die Zeitpläne für Datenkopieerstellung wirksam werden können, muss der 
 
 * *Anforderungen an Speicher-, Host- und FC-Switch-Version für die Bewertung des Umstiegs*
 +
-Eine Liste der 7-Mode Versionen, Hosts und FC Switches, die vom 7-Mode Transition Tool unterstützt werden, finden Sie im https://mysupport.netapp.com/matrix["NetApp Interoperabilitäts-Matrix-Tool"].
+Eine Liste der 7-Mode Versionen, Hosts und FC Switches, die vom 7-Mode Transition Tool unterstützt werden, finden Sie im https://["NetApp Interoperabilitäts-Matrix-Tool"].
 
 

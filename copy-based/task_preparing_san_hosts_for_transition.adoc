@@ -15,15 +15,15 @@ Vor dem Übergang einer SAN-Umgebung müssen Sie einige manuelle Schritte durchf
 
 Sie müssen die Bestandsmappe für die SAN-Hosts mit dem Tool zum Erfassen von Inventaren erstellt haben.
 
-http://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-ict-icg/home.html["Erfassung von Informationen zur Migration zu Hosts und Storage"]
+http://["Erfassung von Informationen zur Migration zu Hosts und Storage"]
 
 .Schritte
 . Vergewissern Sie sich, dass der Host für die Transition unterstützt wird.
 +
-https://mysupport.netapp.com/matrix["NetApp Interoperabilitäts-Matrix-Tool"]
+https://["NetApp Interoperabilitäts-Matrix-Tool"]
 
 . Führen Sie die Vorüberstiegschritte auf dem Host aus.
 +
-http://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-7mtt-sanspl/home.html["San-Host-Umstellung und Problembehebung"]
+http://["San-Host-Umstellung und Problembehebung"]
 
 

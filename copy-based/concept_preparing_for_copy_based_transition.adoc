@@ -28,6 +28,6 @@ Vor der Umstellung müssen Sie sicherstellen, dass die folgenden Anforderungen e
 
 xref:reference_transition_preparation_checklist.adoc[Checkliste zur Vorbereitung der Transition]
 
-https://kb.netapp.com/Advice_and_Troubleshooting/Data_Storage_Software/ONTAP_OS/7MTT_v2.0%2F%2FTransitioned_Data_ONTAP_features["Funktionen des 7MTT v2.0/Transition Data ONTAP"]
+https://["Funktionen des 7MTT v2.0/Transition Data ONTAP"]
 
 link:https://mysupport.netapp.com/matrix/imt.jsp?components=68128;&solution=1&isHWU&src=IMT["NetApp Interoperabilitäts-Matrix-Tool"^]

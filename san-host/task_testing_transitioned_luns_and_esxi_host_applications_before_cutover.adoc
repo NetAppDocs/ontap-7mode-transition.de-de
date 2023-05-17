@@ -78,4 +78,4 @@ Planen Sie nach Abschluss des Tests die Zeit, den mit Ihren Controllern verbunde
 
 *Verwandte Informationen*
 
-http://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-7mtt-dctg/home.html["Kopienbasierte Transition"]
+http://["Kopienbasierte Transition"]
