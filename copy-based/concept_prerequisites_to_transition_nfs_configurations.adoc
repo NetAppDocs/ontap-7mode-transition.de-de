@@ -43,4 +43,4 @@ Das 7-Mode Transition Tool überträgt nur die im definierten persistenten Expor
 
 xref:concept_how_nfs_exports_are_transitioned.adoc[Wie NFS-Exporte migriert werden]
 
-http://["NetApp Dokumentation: ONTAP 9"]
+http://docs.netapp.com/ontap-9/index.jsp["NetApp Dokumentation: ONTAP 9"]

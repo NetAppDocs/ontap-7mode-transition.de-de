@@ -107,7 +107,7 @@ Das 7-Mode System bietet qtree Exportregeln.
 
 Erkennen dieses Fehlers bedeutet, dass Sie die Unterschiede in den Qtree-Exportregeln zwischen Data ONTAP 7-Mode und ONTAP verstanden haben. Möglicherweise müssen Sie einige manuelle Schritte durchführen, nachdem die NFS-Exportregeln vom 7-Mode Transition Tool angewendet wurden.
 
-https://["7MTT Precheck 10111 - Transition von 7-Mode Volumes mit qtree-Level Exporten"]
+https://kb.netapp.com/onprem/ontap/da/NAS/7MTT_Precheck_10111_-_How_to_transition_7-Mode_volumes_that_have_qtree_level_exports["7MTT Precheck 10111 - Transition von 7-Mode Volumes mit qtree-Level Exporten"]
 
 
 
@@ -116,7 +116,7 @@ https://["7MTT Precheck 10111 - Transition von 7-Mode Volumes mit qtree-Level Ex
  a| 
 Die zu übertragenden Objekte und Konfigurationen überschreiten ein bestimmtes Limit. Die Storage-Umstellung kann sehr viel Zeit in Anspruch nehmen und es muss darauf vorbereitet werden.
 
-https://["Überlegungen, die bei der Verkürzung der Storage-Umstellungszeit während der Copy-Free Transition zu berücksichtigen sind"]
+https://kb.netapp.com/onprem/ontap/os/Storage_cutover_time_considerations_for_Copy-Free_Transition["Überlegungen, die bei der Verkürzung der Storage-Umstellungszeit während der Copy-Free Transition zu berücksichtigen sind"]
 
 
 
@@ -127,7 +127,7 @@ Das 7-Mode Transition Tool wird mit der Umstellung der CIFS-Konfiguration fortge
 
 Sie müssen sicherstellen, dass die CIFS Active Directory Domänen des 7-Mode Systems und der Ziel-SVM vertrauenswürdige Domänen sind. Andernfalls schlägt der Übergang von CIFS-Konfigurationen zur Ziel-SVM fehl.
 
-https://["Wie lassen sich CIFS-Konfigurationen übertragen, wenn sich Active Directory Domain des CIFS-Servers auf 7-Mode und Ziel-SVM unterscheiden"]
+https://kb.netapp.com/Advice_and_Troubleshooting/Data_Storage_Software/ONTAP_OS/How_to_transition_CIFS_configurations_when_Active_Directory_Domain_of_CIFS_server_on_7-Mode_and_target_SVM_are_different["Wie lassen sich CIFS-Konfigurationen übertragen, wenn sich Active Directory Domain des CIFS-Servers auf 7-Mode und Ziel-SVM unterscheiden"]
 
 |===
 

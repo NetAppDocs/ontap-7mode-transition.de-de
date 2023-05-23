@@ -134,4 +134,4 @@ Sie können kein Rollback zu 7-Mode erstellen, nachdem Sie die 7-Mode Aggregate 
 
 *Verwandte Informationen*
 
-https://["NetApp Downloads: Config Advisor"]
+https://mysupport.netapp.com/site/tools/tool-eula/activeiq-configadvisor["NetApp Downloads: Config Advisor"]

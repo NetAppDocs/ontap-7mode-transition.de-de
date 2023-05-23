@@ -244,7 +244,7 @@ IPv6 und FPolicy müssen z. B. nach der Umstellung manuell konfiguriert werden.
 
 . Für die SAN-Umstellung werden die Hosts neu konfiguriert.
 +
-http://["San-Host-Umstellung und Problembehebung"]
+http://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-7mtt-sanspl/home.html["San-Host-Umstellung und Problembehebung"]
 
 . Vergewissern Sie sich, dass die SVM für die Bereitstellung von Daten für die Clients bereit ist, indem Sie Folgendes überprüfen:
 +

@@ -19,7 +19,7 @@ Der Config Advisor ist das erforderliche Tool für einen Copy-Free Transition. S
 
 Sie sollten das Ausführungsprofil „`Transition`“ in Config Advisor verwenden, um zu überprüfen, ob die Verkabelung nachdem die 7-Mode Festplatten-Shelfs mit den Ziel-Cluster-Nodes verbunden wurden.
 
-https://["NetApp Downloads: Config Advisor"]
+https://mysupport.netapp.com/site/tools/tool-eula/activeiq-configadvisor["NetApp Downloads: Config Advisor"]
 
 
 
@@ -27,4 +27,4 @@ https://["NetApp Downloads: Config Advisor"]
 
 Beschreibt die Schritte vor und nach dem Umstieg, die auf SAN-Hosts bei der Umstellung mit einer Copy-Free Transition ausgeführt werden müssen.
 
-http://["San-Host-Umstellung und Problembehebung"]
+http://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-7mtt-sanspl/home.html["San-Host-Umstellung und Problembehebung"]

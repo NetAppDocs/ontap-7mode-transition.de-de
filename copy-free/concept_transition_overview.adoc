@@ -25,4 +25,4 @@ Die Implementierung umfasst die Bereitstellung und Konfiguration des Clusters, d
 
 *Verwandte Informationen*
 
-http://["NetApp Dokumentation: ONTAP 9"]
+http://docs.netapp.com/ontap-9/index.jsp["NetApp Dokumentation: ONTAP 9"]

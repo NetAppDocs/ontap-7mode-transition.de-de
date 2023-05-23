@@ -15,7 +15,7 @@ Der erste Schritt bei der Planung eines Umstiegsprojekts besteht darin, das 7-Mo
 
 * Auf den 7-Mode Controllern im HA-Paar muss eine unterstützte ONTAP Version auf einer Plattform ausgeführt werden, die für eine Copy-Free-Transition unterstützt wird.
 +
-https://["NetApp Interoperabilitäts-Matrix-Tool"]
+https://mysupport.netapp.com/matrix["NetApp Interoperabilitäts-Matrix-Tool"]
 
 * Beide Controller in der HA-Konfiguration müssen in einem ordnungsgemäßen Zustand sein.
 +

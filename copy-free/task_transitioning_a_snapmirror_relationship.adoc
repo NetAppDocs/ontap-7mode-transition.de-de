@@ -21,4 +21,4 @@ Nach dem Wechsel der primären und sekundären HA-Paare müssen Sie nach der Tra
 
 *Verwandte Informationen*
 
-https://["Cluster-Management mit System Manager"]
+https://docs.netapp.com/us-en/ontap/concept_administration_overview.html["Cluster-Management mit System Manager"]

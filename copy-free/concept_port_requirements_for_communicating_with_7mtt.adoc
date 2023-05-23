@@ -51,4 +51,4 @@ NOTE: Sie müssen überprüfen, dass Firewalls diesen Datenverkehr nicht blockie
 
 *Verwandte Informationen*
 
-http://["Installation und Administration des 7-Mode Transition Tool"]
+http://docs.netapp.com/us-en/ontap-7mode-transition/install-admin/index.html["Installation und Administration des 7-Mode Transition Tool"]

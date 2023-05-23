@@ -15,4 +15,4 @@ Mit dem Umstiegstool für 7-Mode können Sie eine Bestandsaufnahme der 7-Mode Co
 
 In dem aktuellen 7-Mode Transition Tool _Release Notes_ finden Sie die neuesten Informationen zu unterstützten Zielversionen und bekannten Problemen.
 
-http://["Versionshinweise Für Das 7-Mode Transition Tool"]
+http://docs.netapp.com/us-en/ontap-7mode-transition/releasenotes.html["Versionshinweise Für Das 7-Mode Transition Tool"]

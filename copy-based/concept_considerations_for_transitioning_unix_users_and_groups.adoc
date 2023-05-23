@@ -35,4 +35,4 @@ Wenn die Gesamtzahl der UNIX-Benutzer und -Gruppen die Grenze der UNIX-Benutzer 
 
 *Verwandte Informationen*
 
-https://["NFS-Management"]
+https://docs.netapp.com/ontap-9/topic/com.netapp.doc.cdot-famg-nfs/home.html["NFS-Management"]

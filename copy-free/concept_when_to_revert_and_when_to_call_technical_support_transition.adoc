@@ -24,7 +24,7 @@ Wenn Sie einen der folgenden Umstände haben, wenden Sie sich sofort an den tech
 * Der Wechsel ist für einige, jedoch nicht für alle Daten und Konfigurationen abgeschlossen, und Sie entscheiden, ein Rollback des Übergangs durchzuführen.
 * Sie haben ein Problem mit dem Übergangsprozess und können das Problem durch Fehlermeldungen im 7-Mode Transition Tool, in den EMS-Ereignismeldungen von Data ONTAP und der NetApp Knowledgebase nicht lösen.
 +
-https://["NetApp Knowledge Base"]
+https://kb.netapp.com/["NetApp Knowledge Base"]
 
 
 

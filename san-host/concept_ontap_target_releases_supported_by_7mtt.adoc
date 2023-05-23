@@ -15,7 +15,7 @@ Die Release-Unterstützung für ONTAP Transition Ziel-Cluster hängt von der gew
 
 In dem aktuellen 7-Mode Transition Tool _Release Notes_ finden Sie die neuesten Informationen zu unterstützten Zielversionen und bekannten Problemen.
 
-https://["Versionshinweise Für Das 7-Mode Transition Tool"]
+https://docs.netapp.com/us-en/ontap-7mode-transition/releasenotes.html["Versionshinweise Für Das 7-Mode Transition Tool"]
 
 Copy-Based Transitions werden für diese ONTAP Ziel-Releases unterstützt.
 

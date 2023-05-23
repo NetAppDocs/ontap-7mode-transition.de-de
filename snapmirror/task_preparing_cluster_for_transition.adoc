@@ -15,7 +15,7 @@ Sie müssen das Cluster vor dem Wechsel zu einem 7-Mode System einrichten und si
 
 * Der Cluster und die SVM müssen bereits eingerichtet werden.
 +
-https://["Software Setup"]
+https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-ssg/home.html["Software Setup"]
 
 +
 Die Ziel-SVM darf sich nicht in einer Disaster-Recovery-Beziehung zu SVM enthalten.
@@ -71,9 +71,9 @@ system7mode is alive
 
 Für Multipathing müssen Sie an jedem Node zwei Intercluster LIFs haben.
 
-https://["Netzwerk- und LIF-Management"]
+https://docs.netapp.com/us-en/ontap/networking/index.html["Netzwerk- und LIF-Management"]
 
 .Verwandte Informationen
 xref:task_creating_a_transition_peering_relationship.adoc[Aufbau einer Peer-Beziehung für den Wechsel]
 
-https://["NetApp Dokumentation: Produktbibliothek A-Z"]
+https://mysupport.netapp.com/site/docs-and-kb["NetApp Dokumentation: Produktbibliothek A-Z"]

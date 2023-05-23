@@ -21,4 +21,4 @@ Informationen zum Ändern der erforderlichen Änderungen am Software iSCSI Initi
 
 *Verwandte Informationen*
 
-https://["Systemadministration"]
+https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-sag/home.html["Systemadministration"]

@@ -41,10 +41,10 @@ Befehl, um sicherzustellen, dass die IP-Adresse des 7-Mode Transition Tools übe
 Wenn dieser Fehler während der Vorprüfphase auftritt, müssen Sie die zusätzlichen SIDs manuell entfernen, die einem einzelnen Domain-Benutzer oder einer einzelnen Gruppe auf dem 7-Mode-System zugeordnet sind. Anschließend müssen Sie die Vorabprüfung mit nur einem einzigen SID wiederholen, der dem Domänenbenutzer oder der Gruppe zugeordnet ist.
 
 +
-https://["Fehlerbehebung Workflow: CIFS: Das an das System angeschlossene Gerät funktioniert nicht"]
+https://kb.netapp.com/Advice_and_Troubleshooting/Data_Storage_Software/ONTAP_OS/Troubleshooting_Workflow%3A_CIFS%3A_Device_attached_to_the_system_is_not_functioning["Fehlerbehebung Workflow: CIFS: Das an das System angeschlossene Gerät funktioniert nicht"]
 
 
 
 *Verwandte Informationen*
 
-http://["SMB/CIFS-Management"]
+http://docs.netapp.com/ontap-9/topic/com.netapp.doc.cdot-famg-cifs/home.html["SMB/CIFS-Management"]

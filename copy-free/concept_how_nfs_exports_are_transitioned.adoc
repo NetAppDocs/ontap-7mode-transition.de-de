@@ -34,7 +34,7 @@ Damit NFS-Clients qtrees mounten können, müssen die qtrees zu einem Volume geh
 * Wenn derselbe Host in einer Kombination aus Berechtigungslisten für Schreibschutz-, Lese- und Root-Zugriff angegeben wird, müssen Sie die ummigrierte Exportregel nach der Transition bewerten, um die entsprechenden Zugriffsrechte für die Hosts zu ermitteln.
 
 
-http://["NetApp Technical Report 4067: NFS Best Practice and Implementation Guide"]
+http://www.netapp.com/us/media/tr-4067.pdf["NetApp Technical Report 4067: NFS Best Practice and Implementation Guide"]
 
 
 
@@ -165,4 +165,4 @@ Nach der Transition müssen Sie die Auswirkungen der Durchsetzung der NFS-Export
 
 *Verwandte Informationen*
 
-https://["NFS-Management"]
+https://docs.netapp.com/ontap-9/topic/com.netapp.doc.cdot-famg-nfs/home.html["NFS-Management"]

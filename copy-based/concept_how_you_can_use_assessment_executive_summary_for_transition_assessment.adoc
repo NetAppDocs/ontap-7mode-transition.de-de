@@ -37,7 +37,7 @@ Basierend auf der Volume- und Controller-Konfiguration und der Vorabüberprüfun
 
 Für die meisten Konfigurationen empfiehlt sich das 7-Mode Transition Tool. Es gibt jedoch einige Workloads, die nicht mit dem 7-Mode Transition Tool migriert werden können. Bei diesen Workloads sollten Sie eine applikationsbasierte oder Host-basierte Migrationsmethode verwenden.
 
-http://["Technischer Bericht 4052 von NetApp: Erfolgreicher Wechsel zu Clustered Data ONTAP (Data ONTAP 8.2.x und 8.3)"]
+http://www.netapp.com/us/media/tr-4052.pdf["Technischer Bericht 4052 von NetApp: Erfolgreicher Wechsel zu Clustered Data ONTAP (Data ONTAP 8.2.x und 8.3)"]
 
 
 

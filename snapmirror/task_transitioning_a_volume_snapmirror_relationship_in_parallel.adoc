@@ -37,11 +37,11 @@ xref:task_transitioning_a_stand_alone_volume.adoc[Übergang eines eigenständige
 
 . Erstellung einer Cluster-übergreifende SVM-Peer-Beziehung zwischen den SVMs, die die übergewechselt primären und sekundären Volumes enthalten
 +
-https://["Systemadministration"]
+https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-sag/home.html["Systemadministration"]
 
 . Erstellung einer Volume SnapMirror Beziehung zwischen den übergewechselt primären und sekundären Volumes
 +
-https://["Volume Disaster Recovery Express Vorbereitung"]
+https://docs.netapp.com/ontap-9/topic/com.netapp.doc.exp-sm-ic-cg/home.html["Volume Disaster Recovery Express Vorbereitung"]
 
 . Auf dem Ziel-Volume werden das Quell-Volume und das Ziel-Volume der SnapMirror Beziehung neu synchronisiert.
 +

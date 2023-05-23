@@ -15,7 +15,7 @@ Vor der Transition müssen Sie sicherstellen, dass das Cluster Anforderungen wie
 
 * Der Cluster und die SVM müssen bereits eingerichtet werden.
 +
-https://["Software Setup"]
+https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-ssg/home.html["Software Setup"]
 
 +
 Die Ziel-SVM darf sich nicht in einer Disaster-Recovery-Beziehung zu SVM enthalten.
@@ -28,7 +28,7 @@ Die Ziel-SVM darf sich nicht in einer Disaster-Recovery-Beziehung zu SVM enthalt
 Der zusätzliche Speicherplatz ist erforderlich, um das überführte Volume auf ein 64-Bit-Format zu aktualisieren.
 
 +
-https://["Festplatten- und Aggregatmanagement"]
+https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-psmg/home.html["Festplatten- und Aggregatmanagement"]
 
 * Für die Einrichtung einer SVM-Peer-Beziehung beim Übergang einer Volume-SnapMirror-Beziehung müssen folgende Bedingungen erfüllt sein:
 +
@@ -114,7 +114,7 @@ mgmt
 
 
 +
-https://["Systemadministration"]
+https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-sag/home.html["Systemadministration"]
 
 . Erstellen Sie auf jedem Node des Clusters eine Intercluster-LIF, um die Kommunikation zwischen dem Cluster und dem 7-Mode System zu ermöglichen:
 +
@@ -165,7 +165,7 @@ system7mode is alive
 Für Multipathing müssen Sie an jedem Node zwei Intercluster LIFs haben.
 
 +
-https://["Netzwerk- und LIF-Management"]
+https://docs.netapp.com/us-en/ontap/networking/index.html["Netzwerk- und LIF-Management"]
 
 
 

@@ -17,4 +17,4 @@ image::../media/delete_me_cft_preparation_workflow.gif[löschen sie den cft-Vorb
 
 *Verwandte Informationen*
 
-https://["NetApp Interoperabilitäts-Matrix-Tool"]
+https://mysupport.netapp.com/matrix["NetApp Interoperabilitäts-Matrix-Tool"]

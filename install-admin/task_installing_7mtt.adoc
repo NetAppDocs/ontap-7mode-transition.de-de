@@ -27,7 +27,7 @@ Sie müssen den Cache jedes Mal löschen, wenn Sie eine neue Version des Tools i
 .Schritte
 . Laden Sie die Software von der NetApp Support-Website herunter.
 +
-http://["NetApp Downloads: Software"]
+http://mysupport.netapp.com/NOW/cgi-bin/software["NetApp Downloads: Software"]
 
 . Führen Sie die aus `NetApp_7ModeTransitionTool_Setup.exe` Datei:
 . Klicken Sie im Begrüßungsbildschirm des 7-Mode Transition Tool Setup auf *Weiter*.

@@ -36,4 +36,4 @@ NOTE: Wenn Sie Windows 2003 verwenden, müssen Sie ein Upgrade auf Windows 2008 
 
 *Verwandte Informationen*
 
-https://["SAN-Konfiguration"]
+https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-sanconf/home.html["SAN-Konfiguration"]

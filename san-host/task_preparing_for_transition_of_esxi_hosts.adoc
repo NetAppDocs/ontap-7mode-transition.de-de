@@ -47,6 +47,6 @@ VMware HA und DRS werden während des Übergangs nicht unterstützt.
 
 *Verwandte Informationen*
 
-http://["Beibehaltung von Ressourcenpools beim Deaktivieren von VMware DRS Clustern im vSphere Web Client"]
+http://kb.vmware.com/kb/2032893["Beibehaltung von Ressourcenpools beim Deaktivieren von VMware DRS Clustern im vSphere Web Client"]
 
-http://["Deaktivieren der VMware Hochverfügbarkeit (HA)"]
+http://kb.vmware.com/kb/1008025["Deaktivieren der VMware Hochverfügbarkeit (HA)"]

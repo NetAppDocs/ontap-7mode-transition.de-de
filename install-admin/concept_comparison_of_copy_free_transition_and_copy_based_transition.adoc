@@ -38,7 +38,7 @@ Neue Festplatten-Shelfs und Festplatten zum Hosten der übergewechselt Volumes
  a| 
 Plattformanforderungen
  a| 
-Unterstützung nur auf Midrange- und High-Level-Plattformen https://["NetApp Interoperabilitäts-Matrix-Tool"]
+Unterstützung nur auf Midrange- und High-Level-Plattformen https://mysupport.netapp.com/matrix["NetApp Interoperabilitäts-Matrix-Tool"]
  a| 
 Unterstützung auf allen Plattformen
 

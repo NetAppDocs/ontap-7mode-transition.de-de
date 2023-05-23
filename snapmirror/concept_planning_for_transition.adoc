@@ -15,7 +15,7 @@ Vor dem Kopieren von Daten von 7-Mode Volumes auf Clustered ONTAP Volumes ist es
 
 Falls Probleme bei der Transition auftreten, sollten Sie die _Versionshinweise_ für die Zielversion des Wechsels lesen.
 
-https://["Versionshinweise zu ONTAP 9"]
+https://library.netapp.com/ecmdocs/ECMLP2492508/html/frameset.html["Versionshinweise zu ONTAP 9"]
 
 SnapMirror Beziehungen zwischen 7-Mode und Clustered ONTAP Volumes werden in den folgenden Versionen unterstützt:
 

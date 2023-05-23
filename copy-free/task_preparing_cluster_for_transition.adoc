@@ -15,7 +15,7 @@ Vor der Transition müssen Sie den Cluster für die Kommunikation mit dem 7-Mode
 
 * Der Cluster muss bereits eingerichtet werden und die Ziel-Cluster-Nodes müssen mit dem Cluster verbunden werden.
 +
-https://["Software Setup"]
+https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-ssg/home.html["Software Setup"]
 
 * Die SVMs müssen erstellt und einem IPspace zugewiesen werden.
 * Die 7-Mode Festplatten-Shelfs können auf ein Ziel-HA-Paar mit bereits vorhandenen Datenaggregaten und Volumes verschoben werden.
@@ -94,6 +94,6 @@ mgmt
 
 
 +
-https://["Systemadministration"]
+https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-sag/home.html["Systemadministration"]
 
 

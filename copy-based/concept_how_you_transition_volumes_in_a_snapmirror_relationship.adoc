@@ -263,7 +263,7 @@ Nachdem die Umstellungsphase erfolgreich abgeschlossen und der Umstieg abgeschlo
 . Wenn auf dem Ziel-Cluster Data ONTAP 8.3.1 oder älter ausgeführt wird, müssen Sie die sekundären LUNs manuell zuordnen.
 . Bei SAN-Übergängen konfigurieren Sie die Hosts manuell neu.
 +
-http://["San-Host-Umstellung und Problembehebung"]
+http://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-7mtt-sanspl/home.html["San-Host-Umstellung und Problembehebung"]
 
 . Vergewissern Sie sich, dass die SVM für die Bereitstellung von Daten für die Clients bereit ist, indem Sie Folgendes überprüfen:
 +

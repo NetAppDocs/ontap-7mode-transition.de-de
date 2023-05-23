@@ -17,7 +17,7 @@ Wenn ein fortlaufendes geplantes Update aufgrund eines NDO-Vorgangs (Übernahme 
 
 Wenn Sie ein Standalone-Volume oder eine SnapMirror Volume-Beziehung zu LUNs verschieben, müssen Sie Initiatorgruppen erstellen und LUNs zuordnen. Anschließend müssen die Hosts nach der Transition die erforderlichen Aufgaben ausführen, bevor der Zugriff auf die Clustered Data ONTAP Volumes konfiguriert wird.
 
-http://["San-Host-Umstellung und Problembehebung"]
+http://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-7mtt-sanspl/home.html["San-Host-Umstellung und Problembehebung"]
 
 *Verwandte Informationen*
 
