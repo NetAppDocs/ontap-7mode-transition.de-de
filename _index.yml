@@ -1,0 +1,47 @@
+---
+indexpage:
+  title: 7-Mode Transition Documentation
+  summary: 7-Mode Transition Documentation umfasst Informationen, die Sie bei der
+    Installation und Einrichtung des 7-Mode Transition Tool unterstützen, Transition
+    von Daten mit SnapMirror Befehlen, Durchführen eines Copy-Based oder Copy-Free
+    Übergangs, Sammeln von Informationen für die Transition und Abschließen von Pre-/Post-Transition-Verfahren
+    für SAN-Hosts unterstützen.
+  keywords: transition, copy, free, 7-mode transition
+  lead: Die Dokumentation zum 7-Mode Transition enthält Informationen, die Sie bei
+    der Installation und Einrichtung des 7-Mode Transition Tool unterstützen, die
+    Transition von Daten mit SnapMirror Befehlen, die Durchführung einer Copy-Base-
+    oder Copy-Free-Transition, die Erfassung von Informationen für die Transition
+    und die Durchführung von Pre- und Post-Transition-Verfahren für SAN Hosts.
+  tiles:
+  - title: Los geht's
+    links:
+    - title: Was ist neu
+      url: releasenotes.html
+    - title: Installieren Sie das 7-Mode Transition Tool
+      url: "/install-admin/concept_transition_to_clustered_ontap_using_7mtt.html"
+    - title: Erfassen Sie die für die Transition erforderlichen Daten
+      url: "/inventory-collect/concept_collecting_host_and_storage_inventory_information_for_transition_assessment.html"
+  - title: Command Map für 7-Mode Administratoren
+    links:
+    - title: Zuordnung von 7-Mode Befehlen zu ONTAP Befehlen
+      url: "/command-map/reference_how_7_mode_commands_map_to_clustered_ontap_commands.html"
+    - title: Zuordnung der 7-Mode Optionen zu ONTAP Befehlen
+      url: "/command-map/reference_how_7_mode_options_map_to_clustered_ontap_commands.html"
+    - title: Zuordnung der 7-Mode Konfigurationsdateien zu ONTAP Befehlen
+      url: "/command-map/reference_how_7_mode_configuration_files_map_to_clustered_ontap_commands.html"
+  - title: Möglichkeiten für den Wechsel
+    links:
+    - title: Kopienbasierte Transition
+      url: "/copy-based/concept_copy_based_transition_workflow.html"
+    - title: Copy Free Transition
+      url: "/copy-free/task_copy_free_transition_workflow.html"
+    - title: Transition von Daten mit SnapMirror
+      url: "/snapmirror/task_transitioning_7_mode_volumes_using_snapmirror.html"
+  - title: San-Host-Umstellung und Problembehebung
+    links:
+    - title: VMware ESXi
+      url: "/san-host/concept_vmware_esxi_host_remediation.html"
+    - title: Red Hat Enterprise Linux
+      url: "/san-host/concept_linux_host_remediation.html"
+    - title: Windows
+      url: "/san-host/concept_windows_host_remediation.html"
