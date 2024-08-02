@@ -24,7 +24,7 @@ Folgende Volume-Typen werden für den Übergang nicht unterstützt:
 Hostbasierte Migrationsmethoden können für die Transition herkömmlicher Volumes eingesetzt werden.
 
 +
-http://www.netapp.com/us/media/tr-4052.pdf["Technischer Bericht 4052 von NetApp: Erfolgreicher Wechsel zu Clustered Data ONTAP (Data ONTAP 8.2.x und 8.3)"]
+https://www.netapp.com/pdf.html?item=/media/19510-tr-4052.pdf["Technischer Bericht 4052 von NetApp: Erfolgreicher Wechsel zu Clustered Data ONTAP (Data ONTAP 8.2.x und 8.3)"^]
 
 * FlexCache Volumes
 

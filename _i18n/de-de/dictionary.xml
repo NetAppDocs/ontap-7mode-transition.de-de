@@ -794,7 +794,6 @@
   <block id="ee938c4ccb225fb1eaa8be3c480458c0" category="paragraph">Sie sollten anhand des folgenden Workflows entscheiden, ob ein Upgrade vor der Umstellung erforderlich ist.</block>
   <block id="92cd2f5e96983a715cf5b509f4aa5a2b" category="image-alt">32-Bit-Upgrade-Pfad aktualisiert</block>
   <block id="13434f43b15c9640896f4fc73fa54221" category="inline-link">Technischer Bericht 3978 von NetApp: In-Place-Erweiterung von 32-Bit-Aggregaten auf 64-Bit-Übersicht und Best Practices</block>
-  <block id="0a2da8e756e37983a5c9c20d332cfa66" category="paragraph"><block ref="0a2da8e756e37983a5c9c20d332cfa66" category="inline-link-rx"></block></block>
   <block id="c04bc7c8a0ecb1dff1242a85b590e188" category="summary">Bei der Übertragung von FlexClone Volumes auf eine SVM werden die Klone von den übergeordneten Volumes aufgeteilt und als FlexVol Volumes in das Ziel-Cluster verschoben. Dies führt dazu, dass im Zuge der Umstellung die Klonhierarchie und die Storage-Effizienz nicht verloren gehen.</block>
   <block id="80bedf9b4df8b4fbfe84a49b0f9a8c11" category="doc">Überlegungen für FlexClone Volumes</block>
   <block id="021f8e6944f134caa4dde3b220684668" category="paragraph">Wenn im Ziel-Cluster Data ONTAP 8.3 oder eine frühere Version ausgeführt wird, können FlexClone Volumes nicht anhand von Snapshot Kopien erstellt werden, die aus dem 7-Mode migriert wurden. FlexClone Volumes können nur aus neuen Snapshot-Kopien erstellt werden, die nach dem Übergang des Volume zu ONTAP erstellt werden. Ab Clustered Data ONTAP 8.3 können Sie FlexClone Volumes aus Snapshot Kopien erstellen, die aus dem 7-Mode migriert werden.</block>
@@ -1281,7 +1280,6 @@
   <block id="67e55df2230df7a56836309fe173b259" category="paragraph">Basierend auf der Volume- und Controller-Konfiguration und der Vorabüberprüfungszusammenfassung enthält die Executive Summary eine Empfehlung zur besten Übergangsmethodik für jedes festbewertete Volume. Beispielsweise können Sie herkömmliche 7-Mode Volumes oder FlexCache Volumes nicht wechseln, da diese Funktionen nicht in ONTAP unterstützt werden.</block>
   <block id="a4188dde39855b0f8b00898bc8a50fc5" category="paragraph">Für die meisten Konfigurationen empfiehlt sich das 7-Mode Transition Tool. Es gibt jedoch einige Workloads, die nicht mit dem 7-Mode Transition Tool migriert werden können. Bei diesen Workloads sollten Sie eine applikationsbasierte oder Host-basierte Migrationsmethode verwenden.</block>
   <block id="664f739c9dfce166b4c021cac0d8633e" category="inline-link">Technischer Bericht 4052 von NetApp: Erfolgreicher Wechsel zu Clustered Data ONTAP (Data ONTAP 8.2.x und 8.3)</block>
-  <block id="755b3c98012d25558d664e3aae2c2528" category="paragraph"><block ref="755b3c98012d25558d664e3aae2c2528" category="inline-link-rx"></block></block>
   <block id="ca2ca47a2d122a4c2b69f770ebdcaf17" category="section-title">Storage-Inventar</block>
   <block id="e666d79eed8ef816936f0c67b7ccc988" category="paragraph">Dieser Abschnitt enthält folgende Informationen:</block>
   <block id="a378d84c51afa40ad9cc4d4db2fbbb40" category="list-text">Storage-Objekte: Liefert Informationen über die Anzahl der Storage-Objekte, wie Volumes, qtrees, LUNs, vFiler Einheiten, SnapMirror Beziehungen, Freigaben und Exporte in jedem Controller.</block>
@@ -1469,7 +1467,6 @@
   <block id="b94690f1d58e7f298c4e94a655b35110" category="paragraph">Damit NFS-Clients qtrees mounten können, müssen die qtrees zu einem Volume gehören, das über schreibgeschützte Berechtigung verfügt. Ohne die schreibgeschützten Berechtigungen auf Volume-Ebene können die NFS-Clients den qtree nicht mounten.</block>
   <block id="1b4bd805f1c43c7d5c9719dce981c2f4" category="list-text">Wenn derselbe Host in einer Kombination aus Berechtigungslisten für Schreibschutz-, Lese- und Root-Zugriff angegeben wird, müssen Sie die ummigrierte Exportregel nach der Transition bewerten, um die entsprechenden Zugriffsrechte für die Hosts zu ermitteln.</block>
   <block id="8fad4be94e9aa7ce4db57aef3f0d7941" category="inline-link">NetApp Technical Report 4067: NFS Best Practice and Implementation Guide</block>
-  <block id="2e5e5fdaff65cd094319505704237d70" category="paragraph"><block ref="2e5e5fdaff65cd094319505704237d70" category="inline-link-rx"></block></block>
   <block id="b014fe06ce5f68b47e31838c02f8644b" category="section-title">Beispiel: Ändern der Exportrichtlinie eines Volume, um den Zugriff auf einen qtree zu ermöglichen</block>
   <block id="c4d849bb273335cc15c5a5e062d19ca2" category="paragraph">Berücksichtigen Sie die folgende Exportregel, die für das 7-Mode Storage-System (192.168.26.18) konfiguriert ist und den Lese-/Schreibzugriff auf das Volume volstd10 und qtree qtre1 für den NFS-Client 192.168.10.10 ermöglicht:</block>
   <block id="1907717ab9a8223ee3ce06ec78e360cc" category="paragraph">Nach dem Umstieg ist die Exportrichtlinie des Volume volsdt10 in ONTAP wie unten dargestellt:</block>
@@ -7391,4 +7388,7 @@
   <block id="53b500e941f815e0da37832bbbb3f265" category="inline-link">Cluster-Management mit System Manager</block>
   <block id="54875b6362e405aeb3f3e1f1b65a3cc7" category="paragraph"><block ref="54875b6362e405aeb3f3e1f1b65a3cc7" category="inline-link-rx"></block></block>
   <block id="e8fb469abd5e30926d4d1c7fc20519c2" category="sidebar">Die Dokumentation zum 7-Mode Transition enthält Informationen, die Sie bei der Installation und Einrichtung des 7-Mode Transition Tool unterstützen, die Transition von Daten mit SnapMirror Befehlen, die Durchführung einer Copy-Base- oder Copy-Free-Transition, die Erfassung von Informationen für die Transition und die Durchführung von Pre- und Post-Transition-Verfahren für SAN Hosts.</block>
+  <block id="6819367dcff0e5919ebb17505dc3e140" category="paragraph"><block ref="6819367dcff0e5919ebb17505dc3e140" category="inline-link-rx"></block></block>
+  <block id="07c5daecfe0dafef7e4667a307affc19" category="paragraph"><block ref="07c5daecfe0dafef7e4667a307affc19" category="inline-link-rx"></block></block>
+  <block id="f7042196519d0be4fd9ec6a8bd4a4b28" category="paragraph"><block ref="f7042196519d0be4fd9ec6a8bd4a4b28" category="inline-link-rx"></block></block>
 </blocks>
